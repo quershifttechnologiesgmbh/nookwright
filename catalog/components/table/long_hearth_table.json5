@@ -1,0 +1,46 @@
+// research/57 · Methalle: Bohlentisch ohne Bänke, zweite Bauform neben table/trestle_table (das bislang immer
+// mit Bänken oder Bank-Sockets kommt). Tag `dining_table` steht in mead_hall.json5 im optionalen Eintrag
+// `{ tags: ["dining_table"], count: [0, 2] }`. Reine Planken-Platte auf Baumstamm-Böcken, schmaler und länger
+// als die Festtafel, passt zwischen die Fellpritschen-Reihen ohne die Reihe zu unterbrechen.
+{
+  id: "table/long_hearth_table",
+  kind: "static",
+  name: "Bohlentisch",
+  category: "furniture",
+  tags: ["dining_table", "table"],
+  functionTags: ["sit"],
+  styleTags: ["nordic", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "plank",
+      weight: 3,
+      layers: [["PTTTP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 0], accepts: ["mug", "food"], prob: 0.6 },
+        { id: "top_b", type: "surface", at: [3, 1, 0], accepts: ["mug", "food"], prob: 0.6 },
+        { id: "top_c", type: "surface", at: [2, 1, 0], accepts: ["candles", "light_small"], prob: 0.4 },
+      ],
+    },
+    {
+      id: "short",
+      weight: 2,
+      layers: [["PTTP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 0], accepts: ["mug", "food"], prob: 0.6 },
+        { id: "top_b", type: "surface", at: [2, 1, 0], accepts: ["mug", "food"], prob: 0.6 },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

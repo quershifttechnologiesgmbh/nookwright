@@ -1,0 +1,34 @@
+// research/53 F4 · Erker (Oriel): Glaskasten 3 breit x 1 tief auf Konsolen vor der Fassade, mit kleinem Pultdach.
+// Konsolen (umgedrehte Balkentreppen) tragen den auskragenden Boden; Pfosten (window_frame) fassen das Glas.
+{
+  id: "exterior/oriel_window",
+  kind: "static",
+  name: "Erker",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "noble", "cottage", "timber"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["VVV"], ["FgF"], ["FgF"], ["RRR"]],
+  legend: {
+    V: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    F: { role: "window_frame", shape: "block" },
+    g: { block: "minecraft:glass_pane" },
+    R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+  // EXT: „short“ = Glas eine Lage hoch (für Fenster, über denen die Traufe oder das Geschossband schon Platz belegt)
+  variants: [
+    {
+      id: "short",
+      weight: 1,
+      layers: [["VVV"], ["FgF"], ["RRR"]],
+      legend: {
+        V: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        F: { role: "window_frame", shape: "block" },
+        g: { block: "minecraft:glass_pane" },
+        R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+      },
+    },
+  ],
+}

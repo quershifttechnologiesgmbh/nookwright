@@ -1,0 +1,24 @@
+// research/53 T2 · Erkertürmchen (Scharwachtturm): 3x3 Türmchen an der Hausecke, hohle Mitte begehbar oder blind,
+// Eckquader an den Kanten, kleine Zeltspitze. Sitzt auf Kragsteinen (die kommen aus dem corner_out-Anker).
+{
+  id: "exterior/corner_turret",
+  kind: "static",
+  name: "Erkertürmchen",
+  category: "architecture",
+  tags: ["exterior", "exterior_corner", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "corner_out",
+  rotations: "all",
+  layers: [
+    ["QWQ", "WgW", "QWQ"],
+    ["...", ".R.", "..."],
+  ],
+  legend: {
+    Q: { role: "wall_quoin", shape: "block" },
+    W: { role: "wall_secondary", shape: "block" },
+    g: { block: "minecraft:glass_pane" },
+    R: { role: "roof_main", shape: "block" },
+  },
+  minRoomHeight: 1,
+}

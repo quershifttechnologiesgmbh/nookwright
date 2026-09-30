@@ -1,0 +1,32 @@
+// K3d · Flache Verzauberungsnische, frei stehend (Kompaktform der Station, research/11 §3.4 A „Alkoven“): der
+// Zaubertisch steht in der VORDEREN Reihe, dahinter und seitlich Bücherregale 2 hoch. Faktencheck #1: Regale im
+// 5×5-Ring (|dx| = 2 oder |dz| = 2) auf dy 0/+1 zählen – hier Rückreihe 5 + Seiten 2 × 2 = 9 je Ebene, 18 ≥ 15.
+// Der Zwischenring (dx/2, dz/2) bleibt Luft ('_'): kein Teppich, keine Kerze, keine Fackel. Nur 3 tief und ohne
+// Wand im Rücken → passt auch in schmale Raumteile (L-Räume, Turmzimmer), wo Alkoven (4 tief, 5 Zellen feste Wand)
+// und Ring (5 × 5) keinen Platz finden. Benutzt wird der Tisch von vorn (Reichweite 4,5). Oben Kerzen.
+{
+  id: "work/enchanting_nook",
+  kind: "static",
+  name: "Verzauberungsnische",
+  category: "work",
+  tags: ["enchanting_station", "enchanting_nook"],
+  functionTags: ["enchant", "light"],
+  styleTags: ["medieval", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["BBBBB", "B___B", "B_E_B"], // y0: Rückreihe (dz −2), Zwischenring, Tischreihe (dz 0)
+    ["BBBBB", "B___B", "B___B"], // y1
+  ],
+  legend: {
+    B: { block: "minecraft:bookshelf" },
+    E: { block: "minecraft:enchanting_table" },
+  },
+  sockets: [
+    { id: "candle_l", type: "surface", at: [0, 2, 0], accepts: ["candles"], prob: 0.7, pairWith: "candle_r" },
+    { id: "candle_r", type: "surface", at: [4, 2, 0], accepts: ["candles"], prob: 0.7 },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+  light: "auto",
+}

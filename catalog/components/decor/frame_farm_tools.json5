@@ -1,0 +1,23 @@
+// K2 · Feld- und Hausgerät (DA Utility: Farming/Housekeeping Tools): Rahmen mit Hacke, Schaufel, Angel oder
+// Pinsel in Augenhöhe, darüber ein Zaun-Haken. 1 breit, an der Raumwand. Für Lager, Scheune, Werkstatt.
+{
+  id: "decor/frame_farm_tools",
+  kind: "static",
+  name: "Feldgerät",
+  category: "attachment",
+  tags: ["wall_decor", "farm_tools"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["F"]],
+  legend: { F: { role: "furniture_wood", shape: "fence" } },
+  variants: [
+    { id: "hoe", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_hoe" } }] },
+    { id: "shovel", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_shovel" } }] },
+    { id: "rod", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:fishing_rod" } }] },
+    { id: "brush", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:brush" } }] },
+  ],
+}

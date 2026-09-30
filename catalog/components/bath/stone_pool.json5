@@ -1,0 +1,71 @@
+// K3a · Gemauertes Badebecken (research/17 §4.10, B1–B3): Übergangsform für das eingelassene Becken
+// (`bath/sunken_pool` braucht ERW X5 `floor_inset` + `carve`): ein Beckenrand aus Steinziegeln (1 hoch, Ecken
+// gemeißelt) auf dem Raumboden, innen 3 × 2 bzw. 4 × 3 Wasserquellen = unendliche Quelle. Das Wasser ist auf allen
+// Seiten von vollen Blöcken umschlossen und liegt auf dem festen Raumboden – es fließt nicht aus. Frei stehend,
+// man steigt über den Rand. Kerzen auf den Ecken; V3: ab lichter Höhe 3 Mauer-Säulchen mit stehenden Laternen
+// (Laterne auf Mauer hält, T5 #3). Größte Form der Familie `bath_pool` (Kompaktform: bath/wooden_tub).
+{
+  id: "bath/stone_pool",
+  kind: "static",
+  name: "Badebecken (gemauert)",
+  category: "furniture",
+  tags: ["bath_pool", "pool"],
+  functionTags: ["water_source"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "candles",
+      weight: 1,
+      layers: [
+        ["ARRRA", "RwwwR", "RwwwR", "ARRRA"], // y0: Rand, 3 × 2 Wasser
+        ["c...c", ".....", ".....", "c...c"], // y1: Kerzen auf den Ecken
+      ],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        R: { block: "minecraft:stone_bricks" },
+        w: { block: "minecraft:water" },
+        c: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+    {
+      id: "columns",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["ARRRA", "RwwwR", "RwwwR", "ARRRA"],
+        ["W...W", ".....", ".....", "W...W"], // y1: Mauer-Säulchen auf den Ecken
+        ["L...L", ".....", ".....", "L...L"], // y2: Laternen
+      ],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        R: { block: "minecraft:stone_bricks" },
+        w: { block: "minecraft:water" },
+        W: { block: "minecraft:stone_brick_wall" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+    {
+      // großes Becken (4 × 3 Wasser) für Badehallen
+      id: "large",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["ARRRRA", "RwwwwR", "RwwwwR", "RwwwwR", "ARRRRA"],
+        ["W....W", "......", "......", "......", "W....W"],
+        ["L....L", "......", "......", "......", "L....L"],
+      ],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        R: { block: "minecraft:stone_bricks" },
+        w: { block: "minecraft:water" },
+        W: { block: "minecraft:stone_brick_wall" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: false }] },
+  light: "auto",
+}

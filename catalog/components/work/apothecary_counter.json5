@@ -1,0 +1,42 @@
+// research/57 · Krankenstube: Apotheker-Theke, zweite Bauform neben work/brewing_counter (bislang die einzige
+// Form für `brewing_counter`). Tag `brewing_counter` steht in infirmary.json5 im optionalen Eintrag
+// `{ tags: ["brewing_counter"], zone: "dispensary" }`. Waschtisch-Becken statt Wasserkessel, Theke aus Ziegeln.
+{
+  id: "work/apothecary_counter",
+  kind: "static",
+  name: "Apotheker-Theke",
+  category: "work",
+  tags: ["brewing_counter", "brewing_stand"],
+  functionTags: ["brew", "work:cleric"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "single_stand",
+      weight: 2,
+      layers: [
+        ["UBU"], // y0: Theke | Braustand | Theke
+      ],
+      legend: {
+        U: { role: "counter_top", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        B: { block: "minecraft:brewing_stand" },
+      },
+      masks: { use: [{ side: "front" }] },
+    },
+    {
+      id: "double_stand",
+      weight: 1,
+      layers: [
+        ["UBBU"],
+      ],
+      legend: {
+        U: { role: "counter_top", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        B: { block: "minecraft:brewing_stand" },
+      },
+      masks: { use: [{ side: "front" }] },
+    },
+  ],
+  light: "auto",
+}

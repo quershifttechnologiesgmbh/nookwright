@@ -1,0 +1,77 @@
+// Ofenzeile mit Haube (research/10 §3.3 „Ofenzeile mit Haube“ K7/K8/K10/K12/K14): zwei Kochblöcke unter
+// einer gemauerten Haube (umgedrehte Treppen). Nur 2 breit und 2 hoch → passt an kurze Wandstücke zwischen
+// Fenstern und bei lichter Höhe 2; damit hat jede Küche ihre Kochstelle (Tag `hearth`).
+// Räucherofen/Ofen NICHT lit (research/10 §11 #4). Lagerfeuer unter der Haube: niemand kann darauf stehen.
+{
+  id: "work/kitchen_stove",
+  kind: "static",
+  name: "Ofenzeile mit Haube",
+  category: "work",
+  tags: ["hearth", "cooking"],
+  functionTags: ["cook", "smelt", "work:butcher"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "smokers_stone",
+      weight: 3,
+      layers: [["OF"], ["UU"]],
+      legend: {
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        F: { block: "minecraft:furnace", orient: { front: "front" } },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "smokers_brick",
+      weight: 2,
+      layers: [["OO"], ["UU"]],
+      legend: {
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        U: { block: "minecraft:brick_stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      // Dampf über dem Ofen (K11/K12): Lagerfeuer neben dem Räucherofen
+      id: "fire_smoker",
+      weight: 2,
+      layers: [["CO"], ["UU"]],
+      legend: {
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    // K3d (research/16 I2): Haube mit Rauchfang bis zur Decke (V3 `stretch`, ab lichter Höhe 3) – Mauerwerk aus
+    // der Theme-Rolle `hearth`; „hopper_hood“: Trichter als Abzug, die zugleich die Räucheröfen von oben füllen.
+    {
+      id: "hood_chimney",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["OF"], ["UU"], ["MM"]], // y2: Rauchfang (gedehnt bis zur Decke)
+      legend: {
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        F: { block: "minecraft:furnace", orient: { front: "front" } },
+        U: { role: "hearth", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        M: { role: "hearth", shape: "block" },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+    },
+    {
+      id: "hopper_hood",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["OO"], ["hh"], ["MM"]],
+      legend: {
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        h: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        M: { role: "hearth", shape: "block" },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

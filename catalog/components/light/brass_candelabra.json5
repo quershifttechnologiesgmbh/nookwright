@@ -1,0 +1,42 @@
+// research/57 · Observatorium: Messing-Kandelaber, zweite Bauform neben light/candle_post (das bislang nur
+// eine Variante hat). Tag `candle_stand` steht in observatory.json5 im optionalen Eintrag `{ tags:
+// ["candle_stand"], count: [1, 3] }`. Höher (Eisenstab + Kerzenkranz), wirkt gehobener neben den Sternenkarten.
+// Nachprüfung research/57: Rolle `metal` (Familie `iron`, 1.21.11) kennt nur die Formen aus
+// `families-1.21.11.json` (`block, bars, chain, door, trapdoor, lantern, pressure_plate`) – `fence` gehört
+// NICHT dazu (das war ursprünglich Holz-Übernahme aus light/candle_post). Korrigiert auf `bars` (Eisenstab).
+{
+  id: "light/brass_candelabra",
+  kind: "static",
+  name: "Messing-Kandelaber",
+  category: "light",
+  tags: ["light", "light_floor", "candle_stand"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "tall",
+      weight: 2,
+      layers: [["F"], ["F"], ["K"]],
+      legend: {
+        F: { role: "metal", shape: "bars" },
+        K: { block: "minecraft:candle", state: { candles: "4", lit: "true" } },
+      },
+    },
+    {
+      id: "cross",
+      weight: 1,
+      layers: [
+        ["...", ".F.", "..."], // y0: Pfosten in der Mitte
+        ["K.K", ".F.", "K.K"], // y1: vier Kerzen im Kreuz um den Pfosten
+      ],
+      legend: {
+        F: { role: "metal", shape: "bars" },
+        K: { block: "minecraft:candle", state: { candles: "1", lit: "true" } },
+      },
+    },
+  ],
+  light: "auto",
+}

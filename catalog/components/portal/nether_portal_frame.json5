@@ -1,0 +1,62 @@
+// K3b · Nether-Portal mit Zierrahmen (research/17 §4.25, Po1/Po5/Po6): gültiger Obsidian-Rahmen 4 × 5 (innen 2 × 3
+// Luft, alle 14 Rahmenblöcke inkl. Ecken), links und rechts Stamm-Pfeiler. UNENTZÜNDET exportiert (Standard):
+// Oberwelt-Portalblöcke erzeugen Zombie-Piglins (Wiki), der Spieler zündet selbst – das Feuerzeug hängt im
+// Rahmen am linken Pfeiler. Davor 2 Zellen Ankunftsfläche ohne Kollision: Läufer (Teppich, flach) mit Luft
+// darüber (research/17 §3.4 „Portal ohne Freiraum“). Frei stehend (lange feste Wandstücke von 6 Zellen gibt es in
+// Räumen mit Fenstern kaum); die Läufer-Blöcke sorgen dafür, dass die Ankunftsseite immer im Raum liegt, die
+// Wunschlage (Rand, türfern) stellt den Rücken an die Wand. „arch“: Zierrahmen aus umgedrehten Treppen vor
+// Sturz und Kämpfern (außerhalb der Portalebene). Mehr in die Höhe (V3): die Pfeiler wachsen bis unter die Decke.
+// Lichte Höhe ≥ 5; darunter ist der Portal-Schrein (Tag `portal_shrine`) die Kompaktform der Signatur.
+// Validator-Wünsche: portalFrameValid, portalClearance (research/17 §7.4); im Spiel prüfen: research/17 T19.
+{
+  id: "portal/nether_portal_frame",
+  kind: "static",
+  name: "Nether-Portal mit Zierrahmen",
+  category: "architecture",
+  tags: ["nether_portal", "portal"],
+  functionTags: ["portal"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 5,
+  variants: [
+    {
+      id: "pillars",
+      weight: 2,
+      layers: [
+        ["POOOOP", ".rrrr.", "..rr.."], // y0: Pfeiler | Obsidian-Schwelle | Pfeiler; davor der Läufer
+        ["PO__OP", "_____.", "..__.."], // y1: Portalöffnung; Luft über dem Läufer, Feuerzeug-Rahmen links
+        ["PO__OP", "......", "......"], // y2
+        ["PO__OP", "......", "......"], // y3
+        ["POOOOP", "......", "......"], // y4: Obsidian-Sturz
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        O: { block: "minecraft:obsidian" },
+        r: { role: "textile_primary", shape: "carpet" },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 1], face: "front", item: { item: "minecraft:flint_and_steel" } }],
+    },
+    {
+      id: "arch",
+      weight: 2,
+      layers: [
+        ["POOOOP", ".rrrr.", "..rr.."],
+        ["PO__OP", "_____.", "..__.."],
+        ["PO__OP", "......", "......"],
+        ["PO__OP", ".U..U.", "......"], // y3: Kämpfer vor den Seitenpfosten
+        ["POOOOP", ".UUUU.", "......"], // y4: Bogen vor dem Sturz
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        O: { block: "minecraft:obsidian" },
+        r: { role: "textile_primary", shape: "carpet" },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 1], face: "front", item: { item: "minecraft:flint_and_steel" } }],
+    },
+  ],
+  stretch: { layer: 4, max: 10, fill: "ceiling", rows: ["P....P", "......", "......"] },
+  masks: { clearance: [{ side: "front", depth: 2, hard: true }], use: [{ side: "front" }] },
+}

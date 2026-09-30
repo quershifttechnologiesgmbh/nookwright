@@ -1,0 +1,49 @@
+// BT08 Stadthaus, einzeln (research/19 §4): schmal (5–9), tief (11–15), 3–4 Geschosse, Giebel zur Straße. EG vorn
+// Laden bzw. Werkstatt, hinten Küche mit der Treppe; 1. OG Stube; darüber Schlafen, Studierstube, Dachboden.
+// Steiles Satteldach mit Kanten und Giebelfenstern, Konsolen; davor ein Platz. Die Zeile steht als Entwurf in
+// `townhouse_row.json5` (eigene Baukörper, Brandwände).
+{
+  id: "townhouse",
+  name: "Stadthaus",
+  family: "house",
+  styleTags: { require: ["medieval"] },
+  themes: ["timber", "medieval"],
+  sizes: {
+    S: { footprint: [[5, 11], [7, 13]], floors: 3 },
+    M: { footprint: [[7, 12], [7, 14]], floors: [3, 4] },
+    L: { footprint: [[7, 14], [7, 16]], floors: 4, cellar: 0.5 },
+  },
+  // W9-G1 (27.09.2026, Review R5 G1): Baumasse-Akzente statt Kiste – die Obergeschosse kragen zur Straße 1 Block auf
+  // Konsolen aus (Stadthäuser wie The Shambles, York; gestaffelt `each` bricht heute das Fachwerk-Raster der
+  // Seitenwand in der 2. Reihe – offen, siehe plan/spikes/W9G1_baumasse.md)
+  massing: { generator: "rect", features: { jetty: { sides: ["front"] } } },
+  program: [
+    { room: ["bakery", "butchery", "pottery", "weaving_room", "carpentry"], floor: "ground", share: 0.45, near: "front", prob: 0.9 },
+    { room: "kitchen", floor: "ground", share: 0.55, minArea: 20, required: true, near: "back" },
+    { room: "solar", floor: 1, share: 1, required: true },
+    { room: "bedroom", floor: [2, 9], share: 0.7, required: true },
+    { room: "study", floor: 2, prob: 0.35 },
+    { room: "attic", floor: "top", prob: 0.4 },
+    { room: "storage", floor: "cellar", fill: true },
+  ],
+
+  // Funktionsgrad (W2-1): Handwerkerhaus mit Werkstatt im Erdgeschoss (some); rich: Redstone-Werkstatt, Geheimstudie oder
+  // Lager im Keller. Die Anlage verdrängt den Laden bzw. das Nebenzimmer der Etage.
+  functions: [
+    { room: "artisan_workshop", share: 0.45, richShare: 0.5, minArea: 14, replaces: ["bakery", "butchery", "pottery", "weaving_room", "carpentry"], weight: 3, group: "shop", near: "front", minFloor: 70 },
+    { room: "bakery_line", share: 0.45, minArea: 14, replaces: ["bakery", "butchery", "pottery", "weaving_room", "carpentry"], weight: 2, group: "shop", near: "front", minFloor: 80 },
+    { room: "workshop_redstone", floor: 2, level: "rich", share: 0.45, minArea: 14, replaces: ["study"], weight: 2, group: "upper", sizes: ["M", "L"] },
+    { room: "secret_study", floor: 2, level: "rich", share: 0.4, minArea: 12, replaces: ["study"], weight: 1, group: "upper", sizes: ["M", "L"] },
+    { room: "storage_hall", floor: "cellar", share: 0.5, weight: 2, group: "store", sizes: ["L"] },
+  ],
+  stairs: { room: "kitchen", at: "end" },
+  shell: {
+    roof: "gable",
+    overhang: 1,
+    roofDetail: { pitch: "steep", trim: true, verge: "closed", gableWindows: true },
+    facade: { plinthProfile: true, quoins: true, brackets: 3, upperFrame: true },
+  },
+  exterior: { density: 1.25 },
+  site: { style: "meadow", lighting: "paths", zones: [{ kind: "plaza", at: "front", depth: 6 }] },
+  checks: { width: [5, 7], floors: [3, 4] },
+}

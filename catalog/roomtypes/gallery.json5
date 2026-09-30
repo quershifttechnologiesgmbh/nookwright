@@ -1,0 +1,31 @@
+// Flur / Galerie (research/17 §4.2, H1–H5). K3a; FN-dense-grand: zusätzlich Steinarkade (fn/nave_bay bzw. schmal,
+// Pfeilerpaare mit Bogen unter der Decke, Buchten Rücken an Rücken an den Längswänden, Pfeiler wachsen bis zur Decke)
+// als gewichtete Wahl; Signatur bleibt der Holzpfeiler-Takt (arch/wall_pilaster). Dazwischen je eine Funktion: Banner, Hängelaterne, Kerzenbank, Wandlicht, Behang, Sockel;
+// Läufer in der Mitte (Theme-Bodenmuster), Deckenlaternen und Deckenbanner auf der Achse. Schmale Flure (Breite ≤ 2)
+// bleiben frei: ERW Y1 `aisle` (K3c).
+{
+  id: "gallery",
+  name: "Flur / Galerie",
+  minArea: 8,
+  coverage: { target: 0.2 },
+  // K3c (Y1): Gang in der Mitte, Pfeiler-Buchten gespiegelt an beiden Wänden; Breite 2 → Buchten nur einseitig
+  aisle: { width: 2, minWidth: 1 },
+  required: [
+    { tags: ["pilaster"], count: { perArea: 8, min: 2, max: 10 }, signature: true, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 2 } },
+  ],
+  optional: [
+    // FN-dense-grand: Arkadenbuchten (Stein, Bogen unter der Decke) im Takt der Längswände
+    { tags: ["fn_nave_bay"], count: { perArea: 9, min: 1, max: 8 }, weight: 8, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["gallery_bay", "gallery_wall_cluster"], count: [1, 2], weight: 3, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 2 } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 4, placement: { zones: ["center", "corridor"] } },
+    { tags: ["wall_weapons"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["pedestal", "trophy_pedestal", "glass_case_trophy"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["tapestry", "wall_banner"], count: [0, 3], weight: 3 },
+    { tags: ["room_directory"], count: [0, 1], weight: 2, placement: { doorAffinity: "near" } },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 2 },
+    { tags: ["light_wall"], count: { perArea: 10, min: 1, max: 6 }, weight: 4 },
+    { tags: ["light_ceiling"], count: [1, 3], weight: 2 },
+  ],
+  lighting: { minLevel: 6, prefer: ["light_wall", "light_ceiling", "candles", "light_floor"] },
+}

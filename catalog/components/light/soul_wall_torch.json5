@@ -1,0 +1,17 @@
+// Seelen-Wandfackel: kühles, blaues Licht (10). Durchlaufbar, braucht volle Fläche dahinter.
+{
+  id: "light/soul_wall_torch",
+  kind: "static",
+  name: "Seelen-Wandfackel",
+  category: "light",
+  tags: ["light", "light_wall"],
+  functionTags: ["light"],
+  styleTags: ["dwarven", "mystic"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  walkable: true,
+  cells: [{ at: [0, 0, 0], mat: { block: "minecraft:soul_wall_torch", orient: { attachTo: "back" } } }],
+  masks: { support: [{ at: [0, 0, 0], side: "back", kind: "full" }] },
+  light: 10,
+}

@@ -1,0 +1,55 @@
+// SD Grundst�cks-Deko: Bannermast. Ein Stamm mit je einem einfarbigen Wandbanner auf Vorder- und R�ckseite, Kappe obenauf.
+// Farbe je Variante; die Deko-Regeln w�hlen sie nach Theme (kein Muster, keine Figur). Spiegelsymmetrisch (1 Block breit).
+{
+  id: "outdoor/sd_banner_pole",
+  kind: "static",
+  name: "Bannermast",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_banner_pole"],
+  styleTags: ["medieval", "nordic", "dwarven", "gothic", "elven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "red",
+      layers: [[".", "B", "."], [".", "B", "."], ["b", "B", "a"], [".", "B", "."], [".", "s", "."]],
+      legend: {
+        B: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        a: { block: "minecraft:red_wall_banner", orient: { attachTo: "back" } },
+        b: { block: "minecraft:red_wall_banner", orient: { attachTo: "front" } },
+      },
+    },
+    {
+      id: "blue",
+      layers: [[".", "B", "."], [".", "B", "."], ["b", "B", "a"], [".", "B", "."], [".", "s", "."]],
+      legend: {
+        B: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        a: { block: "minecraft:blue_wall_banner", orient: { attachTo: "back" } },
+        b: { block: "minecraft:blue_wall_banner", orient: { attachTo: "front" } },
+      },
+    },
+    {
+      id: "green",
+      layers: [[".", "B", "."], [".", "B", "."], ["b", "B", "a"], [".", "B", "."], [".", "s", "."]],
+      legend: {
+        B: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        a: { block: "minecraft:green_wall_banner", orient: { attachTo: "back" } },
+        b: { block: "minecraft:green_wall_banner", orient: { attachTo: "front" } },
+      },
+    },
+    {
+      id: "black",
+      layers: [[".", "B", "."], [".", "B", "."], ["b", "B", "a"], [".", "B", "."], [".", "s", "."]],
+      legend: {
+        B: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        a: { block: "minecraft:black_wall_banner", orient: { attachTo: "back" } },
+        b: { block: "minecraft:black_wall_banner", orient: { attachTo: "front" } },
+      },
+    },
+  ],
+}

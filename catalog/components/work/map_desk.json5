@@ -1,0 +1,34 @@
+// K3a · Kartentisch (research/11 §11.6 C-1, M3/M5; gebraucht von Arbeitszimmer und Observatorium, research/17):
+// Kartentisch (Kartograf) | Schreibplatte (umgedrehte Treppe) | Lesepult (Bibliothekar), Rücken zur Wand. Über dem
+// Kartentisch ein Kompass im Rahmen an der Raumwand. Das Lesepult bleibt ohne Buch (Inhalt kann die
+// Materialisierung noch nicht, wie work/lectern). Stuhl als Kind vor der Platte mit Blick zum Tisch (`toParent`,
+// 1 × 1 → in jeder Drehung richtig), Lampe auf der Platte, V3: Hängelaterne darüber.
+// Bewusst ohne den Tag `lectern` (research/11 hatte ihn): sonst nähme die Bibliothek den Kartentisch als Pflicht-Pult.
+{
+  id: "work/map_desk",
+  kind: "static",
+  name: "Kartentisch",
+  category: "work",
+  tags: ["map_desk", "cartography_table"],
+  functionTags: ["work:cartographer", "work:librarian", "villager_workstation"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["CUL"], // y0: Kartentisch | Platte | Lesepult
+    ["_.."], // y1: Kompass im Rahmen über dem Kartentisch
+  ],
+  legend: {
+    C: { block: "minecraft:cartography_table" },
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    L: { block: "minecraft:lectern", orient: { front: "front" } },
+  },
+  entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:compass" } }],
+  sockets: [
+    { id: "lamp", type: "surface", at: [1, 1, 0], accepts: ["light_small", "candles"], prob: 0.8 },
+    { id: "chair", type: "adjacent", at: [1, 0, 1], side: "front", accepts: ["chair"], prob: 0.7, facing: "toParent" },
+    { id: "pendant", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.3 },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

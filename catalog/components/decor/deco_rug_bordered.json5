@@ -1,0 +1,62 @@
+// MEHR DEKORATION · Bordürenteppich: Rand in der Primärfarbe, Feld in der Akzentfarbe, bei den großen Formen ein
+// neutraler Zwischenring (Grian/Keralis: „Teppich mit Rahmen“ statt Einheitsfläche). Nur Themenrollen, also
+// stimmt die Farbwelt in jedem Theme. Durchlaufbar (Teppich braucht nur einen Block darunter).
+// Nur durch die Deko-Stufe gesetzt (Tag `deco_rug`), nicht durch die Grundmöblierung (kein Tag `rug`).
+{
+  id: "decor/deco_rug_bordered",
+  kind: "static",
+  name: "Bordürenteppich",
+  category: "decor",
+  tags: ["deco_rug"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "3x3",
+      weight: 2,
+      layers: [["PPP", "PAP", "PPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "4x3",
+      weight: 3,
+      layers: [["PPPP", "PAAP", "PPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "5x3",
+      weight: 3,
+      layers: [["PPPPP", "PAAAP", "PPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "4x4",
+      weight: 2,
+      layers: [["PPPP", "PAAP", "PAAP", "PPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "5x4_fringe",
+      weight: 2,
+      layers: [["NNNNN", "PPPPP", "PAAAP", "PPPPP", "NNNNN"]],
+      legend: {
+        P: { role: "textile_primary", shape: "carpet" },
+        A: { role: "textile_accent", shape: "carpet" },
+        N: { role: "textile_neutral", shape: "carpet" },
+      },
+    },
+    {
+      id: "5x5_rings",
+      weight: 2,
+      layers: [["PPPPP", "PNNNP", "PNANP", "PNNNP", "PPPPP"]],
+      legend: {
+        P: { role: "textile_primary", shape: "carpet" },
+        N: { role: "textile_neutral", shape: "carpet" },
+        A: { role: "textile_accent", shape: "carpet" },
+      },
+    },
+  ],
+}

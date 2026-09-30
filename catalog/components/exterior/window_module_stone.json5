@@ -1,0 +1,71 @@
+// W2-FW · Fenstermodul „Stein/Burg“ (plan/spikes/W2FW_fenster.md, X2 §6.4): tiefe Laibung – links und rechts der
+// Scheibe je eine Wange aus dem Wandstein 1 Block vor der Wand, oben ein Sturz aus umgedrehten Treppen, unten eine Bank
+// aus Stufen. Die Scheibe liegt dadurch einen ganzen Block hinter der Vorderkante (wie in einer dicken Mauer). Keine
+// Läden, keine Kästen; Laterne am Zaun-Arm auf dem Rasterpfosten. Varianten wie `window_module_townhouse`.
+//
+//   Ansicht (1 × 2)      Schnitt
+//     L L L               y+2  L .
+//     W . W               y+1  . .    W Wange (Wandstein, 1 vor der Wand)
+//     W . W               y    . .
+//     S S S               y−1  S .
+//
+// Vorbilder (URLs im Bericht): Burg-/Steinfenster mit tiefer Laibung (Glas zurückgesetzt) und Treppen-Sturz.
+{
+  id: "exterior/window_module_stone",
+  kind: "static",
+  name: "Fenstermodul Stein",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  // W6-B: Familie „wehrhaft“ (`module_fort`) – an Holzwänden gilt statt dieses Moduls `window_module_fort`
+  tags: ["exterior", "exterior_window", "exterior_window_module", "outdoor", "walls_stone", "module_fort"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["dwarven", "ruin", "gothic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        ["SSS"],
+        ["W_W"],
+        ["W_W"],
+        ["LLL"],
+      ],
+      legend: {
+        S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } },
+        W: { role: "wall_primary", shape: "block" },
+        L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "lintel",
+      layers: [["L"]],
+      legend: { L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    {
+      id: "sill",
+      layers: [["S"]],
+      legend: { S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "jamb",
+      layers: [["J"]],
+      legend: { J: { role: "wall_primary", shape: "block" } },
+      stretch: { layer: 0, max: 3, fill: "ceiling" },
+    },
+    {
+      id: "lantern",
+      // Laterne hängt unter dem Arm (Unterseite = stabile Mitte, Faktencheck #3); der Arm verbindet sich mit der Wand.
+      // W5-B (Review W4-R N2): Arm aus Mauer im Sockelstein statt Holzzaun – kein Holz am Turmschaft
+      layers: [["L"], ["F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "wall_plinth", shape: "wall" },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

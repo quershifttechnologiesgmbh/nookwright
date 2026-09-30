@@ -1,0 +1,40 @@
+// Alchemie / Brauerei (research/11 §5). Pflicht: Brau-Theke (Braustände + Wasserkessel, Geistlicher/Gerber).
+// Dazu Alchemie-Borde mit Pilz-Töpfen, Braukessel über Feuer, Vorräte, Rezeptpult, hängendes Grün.
+// Netherwarzen-Kasten fehlt noch (Stützregel „Seelensand darunter“ kennt die Physik nicht, siehe K1-Bericht).
+// K2: dichter (0.45); Vorratsregal, Pilzbeet/Töpferware, Hängemoos, Wandkübel/Schädel-Trophäe, Moos.
+// I2: Signatur explizit (`signature: true`, Solver v2) statt Konvention „erster Pflicht-Eintrag“.
+{
+  id: "alchemy",
+  name: "Alchemie / Brauerei",
+  minArea: 12,
+  coverage: { target: 0.45 },
+  required: [
+    // W3-IN: an einer festen Wand (nicht unter dem Fenster), damit Trankborde darüber hängen
+    { tags: ["brewing_counter"], count: [1, 1], signature: true, placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    // W3-IN: Trankborde über bzw. neben der Brau-Theke, Kessel daneben; Fässer ohne Warenstapel (keine Stoff-/Wollballen)
+    // FN-Dense: Labortisch in der Raummitte (Insel)
+    { tags: ["fn_alchemy_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["potion_shelf"], count: [1, 2], weight: 3, near: { tags: ["brewing_counter"], maxGap: 1, sameWall: true } },
+    // W7-F: der Braukessel gehört immer dazu (Mindestzahl 1): in engen Räumen findet das Bord über der Theke keinen Platz
+    // (über den Braustand-Zellen hängt kein Wandobjekt), der Kessel daneben schon
+    { tags: ["brew_kettle"], count: [1, 1], weight: 3, placement: { zones: ["edge", "corner"] }, near: { tags: ["brewing_counter"], maxGap: 1, sameWall: true } },
+    { tags: ["barrel"], count: [1, 3], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["chest"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["lectern"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["plant_hanging"], count: [0, 2], weight: 2 },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["pantry"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["mushrooms", "pottery"], count: [0, 2], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["hanging_moss"], count: [0, 1], weight: 1 },
+    { tags: ["wall_plant", "trophy"], count: [0, 2], weight: 2 },
+    { tags: ["moss_rug"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["herb_rack", "hanging_chains", "herb_drying_bundle"], count: [0, 2], weight: 2 },
+    { tags: ["wall_shelf", "upper_cabinet"], count: [0, 2], weight: 2 },
+    { tags: ["light_pendant"], count: [0, 1], weight: 3 },
+  ],
+  // W3-IN (I7): Kerzen an der Brau-Theke und auf dem Pult, Laternen an der Wand; Budget je Fläche
+  lighting: { minLevel: 5, prefer: ["candles", "light_wall", "light_pendant"], budget: { cellsPer: 12, min: 1 }, anchors: ["brewing_counter", "table", "lectern"] },
+}

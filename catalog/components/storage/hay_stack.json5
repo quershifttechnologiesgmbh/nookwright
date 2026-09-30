@@ -1,0 +1,35 @@
+// V3 · Heuballen gestapelt (research/10 §4 S14/S18: gestapelte Heuballen in Lagern; research/11 §8 Stall,
+// §7 Innenfarm): liegende Ballen (Achse längs) als Treppe bzw. Block. Heuballen brauchen keine Stütze und
+// fallen nicht. „tall“ ab lichter Höhe 4.
+{
+  id: "storage/hay_stack",
+  kind: "static",
+  name: "Heuballen gestapelt",
+  category: "storage",
+  tags: ["hay_stack"],
+  styleTags: ["rustic", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pile",
+      weight: 3,
+      layers: [["HH"], ["H."]],
+      legend: { H: { block: "minecraft:hay_block", orient: { axis: "along" } } },
+    },
+    {
+      id: "block",
+      weight: 2,
+      layers: [["HH", "HH"], ["HH", ".."]],
+      legend: { H: { block: "minecraft:hay_block", orient: { axis: "across" } } },
+    },
+    {
+      id: "tall",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["HHH"], ["HH."], ["H.."]],
+      legend: { H: { block: "minecraft:hay_block", orient: { axis: "along" } } },
+    },
+  ],
+}

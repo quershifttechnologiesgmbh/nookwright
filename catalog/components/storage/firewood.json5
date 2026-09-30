@@ -1,0 +1,29 @@
+// K2 · Holzstapel (DA Utility: Camping / Structural: Woodwork): liegende Stämme mit der Stirnseite nach vorn
+// (Rolle `beam`, Achse quer). Variante mit Axt: Rahmen liegt flach auf dem Stamm (Rahmen hält an jedem
+// „soliden“ Block, T5 #1). Zu Herd, Kamin und Esse.
+{
+  id: "storage/firewood",
+  kind: "static",
+  name: "Holzstapel",
+  category: "storage",
+  tags: ["firewood", "goods"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "stack",
+      weight: 2,
+      layers: [["LL"], ["LL"]],
+      legend: { L: { role: "beam", shape: "log", orient: { axis: "across" } } },
+    },
+    {
+      id: "with_axe",
+      weight: 1,
+      layers: [["LL"], ["L_"]],
+      legend: { L: { role: "beam", shape: "log", orient: { axis: "across" } } },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "up", item: { item: "minecraft:iron_axe" } }],
+    },
+  ],
+}

@@ -1,0 +1,26 @@
+# Nur, was Build und Laufzeit brauchen: Wurzel-Manifeste und tsconfig, Katalog, Pakete (ohne Tests/Ausgaben) und die
+# Website-Quellen. `npm run web:build` (website/scripts/build.mjs) liest packages/app und packages/viewer (Vite bündelt
+# sie samt catalog/ und packages/platform/data) sowie website/{index.html,css,js,media,scenes,gallery}; die Galerie ist
+# eingecheckt (build-gallery.ts mit marketing/social-kit läuft NICHT im Image). Das Laufzeit-Image enthält von
+# packages/app und packages/viewer nur die Manifeste (Stufe `sources` im Dockerfile).
+**
+!package.json
+!package-lock.json
+!tsconfig.base.json
+!catalog/**
+!packages/**
+!website/**
+packages/*/test/**
+packages/*/out/**
+packages/*/raw/**
+packages/*/node_modules/**
+packages/app/dist/**
+# Die gebaute Website entsteht in der Build-Stufe neu
+website/dist/**
+website/node_modules/**
+**/.env
+**/.env.*
+**/*.log
+**/.DS_Store
+
+!tools/public-support/**

@@ -1,0 +1,30 @@
+// FN-Dense · Gärbock (Raummitte des Brauhauses): zwei Fassreihen Rücken an Rücken auf Bock-Pfosten, in der Mitte
+// zwischen den Reihen ein Wasserkessel-Gang (Vorbild: Brauhäuser der Community mit Gärfässern in der Raummitte).
+// 5 breit, 2 tief, 3 hoch; Fässer öffnen immer (Faktencheck #2), Deckel nach außen; obenauf Halbstufen-Platte.
+// Symmetrisch. Insel-Eintrag von `brewhouse` (Tag `fn_brew_island`).
+{
+  id: "work/fn_brew_trestle",
+  kind: "static",
+  name: "Gärbock",
+  category: "work",
+  tags: ["fn_brew_island"],
+  functionTags: ["brew", "store", "villager_workstation", "work:fisherman"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["PbbbP", "PfffP"], // y0: Fässer beidseitig (Deckel nach außen)
+    ["PbbbP", "PfffP"], // y1
+    ["sssss", "sssss"], // y2: Platte
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    s: { role: "furniture_wood", shape: "slab" },
+    b: { block: "minecraft:barrel", orient: { front: "back" } },
+    f: { block: "minecraft:barrel", orient: { front: "front" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

@@ -1,0 +1,25 @@
+// Bücherschrank 2×2 (research/11 §4.2): kleinste Regal-Einheit, passt an kurze Wandstücke zwischen Fenstern
+// und bei lichter Höhe 2; damit hat jede Bibliothek Regale (Tag `bookshelf_wall`). Variante mit leeren
+// gemeißelten Regalen (Inhalt + slot-State kann die Materialisierung noch nicht).
+{
+  id: "storage/bookcase",
+  kind: "static",
+  name: "Bücherschrank",
+  category: "storage",
+  tags: ["bookshelf_wall", "bookcase"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    { id: "plain", weight: 3, layers: [["BB"], ["BB"]], legend: { B: { block: "minecraft:bookshelf" } } },
+    {
+      id: "chiseled",
+      weight: 1,
+      layers: [["BB"], ["CB"]],
+      legend: { B: { block: "minecraft:bookshelf" }, C: { block: "minecraft:chiseled_bookshelf", orient: { front: "front" } } },
+    },
+  ],
+  sockets: [{ id: "top", type: "surface", at: [0, 2, 0], accepts: ["candles", "plant", "tabletop_small"], prob: 0.5 }],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

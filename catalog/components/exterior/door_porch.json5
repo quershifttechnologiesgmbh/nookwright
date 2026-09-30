@@ -1,0 +1,18 @@
+// X1 · E1 + E2 Vordach auf Pfosten (research/18 E2 b, research/16 W7): zwei Stämme vor der Fassade neben der Tür,
+// darüber ein Pultvordach aus Dachtreppen (Rücken zur Wand) 1 über der Tür, 3 breit. Die Mitte bleibt Laufweg.
+{
+  id: "exterior/door_porch",
+  kind: "static",
+  name: "Vordach auf Pfosten",
+  category: "architecture",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["P_P"], ["P_P"], ["RRR"]],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+}

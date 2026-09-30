@@ -1,0 +1,27 @@
+// FN · Heilkammer für Zombie-Dorfbewohner (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Signatur: gemauerte Heilzelle
+// mit Eisentür und Knöpfen NUR außen (`fn_cure_cell`, Ausbruchsicherheit), dazu Betten (`fn_villager_bed`, im Würfel um den
+// Zombie-Dorfbewohner beschleunigen Betten und Eisengitter die Heilung, Wiki Zombie Villager, Abschnitt Curing) und eine
+// Truhe für Tränke der Schwäche/Goldäpfel. Licht ≥ 8 im Raum, Seelenfackel in der Zelle.
+{
+  id: "fn_cure_room",
+  name: "Heilraum (Zombie-Kur)",
+  minArea: 56,
+  minHeight: 3,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["fn_cure_cell"], count: [1, 1], signature: true, placement: { zones: ["edge", "corner"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["fn_cure_cell"], count: { perArea: 30, min: 0, max: 2 }, weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["fn_villager_bed"], count: { perArea: 16, min: 0, max: 3 }, weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["chest"], count: [0, 2], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["table_small"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["wall_banner"], count: [0, 2], weight: 1 },
+    { tags: ["herb_rack", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["candle_stand"], count: [0, 2], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["vase"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["light_ceiling", "light_wall"], count: { perArea: 12, min: 1, max: 5 }, weight: 4 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_wall", "light_ceiling"] },
+}

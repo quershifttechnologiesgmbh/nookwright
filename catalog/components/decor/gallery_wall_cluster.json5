@@ -1,0 +1,28 @@
+// I52 · Bildergalerie (research/52 §Wand, Galerie/Flur): drei Banner in unterschiedlicher Höhe als „gerahmte
+// Bilder“ an der Wand (Rollenmix `textile_primary`/`textile_accent`), dazwischen ein Papier-Rahmen als Karte —
+// das dichte Wand-Cluster-Motiv aus research/37 §2 (Nicht-Vollblock-Anteil), hier als fertiges Bauteil.
+{
+  id: "decor/gallery_wall_cluster",
+  kind: "static",
+  name: "Bildergalerie",
+  category: "attachment",
+  tags: ["wall_decor", "gallery_wall_cluster"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [
+    ["VSW"], // y0: Banner links | Konsole für die Karte | Banner rechts
+    ["___"], // y1: Kartenrahmen frei
+  ],
+  legend: {
+    V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+    W: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } },
+    // Q1a: die Konsole ist eine eigene Zelle in der Rahmen-Spalte. Nur Zellen prüft der Solver gegen Fenster
+    // (`wallCellOK`) – ohne sie konnte der Kartenrahmen vor einer Fensterscheibe landen (dort kein fester Block).
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+  },
+  entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:paper" } }],
+}

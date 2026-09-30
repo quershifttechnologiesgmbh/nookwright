@@ -1,0 +1,37 @@
+// K2 · Wandteppich (DA Decoration: Hangings): 2–3 Wandbanner nebeneinander unter der Decke (wallHeight 2).
+// Alle Zellen liegen in der untersten Lage → der Solver prüft die Wand hinter JEDER Zelle (K1 §6 Nr. 3).
+// Das Tuch hängt sichtbar eine Zelle tiefer: die Luft-Maske reserviert diese Zellen (y = −1), damit dort
+// kein Rahmen, Bord oder Wandlicht landet. Durchlaufbar (Banner hat keine Kollision). Lichte Höhe ≥ 3.
+{
+  id: "decor/tapestry",
+  kind: "static",
+  name: "Wandteppich",
+  category: "attachment",
+  tags: ["wall_decor", "tapestry", "wall_banner"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 2,
+  wallHeights: [-1, 2], // V3: direkt unter der Decke (bei lichter Höhe 3 identisch mit 2)
+  rotations: "backToWall",
+  walkable: true,
+  variants: [
+    {
+      id: "pair",
+      weight: 2,
+      layers: [["VV"]],
+      legend: { V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } } },
+      masks: { air: [[0, -1, 0], [1, -1, 0]] },
+    },
+    {
+      id: "triple",
+      weight: 1,
+      layers: [["VGV"]],
+      legend: {
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        G: { block: "minecraft:gray_wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { air: [[0, -1, 0], [1, -1, 0], [2, -1, 0]] },
+    },
+  ],
+}

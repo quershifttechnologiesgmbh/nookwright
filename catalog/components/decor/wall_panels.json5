@@ -1,0 +1,47 @@
+// K3d · Falltür-Paneele auf glatten Innenwänden (research/16 W4, P1; S1 Tipp 6 „Use trapdoors!“, S4 Tipp 3,
+// S14): offene Falltüren liegen flach an der Raumwand (+3/16 Tiefe, Muster als Kassette bzw. Schnitzwerk).
+// Falltüren brauchen keine Stütze. Als Fries ÜBER Kopfhöhe (Wandhöhe 2, in hohen Räumen auch unter der Decke):
+// die Paneele belegen so keinen Laufweg; der Solver setzt Wandobjekte nie vor Fenster oder in die Türzone
+// (research/16: „nur in freien Wandzellen ohne Öffnung“). Holz aus `beam` (dunkler Kontrast zum Putz),
+// Variante in Metall (`metal`: Eisen bzw. gewachstes Kupfer im Theme Rustic).
+// Vertäfelung auf Laufhöhe (Brüstung) bleibt der Hülle vorbehalten (research/12 §3.9, Rolle wall_wainscot).
+{
+  id: "decor/wall_panels",
+  kind: "static",
+  name: "Falltür-Paneele",
+  category: "attachment",
+  tags: ["wall_panel", "wall_decor"],
+  styleTags: ["medieval", "noble", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [2, 3, -1],
+  variants: [
+    {
+      id: "frieze3",
+      weight: 3,
+      layers: [["TTT"]],
+      legend: { T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+    },
+    {
+      id: "frieze2",
+      weight: 2,
+      layers: [["TT"]],
+      legend: { T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+    },
+    {
+      // Kassette 2 × 2 (ab lichter Höhe 4)
+      id: "coffer",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["TT"], ["TT"]],
+      legend: { T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+    },
+    {
+      id: "metal",
+      weight: 1,
+      layers: [["MMM"]],
+      legend: { M: { role: "metal", shape: "trapdoor", orient: { front: "front", open: true } } },
+    },
+  ],
+}

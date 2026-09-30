@@ -1,0 +1,47 @@
+// Welle D · D3 (research/24 §7.0, T7 `ruin`): Mauerbruch – ein Mauerstück mit 1–3 Blöcke hoher Lücke an der
+// Oberkante (research/24 §7.7 „Mauerbruch = Lücke an der Oberkante“), davor der herabgefallene Schutt.
+// Freistehend (`mount: floor`, alle Drehungen): Die Komponente IST das Mauerstück – die Hülle bleibt unangetastet,
+// damit kein `carve` nötig ist (das Schema kennt keine Wand-Ersetzung, vgl. decor/wall_map, decor/fireplace).
+// Kies liegt nur in der Grundschicht (y0) und trägt nichts: Schwerkraftblöcke dürfen keine Stütze sein.
+{
+  id: "arch/mauerbruch",
+  kind: "static",
+  name: "Mauerbruch",
+  category: "architecture",
+  tags: ["mauerbruch", "wall_breach", "wall_decor", "outdoor"],
+  styleTags: ["ruin", "abandoned"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      // 1–3 Blöcke hohe Bresche von der Oberkante, zwei Stümpfe bleiben stehen
+      id: "breach",
+      weight: 3,
+      layers: [
+        ["WWWWW", "g.g.."], // y0: Mauerkörper | Schutt davor
+        ["WWWWW", "....."], // y1
+        ["WW.WW", "....."], // y2: Bresche beginnt
+        ["W...W", "....."], // y3: nur die Stümpfe
+      ],
+      legend: {
+        W: { role: "wall_primary", shape: "block" },
+        g: { block: "minecraft:gravel" },
+      },
+    },
+    {
+      // niedriger, zinnenartig ausgebrochener Rest
+      id: "collapse",
+      weight: 2,
+      layers: [
+        ["WWWWW", "g.g.g"], // y0
+        ["W.W.W", "....."], // y1: Zinnen
+        ["W...W", "....."], // y2
+      ],
+      legend: {
+        W: { role: "wall_primary", shape: "block" },
+        g: { block: "minecraft:gravel" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,30 @@
+// SD Grundstücks-Deko: niedrige Steinmauer (Feldmauer, Terrassenkante) aus dem Sockelmaterial des Hauses. Zwei Formen:
+// glatte Mauer bzw. Mauer mit Deckplatte. Einzeilig, nur Ost-West/Nord-Süd.
+{
+  id: "outdoor/sd_low_wall",
+  kind: "static",
+  name: "Niedrige Steinmauer",
+  category: "architecture",
+  tags: ["outdoor", "sd_decor", "sd_low_wall"],
+  styleTags: ["medieval", "rustic", "village", "nordic", "gothic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "plain",
+      weight: 2,
+      layers: [["WWWWW"]],
+      legend: { W: { role: "wall_plinth", shape: "wall" } },
+    },
+    {
+      id: "capped",
+      weight: 3,
+      layers: [["BBBBB"], ["sssss"]],
+      legend: {
+        B: { role: "wall_plinth", shape: "block" },
+        s: { role: "wall_plinth", shape: "slab" },
+      },
+    },
+  ],
+}

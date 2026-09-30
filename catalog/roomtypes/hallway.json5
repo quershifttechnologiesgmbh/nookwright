@@ -1,0 +1,24 @@
+// W12-A (28.09.2026, Review R6-3) · Diele / Windfang: kleiner Eingangsraum hinter der Haustür, im Quergiebel bzw. Vorbau
+// der Wohnhäuser (Beispielhaus, Zweistöcker, Fachwerkhaus). Flur-Rolle (`DEFAULT_CORRIDOR_TYPES`): die Haustür führt
+// hierher, von hier je eine Tür in die Räume dahinter. Signatur: Garderobe bzw. Wandbank an der Wand (research/17 §4.1
+// E2, Kurzform der Eingangshalle ohne Läufer von 5 Blöcken), dazu Teppich, Pflanze, Schuhregal und Wandlicht. Wenig
+// Möbel (coverage 0.25), der Weg von Tür zu Tür bleibt frei.
+{
+  id: "hallway",
+  name: "Diele",
+  minArea: 4,
+  coverage: { target: 0.25 },
+  aisle: { width: 1, minWidth: 1, doorPath: true },
+  required: [
+    { tags: ["coat_stand", "wall_bench", "coat_rack_mirror"], count: [1, 1], signature: true, placement: { zones: ["edge", "corner"] } },
+  ],
+  optional: [
+    { tags: ["shoe_rack", "chest"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["fn_runner", "rug"], count: [0, 1], weight: 3, placement: { zones: ["center"] } },
+    // FN (Innenraum-Offensive): Ecke belegen, Wandbehang an der Stirnwand
+    { tags: ["fn_corner"], count: [0, 1], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["light_wall", "light_ceiling"], count: [1, 2], weight: 4 },
+  ],
+  lighting: { minLevel: 7, prefer: ["light_wall", "light_ceiling", "candles", "light_floor"] },
+}

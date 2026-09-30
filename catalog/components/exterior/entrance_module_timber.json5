@@ -1,0 +1,118 @@
+// W3-EN · Eingangsmodul „Fachwerk“ (plan/spikes/W3EN_eingang.md, Vorbild-Archetyp E „Balken-Portal“): zwei Ständer
+// neben der Tür, darüber Kopfbänder (umgedrehte Treppen im Holz der Fensterrahmen, zur Tür hin geneigt) und ein liegender
+// Balken in der Mitte – ein hölzerner Bogen statt des alten Stamm-Kastens, im selben Holz wie Sturz und Bank der
+// Fenstermodule. Laternenpaar am Zaun-Arm auf den Pfosten des Türfelds (Rückfall: auf Stammstümpfen). Stufe aus
+// Gesims-Holz, 3 breit. Kein Vordach (ein dunkles Dachband über dem Bogen wirkte im Bild schwer).
+//
+//   Ansicht (5 breit)       Stück            Lage (j ab Türachse, y ab Bodenplatte)
+//     F A K B F   y3        frame            Ständer j = ±1 (y = 1 … 2), Kopfbänder j = ±1 und Balken j = 0 auf y = 3
+//     L P . P L   y2        lanterns         Laterne unter dem Zaun-Arm, j = ±2 (y = 2 … 3)
+//     . P . P .   y1        lanterns_post    Rückfall: Laterne auf einem Stammstumpf (y = 1 … 2)
+//     . s s s .   y0        step/block       Vortreppe bzw. Podest/Unterbau
+//
+// Vorbilder (URLs im Bericht): YouTube 1XXpmsOBWpE, X4M3zL9SJXE, eXTXWxCKT2M; Reddit 1u9ywd3, k0yjq3, oaq1yh.
+//
+// W4-C (plan/spikes/W4C_tueren.md) Doppeltür: Stücke `double_*` sind eine Spalte breiter (gerade Breite, spiegelsymmetrisch
+// um die Mitte zwischen den beiden Flügeln); der Planer setzt ihre zwei Mittelspalten auf die Flügel. Ständer mit
+// Kopfbändern, Balken über beiden Flügeln.
+{
+  id: "exterior/entrance_module_timber",
+  kind: "static",
+  name: "Eingangsmodul Fachwerk",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_entrance", "exterior_entrance_module", "outdoor", "walls_stone"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["timber", "terracotta_birch"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [[".SSS."], [".P_P."], ["LP_PL"], ["FAKBF"]],
+      legend: {
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        A: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "beam", shape: "log", orient: { axis: "along" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+    },
+    {
+      id: "frame",
+      layers: [["..."], ["P_P"], ["P_P"], ["AKB"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        A: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "beam", shape: "log", orient: { axis: "along" } },
+      },
+    },
+    {
+      id: "lanterns",
+      layers: [["....."], ["....."], ["L...L"], ["F...F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [4, 2, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "lanterns_post",
+      layers: [["....."], ["P...P"], ["L...L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+    },
+    {
+      id: "double_frame",
+      // W4-C: Ständer, Kopfbänder und durchgehender Balken über beiden Flügeln (Doppeltür im Fachwerk)
+      layers: [["...."], ["P__P"], ["P__P"], ["AKKB"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        A: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "beam", shape: "log", orient: { axis: "along" } },
+      },
+    },
+    {
+      id: "double_lanterns",
+      layers: [["......"], ["......"], ["L....L"], ["F....F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [5, 2, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "double_lanterns_post",
+      layers: [["......"], ["P....P"], ["L....L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+    },
+    {
+      id: "double_blind",
+      // W4-C Rückfall der Doppeltür (wie `door_canopy#trapdoor`): Blende aus Falltüren über beiden Flügeln
+      layers: [["...."], [".__."], [".__."], ["TTTT"]],
+      legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", upsideDown: true, open: false } } },
+    },
+    {
+      id: "step",
+      layers: [["S"]],
+      legend: { S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "block",
+      layers: [["B"]],
+      legend: { B: { role: "wall_cornice", shape: "block" } },
+    },
+  ],
+  light: "auto",
+}

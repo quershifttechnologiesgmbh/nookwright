@@ -1,0 +1,221 @@
+// FN Tierfarmen: Bienenhof (Imkerei) mit selbst erntenden Stöcken, 2 / 3 / 4 Stöcke in einer Reihe (Breite 6 / 9 / 12).
+// Belege (minecraft.wiki: Beehive, Bee, Observer, Dispenser, Campfire): Ein Stock beherbergt 3 Bienen; Bienen suchen Blumen
+// bis ~22 Blöcke weit (deshalb Blumenreihe vorn). Ein Beobachter meldet jede Änderung von honey_level; bei Stufe 5
+// schert der Spender den Stock (Schere, 3 Waben; Stufe < 5 → keine Wirkung, die Schere bleibt). Ein Lagerfeuer unter dem
+// Stock (Rauch bis 5 Blöcke darunter) beruhigt die Bienen, sonst werden sie beim Scheren wütend.
+// Signalweg je Stock: Beobachter (schaut auf den Stock) → Staub an seinem Ausgang → Staub → Staub, der seitlich auf den
+// Spender zeigt (Bauform des Zuckerrohr-Automaten, im Spiel geprüft). Der Stock hat ein Dach aus Platten, damit die
+// Waben nicht nach oben ausweichen; sie fallen in die freie Zelle davor, darunter sammelt eine Trichterreihe (→ Fass).
+// Ruhezustand: stromlos, honey_level 0, drei Scheren im Spender. Bienen bringt der Spieler (Nest-Umsiedlung mit Seidentouch)
+// oder sie besiedeln den Stock selbst. Nur statisch geprüft (plan/spikes/FN_tierfarmen.md).
+{
+  id: "functional/fn_animal_apiary",
+  kind: "static",
+  name: "Bienenhof mit Wabenernte",
+  category: "work",
+  tags: ["fn_animal_apiary", "fn_apiary", "beehive"],
+  functionTags: ["farm:honey", "animal:bee", "store", "automation", "redstone"],
+  styleTags: ["rustic", "farm", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "duo",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        [
+          "SSSSSS",
+          "SSSSSS",
+          "CSSCSS",
+          "HHHHHb",
+          "ssssss",
+        ],
+        [
+          "......",
+          "DrrDrr",
+          "BOrBOr",
+          "______",
+          "wcwcwc",
+        ],
+        [
+          "......",
+          "FFFFFF",
+          "FFFFFF",
+          "......",
+          "......",
+        ],
+      ],
+      legend: {
+        S: { role: "foundation", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        D: { block: "minecraft:dispenser", orient: { front: "front" }, contents: { items: [{ item: "minecraft:shears" }, { item: "minecraft:shears" }, { item: "minecraft:shears" }] } },
+        r: { block: "minecraft:redstone_wire" },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        O: { block: "minecraft:observer", orient: { front: "right" } },
+        F: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+    {
+      id: "trio",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        [
+          "SSSSSSSSS",
+          "SSSSSSSSS",
+          "CSSCSSCSS",
+          "HHHHHHHHb",
+          "sssssssss",
+        ],
+        [
+          ".........",
+          "DrrDrrDrr",
+          "BOrBOrBOr",
+          "_________",
+          "wcwcwcwcw",
+        ],
+        [
+          ".........",
+          "FFFFFFFFF",
+          "FFFFFFFFF",
+          ".........",
+          ".........",
+        ],
+      ],
+      legend: {
+        S: { role: "foundation", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        D: { block: "minecraft:dispenser", orient: { front: "front" }, contents: { items: [{ item: "minecraft:shears" }, { item: "minecraft:shears" }, { item: "minecraft:shears" }] } },
+        r: { block: "minecraft:redstone_wire" },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        O: { block: "minecraft:observer", orient: { front: "right" } },
+        F: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+    {
+      id: "duo_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      // Flachform (lichte Höhe 2): das Dach aus Platten übernimmt die Raumdecke
+      layers: [
+        [
+          "SSSSSS",
+          "SSSSSS",
+          "CSSCSS",
+          "HHHHHb",
+          "ssssss",
+        ],
+        [
+          "......",
+          "DrrDrr",
+          "BOrBOr",
+          "______",
+          "wcwcwc",
+        ],
+      ],
+      legend: {
+        S: { role: "foundation", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        D: { block: "minecraft:dispenser", orient: { front: "front" }, contents: { items: [{ item: "minecraft:shears" }, { item: "minecraft:shears" }, { item: "minecraft:shears" }] } },
+        r: { block: "minecraft:redstone_wire" },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        O: { block: "minecraft:observer", orient: { front: "right" } },
+      },
+    },
+    {
+      id: "trio_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      // Flachform (lichte Höhe 2): das Dach aus Platten übernimmt die Raumdecke
+      layers: [
+        [
+          "SSSSSSSSS",
+          "SSSSSSSSS",
+          "CSSCSSCSS",
+          "HHHHHHHHb",
+          "sssssssss",
+        ],
+        [
+          ".........",
+          "DrrDrrDrr",
+          "BOrBOrBOr",
+          "_________",
+          "wcwcwcwcw",
+        ],
+      ],
+      legend: {
+        S: { role: "foundation", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        D: { block: "minecraft:dispenser", orient: { front: "front" }, contents: { items: [{ item: "minecraft:shears" }, { item: "minecraft:shears" }, { item: "minecraft:shears" }] } },
+        r: { block: "minecraft:redstone_wire" },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        O: { block: "minecraft:observer", orient: { front: "right" } },
+      },
+    },
+    {
+      id: "quad",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        [
+          "SSSSSSSSSSSS",
+          "SSSSSSSSSSSS",
+          "CSSCSSCSSCSS",
+          "HHHHHHHHHHHb",
+          "ssssssssssss",
+        ],
+        [
+          "............",
+          "DrrDrrDrrDrr",
+          "BOrBOrBOrBOr",
+          "____________",
+          "wcwcwcwcwcwc",
+        ],
+        [
+          "............",
+          "FFFFFFFFFFFF",
+          "FFFFFFFFFFFF",
+          "............",
+          "............",
+        ],
+      ],
+      legend: {
+        S: { role: "foundation", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        D: { block: "minecraft:dispenser", orient: { front: "front" }, contents: { items: [{ item: "minecraft:shears" }, { item: "minecraft:shears" }, { item: "minecraft:shears" }] } },
+        r: { block: "minecraft:redstone_wire" },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        O: { block: "minecraft:observer", orient: { front: "right" } },
+        F: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

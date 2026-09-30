@@ -1,0 +1,26 @@
+// K2 · Hängemoos (DA Nature: Plants, hängend): blasses Hängemoos unter der Decke (braucht einen Block
+// darüber). Keine Kollision → durchlaufbar. „long“ (2 lang) ab lichter Höhe 4. Keller, Lager, Alchemie.
+{
+  id: "decor/hanging_moss",
+  kind: "static",
+  name: "Hängemoos",
+  category: "decor",
+  tags: ["hanging_moss", "decor_ceiling"],
+  styleTags: ["overgrown", "grim"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  walkable: true,
+  variants: [
+    { id: "short", weight: 3, layers: [["M"]], legend: { M: { block: "minecraft:pale_hanging_moss", state: { tip: "true" } } } },
+    {
+      id: "long",
+      weight: 1,
+      layers: [["T"], ["M"]],
+      legend: {
+        T: { block: "minecraft:pale_hanging_moss", state: { tip: "true" } },
+        M: { block: "minecraft:pale_hanging_moss", state: { tip: "false" } },
+      },
+    },
+  ],
+}

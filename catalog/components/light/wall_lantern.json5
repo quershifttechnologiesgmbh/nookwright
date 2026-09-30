@@ -1,0 +1,36 @@
+// Wandlaterne: Halter (Zaun oder Gitter, verbindet sich mit der Wand dahinter) + stehende Laterne obendrauf.
+// Es gibt keinen Wand-Laternen-Block; Laterne stehend braucht stabile Mitte darunter (Faktencheck 3).
+// Der Halter hat Kollision in Kopfhöhe → nicht durchlaufbar (belegt die Bodenzelle für Laufwege).
+{
+  id: "light/wall_lantern",
+  kind: "static",
+  name: "Wandlaterne",
+  category: "light",
+  tags: ["light", "light_wall"],
+  functionTags: ["light"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "fence",
+      weight: 2,
+      layers: [["F"], ["L"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+    {
+      id: "bars",
+      weight: 1,
+      layers: [["F"], ["L"]],
+      legend: {
+        F: { role: "metal", shape: "bars" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+  ],
+  masks: { support: [{ at: [0, 1, 0], side: "down", kind: "center" }] },
+  light: "auto",
+}

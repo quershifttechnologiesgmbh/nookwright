@@ -1,0 +1,32 @@
+// K3d · Verzauberungsturm (research/11 §3 E1–E7; research/17 §5 Delta: = Turmzimmer §4.13 + Verzauberungsstation).
+// Signatur: Verzauberungsstation (Tag `enchanting_station`: Alkoven an der Wand, frei stehender Regal-Ring bzw.
+// flache Nische als Kompaktform) mit ≥ 15 wirksamen Regalen und freiem Zwischenring (Faktencheck #1; die
+// Luft-Masken halten Teppich, Kerzen und Fackeln fern). „Turm“ = in die Höhe: Bücherwände bis unter die Decke
+// (`stretch`), hängender Amethyst und Amethyst-Geoden an Ketten, Deckenbanner, Leuchtrahmen mit Zauberbuch über
+// Kopfhöhe. Amboss und Schleifstein nahe der Station, Lesepult (Bibliothekar). Stimmung gedämpft (≥ 6): Kerzen
+// und Amethyst zuerst, Wand-/Stehlicht als Rückfall (lichte Höhe 2: keine Deckenleuchten über Laufwegen).
+{
+  id: "enchanting_tower",
+  name: "Verzauberungsturm",
+  minArea: 36,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["enchanting_station"], count: [1, 1], signature: true, placement: { zones: ["center", "edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["bookshelf_tall", "bookshelf_wall"], count: { perArea: 16, min: 1, max: 4 }, weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["lectern"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["anvil"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["grindstone"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["candle_stand"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["arcane_focus"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    // Wand und Decke (über Kopfhöhe)
+    { tags: ["frame_enchanted_book"], count: [1, 2], weight: 3 },
+    { tags: ["potion_shelf", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["amethyst_hanging"], count: [1, 4], weight: 4 },
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 2 },
+    { tags: ["chandelier", "light_ceiling"], count: [0, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 6, prefer: ["candles", "amethyst_hanging", "chandelier", "light_ceiling", "light_wall", "light_floor"] },
+}

@@ -1,0 +1,37 @@
+// K2 · Wandleuchter (DA Lights: Candles/Wall Lights): Eisengitter-Halter an der Wand (verbindet sich mit ihr),
+// darauf Kerzen. T5 #3: Kerzen stehen auf Gitter, auch bei Spieler-Platzierung. Licht 9 (3 Kerzen).
+// Lichte Höhe ≥ 3 (Kerzen in Kopfhöhe + 1). Nicht als `candles` getaggt: Surface-Sockets nehmen den Tag.
+{
+  id: "light/wall_candles",
+  kind: "static",
+  name: "Wandleuchter",
+  category: "light",
+  tags: ["light", "light_wall", "wall_candles"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "plain",
+      weight: 2,
+      layers: [["I"], ["C"]],
+      legend: {
+        I: { role: "metal", shape: "bars" },
+        C: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+    {
+      id: "white",
+      weight: 1,
+      layers: [["I"], ["C"]],
+      legend: {
+        I: { role: "metal", shape: "bars" },
+        C: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+  ],
+  light: "auto",
+}

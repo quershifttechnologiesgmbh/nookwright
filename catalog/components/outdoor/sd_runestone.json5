@@ -1,0 +1,23 @@
+// SD Grundstücks-Deko: Runenstein – ein aufrecht stehender Stein mit Kappe, nordisch. Nur Blöcke, keine Zeichen.
+{
+  id: "outdoor/sd_runestone",
+  kind: "static",
+  name: "Runenstein",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_statue", "sd_runestone"],
+  styleTags: ["nordic", "ruin"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["B"],
+    ["A"],
+    ["A"],
+    ["s"],
+  ],
+  legend: {
+    B: { role: "wall_plinth", shape: "block" },
+    A: { block: "minecraft:andesite" },
+    s: { role: "wall_plinth", shape: "slab" },
+  },
+}

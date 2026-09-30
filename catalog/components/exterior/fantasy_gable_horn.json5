@@ -1,0 +1,42 @@
+// W7-D · Fantasy-Modul „Giebelhorn“ (plan/spikes/W7D_fantasy.md): aufgebogene Traufecke an beiden unteren Enden jedes
+// Ortgangs – das häufigste elbische Erkennungszeichen der Vorbilder (geschwungene Traufen, Hörner, Firstspitzen: 13 von
+// 34, elbisch 10 von 15). Sitzt eine Lage über der Luftzelle neben der untersten Ortgang-Treppe (Traufecke, außen),
+// Front = nach außen (Giebelrichtung); so berührt es keine Dachtreppe waagrecht (die Vanilla-Treppenform der Nachbarn
+// bleibt gerade). Rücken der Treppen nach außen: die Traufe biegt an der Ecke sichtbar auf.
+//
+//   Ansicht Traufseite (Ecke rechts)          Schnitt (z = nach außen)
+//            H     H zweite Aufbiegung, 1 weiter außen    y1  . H
+//          T       T Aufbiegung (Treppe, Rücken außen)     y0  T .
+//     ═══▓         ▓ Traufecke (Hülle)
+//
+// Kits: `elven` Holz der Dachkante, zweistufig geschwungen; `dwarven` Stein der Dachkante, einstufig (Vorbild D2: kurze,
+// getreppte Hörner).
+{
+  id: "exterior/fantasy_gable_horn",
+  kind: "static",
+  name: "Giebelhorn (aufgebogene Traufecke)",
+  category: "decor",
+  // `fantasy_accent`: gehört schon zur Fantasy-Stufe „Akzent“ (in jedem Theme zuschaltbar)
+  tags: ["exterior", "exterior_roof", "exterior_fantasy", "fantasy_accent", "outdoor"],
+  styleTags: ["elven", "dwarven"],
+  obtainability: "survival",
+  mount: "roof",
+  rotations: "all",
+  variants: [
+    {
+      id: "elven",
+      layers: [["T", "."], [".", "H"]],
+      legend: {
+        T: { role: "roof_trim", shape: "stairs", orient: { back: "front" } },
+        H: { role: "roof_trim", shape: "stairs", orient: { back: "front" } },
+      },
+    },
+    {
+      id: "dwarven",
+      layers: [["T"]],
+      legend: {
+        T: { role: "roof_trim", shape: "stairs", orient: { back: "front" } },
+      },
+    },
+  ],
+}

@@ -1,0 +1,32 @@
+// Gästezimmer (research/17 §4.6, G1–G5). K3a. Signatur: zwei Einzelbetten in Reihe mit Nachttisch-Abstand (Solver
+// v2 `row`, gap 1 = Platz für den Nachttisch; die Nachttische kommen über die Bett-Sockets). Reisetruhe je Gast,
+// Waschtisch und Mantelständer an der Türwand, Schreibpult am Fenster. V3 „mehr in die Höhe“: Truhen stapeln sich
+// (storage/chest `above`), Hochbett (bed/loft, K3d, ab lichter Höhe 4), Oberschrank, Paneele und Borde über
+// Kopfhöhe, Deckenlicht. Die Signatur `bed_single` umfasst auch die Bettnische bed/alcove (K3d).
+{
+  id: "guest_room",
+  name: "Gästezimmer",
+  minArea: 9,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["bed_single"], count: [2, 2], signature: true, placement: { zones: ["edge"], doorAffinity: "far" }, pattern: { kind: "row", gap: 1 } },
+  ],
+  optional: [
+    { tags: ["chest"], count: [1, 2], weight: 4, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wardrobe"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["washstand"], count: [0, 1], weight: 3, placement: { zones: ["edge"], doorAffinity: "near" } },
+    { tags: ["coat_stand"], count: [0, 1], weight: 2, placement: { zones: ["corner", "edge"], doorAffinity: "near" } },
+    { tags: ["table_small", "desk", "dressing_table"], count: [0, 1], weight: 2, placement: { zones: ["edge"], windowAffinity: "near" } },
+    { tags: ["fn_rug", "rug", "patchwork_rug"], count: [1, 1], weight: 3, placement: { zones: ["center"] } },
+    { tags: ["wall_banner", "wall_shelf", "fn_tapestry"], count: [2, 3], weight: 2 },
+    // FN (Innenraum-Offensive): Ecken belegen
+    { tags: ["fn_corner"], count: [1, 2], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["upper_cabinet", "wall_panel"], count: [0, 1], weight: 1 },
+    { tags: ["loft_bed"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["light_pendant"], count: [0, 1], weight: 3 },
+  ],
+  // W3-IN (I7): wie das Schlafzimmer – Licht am Bett, an der Wand, Budget je Fläche
+  lighting: { minLevel: 6, prefer: ["light_small", "light_pendant", "light_wall"], budget: { cellsPer: 14, min: 1, max: 3 }, anchors: ["nightstand", "bed_single", "desk", "table"] },
+}

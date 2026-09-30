@@ -1,0 +1,41 @@
+// research/57 · Nähstube: Garnrollen-Bord (Nebenobjekt, ergänzt tapestry/wall_banner um ein Werkstück statt
+// Zierbanner). Tag `wall_banner` steht in weaving_room.json5 im optionalen Eintrag `{ tags: ["tapestry",
+// "wall_banner"], count: [1, 3] }`. Bord mit Garnrollen (Wolle) und Schere im Rahmen.
+// Nachprüfung research/57: Die Rahmen lagen außerhalb der deklarierten Zellen (kein fester Block gefunden) –
+// jetzt eine eigene Luft-Zeile über dem Bord, wie work/chopping_block/work/counter es vormachen. Zweiter Fund:
+// obere Stufen haben laut `physics-1.21.11.json` immer `cls: "half"`, Rahmen brauchen aber `full` darunter –
+// Bord auf volle Planken umgestellt.
+{
+  id: "decor/thread_spool_display",
+  kind: "static",
+  name: "Garnrollen-Bord",
+  category: "attachment",
+  tags: ["wall_decor", "thread_spool_display"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [["SSS"], ["___"]],
+  legend: { S: { role: "furniture_wood", shape: "planks" } },
+  variants: [
+    {
+      id: "spools",
+      weight: 2,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:string" } },
+        { type: "item_frame", at: [2, 1, 0], face: "up", item: { item: "minecraft:string" } },
+      ],
+    },
+    {
+      id: "shears_and_dye",
+      weight: 1,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:shears" } },
+        { type: "item_frame", at: [1, 1, 0], face: "up", item: { item: "minecraft:blue_dye" } },
+        { type: "item_frame", at: [2, 1, 0], face: "up", item: { item: "minecraft:red_dye" } },
+      ],
+    },
+  ],
+}

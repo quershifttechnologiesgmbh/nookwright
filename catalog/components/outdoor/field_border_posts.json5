@@ -1,0 +1,21 @@
+// research/56 · Feldgrenze (schlichter Postenmarkierung, kein Zaun): einzelner Stammpfosten mit Grasbüschel
+// daneben, als kachelbare Markierung von Ackergrenzen ohne die Barriere eines echten Zauns. Q1a: `walkable` war
+// falsch (ein voller Stammpfosten blockiert) und das Grasbüschel stand ohne Erde da – jetzt Erdblock (`garden_soil`)
+// unter dem Büschel.
+{
+  id: "outdoor/field_border_posts",
+  kind: "static",
+  name: "Feldgrenze",
+  category: "decor",
+  tags: ["field_border", "outdoor", "field", "farm"],
+  styleTags: ["rustic", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["FD"], [".g"]],
+  legend: {
+    F: { role: "beam", shape: "log", orient: { axis: "y" } },
+    D: { role: "garden_soil", shape: "block" },
+    g: { role: "grass_tuft", shape: "block" },
+  },
+}

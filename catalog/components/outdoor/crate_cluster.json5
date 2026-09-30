@@ -1,0 +1,19 @@
+// research/56 · Kistengruppe im Freien (DA Structural: Storage; Komposter als offener Korb/Kiste, Truhe als
+// Warenkiste): zwei Körbe und eine Truhe locker gruppiert, für Markt, Anlegestelle, Hof.
+{
+  id: "outdoor/crate_cluster",
+  kind: "static",
+  name: "Kistengruppe",
+  category: "storage",
+  tags: ["crate_cluster", "outdoor", "market", "yard"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["CXC"]],
+  legend: {
+    C: { block: "minecraft:composter", state: { level: "4" } },
+    X: { block: "minecraft:chest", orient: { front: "front" } },
+  },
+}

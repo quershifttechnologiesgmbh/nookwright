@@ -1,0 +1,21 @@
+// K2 · Musikecke (DA Utility: Music): Notenblock (Trommel) und Plattenspieler an der Wand, darüber ein
+// Ziegenhorn im Rahmen an der Raumwand. Boden-Montage mit Rücken zur Wand (Wand hinter der Spalte geprüft).
+{
+  id: "decor/bard_corner",
+  kind: "static",
+  name: "Musikecke",
+  category: "decor",
+  tags: ["music", "instrument"],
+  functionTags: ["play"],
+  styleTags: ["medieval", "tavern"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["NJ"], ["_."]],
+  legend: {
+    N: { block: "minecraft:note_block" },
+    J: { block: "minecraft:jukebox" },
+  },
+  entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:goat_horn" } }],
+  masks: { use: [{ side: "front" }] },
+}

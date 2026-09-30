@@ -1,0 +1,83 @@
+// K3a · Pfeiler-Bucht (research/17 §4.2, H1/H4; research/11 §2.1 Pfeiler-Bucht): zwei Stamm-Pfosten vor der Wand,
+// dazwischen genau eine Funktion (Banner, Bank, Gitter, Schild). V3 „mehr in die Höhe“: Die Pfosten reichen bis
+// unter die Decke (`stretch`, `ceiling`). Jede Variante hat in der untersten Lage auch in der Mitte einen Block →
+// der Solver prüft die Wand hinter allen drei Spalten (kein Banner vor einem Fenster). Banner halten an der Wand,
+// Kerzen stehen auf dem Gitter (T5 #4). Der einzelne Wandpfeiler ist eine eigene Komponente (arch/wall_pilaster,
+// Tag `pilaster`) – er ist die Signatur der Galerie, die Buchten (Tag `gallery_bay`) ergänzen ihn: so gilt der
+// Pfeiler im Qualitätswert nicht als „Kompaktform“ der Bucht.
+{
+  id: "arch/pilaster_bay",
+  kind: "static",
+  name: "Pfeiler-Bucht",
+  category: "architecture",
+  tags: ["gallery_bay"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // Banner unter der Decke, darunter die freie Nische (das Tuch hängt einen Block tief), unten eine Sitzstufe
+      id: "banner",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [["PSP"], ["P_P"], ["PVP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+    {
+      // Sitzbank in der Bucht; über der Kopfhöhe bleibt die Wand frei für Wandlicht und Rahmen
+      id: "bench",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["PSP"], ["P_P"], ["P.P"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+    },
+    {
+      // Gitter-Nische (H3): Eisengitter verbinden sich mit Pfosten und Wand, oben Kerzen auf dem Gitter
+      id: "grille",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["PIP"], ["PIP"], ["PCP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        I: { role: "metal", shape: "bars" },
+        C: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling", rows: ["P.P"] },
+    },
+    {
+      // Schild im Rahmen über der Sitzstufe (Rahmen an der Raumwand, nicht über einem Zaun)
+      id: "arms",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["PSP"], ["P_P"], ["P.P"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:shield" } }],
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+    },
+    {
+      // lichte Höhe 2: kurze Pfosten mit Sitzstufe
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [["PSP"], ["P_P"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: false }] },
+}

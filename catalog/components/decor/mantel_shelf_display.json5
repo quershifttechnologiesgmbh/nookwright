@@ -1,0 +1,25 @@
+// I52 · Kaminsims (research/52 §Wand, Kaminecke): Wandbord in Kaminhöhe (Wandhöhe 2, wie decor/fireplace
+// üblicherweise 2 hoch ist) mit Standuhr-Motiv (Kerzen + Zaun-„Uhr“) und Kerzen — das gemütliche
+// Kaminsims-Cluster aus dem WaxFraud-Motiv „Deko-Reihe über dem Feuer“.
+{
+  id: "decor/mantel_shelf_display",
+  kind: "static",
+  name: "Kaminsims",
+  category: "attachment",
+  tags: ["mantle", "mantel_shelf_display"],
+  styleTags: ["medieval", "cozy", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 2,
+  rotations: "backToWall",
+  layers: [
+    ["SSSS"], // y0: Sims-Brett
+    ["c.Vc"], // y1: Kerze | Socket | Vase | Kerze
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    c: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+    V: { block: "minecraft:flower_pot" },
+  },
+  sockets: [{ id: "center", type: "surface", at: [1, 1, 0], accepts: ["tall_clock", "tabletop_small", "picture_frame"], prob: 0.5 }],
+}

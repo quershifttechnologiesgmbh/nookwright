@@ -1,0 +1,36 @@
+// Teppich (research/10 §2.2: 8/13 Schlafzimmer; Muster Rot/Grau). Durchlaufbar (Physik-Klasse flat),
+// braucht nur einen Block darunter (Faktencheck #4). Gegenfarbe fest Grau, bis das Theme eine passende
+// Rolle hat (gewünscht: `textile_accent` = grau bzw. `textile_neutral`, research/10 §10).
+// Nie in einen Zaubertisch-Ring legen (Faktencheck #1) – Raumtypen mit Zaubertisch fordern keinen Teppich.
+{
+  id: "decor/rug",
+  kind: "static",
+  name: "Teppich",
+  category: "decor",
+  tags: ["rug"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "plain",
+      weight: 2,
+      layers: [["RRR", "RRR"]],
+      legend: { R: { role: "textile_primary", shape: "carpet" } },
+    },
+    {
+      id: "bordered",
+      weight: 3,
+      layers: [["RRRR", "RGGR", "RRRR"]],
+      legend: { R: { role: "textile_primary", shape: "carpet" }, G: { block: "minecraft:gray_carpet" } },
+    },
+    {
+      id: "checker",
+      weight: 1,
+      layers: [["RGR", "GRG", "RGR"]],
+      legend: { R: { role: "textile_primary", shape: "carpet" }, G: { block: "minecraft:gray_carpet" } },
+    },
+  ],
+}

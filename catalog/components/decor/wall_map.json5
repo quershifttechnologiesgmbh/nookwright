@@ -1,0 +1,67 @@
+// K3d · Wandkarte als Mosaik (research/11 C-2, M2/M3/M4/M6): Terrakotta in Blau (Wasser), Grün/Hellgrün (Land)
+// und Gelb (Küste) – immer „wie eine Karte“, ohne Kartendaten (`filled_map` im Rahmen bliebe braun, T5).
+// Vor der Wand statt in der Wand (`wall_inset` trägt das Schema noch nicht); „framed“ mit Rahmen aus liegenden
+// bzw. stehenden Stämmen (Rolle `beam`), ab lichter Höhe 5. Wandhöhe 2 bevorzugt (über Kopfhöhe, kein Laufweg
+// belegt), in niedrigen Räumen auf Boden + 1. Generator (Rauschen → Wasser/Küste/Wald) = Folgeaufgabe.
+{
+  id: "decor/wall_map",
+  kind: "static",
+  name: "Wandkarte",
+  category: "attachment",
+  tags: ["wall_map", "wall_decor"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [2, 1],
+  variants: [
+    {
+      id: "small",
+      weight: 3,
+      layers: [["bgl"], ["gby"]],
+      legend: {
+        b: { block: "minecraft:blue_terracotta" },
+        g: { block: "minecraft:green_terracotta" },
+        l: { block: "minecraft:lime_terracotta" },
+        y: { block: "minecraft:yellow_terracotta" },
+      },
+    },
+    {
+      id: "wide",
+      weight: 2,
+      layers: [["bbgl"], ["bgyl"]],
+      legend: {
+        b: { block: "minecraft:blue_terracotta" },
+        g: { block: "minecraft:green_terracotta" },
+        l: { block: "minecraft:lime_terracotta" },
+        y: { block: "minecraft:yellow_terracotta" },
+      },
+    },
+    {
+      // Kachel 2 × 2: passt zwischen eng gesetzte Fenster
+      id: "tile",
+      weight: 1,
+      layers: [["bg"], ["ly"]],
+      legend: {
+        b: { block: "minecraft:blue_terracotta" },
+        g: { block: "minecraft:green_terracotta" },
+        l: { block: "minecraft:lime_terracotta" },
+        y: { block: "minecraft:yellow_terracotta" },
+      },
+    },
+    {
+      id: "framed",
+      weight: 2,
+      minRoomHeight: 5,
+      layers: [["LLLLL"], ["PgbyP"], ["PbglP"], ["LLLLL"]],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "along" } },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        b: { block: "minecraft:blue_terracotta" },
+        g: { block: "minecraft:green_terracotta" },
+        l: { block: "minecraft:lime_terracotta" },
+        y: { block: "minecraft:yellow_terracotta" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,16 @@
+// K2 · Runder Teppich (DA Decoration: Rugs): 4×4 mit abgeschnittenen Ecken, Rand `textile_primary`,
+// Mitte grau. Durchlaufbar.
+{
+  id: "decor/rug_round",
+  kind: "static",
+  name: "Runder Teppich",
+  category: "decor",
+  tags: ["rug"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  walkable: true,
+  layers: [[".RR.", "RGGR", "RGGR", ".RR."]],
+  legend: { R: { role: "textile_primary", shape: "carpet" }, G: { block: "minecraft:gray_carpet" } },
+}

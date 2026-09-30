@@ -1,0 +1,142 @@
+﻿// BT01 Burg, kompakt (research/19 §3, §7.2 `castle_compact`, §7.4): Ensemble aus Palas (Hauptbaukörper, steiles
+// Satteldach) und Bergfried (eigener Baukörper, höher, an eine Ecke des Palas angelehnt, Flachdach mit Wehrplatte und
+// Zinnen). Palas: unten Thronsaal mit Treppe (Haustür) und Küche, oben Speisesaal, Kapelle, Kemenate und Kammern;
+// im Keller der Kerker. Bergfried: Wachstube, Waffenkammer, Schatzkammer, oben das Turmzimmer; Leitern.
+// Ringmauer mit Türmen im Takt, Tor (oft als Torhaus) in der Achse der Haustür, Wehrgang mit Treppe, Hof mit Brunnen;
+// optional Zwinger und Wassergraben mit Damm vor dem Tor.
+// Referenzen: Little Raccoon (Mauer 6–8 hoch, 3 dick, Türme alle 12–15, Tor 3–4 breit), GrabCraft-Keeps 25–39 hoch,
+// Bergfried 7×7 bis 11×11 auf 4–6 Geschossen, Zinnen im Takt 2 voll/1 Lücke.
+{
+  id: "castle_compact",
+  name: "Burg",
+  label: "Burg (kompakt)",
+  family: "fort",
+  description: "Palas und Bergfried mit Wehrplatte, Ringmauer mit Türmen und Torhaus, Hof, optional Zwinger und Graben",
+  styleTags: { require: ["medieval"] },
+  themes: ["medieval", "nordic", "rustic"],
+  sizes: {
+    S: { footprint: [[17, 11], [19, 13]], floors: 2, groundHeight: 4, parts: ["keep"] },
+    M: { footprint: [[19, 13], [23, 15]], floors: 2, groundHeight: 4, floorHeight: [3, 4], cellar: 0.5, parts: ["keep"] },
+    L: { footprint: [[23, 13], [27, 17]], floors: [2, 3], groundHeight: 4, floorHeight: [3, 4], cellar: true, parts: ["keep"] },
+  },
+  // W7-B (plan/spikes/W7B_burg.md): gerade Frontlänge wie die Taverne – mit eigenem Raster des Bergfrieds (`shaftGrid`)
+  // ist die Front des Palas eine eigene Linie; nur eine gerade Linie hat ein gerades Mittelfeld für die Doppeltür des
+  // Thronsaals (vorher fiel sie nur zufällig an, wenn die Linie über den Bergfried lief oder an ihm eine Spalte kürzer war)
+  massing: { generator: "rect", ratio: [1.4, 2.2], evenFront: true },
+  entrance: "throne_room",
+  parts: {
+    keep: {
+      name: "Bergfried",
+      massing: "tower",
+      footprint: [[9, 9], [9, 9]],
+      above: [4, 5],
+      // eigene Geschosshöhe: Obergeschosse versetzt zum Palas (Zugang nur im Erdgeschoss, oben über die Leitern)
+      floorHeight: 3,
+      sizes: { M: { footprint: [[9, 9], [11, 11]] }, L: { footprint: [[11, 11], [11, 11]] } },
+      // an eine hintere Ecke des Palas gelehnt (gemeinsame Brandwand), springt über die Rückwand vor
+      anchor: { side: ["left", "right"], align: "start", gap: 0, shift: [0, 2] },
+      roof: "flat",
+      // W4-B (plan/spikes/W4B_bergfried.md): glatter Schaft ohne Band je Geschoss (Bodenplatte in der Außenwand aus
+      // Wandstein, kein Gesims je Etage, Kragsteinkranz aus Stein statt Holzrand unter den Zinnen) und eine Dachluke:
+      // Leiter an der Wand des Turmzimmers bis in die Dachplatte, Falltür im Belag der Wehrplatte
+      // W7-B (plan/spikes/W7B_burg.md, Baustandard F1/F2): eigenes Fassadenraster je Seite des Bergfrieds (`shaftGrid`) –
+      // vorher lief das Raster im Erdgeschoss über Bergfried und Palas durch und die Seite neben dem Palas war eine Spalte
+      // kürzer: die Achsen des Erdgeschosses passten nicht zu denen der Obergeschosse
+      roofDetail: { trim: true, hatch: true, plainShaft: true, shaftGrid: true },
+      parapet: "crenel",
+      // W3-CA: Wehrplatte mit Steinbelag (bündig mit der Brüstung) statt der dunklen Holzdecke als Dachfläche
+      parapetDeck: true,
+    },
+  },
+  program: [
+    // Palas
+    { room: "throne_room", floor: "ground", share: 0.5, required: true, near: "entrance" },
+    { room: "kitchen", floor: "ground", share: 0.2, required: true, adjacent: ["throne_room"] },
+    { room: "storage", floor: "ground", share: 0.12, prob: 0.6 },
+    { room: "dining_hall", floor: 1, share: 0.4, required: true },
+    { room: "chapel", floor: "upper", minArea: 24, prob: 0.5 },
+    { room: "solar", floor: "upper", minArea: 16, prob: 0.6 },
+    { room: "library", floor: "upper", prob: 0.3 },
+    { room: "bedroom", floor: "top", count: [1, 2], minArea: 12, required: true },
+    { room: "dungeon", floor: "cellar", share: 0.5, required: true },
+    { room: ["wine_cellar", "storage"], floor: "cellar", fill: true },
+    // Bergfried: ein Raum je Geschoss
+    { room: "barracks", part: "keep", floor: "ground", required: true },
+    { room: "armory", part: "keep", floor: 1, required: true },
+    { room: ["treasury", "storage", "armory"], part: "keep", floor: [2, 9] },
+    { room: "tower_room", part: "keep", floor: "top", share: 1, required: true },
+  ],
+
+  // Funktionsgrad (W2-1): Produktions- oder Schmelzhalle (Erdgeschoss), Tresor im Keller bzw. Bergfried, Villagerhalle
+  // (Obergeschoss); rich: Spawner-Kammer im Keller, Geheimstudie, Redstone-Werkstatt.
+  functions: [
+    { room: "production_hall", share: 0.22, richShare: 0.28, replaces: ["storage"], weight: 3, group: "work", sizes: ["M", "L"], minFloor: 250 },
+    { room: "smelting_hall", share: 0.26, replaces: ["storage"], weight: 2, group: "work", sizes: ["L"], minFloor: 300 },
+    { room: "fn_villager_hall", floor: 1, share: 0.3, replaces: ["solar"], weight: 2, group: "villagers", sizes: ["L"], minFloor: 300 },
+    { room: "vault_room", floor: "cellar", share: 0.25, replaces: ["wine_cellar", "storage"], weight: 3, group: "vault", sizes: ["M", "L"] },
+    { room: "vault_room", part: "keep", floor: 2, share: 1, minArea: 30, weight: 2, group: "vault", replaces: ["treasury", "storage", "armory"] },
+    { room: "fn_spawner_chamber", floor: "cellar", level: "rich", share: 0.35, weight: 2, group: "trap", sizes: ["L"], minFloor: 300 },
+    { room: "secret_study", floor: "upper", level: "rich", share: 0.2, replaces: ["library"], weight: 1, group: "secret", sizes: ["M", "L"], minFloor: 250 },
+    { room: "workshop_redstone", floor: "cellar", level: "rich", share: 0.25, weight: 1, group: "redstone", sizes: ["M", "L"] },
+  ],
+  stairs: { at: "end" },
+  shell: {
+    roof: "gable",
+    overhang: 1,
+    roofDetail: { pitch: "normal", trim: true, verge: "closed", gableWindows: true },
+    // W5-B (Review W4-R N2, plan/spikes/W5B_burg.md): Fensterrahmen aus Stein wie das Gesims – Bank und Sturz über die
+    // ganze Breite in `wall_cornice` (Hülle), kein Holz (Fichte in `window_frame`) mehr am Turmschaft und am Palas
+    facade: { plinthProfile: true, cornice: true, quoins: true, frameRole: "wall_cornice" },
+    windows: { spacing: 4 },
+  },
+  // Steinburg: keine Blumenkästen. W3-CA: Fenstermodul „Stein“ (Wangen aus Wandstein, Sturz und Bank – tiefe Laibung
+  // wie in 14 von 24 Fenster-Vorbildern, r19/r21 Burgfenster) statt des Stadthaus-Moduls des Themes; dafür sind die
+  // Verdachungen (`hoods`: Sturz und Wangen) wieder an – über dem Palasdach hält die Hülle die Traufzone frei (K6).
+  // W4-B (Review M2): Eingang aus derselben Familie wie die Fenster (Stein-Portal statt Stadthaus-Portal)
+  // W5-B (Review W4-R N4): der Bautyp gibt die Familie „wehrhaft“ vor, das Theme das Material (`themeMaterial`) – das
+  // Stein-Modul nur an Steinwänden (medieval), die Holzburg (nordic, rustic) nimmt das Modul ihres Themes
+  exterior: { density: 0.75, off: ["flowerBoxes"], windowModule: "stone", entranceModule: "stone", themeMaterial: true },
+  site: { style: "homestead", lighting: "paths", margin: 8 },
+  // W1-I (26.09.2026, W1E M5 „Türme dominieren“): vorher 9–11 gleichartige Türme (Takt 14–18, zwei von drei Gestalten
+  // mit Kegelhelm), die mit 29–30 Blöcken so hoch wie Palas und Bergfried waren; von vorn blieben 19–54 % der
+  // Hausoberfläche sichtbar (`spikes/w1i_burg.ts`). Jetzt: Ecktürme + Torhaus + höchstens ein Zwischenturm je Seite
+  // (Takt 40–48 bei Mauerseiten von 36–76), zwei von drei Gestalten zinnenbekrönt und nur 6–7 über der Mauerkrone
+  // (Ecktürme „3–6 über der Mauer“, der Bergfried „taller again“: minecraftgradient.blog/minecraft-castle-design;
+  // „4–6 taller than the curtain wall“: 8bittoast.com/minecraft-castle-blueprint), damit Bergfried und Palas die
+  // Silhouette führen; der Kegelhelm bleibt als seltenere Märchen-Variante. Die Gestalt gilt je Burg für alle
+  // Ringtürme (Auswahl per Seed). Torhaus immer und mit höherer Durchfahrt (Tor als Achse lesbar). Der Abstand zum
+  // Ring bleibt 6–8: ein weiterer Hof machte den Palas kaum sichtbarer (39 → 40 %), brächte aber mehr Hof-Objekte.
+  structures: {
+    ring: {
+      offset: [6, 8],
+      height: [6, 7],
+      towerSpacing: [40, 48],
+      // W3-CA (Turmsatz, plan/spikes/W3CA_burg.md): drei feste Module statt einer Gestalt für alle Türme – Ecktürme
+      // mit Helm, Torhaus- und Zwischentürme mit Zinnenkranz auf Kragsteinen (gemischte Abschlüsse in 7 von 19
+      // Burg-Vorbildern, Zinnen am Torhaus in allen 9 Tor-Vorbildern); jedes Geschoss mit Laterne (keine dunklen Türme).
+      towers: [
+        { shape: "round", top: "battlements", lit: true, corner: { top: "roof", roofShape: "cone", roofPitch: 2, flare: true, finial: "pole" } },
+        { shape: "square", top: "battlements", lit: true, corner: { top: "roof", roofShape: "tent", roofPitch: 2, finial: "pole" } },
+        { shape: "round", top: "battlements", lit: true },
+      ],
+      merlon: { width: 2, gap: 1 },
+      // W3-CA: Torbau zwischen den Torhaus-Türmen (bis zur Turmplattform, Zinnen, Pechnase, Fallgitter)
+      gate: { width: 3, height: 5, gatehouse: 1, gateBlock: true },
+      outer: { prob: 0.3, gap: 5, height: 4 },
+      moat: { prob: 0.5, width: 3, gap: 2 },
+      yard: "yard",
+      // W9-G5 (Materialspiel, Review R5 G5 „keine Holzakzente“): Holzdächer und Zinnenkappen an den Mauertürmen, Hurde
+      // über Torbau und Torhaus-Türmen, Bannerpaar an den Torhaus-Türmen (spiegelgleich zur Torachse); Material je Theme
+      accents: true,
+    },
+  },
+  // Silhouette (research/20 §0.9): mindestens zwei Baukörper (Palas + Bergfried) und ein Fokus-Element, das den
+  // Hauptbaukörper überragt. Die Recherche nennt ≥ 25 % (Faktor 1,25); gemessen liefern S/M/L über je vier Seeds
+  // **1,11–1,20** – der Bergfried hat feste Geschosse, der Palas wächst mit der Größe. Das Band ist deshalb eng am
+  // Ist gesetzt (1,10–1,25): so fällt sofort auf, wenn der Bergfried seine Überhöhung verliert (heute wäre selbst
+  // 1,60 noch „ok“ gewesen). Die vollen 25 % bleiben als offener Punkt dokumentiert (research/27, research/41).
+  // W3 (27.09.2026): Die 1,11–1,20 waren ein Messfehler – Gesims und Fensterrahmen des Bergfrieds lagen über dem
+  // Palasdach in Palas-Spalten und zählten als dessen Oberkante. Seit die Hülle über fremden Dächern keine
+  // Profilzellen mehr setzt (K6), misst die Silhouette 1,27–1,87 (S/M/L × 7 Seeds): die recherchierten 25 % sind erfüllt.
+  checks: { ratio: [1.3, 2.3], partOverMain: [1.2, 3], massCount: [2, 4], focusOverMain: [1.25, 2] },
+}

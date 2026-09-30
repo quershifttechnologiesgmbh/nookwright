@@ -1,0 +1,39 @@
+// FN-Dense · Kohlenkasten der Schmiede (Vorbild: Schmiede-Ecken der Community mit gestapeltem Brennstoff neben
+// Esse und Amboss). 2 breit, 2 tief, 2 hoch, gestufter Haufen aus Kohleblöcken (Rückreihe zwei, Vorderreihe einen
+// hoch) mit Fass als Aschekübel. Reine Vollblöcke ohne Stützregel, kein Feuer. Tag `fn_coal_bin`.
+{
+  id: "work/fn_coal_bin",
+  kind: "static",
+  name: "Kohlenkasten",
+  category: "work",
+  tags: ["fn_coal_bin"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pile",
+      weight: 2,
+      layers: [
+        ["cc", "cc"],
+        ["cc", "__"],
+      ],
+      legend: { c: { block: "minecraft:coal_block" } },
+    },
+    {
+      id: "pile_barrel",
+      weight: 2,
+      layers: [
+        ["cc", "cB"],
+        ["cc", "__"],
+      ],
+      legend: {
+        c: { block: "minecraft:coal_block" },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

@@ -1,0 +1,30 @@
+// K2 · Tränke (DA Utility: Animal): Wasserkessel als Trog, Variante mit Heuballen als Futter. Kein offenes
+// Wasser (Kessel), keine Stütze nötig. Für Stall, Hof, Scheune.
+{
+  id: "outdoor/trough",
+  kind: "static",
+  name: "Tränke",
+  category: "work",
+  tags: ["trough", "outdoor", "water_feature"],
+  styleTags: ["rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "water",
+      weight: 2,
+      layers: [["CC"]],
+      legend: { C: { block: "minecraft:water_cauldron", state: { level: "3" } } },
+    },
+    {
+      id: "feed",
+      weight: 1,
+      layers: [["CH"]],
+      legend: {
+        C: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        H: { block: "minecraft:hay_block", orient: { axis: "along" } },
+      },
+    },
+  ],
+}

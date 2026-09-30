@@ -1,0 +1,30 @@
+// K3d · Wandketten / Fesseln (research/11 K-3, D1/D4): zwei kurze Ketten an der Raumwand (Rolle `metal`,
+// ab 1.21.9 `iron_chain`; Ketten brauchen keine Stütze). Über Kopfhöhe (Boden + 2) → kein Laufweg belegt;
+// in hohen Räumen längere Ketten (2 Glieder, ab lichter Höhe 4). Tag `shackles` (nur Kerker, Folterkammer).
+{
+  id: "decor/shackles",
+  kind: "static",
+  name: "Wandketten",
+  category: "attachment",
+  tags: ["shackles", "grim_decor", "wall_decor"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [2],
+  variants: [
+    {
+      id: "pair",
+      weight: 2,
+      layers: [["C.C"]],
+      legend: { C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+    },
+    {
+      id: "long",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["C.C"], ["C.C"]],
+      legend: { C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+    },
+  ],
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@mcda/catalog",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "json5": "^2.2.3",
+    "zod": "^4.6.5"
+  }
+}

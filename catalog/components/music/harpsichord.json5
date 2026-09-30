@@ -1,0 +1,31 @@
+// K3a · Cembalo (research/17 §4.26, Mu1/Mu3): Korpus aus umgedrehten Treppen, davor eine Reihe oberer Quarzstufen
+// als weiße Tasten, dahinter aufgestellte Falltüren als Deckel/Notenpult (offene Falltür liegt an der Seite gegenüber
+// ihrer Blickrichtung → Blick „front“ = Paneel an der Hinterkante). Über den Tasten bleibt Luft. Frei stehend wie ein
+// Flügel (jede Drehung, Tasten zur Nutzungsseite). Hocker über Socket vorn (richtungslos, 1 × 1 → in jeder Drehung
+// mittig), V3: Hängelaterne über dem Instrument (`hang`).
+{
+  id: "music/harpsichord",
+  kind: "static",
+  name: "Cembalo",
+  category: "furniture",
+  tags: ["harpsichord", "keyboard_instrument"],
+  functionTags: ["play"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["BBB", "KKK"], // y0: Korpus | Tasten
+    ["LLL", "___"], // y1: Deckel/Notenpult | Luft über den Tasten
+  ],
+  legend: {
+    B: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    K: { block: "minecraft:quartz_slab", orient: { upsideDown: true } },
+    L: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+  },
+  sockets: [
+    { id: "stool", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["bar_stool"], prob: 0.8, facing: "same" },
+    { id: "lamp", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.4 },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

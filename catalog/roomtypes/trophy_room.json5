@@ -1,0 +1,31 @@
+// Trophäenraum (research/17 §4.4, Tr1–Tr5). K3a. Signatur: Trophäen-Sockel in Reihe an den Wänden (Vitrinen-Reihe,
+// Solver v2 `row`, gap 1), dazu Rahmen- und Waffenwände, Ausstellungsregale (1.21.9+), Läufer in der Mitte, hell
+// (≥ 8). V3 „mehr in die Höhe“: Sockel als Säulen, Kopf-Trophäen über Kopfhöhe, Wandteppiche unter der Decke,
+// Deckenbanner, Kronleuchter an der Kette. Rüstungsständer (armor_mannequin) fehlen: ERW Y6 (Entity armor_stand
+// mit Ausrüstung), bis dahin übernehmen Waffenständer/Rüstungswand (`wall_weapons`).
+{
+  id: "trophy_room",
+  name: "Trophäenraum",
+  minArea: 16,
+  coverage: { target: 0.35 },
+  required: [
+    { tags: ["trophy_pedestal", "glass_case_trophy"], count: { perArea: 10, min: 2, max: 8 }, signature: true, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 1 } },
+  ],
+  optional: [
+    { tags: ["display_shelf"], count: [0, 2], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["wall_weapons"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 3, placement: { zones: ["center"] } },
+    // V3 (Raumhöhe nutzen): Trophäen über Kopfhöhe, Pfeiler zwischen den Vitrinen (Tr5), Behang, Deckenbanner
+    { tags: ["trophy", "mounted_antlers"], count: [2, 4], weight: 3 },
+    // FN-dense-grand: Schiffsbucht-Arkade (Steinpfeiler mit Bogen) gliedert die Längswände
+    { tags: ["fn_nave_bay"], count: { perArea: 16, min: 2, max: 8 }, weight: 6, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    // FN-dense-grand: Schaupodest (Glaskasten mit vier Stücken) in der Raummitte – der Raum bekommt eine Mitte
+    { tags: ["fn_plinth"], count: { perArea: 40, min: 1, max: 3 }, weight: 6, placement: { zones: ["center", "edge"] } },
+    { tags: ["pilaster", "gallery_bay"], count: [0, 3], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["tapestry", "wall_banner"], count: [1, 3], weight: 3 },
+    { tags: ["ceiling_banner"], count: [1, 2], weight: 2 },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 3], weight: 4 },
+    { tags: ["wall_candles"], count: [0, 4], weight: 2 },
+  ],
+  lighting: { minLevel: 8, prefer: ["chandelier", "light_ceiling", "light_wall", "candles", "light_floor"] },
+}

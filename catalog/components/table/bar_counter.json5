@@ -1,0 +1,37 @@
+// Schanktheke mit Fasswand (research/11 §6.6 T-1): hinten liegende Fässer (2 hoch, Deckel zum Wirtsgang),
+// dazwischen ein 1 breiter Wirtsgang ('_', begehbar), vorn die Theke aus umgedrehten Treppen.
+// Der Gang ist nur über seine Stirnseiten erreichbar – die Konnektivitätsregel des Solvers verwirft Posen,
+// bei denen er abgeschnitten wäre (G1). Zapfhähne (Stolperdrahthaken) bewusst weggelassen: die Physik-Regel
+// für Haken fehlt noch (sie würden als „braucht volle Oberseite“ geprüft). Fässer öffnen immer (G2).
+{
+  id: "table/bar_counter",
+  kind: "static",
+  name: "Schanktheke",
+  category: "furniture",
+  tags: ["bar_counter"],
+  functionTags: ["store", "work:fisherman"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["RRRR", "____", "UUUU"], // y0: Fässer | Wirtsgang | Theke
+    ["RRRR", "____", "...."], // y1: Fässer | Kopfraum im Gang | Ablage über Sockets
+  ],
+  legend: {
+    R: { block: "minecraft:barrel", orient: { front: "front" } },
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+  sockets: [
+    { id: "top_0", type: "surface", at: [0, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+    { id: "top_1", type: "surface", at: [1, 1, 2], accepts: ["mug", "candles", "light_small"], prob: 0.6 },
+    { id: "top_2", type: "surface", at: [2, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.5 },
+    { id: "top_3", type: "surface", at: [3, 1, 2], accepts: ["mug", "candles"], prob: 0.5 },
+    { id: "stool_1", type: "adjacent", at: [1, 0, 3], side: "front", accepts: ["bar_stool"], prob: 0.8, facing: "same" },
+    { id: "stool_2", type: "adjacent", at: [2, 0, 3], side: "front", accepts: ["bar_stool"], prob: 0.6, facing: "same" },
+    // V3: Laternen über der Theke
+    { id: "lamp_l", type: "hang", at: [0, 99, 2], accepts: ["light_pendant"], prob: 0.5, pairWith: "lamp_r" },
+    { id: "lamp_r", type: "hang", at: [3, 99, 2], accepts: ["light_pendant"], prob: 0.5 },
+  ],
+  masks: { clearance: [{ side: "front", depth: 2, hard: false }] },
+}

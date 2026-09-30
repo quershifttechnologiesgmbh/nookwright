@@ -1,0 +1,31 @@
+// research/53 D13 · Wetterfahne: Pfahl auf dem First mit einer drehbaren Spitze. „arrow“ nutzt einen Rahmen mit
+// Pfeil auf der Pfahlspitze, „compass“ einen Rahmen mit Kompass. Q1a: der Pfahl ist ein voller Stamm (ein nach
+// oben ausgerichteter Rahmen braucht eine volle Fläche unter sich – ein Zaun trägt ihn nicht), der Rahmen sitzt
+// in der frei gehaltenen Zelle darüber.
+{
+  id: "exterior/weathervane",
+  kind: "static",
+  name: "Wetterfahne",
+  category: "decor",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "noble", "timber", "rustic", "farmstead", "nordic", "harbor"],
+  obtainability: "survival",
+  mount: "roof_peak",
+  rotations: "all",
+  layers: [["F"], ["_"]],
+  legend: { F: { role: "beam", shape: "log", orient: { axis: "y" } } },
+  variants: [
+    { id: "arrow", weight: 2, entities: [{ type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:arrow" } }] },
+    // EXT: „vane“ = Pfosten mit Fahne aus Blöcken (die Bildrahmen der anderen Varianten zeigen im Renderer schwebende Kacheln)
+    {
+      id: "vane",
+      weight: 1,
+      layers: [["F"], ["B"]],
+      legend: {
+        F: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { role: "textile_primary", shape: "banner", orient: { front: "left" } },
+      },
+    },
+    { id: "compass", weight: 1, entities: [{ type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:compass" } }] },
+  ],
+}

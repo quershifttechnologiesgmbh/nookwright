@@ -1,0 +1,57 @@
+// K3d · Bettnische (research/16 I6, P2; S5 Schlafzimmer: Bett in der Nische, flankiert von Pfosten/Regalen;
+// S7 „Bed Details“). Das Bett liegt QUER an der Wand (Kopf links/Westen), links und rechts Bücherregale bzw.
+// Stamm-Pfosten, darüber ein Sturz aus oberen Stufen – die Zelle direkt über dem Bett bleibt Luft ('_'),
+// sonst ließe sich nicht schlafen (Faktencheck #8: nur ein erstickender Block direkt darüber stört).
+// Erst ab lichter Höhe 3 (Sturz auf Boden + 2); „posts“ mit Wandbanner als Himmel im Rücken.
+// Aufwachplatz: die Zellen vor dem Bett bleiben frei (Maske `use`, Faktencheck #8 Respawn).
+{
+  id: "bed/alcove",
+  kind: "static",
+  name: "Bettnische",
+  category: "furniture",
+  tags: ["bed", "bed_single", "bed_alcove"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  minRoomHeight: 3,
+  variants: [
+    {
+      id: "shelves",
+      weight: 2,
+      layers: [
+        ["KHFK"], // y0: Regal | Kopf | Fuß | Regal
+        ["K__K"], // y1: Luft über dem Bett
+        ["KzzK"], // y2: Sturz aus oberen Stufen
+      ],
+      legend: {
+        K: { block: "minecraft:bookshelf" },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "right" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "right" } },
+        z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      sockets: [
+        { id: "shelf_l", type: "surface", at: [0, 3, 0], accepts: ["candles", "plant"], prob: 0.4 },
+        { id: "shelf_r", type: "surface", at: [3, 3, 0], accepts: ["candles", "plant"], prob: 0.4 },
+      ],
+    },
+    {
+      id: "posts",
+      weight: 2,
+      layers: [
+        ["PHFP"],
+        ["PV_P"], // y1: Wandbanner über dem Kopf (hängt an der Wand, erstickt nicht)
+        ["PzzP"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "right" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "right" } },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+}

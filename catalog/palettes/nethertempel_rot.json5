@@ -1,0 +1,81 @@
+// Nethertempel Rot – magisch, Biome: nether, Stile: fantasy.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "nethertempel_rot",
+  name: "Nethertempel Rot",
+  mood: "magisch",
+  biomes: ["nether"],
+  styles: ["fantasy"],
+  values: ["minecraft:nether_bricks", "minecraft:red_nether_bricks", "minecraft:polished_blackstone_bricks", "minecraft:gilded_blackstone", "minecraft:blackstone"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "nether_bricks", weight: 50 },
+        { family: "red_nether_bricks", weight: 30 },
+        { family: "nether_bricks", variant: "cracked", weight: 20 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "polished_blackstone_bricks", weight: 60 },
+        { family: "blackstone", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "gilded_blackstone", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "blackstone", weight: 55 },
+        { family: "polished_blackstone_bricks", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      // edge_fixed: eigene Wertstufe fuer den First (Q4, research/53 §1-3)
+      blocks: [
+        { family: "red_nether_bricks", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "crimson", shape: "log", weight: 70 },
+        { family: "crimson", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "nether_bricks", weight: 55 },
+        { family: "red_nether_bricks", weight: 45 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:red", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:red", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:soul_lantern", weight: 60 },
+        { family: "iron", shape: "lantern", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "crimson", shape: "leaves", weight: 55 },
+        { family: "crimson", shape: "sapling", weight: 45 },
+      ],
+    },
+  },
+}

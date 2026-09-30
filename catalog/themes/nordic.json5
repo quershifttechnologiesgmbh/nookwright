@@ -1,0 +1,304 @@
+// Nordic / Viking: Fichte überall, entrindete Fichtenbalken, dunkles Holzschindeldach, Bruchstein-Sockel,
+// weiße Felle mit roten Akzenten, Eisenlaternen. Erbt Böden, Decke und Verwitterung von medieval.
+// W12-D (28.09.2026, Review R6-6): Blockbau statt Bohlenwand – Steinsockel, Schwellbalken und Eckständer mit Rinde,
+// liegende entrindete Stämme in drei Tönen, Giebel als senkrechte Bretter, Schindeldach mit Schiefer am First,
+// gekreuzte Windbretter (plan/spikes/W12D_nordisch.md).
+{
+  id: "nordic",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { formality: -0.5, richness: 0.25 },
+  name: "Nordisch",
+  description: "Blockbau aus entrindeten Stämmen auf Steinsockel, Schindeldach mit Schiefer, weiß-rote Textilien",
+  base: "medieval",
+  roles: {
+    // Fichtendielen, dunkle Eiche als einzelne Bretter
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "spruce", weight: 90 },
+        { family: "dark_oak", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    // P5 Bohlenwand über die ganze Fassade (W2 Regeln W4/W5): Fichtenbretter tragen, dunkle Eiche am Fuß des Gebäudes;
+    // keine Zufallsstämme im Bretterfeld (Stämme stehen als Eckständer und liegen als Geschossband)
+    // W12-D (28.09.2026, Review R6-6 „nordisch einfarbiges Holz“): Blockbau (norwegisch „laft“) statt Bohlenwand – die
+    // Wand liegt als waagerechte, entrindete Stämme (`surfaces.wall`: Form `log` entlang der Wand). Drei Töne in ganzen
+    // Stammstücken (`noise.boards`: je Stück 6 Blöcke, Reihen versetzt): entrindete Fichte trägt, entrindete Eiche als
+    // hellere, verwitterte Stämme, entrindete dunkle Eiche als dunklere; unten dunkler, oben heller (`facade_h`).
+    // Nur Stämme, keine Bretter im Feld (W4). Vorbilder: waagerechte Fichtenstämme zwischen Rindenpfosten
+    // (r/Minecraftbuilds 1k3cfel), „stripped spruce → spruce → dark oak“ (minecraftgradient.blog/minecraft-color-palette),
+    // Blockhäuser mit grau-braun verwitterten Stämmen (en.wikipedia.org/wiki/Sod_roof, plan/spikes/W12D_nordisch.md).
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.1,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "spruce", variant: "stripped_log", weight: 70 },
+            { family: "dark_oak", variant: "stripped_log", weight: 30 },
+          ] },
+          { at: 0.5, mix: [
+            { family: "spruce", variant: "stripped_log", weight: 85 },
+            { family: "oak", variant: "stripped_log", weight: 10 },
+            { family: "dark_oak", variant: "stripped_log", weight: 5 },
+          ] },
+          { at: 1, mix: [
+            { family: "spruce", variant: "stripped_log", weight: 85 },
+            { family: "oak", variant: "stripped_log", weight: 15 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 1, octaves: 1, boards: 6 },
+      // Stamm entlang der Wand und Eckholz entrindet (sonst fiele die Form `log`/`wood` auf den Rindenstamm zurück)
+      shapes: { log: "stripped_log", wood: "stripped_wood" },
+    },
+    // W12-D: Rahmenholz ≠ Wandholz – Balken und Geschossband als Stamm mit Rinde in dunkler Eiche (vorher entrindete
+    // Fichte, jetzt der Ton der Wand), Eckständer als Fichtenstamm mit Rinde (Pfosten vor der Blockwand, Vorbild 1k3cfel)
+    beam: { family: "dark_oak" },
+    pillar: { family: "spruce" },
+    // Bruchstein-Sockel (W7): ein Stein, außen bemoost
+    foundation: {
+      mix: [
+        { family: "cobblestone", weight: 70 },
+        { family: "mossy_cobblestone", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    door: { family: "spruce" },
+    // W12-D: Fensterrahmen dunkel vor der hellen Blockwand, Läden in Fichte (vorher Rahmen Fichte wie die Wand)
+    window_frame: { family: "dark_oak" },
+    ceiling: { family: "spruce" },
+    // P10 Holzschindeldach als Deckungsrezept (W2 Regel D1). W4 (27.09.2026, Baustandard D9, Review M5): geteerte
+    // Schindeln in dunkler Eiche statt Fichte – vorher Fichtendach über Fichtenwand (Helligkeitsabstand 0), die Burg
+    // las sich „komplett holzbraun“. Dunkles Dach, helle Windbretter wie an skandinavischen Holzhäusern. Ganze Ringe.
+    // W12-D (28.09.2026, Review R6-6): zwei Töne in ganzen Ringen – das Traufdrittel (t ≤ 1/3) geteerte Schindeln (dunkle
+    // Eiche, wie der Traufbalken „torvvol“ der Torfdächer), darüber Tiefenschieferfliesen (Schiefer, „skifertak“). Keine
+    // Flecken (`patch`): im Blind-A/B lasen sich Schieferflecken im Holzdach als Rauschen. Vorbilder: geteerte
+    // Schindeldächer der Stabkirchen (en.wikipedia.org/wiki/Borgund_Stave_Church), Tiefenschiefer-Dach mit Fichtenkante
+    // (r/Minecraftbuilds 1od91dj), Traufbalken am Torfdach (en.wikipedia.org/wiki/Sod_roof).
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "dark_oak", weight: 1 }] },
+          { at: 0.34, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 1, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+        ],
+      },
+    },
+    // Kante (D3), W4 (27.09.2026, Baustandard D9, Review M5): nicht die Dachfamilie (dunkle Eiche).
+    // W5-B (27.09.2026, Review W4-R N5 „gerahmtes Bild“): Fichte statt Eiche – die helle Eichenkante (L 0,63, doppelt so
+    // hell wie das Dach, 38 % der Dachzellen) rahmte das dunkle Dach wie ein Bild. In 15 Holzbau-Vorbildern mit
+    // sichtbarem Dach hat keins eine helle Kante (7 von 8 dunklen Dächern: Kante im Ton des Dachs; plan/spikes/W5B_burg.md).
+    // Die Fichtenkante (0,47) läuft im Holzton der Wand und hebt sich um 0,16 vom Dach ab (D3-Ausnahme „dunkles Dach über
+    // Holzwand“). Mangrove (0,42) war der erste Versuch: im Bild ein rosa Rand.
+    roof_trim: { family: "spruce" },
+    // W2 (Baustandard D4, Giebel-Rezept): senkrechte helle Bretter (entrindete Eiche, sonnengebleicht) zwischen Fichtenwand und Windbrett
+    // W12-D (28.09.2026, Review R6-6): senkrechte Bretterschalung in drei Tönen – je Brett (3 Blöcke hoch, je Spalte
+    // versetzt: `boardAxis: "b"`) entrindete Eiche (hell, trägt), Fichte und dunkle Eiche. Vorher eine Familie: das
+    // obere Fassadenband war einfarbig (1 Familie). Vorbild: senkrechte Planken zwischen den Stäben
+    // (en.wikipedia.org/wiki/Stave_church), heller Holzgiebel unter dunklem Dach (r/Minecraftbuilds 1od91dj).
+    wall_gable: {
+      mix: [
+        { family: "oak", variant: "stripped_log", weight: 60 },
+        { family: "spruce", variant: "stripped_log", weight: 30 },
+        { family: "dark_oak", variant: "stripped_log", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1, boards: 3, boardAxis: "b" },
+    },
+    // W2 (Regel W6): Gesims/Geschossband am Holzhaus aus Holz im Kontrastton, nicht der geerbte Steinziegel
+    wall_cornice: { family: "dark_oak" },
+    // Außenprofil: Bruchstein-Sockel, Läden dunkel
+    wall_plinth: { family: "cobblestone" },
+    // W12-D: Eckquader in der Sockelreihe aus Bruchstein wie der Sockel (sonst der geerbte Tiefenschieferziegel von
+    // medieval); darüber wird die Ecke im Holzfeld wie bisher ein senkrechter Stamm (`beam`)
+    wall_quoin: { family: "cobblestone" },
+    shutter: { family: "spruce" },
+    furniture_wood: { family: "spruce" },
+    // W12-D: Schlot und Rückwand aus Bruchstein statt Ziegel (medieval) – der rote Ziegelschornstein las sich im
+    // Blind-A/B „nicht nordisch“; Bruchstein wie Sockel (blockblend.app/guides/best-block-combinations: „cobble for
+    // foundation and chimney“)
+    hearth_alt: { family: "cobblestone" },
+    textile_primary: { color: "white" },
+    textile_accent: { color: "red" },
+    light_hanging: { family: "iron" },
+    metal: { family: "iron" },
+    // Befestigung als Palisade: Krone aus stehenden Stämmen, Wehrgang aus Bohlen
+    // (Leiter, Turmböden und Schießscharten erbt nordic von medieval).
+    // W5-B (27.09.2026, Baustandard D9 Bauwerk, Review W4-R N5 „Burg komplett braun“): Krone nur aus Stämmen mit Rinde
+    // (L 0,29–0,31, vorher Bretter und Stämme gefleckt, L 0,35) und ein heller Eichenbelag auf Wehrgang und
+    // Turmplattformen (L 0,63, vorher Fichte wie die Mauer) – dunkle Krone, mittlere Mauer, heller Belag, Steinsockel.
+    // Vorbilder: dunkle Palisaden-Stämme (W3, W6, W21) und helle Plattformen aus Eichenbohlen (W5, W9, W12, W13, W17).
+    parapet: {
+      mix: [
+        { family: "spruce", variant: "log", weight: 85 },
+        { family: "dark_oak", variant: "log", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    walkway: { family: "oak" },
+    // W9-G5 (Materialspiel): die Palisadenburg ist schon aus Holz – Hurde wie die Stammkrone, Turmdach wie das
+    // Schindeldach (nicht das Fichtendach von medieval: Holz auf Fichtenwand ohne Wertabstand), Zinnenkappen dunkel
+    hoarding: {
+      mix: [
+        { family: "spruce", variant: "log", weight: 85 },
+        { family: "dark_oak", variant: "log", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    roof_tower: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "dark_oak", weight: 1 }] },
+          { at: 1, mix: [{ family: "dark_oak", weight: 1 }] },
+        ],
+      },
+    },
+    crown_cap: { family: "dark_oak" },
+    // W7-B (plan/spikes/W7B_burg.md, Review W4-R „nordische Burg überwiegend braun“): Sockelgeschoss der Mauertürme bis
+    // zum Wehrgang aus Bruchstein wie der Hausockel (Steintürme mit Holzteilen: W1, W4, W11, W14, W16 aus W5-B) – Stein
+    // unten, Fichte in der Mitte, dunkle Stammkrone, heller Eichenbelag
+    fort_base: {
+      mix: [
+        { family: "cobblestone", weight: 80 },
+        { family: "mossy_cobblestone", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+
+    // ---------------------------------------------------------------- Außen (erbt die übrigen Rollen von medieval)
+    // Karger Boden: mehr Podsol und Moos, Farn statt Blumen, kühle Blütenfarben, Nadelholz
+    // W3 (27.09.2026, Grundstück): weniger Erdflecken im Rasen – Podsol 12 → 4 %, grobe Erde 3 → 0 % (nordisch darf
+    // etwas rauer bleiben als medieval, aber kein Sprenkelteppich)
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 89 },
+        { block: "minecraft:moss_block", weight: 7 },
+        { block: "minecraft:podzol", weight: 4 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:gravel", weight: 30 },
+        { block: "minecraft:dirt_path", weight: 40 },
+        { block: "minecraft:coarse_dirt", weight: 20 },
+        { block: "minecraft:podzol", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { family: "stone", weight: 20 },
+        { block: "minecraft:gravel", weight: 25 },
+        { family: "cobblestone", weight: 35 },
+        { family: "mossy_cobblestone", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    leaves_oak: { family: "oak" },
+    leaves_bush: {
+      mix: [
+        { block: "minecraft:azalea_leaves", weight: 30 },
+        { block: "minecraft:birch_leaves", weight: 20 },
+        { block: "minecraft:spruce_leaves", weight: 50 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:oxeye_daisy", weight: 25 },
+        { block: "minecraft:azure_bluet", weight: 25 },
+        { block: "minecraft:lily_of_the_valley", weight: 20 },
+        { block: "minecraft:cornflower", weight: 20 },
+        { block: "minecraft:allium", weight: 10 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:short_grass", weight: 45 },
+        { block: "minecraft:fern", weight: 45 },
+        { block: "minecraft:bush", weight: 10 },
+      ],
+    },
+    // Laubstreu und Wildblumen gibt es erst ab 1.21.5; Rosa Blütenblätter halten ältere Versionen gültig
+    ground_cover: {
+      mix: [
+        { block: "minecraft:pink_petals", weight: 10 },
+        { block: "minecraft:wildflowers", weight: 30 },
+        { block: "minecraft:leaf_litter", weight: 60 },
+      ],
+    },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  // W2 (Baustandard F1): nordische Hallen mit weiten Feldern 5 (X2 §6.2)
+  facade: { bay: 5 },
+  paletteRoleMap: {
+    // W7-B (Review W4-R N5, W5-B §6): Krone und Wehrgang nicht in der Wandfarbe der Palette – sie behalten die dunkle
+    // Stammkrone und den hellen Eichenbelag des Themes (D9 Bauwerk auch mit Farbwelt). Das Rahmenholz der Paletten
+    // taugt nicht als Krone: sein Stamm-Eintrag hat die Form `log`, die Krone fragt `block` – übrig blieben Bretter
+    wall_primary: ["wall_primary", "foundation"],
+    trim: ["wall_plinth"],
+    roof: ["roof_main", "roof_tower"],
+    roof_accent: ["roof_trim"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld aus Brettern/Stämmen färbt die Palette wie das Holz
+    wood_frame: ["beam", "pillar", "wall_gable"],
+    floor: ["floor_primary", "ground_grass", "ground_path", "ground_yard"],
+    accent: ["textile_primary", "textile_accent"],
+    glass: ["shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "grass_tuft", "ground_cover"],
+  },
+
+  surfaces: {
+    // Alle Wände aus Holz (keine Putz-Innenwände).
+    // W12-D: Steinsockel – die unterste Außenwandreihe im Erdgeschoss (auch über einem Keller) aus Bruchstein wie der Sockel (Stabkirche und
+    // Langhaus stehen auf Stein: en.wikipedia.org/wiki/Stave_church, Lofotr); darüber liegen die Wandstämme waagerecht
+    // entlang der Wand, an Spalten ohne Laufrichtung als Eckholz (`along`, Form `wood`).
+    wall: [
+      { when: { exterior: true, storey: 0, hRel: 0 }, role: "foundation" },
+      // Schwelle: die Reihe über dem Steinsockel ist ein liegender Rindenstamm in dunkler Eiche (Stabkirche: Stein →
+      // Schwellbalken → Wand; en.wikipedia.org/wiki/Stave_church) – Rahmenholz ≠ Wandholz, auch unter den Fenstern
+      { when: { exterior: true, storey: 0, hRel: 1 }, role: "beam", shape: "log", along: true, corner: "wood" },
+      { role: "wall_primary", shape: "log", along: true, corner: "wood" },
+    ],
+    // Holzhaus: der Rähm über den Außenwänden ist ein liegender Stamm (wie rustic), die Außenhaut des Steinhauses
+    // (medieval: `wall_primary` bis unter das Dach) gilt hier nicht
+    ceiling: [{ beams: { role: "beam", period: 3 }, plate: { role: "beam" } }],
+  },
+  decor: {
+    // W13-B (28.09.2026): Torfdach wie an nordischen Blockhäusern – Grassoden (Moos in Flecken, vereinzelt Gras und
+    // Blumen) auf der Dachhaut, die Ortgangtreppen stehen eine Stufe höher als Windbretter und halten den Torf, die
+    // Traufreihe bleibt dunkles Brett (Traufbalken, „torvvol“). Vorbilder: en.wikipedia.org/wiki/Sod_roof,
+    // lokalhistoriewiki.no/wiki/Torvtekking, r/Minecraftbuilds 1k3cfel. Der Projekt-Seed wählt Torf- oder Holzdach.
+    turfRoof: { roles: ["roof_main", "roof_trim"], boards: ["roof_trim"], share: 0.75, moss: 0.6, plants: 0.12 },
+  },
+  items: {
+    "food.any": ["minecraft:cooked_salmon", "minecraft:bread", "minecraft:dried_kelp", "minecraft:cooked_mutton"],
+    "deco.small": ["minecraft:leather", "minecraft:rabbit_hide", "minecraft:feather"],
+  },
+}

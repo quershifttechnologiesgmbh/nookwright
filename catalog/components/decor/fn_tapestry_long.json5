@@ -1,0 +1,61 @@
+// FN · Langer Wandteppich (Innenraum-Offensive): 3–5 breit und 2 hoch, direkt unter der Decke (wallHeights −1), mit
+// Zweifarb-Streifen (senkrechte Bahnen, damit die zwei Lagen keine Naht zeigen) statt zwei einzelner Banner (Vorbild: Tapisserien-Bahnen an Hallenwänden, Community-Foyers). Die
+// Zellen darunter (y = −1) bleiben als Luft reserviert (das Tuch hängt sichtbar tiefer). Alle Zellen der untersten
+// Lage brauchen Wand dahinter (Solver); die obere Lage steht in derselben Wandspalte. Durchlaufbar (Banner ohne
+// Kollision). Spiegelsymmetrisch (links/rechts). Lichte Höhe ≥ 4, sonst ragt das Tuch zu tief. Tag `fn_tapestry`.
+{
+  id: "decor/fn_tapestry_long",
+  kind: "static",
+  name: "Langer Wandteppich",
+  category: "attachment",
+  tags: ["fn_tapestry"],
+  styleTags: ["medieval", "noble", "nordic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeights: [-1],
+  minRoomHeight: 4,
+  rotations: "backToWall",
+  walkable: true,
+  variants: [
+    {
+      id: "stripe5",
+      weight: 3,
+      layers: [["PPAPP"], ["PPAPP"]],
+      legend: {
+        P: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        A: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { air: [[0, -1, 0], [1, -1, 0], [2, -1, 0], [3, -1, 0], [4, -1, 0]] },
+    },
+    {
+      id: "pinstripe5",
+      weight: 2,
+      layers: [["PAPAP"], ["PAPAP"]],
+      legend: {
+        P: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        A: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { air: [[0, -1, 0], [1, -1, 0], [2, -1, 0], [3, -1, 0], [4, -1, 0]] },
+    },
+    {
+      id: "twin4",
+      weight: 2,
+      layers: [["PAAP"], ["PAAP"]],
+      legend: {
+        P: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        A: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { air: [[0, -1, 0], [1, -1, 0], [2, -1, 0], [3, -1, 0]] },
+    },
+    {
+      id: "triple3",
+      weight: 2,
+      layers: [["PAP"], ["PAP"]],
+      legend: {
+        P: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        A: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { air: [[0, -1, 0], [1, -1, 0], [2, -1, 0]] },
+    },
+  ],
+}

@@ -1,0 +1,77 @@
+// Piratenbucht Holz – gemuetlich, Biome: beach, ocean, Stile: coastal, rustic.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "piratenbucht_holz",
+  name: "Piratenbucht Holz",
+  mood: "gemuetlich",
+  biomes: ["beach", "ocean"],
+  styles: ["coastal", "rustic"],
+  values: ["minecraft:oak_planks", "minecraft:stripped_oak_log", "minecraft:spruce_planks", "minecraft:dark_oak_planks", "minecraft:dark_oak_log"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "oak", weight: 55 },
+        { family: "spruce", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "oak", shape: "stripped_log", weight: 60 },
+        { family: "spruce", shape: "stripped_log", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "dark_oak", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "dark_oak", weight: 60 },
+        { family: "spruce", weight: 40 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { family: "oxidized_copper", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "dark_oak", shape: "log", weight: 70 },
+        { family: "dark_oak", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "oak", weight: 65 },
+        { family: "oak", shape: "stripped_log", weight: 35 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:brown", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 100 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:kelp", weight: 55 },
+        { block: "minecraft:dead_bush", weight: 45 },
+      ],
+    },
+  },
+}

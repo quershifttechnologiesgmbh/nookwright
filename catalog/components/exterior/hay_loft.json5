@@ -1,0 +1,43 @@
+// W12-C · Heuluke (Review R6-4): geschlossene Ladeluke des Heubodens im Scheunengiebel über dem Tor (Pennsylvania-
+// Scheune: große Luke im oberen Giebel, phmc.state.pa.us „Hay Hood and Door“; en.wikipedia.org/wiki/Hay_hood). Flügel
+// aus offenen Falltüren flach an der Giebelwand (`shutter`), Rahmen in der hellen Kantenrolle `trim_light`: Bank aus
+// Treppen, Eckbretter, Sturz aus umgedrehten Treppen. Spiegelsymmetrisch, 5 bzw. 3 breit.
+//
+//     H H H H H   y3        H H H
+//     P L L L P   y2        P L P
+//     P L L L P   y1        P L P
+//     S S S S S   y0        S S S
+{
+  id: "exterior/hay_loft",
+  kind: "static",
+  name: "Heuluke",
+  category: "architecture",
+  tags: ["exterior", "exterior_barn", "outdoor"],
+  styleTags: ["rustic", "farmstead", "medieval"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "wide",
+      weight: 1,
+      layers: [["SSSSS"], ["PLLLP"], ["PLLLP"], ["HHHHH"]],
+      legend: {
+        S: { role: "trim_light", shape: "stairs", orient: { back: "back" } },
+        P: { role: "trim_light", shape: "block" },
+        L: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        H: { role: "trim_light", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "narrow",
+      layers: [["SSS"], ["PLP"], ["PLP"], ["HHH"]],
+      legend: {
+        S: { role: "trim_light", shape: "stairs", orient: { back: "back" } },
+        P: { role: "trim_light", shape: "block" },
+        L: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        H: { role: "trim_light", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+}

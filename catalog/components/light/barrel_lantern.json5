@@ -1,0 +1,21 @@
+// K2 · Fasslaterne (DA Lights: Lanterns): stehende Laterne auf einem Fass (stabile Mitte, T5). Licht 15.
+// Einfache Stehleuchte für Lager, Werkstatt, Taverne.
+{
+  id: "light/barrel_lantern",
+  kind: "static",
+  name: "Fasslaterne",
+  category: "light",
+  tags: ["light", "light_floor"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  layers: [["B"], ["L"]],
+  legend: {
+    B: { block: "minecraft:barrel", orient: { front: "up" } },
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+  },
+  masks: { support: [{ at: [0, 1, 0], side: "down", kind: "center" }] },
+  light: "auto",
+}

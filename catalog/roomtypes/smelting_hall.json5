@@ -1,0 +1,39 @@
+// Schmelzhalle (FN, Welle 28.09.2026): Schmelz- und Verarbeitungsanlagen, die mit der Fläche wachsen. Vorbilder: die Schmelz-
+// Hallen der Zwergen-/Industrie-Basen (Ofenbänke an der Rückwand, Erzlinie, Brennstofflager nahe der Tür, Schlot als Blickpunkt).
+// Signatur = Ofenbank (Tag `fn_smelt_bank` oder `fn_smelt_blast`): der Solver nimmt die größte passende Form (2 → 8 Öfen, mit
+// gemeinsamen Leitungen ab 5 hoch). Kleine Hallen bekommen eine Bank und eine Esse; ab etwa 60 Zellen kommen Erzstraße,
+// Räucherbank, Lager und Barrenlager dazu. Zonen: `furnace_hall` (Öfen, tief im Raum), `stock` (Vorrat, Truhen, nahe der Tür).
+// Alle Bausteine tragen die Tags `fn_*`; der Raumtyp ist die einzige Zufahrt (kein Einfluss auf bestehende Räume).
+{
+  id: "smelting_hall",
+  name: "Ofenhalle / Schmelze",
+  minArea: 48,
+  coverage: { target: 0.42 },
+  zones: [
+    { id: "furnace_hall", doorAffinity: "far" },
+    { id: "stock", doorAffinity: "near" },
+  ],
+  required: [
+    { tags: ["fn_smelt_bank", "fn_smelt_blast"], count: [1, 1], signature: true, zone: "furnace_hall", placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    // Zweite und dritte Bank: große Hallen bekommen weitere Öfen, der Solver setzt sie in Reihe neben die erste
+    { tags: ["fn_smelt_bank", "fn_smelt_blast"], count: { perArea: 45, min: 0, max: 2 }, weight: 6, zone: "furnace_hall", placement: { zones: ["edge"] } },
+    { tags: ["fn_smelt_ore_line"], count: { perArea: 64, min: 0, max: 1 }, weight: 6, zone: "furnace_hall", placement: { zones: ["edge"] } },
+    { tags: ["fn_smelt_smoker"], count: { perArea: 90, min: 0, max: 1 }, weight: 4, zone: "furnace_hall", placement: { zones: ["edge"] } },
+    { tags: ["fn_smelt_stack"], count: { perArea: 40, min: 1, max: 2 }, weight: 6, zone: "furnace_hall", placement: { zones: ["edge", "corner"] } },
+    { tags: ["fn_smelt_stock"], count: [1, 2], weight: 4, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["fn_smelt_ingots"], count: [0, 2], weight: 3, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest", "barrel"], count: [1, 3], weight: 3, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 2], weight: 2, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_tools", "wall_shelf"], count: [0, 2], weight: 2 },
+    // Schmiede-Zubehör am Rand der Halle (Werkzeug der Erzverarbeitung; erhöht auch die Auswahl für den Solver)
+    { tags: ["anvil"], count: [0, 1], weight: 2, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["raw_materials", "firewood"], count: [0, 2], weight: 3, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["grindstone", "water_cauldron"], count: [0, 1], weight: 2, zone: "stock", placement: { zones: ["edge", "corner"] } },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+    { tags: ["light_ceiling", "light_pendant"], count: { perArea: 24, min: 1, max: 3 }, weight: 4 },
+  ],
+  // Arbeitslicht: Glut der Öfen (lit = 13) zählt mit; dazu Hängelaternen, keine Kerzen mitten in der Halle
+  lighting: { minLevel: 8, prefer: ["light_pendant", "light_ceiling", "light_wall"], budget: { cellsPer: 16, min: 2 } },
+}

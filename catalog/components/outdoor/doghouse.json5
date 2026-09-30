@@ -1,0 +1,27 @@
+// research/56 · Hundehütte (DA Structural: Animal shelters): Holzbox mit Eingang vorn, Satteldach wie beim
+// Brunnenhaus (`roof_main`-Rollen, gleiche Technik wie `outdoor/well`). Für Hof, neben der Haustür.
+// Q1a: die Bodenlage ist geschlossen (vorher blieb innen eine eingeschlossene Luftzelle, die den Laufweg
+// auftrennt – die Konnektivitätsregel lehnt dann jede Pose ab).
+{
+  id: "outdoor/doghouse",
+  kind: "static",
+  name: "Hundehütte",
+  category: "architecture",
+  tags: ["doghouse", "outdoor", "yard"],
+  styleTags: ["rustic", "village", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["WWW", "WWW", "W_W"], // y0: Boden geschlossen, Eingang vorn (erzwungen frei)
+    ["WWW", "W.W", "WWW"], // y1: Wände
+    ["NNN", "RRR", "SSS"], // y2: Satteldach
+  ],
+  legend: {
+    W: { role: "furniture_wood", shape: "block" },
+    N: { role: "roof_main", shape: "stairs", orient: { back: "front" } },
+    R: { role: "roof_main", shape: "block" },
+    S: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

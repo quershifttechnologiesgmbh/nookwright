@@ -1,0 +1,29 @@
+// K3d · Hängekäfig (V3-Vorschlag „Käfige an Ketten“, research/11 §9 D3/D4; Nutzer-Wunsch „mehr in die Höhe“):
+// Boden aus oberen Stufen (Rolle `foundation`), Wände und Dach aus Eisengittern, innen Luft. V3 `stretch` `drop`:
+// in hohen Räumen hängt der Käfig an einer Kette (stabile Mitte, Faktencheck #3; Blöcke hängen ohne Stütze),
+// die Unterkante etwa auf halber Raumhöhe, nie unter Boden + 2 (Kopffreiheit). Ab lichter Höhe 5.
+// Tag `hanging_cage` (Kerker, Thronsaal-Verlies).
+{
+  id: "decor/hanging_cage",
+  kind: "static",
+  name: "Hängekäfig",
+  category: "decor",
+  tags: ["hanging_cage", "grim_decor", "decor_ceiling"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  minRoomHeight: 5,
+  layers: [
+    ["sss", "sss", "sss"], // y0: Käfigboden (obere Stufen)
+    ["III", "I_I", "III"], // y1: Gitterwände, innen Luft
+    ["III", "ICI", "III"], // y2: Gitterdach, in der Mitte die Kette (in hohen Räumen bis zur Decke verlängert)
+  ],
+  legend: {
+    s: { role: "foundation", shape: "slab", orient: { upsideDown: true } },
+    I: { block: "minecraft:iron_bars" },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+  },
+  masks: { support: [{ at: [1, 2, 1], side: "up", kind: "center" }] },
+  stretch: { layer: 2, max: 8, fill: "drop", rows: ["...", ".C.", "..."] },
+}

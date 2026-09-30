@@ -1,0 +1,24 @@
+// K2 · Fleischhaken (DA Food & Drink: Food; Räucherkammer/Speisekammer): Rahmen mit rohem Fleisch oder
+// Fisch in Augenhöhe unter einer Konsole aus umgedrehter Treppe. 1 breit, an der Raumwand.
+{
+  id: "decor/frame_meat",
+  kind: "static",
+  name: "Fleischhaken",
+  category: "attachment",
+  tags: ["wall_decor", "wall_food", "wall_meat"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["K"]],
+  legend: { K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+  variants: [
+    { id: "porkchop", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:porkchop" } }] },
+    { id: "beef", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:beef" } }] },
+    { id: "mutton", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:mutton" } }] },
+    { id: "rabbit", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:rabbit" } }] },
+    { id: "fish", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:cod" } }] },
+  ],
+}

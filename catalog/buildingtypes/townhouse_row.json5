@@ -1,0 +1,31 @@
+// Entwurf BT08 Häuserzeile (research/19 §4, §7.4): 3–4 Stadthäuser nebeneinander, je eigener Baukörper mit
+// Brandwand und eigenem Dach, jedes anders breit und hoch. Plan und Projekt stehen (Baukörper, V0); in der Galerie erst,
+// wenn die Hülle je Baukörper ableitet.
+{
+  id: "townhouse_row",
+  name: "Häuserzeile",
+  family: "house",
+  status: "draft",
+  styleTags: { require: ["medieval"] },
+  themes: ["timber", "medieval"],
+  sizes: {
+    M: { footprint: [[7, 12], [9, 14]], floors: [3, 4], units: [3, 4] },
+  },
+  massing: { generator: "row" },
+  program: [
+    { room: ["bakery", "butchery", "pottery", "weaving_room", "carpentry"], floor: "ground", share: 0.45, near: "front", prob: 0.9 },
+    { room: "kitchen", floor: "ground", share: 0.55, required: true, near: "back" },
+    { room: "solar", floor: 1, share: 1, required: true },
+    { room: "bedroom", floor: [2, 9], share: 0.7, required: true },
+    { room: "attic", floor: "top", prob: 0.4 },
+  ],
+  stairs: { room: "kitchen", at: "end" },
+  shell: {
+    roof: "gable",
+    overhang: 1,
+    roofDetail: { pitch: "steep", trim: true, verge: "closed", gableWindows: true },
+    facade: { plinthProfile: true, quoins: true, brackets: 3, upperFrame: true },
+  },
+  site: { style: "meadow", lighting: "paths", zones: [{ kind: "plaza", at: "front", depth: 6 }] },
+  checks: { width: [5, 9], floors: [3, 4] },
+}

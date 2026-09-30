@@ -1,0 +1,77 @@
+// Bibliothek Braun – gemuetlich, Biome: plains, forest, Stile: scholar, medieval.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "bibliothek_braun",
+  name: "Bibliothek Braun",
+  mood: "gemuetlich",
+  biomes: ["plains", "forest"],
+  styles: ["scholar", "medieval"],
+  values: ["minecraft:bookshelf", "minecraft:dark_oak_planks", "minecraft:spruce_planks", "minecraft:stripped_dark_oak_log", "minecraft:dark_oak_log"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { block: "minecraft:bookshelf", weight: 45 },
+        { family: "dark_oak", weight: 35 },
+        { family: "spruce", weight: 20 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:white_terracotta", weight: 55 },
+        { family: "calcite", weight: 45 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "dark_oak", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "dark_oak", weight: 60 },
+        { family: "cobbled_deepslate", weight: 40 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:chiseled_bookshelf", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "dark_oak", shape: "log", weight: 70 },
+        { family: "dark_oak", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "dark_oak", weight: 65 },
+        { block: "minecraft:red_carpet", weight: 35 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:red", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 100 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "oak", shape: "leaves", weight: 100 },
+      ],
+    },
+  },
+}

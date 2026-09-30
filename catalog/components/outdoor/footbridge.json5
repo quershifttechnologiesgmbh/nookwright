@@ -1,0 +1,19 @@
+// research/56 · Kleine Brücke über den Bach (DA Structural: Bridges): flache Bohlenbrücke mit Zaun-Geländer
+// beidseitig, 5 lang. Für Bachläufe, Gräben, schmale Teichdurchgänge.
+{
+  id: "outdoor/footbridge",
+  kind: "static",
+  name: "Brücke (klein)",
+  category: "architecture",
+  tags: ["bridge", "outdoor", "path", "pond"],
+  styleTags: ["rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [["RDR", "RDR", "RDR", "RDR", "RDR"]],
+  legend: {
+    R: { role: "furniture_wood", shape: "fence" },
+    D: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

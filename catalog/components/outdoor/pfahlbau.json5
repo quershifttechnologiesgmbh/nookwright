@@ -1,0 +1,60 @@
+// Welle D · D3 (research/24 §7.0, T2 `tropical`): Pfahlbau – das Pfahlfundament mit Deck, auf dem das
+// Pfahldorf-Haus steht (research/24 §7.2 Kernthema (d) „Pfahldorf“, Pflichtrolle `foundation` = Pfähle).
+// 3 × 3 Pfähle tragen das 5 × 5 Deck, dazwischen liegt das Wasser (Variante `water`) bzw. der Fels des Ufers
+// (`dry`). Das Geländer lässt an der Front die Einstiegsstelle frei. Wasser und Deck sind eigene Zellen der
+// Komponente; die Pfähle tragen das Deck, nicht das Wasser.
+{
+  id: "outdoor/pfahlbau",
+  kind: "static",
+  name: "Pfahlbau",
+  category: "architecture",
+  tags: ["pfahlbau", "stilt_house", "pile_dwelling", "outdoor"],
+  styleTags: ["tropical", "harbor"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "water",
+      weight: 3,
+      layers: [
+        ["PWPWP", "WWWWW", "PWPWP", "WWWWW", "PWPWP"], // y0: Pfähle im Wasser
+        ["FFFFF", "FFFFF", "FFFFF", "FFFFF", "FFFFF"], // y1: Deck
+        ["fffff", "f...f", "f...f", "f...f", "ff.ff"], // y2: Geländer mit Einstieg vorn
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { block: "minecraft:water", state: { level: "0" } },
+        F: { role: "furniture_wood", shape: "planks" },
+        f: { role: "furniture_wood", shape: "fence" },
+      },
+    },
+    {
+      id: "dry",
+      weight: 2,
+      layers: [
+        ["PFPFP", "FFFFF", "PFPFP", "FFFFF", "PFPFP"], // y0: Pfähle im Fels
+        ["FFFFF", "FFFFF", "FFFFF", "FFFFF", "FFFFF"], // y1: Deck
+        ["fffff", "f...f", "f...f", "f...f", "ff.ff"], // y2: Geländer
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        F: { role: "foundation", shape: "block" },
+        f: { role: "furniture_wood", shape: "fence" },
+      },
+    },
+    {
+      id: "shallow",
+      weight: 1,
+      layers: [
+        ["PWPWP", "WWWWW", "PWPWP", "WWWWW", "PWPWP"], // y0
+        ["FFFFF", "FFFFF", "FFFFF", "FFFFF", "FFFFF"], // y1: Deck ohne Geländer
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { block: "minecraft:water", state: { level: "0" } },
+        F: { role: "furniture_wood", shape: "planks" },
+      },
+    },
+  ],
+}

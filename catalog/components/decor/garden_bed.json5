@@ -1,0 +1,87 @@
+// K3d · Hochbeet mit Falltür-Einfassung (research/11 F-1, G2–G5: „Pflanzkästen aus dunklen Falltüren um Gras
+// mit Blumen“): Beeterde (Theme-Rolle `garden_soil`: Wurzelerde, Grobe Erde, Podsol – für Blumen gültig, #dirt)
+// als erhöhtes Beet, rundum offene Falltüren, die flach an der Erde anliegen (Einfassung), oben Blumen aus den
+// Theme-Mischungen `flower_warm`/`flower_cool` bzw. Farn und Gras (`grass_tuft`). Blumen brauchen kein Licht und
+// wachsen nicht → dauerhaft. Feldfrüchte bewusst NICHT: in geschlossenen Räumen sterben sie beim Platzieren
+// (T5 §3.4) – die produktive Innenfarm ist farm_room. Falltüren brauchen keine Stütze.
+// Tag `garden_bed` (Gewächshaus-Signatur).
+{
+  id: "decor/garden_bed",
+  kind: "static",
+  name: "Hochbeet",
+  category: "decor",
+  tags: ["garden_bed", "planter_bed"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "long",
+      weight: 3,
+      layers: [
+        [".nnn.", "wSSSe", ".sss."], // y0: Einfassung rundum, Erde in der Mitte
+        [".....", ".fcf.", "....."], // y1: Blumen
+      ],
+      legend: {
+        S: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      id: "square",
+      weight: 2,
+      layers: [
+        [".nn.", "wSSe", "wSSe", ".ss."],
+        ["....", ".fc.", ".cf.", "...."],
+      ],
+      legend: {
+        S: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      id: "herbs",
+      weight: 2,
+      layers: [
+        [".nnn.", "wSSSe", ".sss."],
+        [".....", ".ggg.", "....."],
+      ],
+      legend: {
+        S: { role: "garden_soil", shape: "block" },
+        g: { role: "grass_tuft", shape: "block" },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      // Kompaktform: ein Beet-Block mit Einfassung (passt in jeden Raum)
+      id: "small",
+      weight: 1,
+      layers: [
+        [".n.", "wSe", ".s."],
+        ["...", ".f.", "..."],
+      ],
+      legend: {
+        S: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_warm", shape: "block" },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+  ],
+}

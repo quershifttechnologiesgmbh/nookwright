@@ -1,0 +1,76 @@
+// K3a · Trophäen-Sockel (research/17 §4.4, Tr1–Tr3): Ersatz für Glasvitrinen. Gemeißelter Stein, darauf ein Kopf
+// (Block, Blick zur Raumseite) oder ein Rahmen flach auf dem Sockel mit einem Schaustück (Rahmen oben auf vollem
+// Block hält, FC #9). V3: ab lichter Höhe 3 als Säule mit Mauer-Schaft (Köpfe brauchen keine Stütze; Rahmen nie
+// auf einer Mauer, FC #9 → die Säule trägt nur Köpfe). Skelettschädel/Köpfe nur über geladene Creeper,
+// Witherskelett-Schädel selten, Drachenkopf nur vom End-Schiff, Totem vom Magier → survival_rare.
+// Bewusst ohne `trophy`/`pedestal`: Taverne, Alchemie und Bibliothek sollen ihn nicht ziehen.
+{
+  id: "decor/head_pedestal",
+  kind: "static",
+  name: "Trophäen-Sockel",
+  category: "decor",
+  tags: ["trophy_pedestal", "head_pedestal"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival_rare",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "skeleton",
+      weight: 2,
+      layers: [["A"], ["H"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        H: { block: "minecraft:skeleton_skull", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "wither",
+      weight: 1,
+      layers: [["A"], ["H"]],
+      legend: {
+        A: { block: "minecraft:polished_blackstone_bricks" },
+        H: { block: "minecraft:wither_skeleton_skull", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "dragon",
+      weight: 1,
+      layers: [["A"], ["H"]],
+      legend: {
+        A: { block: "minecraft:chiseled_polished_blackstone" },
+        H: { block: "minecraft:dragon_head", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "relic",
+      weight: 2,
+      layers: [["A"], ["_"]],
+      legend: { A: { block: "minecraft:chiseled_stone_bricks" } },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:totem_of_undying" } }],
+    },
+    {
+      id: "column_skeleton",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["A"], ["W"], ["H"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        W: { block: "minecraft:stone_brick_wall" },
+        H: { block: "minecraft:skeleton_skull", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "column_creeper",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["A"], ["W"], ["H"]],
+      legend: {
+        A: { block: "minecraft:polished_blackstone_bricks" },
+        W: { block: "minecraft:polished_blackstone_brick_wall" },
+        H: { block: "minecraft:creeper_head", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

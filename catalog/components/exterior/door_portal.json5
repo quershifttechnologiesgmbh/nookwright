@@ -1,0 +1,37 @@
+// X1 · E1 Portal (research/18 E1, research/16 F4 „Tür optisch zurückgesetzt“): Rahmen 1 Block vor der Fassade um die
+// Haustür – Gewände links und rechts (2 hoch), oben ein Sturz. Die Mitte bleibt als Laufweg frei ('_' = Luftmaske).
+// „timber“ = Fachwerk: Stämme und liegender Stamm als Sturz; „arch“ = Stein: Gewände und Schlussstein aus
+// Eckquadern, dazwischen umgedrehte Treppen als Bogenzwickel (Stufe außen, innen bleibt der Bogen offen).
+{
+  id: "exterior/door_portal",
+  kind: "static",
+  name: "Portal",
+  category: "architecture",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "timber",
+      weight: 1,
+      layers: [["P_P"], ["P_P"], ["LLL"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "beam", shape: "log", orient: { axis: "along" } },
+      },
+    },
+    {
+      id: "arch",
+      weight: 1,
+      layers: [["Q_Q"], ["Q_Q"], ["AKB"]],
+      legend: {
+        Q: { role: "wall_quoin", shape: "block" },
+        K: { role: "wall_quoin", shape: "block" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+    },
+  ],
+}

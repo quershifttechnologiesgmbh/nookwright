@@ -1,0 +1,109 @@
+// FN Tierfarmen: Stall-Boxen in einer Reihe (2 / 3 / 4 Boxen, Breite 9 / 13 / 17), Skalierung mit der Raumbreite.
+// Jede Box: 3×3 Innenfläche, Zaun-Trennwände (1,5 hoch, Pfosten in allen Ecken), Tor vorn, hinten Heu-Krippe und
+// Wasser-Trog (je mit Zaun darüber, sonst springt ein Tier über den 1 Block hohen Teil). Zwischen den Boxen steht vorn
+// ein Futterfass (Weizen, Karotten, Äpfel) mit Zaun darüber. Ein Reiter kann mit dem Pferd über Zäune springen
+// (Wiki: Horse, Sprunghöhe bis ca. 5 Blöcke); unbeaufsichtigte Tiere bleiben hinter dem 1,5 hohen Zaun. Moosteppich hält den Boden
+// belegt (siehe animal_pen). Tiere bringt der Spieler. `stable.json5` bleibt unverändert; dieser Raumtyp-Zugang läuft
+// über `barn_farm`. Nur statisch geprüft (plan/spikes/FN_tierfarmen.md).
+{
+  id: "functional/fn_animal_stable_boxes",
+  kind: "static",
+  name: "Stall-Boxenreihe",
+  category: "work",
+  tags: ["fn_animal_stable_boxes", "fn_stable_boxes", "livestock"],
+  functionTags: ["animal:horse", "animal:cow", "farm:breeding", "store"],
+  styleTags: ["rustic", "farm", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "two",
+      weight: 3,
+      layers: [
+        [
+          "fhfkfhfkf",
+          "fmmmfmmmf",
+          "fmmmfmmmf",
+          "fmmmfmmmf",
+          "ffgfbfgff",
+        ],
+        [
+          ".f.f.f.f.",
+          ".........",
+          ".........",
+          ".........",
+          "l...f...l",
+        ],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        m: { block: "minecraft:moss_carpet" },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:wheat", count: [16, 32] }, { item: "minecraft:carrot", count: [16, 32] }, { item: "minecraft:apple", count: [8, 16] }] } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+      },
+    },
+    {
+      id: "three",
+      weight: 3,
+      layers: [
+        [
+          "fhfkfhfkfhfkf",
+          "fmmmfmmmfmmmf",
+          "fmmmfmmmfmmmf",
+          "fmmmfmmmfmmmf",
+          "ffgfbfgfbfgff",
+        ],
+        [
+          ".f.f.f.f.f.f.",
+          ".............",
+          ".............",
+          ".............",
+          "l...f...f...l",
+        ],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        m: { block: "minecraft:moss_carpet" },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:wheat", count: [16, 32] }, { item: "minecraft:carrot", count: [16, 32] }, { item: "minecraft:apple", count: [8, 16] }] } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+      },
+    },
+    {
+      id: "four",
+      weight: 2,
+      layers: [
+        [
+          "fhfkfhfkfhfkfhfkf",
+          "fmmmfmmmfmmmfmmmf",
+          "fmmmfmmmfmmmfmmmf",
+          "fmmmfmmmfmmmfmmmf",
+          "ffgfbfgfbfgfbfgff",
+        ],
+        [
+          ".f.f.f.f.f.f.f.f.",
+          ".................",
+          ".................",
+          ".................",
+          "l...f...f...f...l",
+        ],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        m: { block: "minecraft:moss_carpet" },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:wheat", count: [16, 32] }, { item: "minecraft:carrot", count: [16, 32] }, { item: "minecraft:apple", count: [8, 16] }] } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

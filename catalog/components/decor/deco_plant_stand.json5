@@ -1,0 +1,41 @@
+// MEHR DEKORATION · Pflanzenständer: Topfpflanze auf einem Zaunpfosten (Blumensäule), in hohen Räumen auf
+// zwei Pfosten. Passt in Ecken und an Wände, ohne den Laufweg zu verengen (1×1). Der Topf braucht keine Stütze,
+// der Pfosten steht auf dem Boden.
+{
+  id: "decor/deco_plant_stand",
+  kind: "static",
+  name: "Pflanzenständer",
+  category: "decor",
+  tags: ["deco_plant"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "fern",
+      weight: 3,
+      layers: [["F"], ["P"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" }, P: { block: "minecraft:potted_fern" } },
+    },
+    {
+      id: "azalea",
+      weight: 2,
+      layers: [["F"], ["P"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" }, P: { block: "minecraft:potted_flowering_azalea_bush" } },
+    },
+    {
+      id: "tulip",
+      weight: 1,
+      layers: [["F"], ["P"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" }, P: { block: "minecraft:potted_red_tulip" } },
+    },
+    {
+      id: "tall_cornflower",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["F"], ["F"], ["P"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" }, P: { block: "minecraft:potted_cornflower" } },
+    },
+  ],
+}

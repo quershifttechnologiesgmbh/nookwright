@@ -1,0 +1,141 @@
+// FN · Brau-Straße (Produktionslinien, plan/spikes/FN_produktionslinien.md): eine Theke mit 2, 3 oder 4 Braustäden,
+// dazwischen Wasserkessel (Flaschen füllen von Hand), oben je ein Zutaten-Fass mit Trichter (↓ Stand), an den Enden je ein
+// Seiten-Trichter unter einem Fass für Lohenstaub und Flaschen. Mechanik wie `functional/auto_brewer` (im Spiel geprüft,
+// R1 Gruppe F): Trichter oben = Zutaten-Slot, Trichter an der Seite = Flaschen-/Brennstoff-Slot, KEIN Trichter darunter
+// (er zöge Wasserflaschen sofort heraus); die fertigen Tränke nimmt man aus dem Stand. Nur die äußeren Stände bekommen
+// die Seiten-Zufuhr, mittlere Stände füllt man von Hand (Lohenstaub reicht für 20 Brauvorgänge, minecraft.wiki/w/Brewing_Stand).
+// Über den Kesseln bleibt Luft (research/11 A3). Front: niedrige Theke (Plattenreihe) mit Kleinkram-Sockeln; Rücken an
+// der Wand; Stände 0,875 hoch bleiben über der Theke sichtbar. Ruhezustand: Behälter leer, Wasserkessel voll (Stufe 3),
+// Stände ohne Flaschen (Braustand-Inhalt kann der Export nicht setzen). Spiegelsymmetrisch (Enden gespiegelt), Richtungen
+// relativ: left = +x. Kompakt für lichte Höhe 2: `solo` (ein Stand).
+{
+  id: "functional/fn_line_brew_street",
+  kind: "static",
+  name: "Brau-Straße",
+  category: "work",
+  tags: ["fn_brew_street", "fn_line"],
+  functionTags: ["brew", "store", "automation", "work:cleric", "work:leatherworker"],
+  styleTags: ["arcane", "workshop", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "duo",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["HBKBJ", "SSSSS"], // y0: Seiten-Trichter → Stand | Kessel | ...; vorn Theke
+        ["FI_IF", "_____"], // y1: Lager-Fässer über den Seiten-Trichtern | Zutaten-Trichter (↓ Stand) | Luft über dem Kessel
+        ["RZ_ZR", "....."], // y2: gestapelte Lager-Fässer | Zutaten-Fässer
+      ],
+      legend: {
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        J: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:brewing_stand" },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        F: { block: "minecraft:barrel", orient: { front: "up" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        R: { block: "minecraft:barrel", orient: { front: "up" } },
+        Z: { block: "minecraft:barrel", orient: { front: "up" } },
+      },
+      sockets: [
+        { id: "top_0", type: "surface", at: [0, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_1", type: "surface", at: [2, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_2", type: "surface", at: [4, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "lamp", type: "hang", at: [2, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "trio",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["HBKBKBJ", "SSSSSSS"], // y0: Seiten-Trichter → Stand | Kessel | ...; vorn Theke
+        ["FI_I_IF", "_______"], // y1: Lager-Fässer über den Seiten-Trichtern | Zutaten-Trichter (↓ Stand) | Luft über dem Kessel
+        ["RZ_Z_ZR", "......."], // y2: gestapelte Lager-Fässer | Zutaten-Fässer
+      ],
+      legend: {
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        J: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:brewing_stand" },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        F: { block: "minecraft:barrel", orient: { front: "up" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        R: { block: "minecraft:barrel", orient: { front: "up" } },
+        Z: { block: "minecraft:barrel", orient: { front: "up" } },
+      },
+      sockets: [
+        { id: "top_0", type: "surface", at: [0, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_1", type: "surface", at: [2, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_2", type: "surface", at: [4, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_3", type: "surface", at: [6, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "lamp", type: "hang", at: [3, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "quad",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["HBKBKBKBJ", "SSSSSSSSS"], // y0: Seiten-Trichter → Stand | Kessel | ...; vorn Theke
+        ["FI_I_I_IF", "_________"], // y1: Lager-Fässer über den Seiten-Trichtern | Zutaten-Trichter (↓ Stand) | Luft über dem Kessel
+        ["RZ_Z_Z_ZR", "........."], // y2: gestapelte Lager-Fässer | Zutaten-Fässer
+      ],
+      legend: {
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        J: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:brewing_stand" },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        F: { block: "minecraft:barrel", orient: { front: "up" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        R: { block: "minecraft:barrel", orient: { front: "up" } },
+        Z: { block: "minecraft:barrel", orient: { front: "up" } },
+      },
+      sockets: [
+        { id: "top_0", type: "surface", at: [0, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_1", type: "surface", at: [2, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_2", type: "surface", at: [4, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "top_3", type: "surface", at: [6, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 },
+        { id: "lamp", type: "hang", at: [4, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "solo",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["KBH", "SSS"], // y0: Wasserkessel | Braustand | Seiten-Trichter (→ Stand); Theke
+        ["_IF", "___"], // y1: Luft | Zutaten-Trichter (↓) | Lager-Fass
+      ],
+      legend: {
+        H: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:brewing_stand" },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        F: { block: "minecraft:barrel", orient: { front: "up" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+      },
+      sockets: [{ id: "top", type: "surface", at: [0, 1, 1], accepts: ["mug", "candles", "alchemy_small"], prob: 0.5 }],
+    },
+    {
+      id: "mini",
+      weight: 1,
+      // Kompaktform (Tiefe 1, Höhe 2): ein Stand mit Kessel und Zutaten-Trichter
+      layers: [
+        ["KB"], // y0: Wasserkessel | Braustand
+        ["_I"], // y1: Luft | Zutaten-Trichter (↓ Stand)
+      ],
+      legend: {
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        B: { block: "minecraft:brewing_stand" },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

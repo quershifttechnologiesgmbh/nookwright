@@ -1,0 +1,7 @@
+// Vase / Krug (research/10 §3.2: dekorierte Vasen 5/16 Küchen). Verzierter Krug ohne Scherben (aus Ziegeln
+// herstellbar → survival). Braucht keine Stütze. V3: auch oben auf Truhen- und Fass-Stapeln (Krug leitet kein
+// Redstone → die Truhe darunter öffnet).
+{ id: "decor/vase", kind: "static", name: "Vase", category: "decor",
+  tags: ["tabletop_small", "vase", "stack_top"], styleTags: ["medieval"], obtainability: "survival",
+  mount: "surface", rotations: "all",
+  layers: [["V"]], legend: { V: { block: "minecraft:decorated_pot", orient: { front: "front" } } } }

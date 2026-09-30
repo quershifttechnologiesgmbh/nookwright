@@ -1,0 +1,93 @@
+// FN-Lager · Vorratsregale (Keller/Speisekammer): Pfosten tragen Regalbretter (Halbstufen) über Fässern und Truhen, oben Ware
+// (Kürbis, Heu, Melone). Wächst mit der Raumgröße: `low` (2 breit, jede Höhe), `s` (5, h3), `m` (7, h4), `l` (9, h4).
+// Fässer öffnen immer; Truhen stehen unter einer Halbstufe (leitet nicht, Faktencheck #2). Nichts ist Mechanik: Regale sind
+// Möbel, alle Fächer leer (Ruhezustand).
+{
+  id: "storage/fn_cellar_shelves",
+  kind: "static",
+  name: "Vorratsregale",
+  category: "storage",
+  tags: ["fn_cellar_shelf", "fn_store"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // kompakte Form (2 breit, 2 hoch, Halbstufen-Bord): passt in jede Höhe und unter Fenster (Rückfall der Signatur)
+      id: "low",
+      weight: 0.25,
+      layers: [
+        ["BC", "__"],
+        ["SS", ".."],
+      ],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "s",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PBPCP", "_____"],
+        ["PsPsP", "....."],
+        ["PoPHP", "....."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        o: { block: "minecraft:pumpkin" },
+        H: { block: "minecraft:hay_block" },
+      },
+    },
+    {
+      id: "m",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["PBPCPBP", "_______"],
+        ["PsPsPsP", "......."],
+        ["PoPHPMP", "......."],
+        ["LLLLLLL", "......."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        L: { role: "furniture_wood", shape: "planks" },
+        o: { block: "minecraft:pumpkin" },
+        H: { block: "minecraft:hay_block" },
+        M: { block: "minecraft:melon" },
+      },
+    },
+    {
+      id: "l",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["PBPCPCPBP", "_________"],
+        ["PsPsPsPsP", "........."],
+        ["PoPHPMPHP", "........."],
+        ["LLLLLLLLL", "........."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab" },
+        L: { role: "furniture_wood", shape: "planks" },
+        o: { block: "minecraft:pumpkin" },
+        H: { block: "minecraft:hay_block" },
+        M: { block: "minecraft:melon" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

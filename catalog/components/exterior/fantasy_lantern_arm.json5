@@ -1,0 +1,50 @@
+// W7-D · Fantasy-Modul „Hängelaterne am geschwungenen Arm“ (plan/spikes/W7D_fantasy.md): ersetzt bei Fantasy-Stufe
+// `accent`/`full` das Laternenstück der Fenstermodule (gerader Zaun-Arm) – gleicher Ort (Rasterpfosten auf der Sturzreihe),
+// aber der Arm kragt 2 vor und wird von einem Kopfband (umgedrehte Treppe, Rücken zur Wand) getragen; die Laterne hängt
+// an der Armspitze unter dem äußeren Zaun (stabile Mitte, Faktencheck #3). Spiegelsymmetrisch in der Ansicht.
+//
+//   Schnitt (z = Tiefe, 0 an der Wand)     Ansicht
+//     y1   F F      F Arm (Zaun bzw. Mauer)        F
+//     y0   V L      V Kopfband, L Laterne          V   (L davor)
+//
+// Kits (Varianten gleichen Namens, `ExteriorStyle.fantasyKit`): `elven` Holz (Arm und Kopfband im Rahmenholz, Laterne
+// der Theme-Rolle), `dwarven` Stein (Mauer-Arm aus dem Sockelstein, Kopfband aus dem Gesimsstein).
+// Vorbilder (URLs im Bericht): Hängelaternen an auskragenden Zaun-Armen mit Treppen-Kopfband.
+{
+  id: "exterior/fantasy_lantern_arm",
+  kind: "static",
+  name: "Hängelaterne am Bogenarm",
+  category: "light",
+  // `fantasy_accent`: gehört schon zur Fantasy-Stufe „Akzent“ (in jedem Theme zuschaltbar)
+  tags: ["exterior", "exterior_light", "exterior_fantasy", "fantasy_accent", "outdoor"],
+  functionTags: ["light"],
+  // Standard-Fantasy in diesen Themes (Fantasy-Stufe `full` ohne Angabe)
+  styleTags: ["elven", "dwarven"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "elven",
+      // Zeilen = Tiefe (z 0 an der Wand), Schichten von unten
+      layers: [["V", "L"], ["F", "F"]],
+      legend: {
+        V: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 0, 1], side: "up", kind: "center" }] },
+    },
+    {
+      id: "dwarven",
+      layers: [["V", "L"], ["W", "W"]],
+      legend: {
+        V: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        W: { role: "wall_plinth", shape: "wall" },
+      },
+      masks: { support: [{ at: [0, 0, 1], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

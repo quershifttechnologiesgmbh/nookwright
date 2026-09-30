@@ -1,0 +1,44 @@
+// K2 · Pflanztrog (DA Nature: Flowers/Planters): Moos bzw. Wurzelerde als Beet, darauf Blumen oder Farne.
+// Blumen stehen im Spiel auf Moos/Erde (#dirt) – NICHT auf Planken; die Physik prüft volle Oberseite.
+{
+  id: "decor/planter_trough",
+  kind: "static",
+  name: "Pflanztrog",
+  category: "decor",
+  tags: ["plant_large", "planter"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "red",
+      weight: 2,
+      layers: [["MM"], ["pt"]],
+      legend: {
+        M: { block: "minecraft:moss_block" },
+        p: { block: "minecraft:poppy" },
+        t: { block: "minecraft:red_tulip" },
+      },
+    },
+    {
+      id: "blue",
+      weight: 1,
+      layers: [["MM"], ["co"]],
+      legend: {
+        M: { block: "minecraft:moss_block" },
+        c: { block: "minecraft:cornflower" },
+        o: { block: "minecraft:oxeye_daisy" },
+      },
+    },
+    {
+      id: "ferns",
+      weight: 2,
+      layers: [["RR"], ["ff"]],
+      legend: {
+        R: { block: "minecraft:rooted_dirt" },
+        f: { block: "minecraft:fern" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,48 @@
+// BT21 Nordisches Langhaus (research/19 §6, dort „Nordic-Langhaus“; Label seit W1-I deutsch, Review R1-19): ein
+// langer Rechteckbau (Länge zu Breite 1,4–2,4), die Methalle mit Langfeuer auf der Achse nimmt fast alles ein, am
+// Ende Lager und Schlafkammer. Satteldach mit weitem Überstand.
+// Offen: Soddendach, gekreuzte Giebelbretter, Traufe 1–2 über Grund (research/19 §9.1) – bis dahin Hinweis.
+{
+  id: "longhouse",
+  name: "Langhaus",
+  label: "Nordisches Langhaus",
+  family: "nordic",
+  styleTags: { require: ["nordic"] },
+  themes: ["nordic", "rustic"],
+  sizes: {
+    // W2 (Baustandard I5/D5): Metsaal lichte Höhe 4–5 (eingeschossig: Traufhöhe ≥ 5, Dach ≤ 50 % der Höhe)
+    S: { footprint: [[13, 9], [17, 9]], floors: 1, groundHeight: 4 },
+    M: { footprint: [[17, 9], [23, 11]], floors: 1, groundHeight: 4 },
+    L: { footprint: [[23, 11], [27, 13]], floors: 1, groundHeight: [4, 5] },
+  },
+  // W5 (27.09.2026, Review N8): bewusst ohne `evenFront` – mit dem nordischen Joch 5 hat eine gerade Front bis 18 nur
+  // ein Feld (Tür darin, kein Fenster daneben), die Eingangsseite wäre kahl; Doppeltür für die Methalle erst mit
+  // Feldbreite je Theme im Planer (Bericht plan/spikes/W5C_tueren.md)
+  massing: { generator: "hall", ratio: [1.4, 2.4] },
+  entrance: "mead_hall",
+  program: [
+    { room: "mead_hall", share: 0.65, required: true, near: "entrance" },
+    { room: "storage", share: 0.15, prob: 0.9 },
+    { room: "bedroom", share: 0.15, prob: 0.6 },
+  ],
+
+  // Funktionsgrad (W2-1): Lager mit Sortierer und Räucherkammer (some), Met-Brauwerk und Produktionsraum (rich).
+  // Zahlen: Anteil an der Grundfläche des Hauses (eine Halle, quer geteilt); `replaces` = was der Raum verdrängt.
+  functions: [
+    { room: "storage_hall", share: 0.26, richShare: 0.3, replaces: ["storage"], weight: 3, group: "store", minFloor: 100 },
+    { room: "butchery", share: 0.15, replaces: ["bedroom"], weight: 2, group: "smoke", sizes: ["M", "L"] },
+    { room: "brew_works", level: "rich", share: 0.24, weight: 2, group: "craft", sizes: ["M", "L"], minFloor: 170 },
+    { room: "production_hall", level: "rich", share: 0.24, weight: 1, group: "craft", sizes: ["L"], minFloor: 230 },
+  ],
+  shell: {
+    roof: "gable",
+    // W4 (Baustandard D2/D5, plan/spikes/W4F_dachproportion.md): Überstand 1 statt 2 – der zweite Überstandsring zog
+    // die Traufe 2 Reihen unter die Decke (sichtbar 3 Wandreihen unter 7 Dachreihen)
+    overhang: 1,
+    roofDetail: { pitch: "normal", trim: true, verge: "closed", gableWindows: false },
+    facade: { plinthProfile: true },
+  },
+  exterior: { density: 0.75 },
+  site: { style: "meadow", lighting: "paths", zones: [{ kind: "yard", at: "front", depth: 7 }] },
+  checks: { ratio: [1.4, 2.4], heightToWidth: [0.5, 0.9] },
+}

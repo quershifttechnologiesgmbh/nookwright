@@ -1,0 +1,27 @@
+// K3b · Spinnrad (research/17 §4.14, Ableitung aus Y3/Y4): Schleifstein am Boden als Rad, daneben ein Zaun als
+// Rocken mit weißem Teppich als Wolle (Teppich auf Zaun ✓, Faktencheck #4). Radscheibe zur Raumseite: am Boden
+// ist `facing` die Blickrichtung (T5), die Achse liegt quer dazu → facing Ost/West zeigt die runde Scheibe nach
+// vorn (front "right" → facing Ost; im Spiel prüfen: research/17 T13). Schleifstein = Waffenschmied-
+// Arbeitsblock (Faktencheck #7) → `villager_workstation`.
+{
+  id: "work/spinning_wheel",
+  kind: "static",
+  name: "Spinnrad",
+  category: "work",
+  tags: ["spinning_wheel", "textile_work"],
+  functionTags: ["villager_workstation", "work:weaponsmith"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["Gf"], // y0: Rad | Rocken
+    [".w"], // y1: Wolle auf dem Rocken
+  ],
+  legend: {
+    G: { block: "minecraft:grindstone", orient: { attachTo: "down", front: "right" } },
+    f: { role: "furniture_wood", shape: "fence" },
+    w: { block: "minecraft:white_carpet" },
+  },
+  masks: { use: [{ side: "front" }] },
+}

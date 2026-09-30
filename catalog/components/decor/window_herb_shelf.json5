@@ -1,0 +1,25 @@
+// I52 · Fensterbrett-Kräuter (research/52 §Wand, Küche): schmales Bord unter dem Fenster mit drei Blumentöpfen
+// (verschiedene Kräuter/Pilze) — das klassische „Küchenfenster mit Topfpflanzen“-Motiv, niedrig genug, um
+// den Fensterausblick nicht zu verdecken (wallHeight 0).
+{
+  id: "decor/window_herb_shelf",
+  kind: "static",
+  name: "Fensterbrett-Kräuter",
+  category: "attachment",
+  tags: ["window_herb_shelf"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 0,
+  rotations: "backToWall",
+  layers: [
+    ["SSS"], // y0: Fensterbrett
+    ["ABC"], // y1: drei Topfpflanzen
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    A: { block: "minecraft:potted_fern" },
+    B: { block: "minecraft:potted_red_mushroom" },
+    C: { block: "minecraft:potted_azalea_bush" },
+  },
+}

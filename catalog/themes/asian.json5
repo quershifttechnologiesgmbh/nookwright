@@ -1,0 +1,200 @@
+// Asiatisch / japanisch (FN, plan/spikes/FN_inspiration_gebaeude.md §3.6): weißer Kalkputz zwischen dunklem Holzrahmen
+// (Ständer- und Riegelwerk wie beim japanischen Fachwerk), Steinsockel, dunkles Ziegeldach mit dunkler Kante, Kirschholz
+// als Akzent, Moos, Kies und Kirschblüten im Garten, rote Textilien.
+// Die aufgebogene Traufe (Ecken mit umgedrehten Treppen) ist eine Dachform und liegt nicht im Theme (Empfehlung im Bericht).
+// Vorbilder: blockblend.app/palettes/japanese (Rahmen dark_oak/kirsch/Bambus, Putz weiß, Dach deepslate_tiles).
+{
+  id: "asian",
+  mood: { formality: 0.25, richness: 0.25, wear: -0.25 },
+  name: "Asiatisch",
+  description: "Weißer Putz im dunklen Holzrahmen auf Steinsockel, dunkles Ziegeldach, Kirschholz, Kirschblüten und Kies im Garten",
+  base: "medieval",
+  roles: {
+    // Weißer Putz: Kalzit trägt, weiße Terrakotta nur als kleiner Anteil (ruhige Fläche)
+    wall_primary: {
+      mix: [
+        { family: "calcite", weight: 82 },
+        { family: "polished_diorite", weight: 18 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1 },
+      fallback: ["quartz"],
+    },
+    // Innenwände: Putz mit Brettersockel (wie wall_primary, mit Saum)
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.1,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "calcite", weight: 55 },
+            { family: "polished_diorite", weight: 45 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 85 },
+            { family: "polished_diorite", weight: 15 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 3, octaves: 1 },
+      fallback: ["quartz"],
+    },
+    wall_plaster: { family: "calcite" },
+    // Sockel: Steinziegel mit poliertem Andesit
+    foundation: {
+      mix: [
+        { family: "polished_andesite", weight: 30 },
+        { family: "stone_bricks", weight: 70 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    wall_plinth: { family: "stone_bricks" },
+    wall_cornice: { family: "dark_oak" },
+    wall_quoin: { family: "dark_oak" },
+    wall_gable: { family: "calcite" },
+    // Rahmen und Türen in dunkler Eiche, Kirschholz als warmer Akzent (Läden, Türen, Möbel)
+    beam: { family: "mangrove", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    pillar: { family: "dark_oak", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    door: { family: "dark_oak" },
+    window_frame: { family: "dark_oak" },
+    shutter: { family: "dark_oak" },
+    ceiling: { family: "spruce" },
+    furniture_wood: { family: "cherry" },
+    floor_primary: {
+      mix: [
+        { family: "birch", weight: 85 },
+        { family: "cherry", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_border: { family: "dark_oak" },
+    floor_strip: { family: "cherry" },
+    floor_stone: {
+      mix: [
+        { family: "smooth_stone", weight: 55 },
+        { family: "polished_andesite", weight: 30 },
+        { family: "stone_bricks", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Dach: Tiefenschieferziegel in ganzen Ringen, Traufe dunkle Eiche, Kante dunkle Eiche
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        patch: 0.04,
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 1, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "dark_oak" },
+    roof_tower: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 1, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+        ],
+      },
+    },
+    roof_barn: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 1, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+        ],
+      },
+    },
+    hoarding: { family: "dark_oak" },
+    crown_cap: { family: "dark_oak" },
+    // Rot als Farbe für Stoffe (Laternen, Banner), Weiß als Gegenton
+    textile_primary: { color: "red" },
+    textile_accent: { color: "white" },
+    textile_neutral: { color: "black" },
+    light_hanging: { family: "iron" },
+    metal: { family: "iron" },
+    lining_panel: { family: "cherry" },
+    lining_trim: { family: "dark_oak" },
+
+    // ---------------------------------------------------------------- Außen: Moos, Kies, Kirschblüten
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 80 },
+        { block: "minecraft:moss_block", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:gravel", weight: 45 },
+        { block: "minecraft:dirt_path", weight: 35 },
+        { block: "minecraft:coarse_dirt", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:gravel", weight: 40 },
+        { family: "stone_bricks", weight: 25 },
+        { family: "polished_andesite", weight: 20 },
+        { block: "minecraft:moss_block", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    leaves_oak: { family: "cherry" },
+    leaves_bush: {
+      mix: [
+        { family: "cherry", variant: "leaves", weight: 45 },
+        { block: "minecraft:azalea_leaves", weight: 35 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 20 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:pink_tulip", weight: 30 },
+        { block: "minecraft:azure_bluet", weight: 25 },
+        { block: "minecraft:oxeye_daisy", weight: 25 },
+        { block: "minecraft:red_tulip", weight: 20 },
+      ],
+    },
+    // Blütenblätter und Moos gibt es erst ab 1.21.5 / überall; rosa Blütenblätter halten ältere Versionen gültig
+    ground_cover: {
+      mix: [
+        { block: "minecraft:pink_petals", weight: 40 },
+        { block: "minecraft:moss_carpet", weight: 60 },
+      ],
+    },
+  },
+
+  // Feldbreite 4: weiter Rahmen, viel Putz (japanisches Ständerwerk mit breiten Feldern)
+  facade: { bay: 5 },
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation", "wall_plaster"],
+    wall_secondary: ["wall_secondary", "wall_gable", "wall_wainscot", "tower_floor", "floor_tile_light", "floor_tile_dark", "floor_secondary"],
+  },
+
+  surfaces: {
+    // Außen in allen Geschossen Putz zwischen Rahmenholz (Ständer alle 4 Felder, an Ecken und Fenstern, Brustriegel);
+    // innen Vertäfelung unten, darüber Putz
+    wall: [
+      { when: { exterior: true }, role: "wall_primary", timber: { role: "beam", bay: 6, motifs: ["rail"] } },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Geschossband und Rähm in Holz (wie beim Fachwerk)
+    footing: [
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+    ceiling: [{ beams: { role: "beam", period: 3 }, plate: { role: "beam" } }],
+  },
+}

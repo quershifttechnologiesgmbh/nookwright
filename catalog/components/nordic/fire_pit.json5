@@ -1,0 +1,45 @@
+// K3b · Langfeuer (research/17 §6.1, NR2/NR3): zwei Lagerfeuer in einer Rinne aus Bruchstein-Stufen (3 × 4),
+// Stil nordic. Das Feuer verletzt → es liegt IN der Komponente (belegte Zellen), nie auf dem Laufweg
+// (Validator-Wunsch noHazardOnPath); es entzündet nichts (T5 #13). Rauch steigt ~10 Blöcke (Faktencheck #13) →
+// Dachöffnung/Schlot über dem Feuer ist ein Hüllen-Wunsch (research/17 Y11 `roofOpening`). Mehr in die Höhe
+// (V3): „spit“ mit Bratspieß – Zaunpfosten auf der Rinne, darüber eine Zaun-Stange über beiden Feuern.
+{
+  id: "nordic/fire_pit",
+  kind: "static",
+  name: "Langfeuer",
+  category: "architecture",
+  tags: ["fire_pit", "fire_feature", "hearth_nordic"],
+  functionTags: ["light", "cook"],
+  styleTags: ["nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "open",
+      weight: 2,
+      layers: [["sss", "sCs", "sCs", "sss"]],
+      legend: {
+        s: { block: "minecraft:cobblestone_slab", orient: { upsideDown: false } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "spit",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["sss", "sCs", "sCs", "sss"], // y0: Rinne mit zwei Feuern
+        [".f.", "...", "...", ".f."], // y1: Pfosten an den Stirnseiten
+        [".f.", ".f.", ".f.", ".f."], // y2: Spieß über den Feuern
+      ],
+      legend: {
+        s: { block: "minecraft:cobblestone_slab", orient: { upsideDown: false } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        f: { role: "furniture_wood", shape: "fence" },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: true }] },
+  light: "auto",
+}

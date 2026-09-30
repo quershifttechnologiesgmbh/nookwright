@@ -1,0 +1,34 @@
+// Feste Vorlage „Zweistöckiges Haus“ (bisher App-Vorlage `twostory`): Taverne, Küche, Lager unten; Schlafzimmer,
+// Bibliothek, Alchemie oben; gerade Treppe im Lager; Satteldach (übriger Stil vom bisherigen Projekt).
+{
+  id: "twostory",
+  name: "Zweistöckiges Haus",
+  label: "Zweistöckiges Haus (Treppe, Satteldach)",
+  family: "house",
+  massing: {
+    generator: "fixed",
+    upperFloors: 1,
+    rooms: [
+      { rect: [0, 0, 11, 7], room: "tavern" },
+      { rect: [12, 0, 18, 7], room: "kitchen" },
+      { rect: [0, 8, 18, 12], room: "storage" },
+      { rect: [0, 0, 8, 7], room: "bedroom", floor: 1 },
+      { rect: [9, 0, 18, 7], room: "library", floor: 1 },
+      { rect: [0, 8, 10, 12], room: "alchemy", floor: 1 },
+      // W13-A (Runde 2, 28.09.2026, Komposition der Baumasse): eingeschossiger Anbau „Werkstatt“ an der Ostseite, hinten
+      // bündig (L), eigenes Satteldach quer zum Hauptfirst, lichte Höhe 3 – Traufe und First tief unter denen des Hauptbaus
+      { rect: [19, 0, 25, 8], room: "carpentry", volume: "workshop" },
+    ],
+    volumes: { workshop: { name: "Werkstatt", floorHeight: 3 } },
+    stairs: [{ floor: 0, origin: [3, 10], facing: "east", type: "straight" }],
+    // W9-G1 (27.09.2026, Review R5 G1): Baumasse-Akzente statt Kiste – Quergiebel an einer Ecke (L-Haus); ohne ihn kragt das
+    // Obergeschoss vorn 1 Block auf Konsolen aus (Instructables-Tutorial: Obergeschoss 1 Block über dem Erdgeschoss)
+    // W12-A (28.09.2026, Review R6-3): statt des Quergiebels (p 0,75; er scheiterte oft an der Treppe im Alchemie-Raum,
+    // die Tür lag an der Giebelseite) immer ein eingeschossiger Vorbau mittig vor der Front mit der Diele und der Haustür,
+    // darüber kragt das Obergeschoss vorn auf Konsolen aus (Vorbilder reddit 1mqe6ho, YT 1XXpmsOBWpE). Mittig, weil ein
+    // Vorbau an der Ecke die Giebelseite verlängert und ihr dort die Traufenlaterne nahm (5 von 27 Welten)
+    features: { jetty: { sides: ["front"] }, cross: { width: [7, 9], depth: [3, 4], align: "center", floors: "ground", room: "hallway" } },
+  },
+  // W9-G1: Konsolen tragen die Auskragung (F3a); sonst wie der Standard-Stil (Sockel, Gesims, Eckquader)
+  shell: { roof: "gable", facade: { plinthProfile: true, cornice: true, quoins: true, brackets: 3, upperFrame: true } },
+}

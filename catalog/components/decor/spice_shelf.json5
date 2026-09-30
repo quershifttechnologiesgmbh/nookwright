@@ -1,0 +1,26 @@
+// I52 · Gewürzbord (research/52 §Wand, Küche): Wandbord in Augenhöhe mit einer Reihe kleiner Kerzen als
+// „Gewürzgläser“ (Kerzen brauchen keine Stütze). Ergänzt decor/wall_shelf um eine Küchen-spezifische,
+// bereits befüllte Form statt freier Sockets.
+{
+  id: "decor/spice_shelf",
+  kind: "static",
+  name: "Gewürzbord",
+  category: "attachment",
+  tags: ["kitchen_utensils", "spice_shelf"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [
+    ["SSS"], // y0: Regalbrett
+    ["rgb"], // y1: kleine Kerzen als Gewürzgläser
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    r: { block: "minecraft:orange_candle", state: { candles: "1", lit: "false" } },
+    g: { block: "minecraft:brown_candle", state: { candles: "1", lit: "false" } },
+    b: { block: "minecraft:yellow_candle", state: { candles: "1", lit: "false" } },
+  },
+}

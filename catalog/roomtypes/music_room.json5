@@ -1,0 +1,30 @@
+// Musikzimmer (research/17 §4.26, Mu1–Mu6). K3a. Signatur-Familie `keyboard_instrument`: Orgel (groß, lichte Höhe
+// ≥ 4, Pfeifen bis zur Decke) vor dem Cembalo (frei stehend, Kompaktform). Plattenspieler-Schrank an der Seitenwand,
+// Musikecke, Sessel/Wandbänke als Publikum, Teppich als „Bühne“. Notenblöcke nur mit Luft darüber (Validator-Wunsch
+// Y8 `noteBlockAirAbove`; die Komponenten halten die Zellen per '_' frei). V3: Hängelaterne über dem Cembalo,
+// Wandteppiche, Deckenbanner, Kronleuchter.
+{
+  id: "music_room",
+  name: "Musikzimmer",
+  minArea: 12,
+  coverage: { target: 0.35 },
+  required: [
+    { tags: ["keyboard_instrument"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["jukebox"], count: [0, 1], weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["music"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wing_chair", "wall_bench"], count: [1, 3], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["rug"], count: [0, 1], weight: 3, placement: { zones: ["center"] } },
+    { tags: ["plant_large"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen): Notenschrank/Ausstellungsregal bis zur Decke, Borde und Behang über Kopfhöhe
+    // FN-dense-grand: Schiffsbucht-Arkade (Steinpfeiler mit Bogen) gliedert die Längswände
+    { tags: ["fn_nave_bay"], count: { perArea: 18, min: 2, max: 8 }, weight: 4, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["bookshelf_wall", "display_shelf"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["tapestry", "wall_banner"], count: [1, 3], weight: 2 },
+    { tags: ["wall_books", "wall_shelf", "upper_cabinet"], count: [1, 2], weight: 1 },
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 1 },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 2], weight: 4 },
+  ],
+  lighting: { minLevel: 7, prefer: ["chandelier", "candles", "light_ceiling", "light_wall", "light_floor"] },
+}

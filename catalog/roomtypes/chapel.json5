@@ -1,0 +1,38 @@
+// Kapelle (research/17 §4.5, C1–C6). K3a. Signatur: Altar an der türfernen Wand (Zone `chancel` in großen Räumen).
+// Bankreihen quer zur Achse fehlen weiter (seat/pew würde der Solver frei drehen): Die Gemeinde sitzt auf zwei
+// Stuhlreihen, die der Altar als Kinder mitbringt (sacred/chapel_altar, Blickregel `toParent`); der Mittelgang auf
+// der Altarachse ist per `aisle` (Y1, K3c) freigehalten. Opferkerzen, Kanzel und Orgel im Chor, Weihwasserbecken an
+// der Tür, Wandbänke an den Seiten. Gedämpftes Licht (≥ 6), Schachbrett-Fliesen kommen aus dem Theme
+// (surfaces.floor → chapel). V3: Kreuz über dem Altar wächst mit der Raumhöhe, Orgelpfeifen und Wandpfeiler bis zur
+// Decke, Glocke, Kronleuchter. ERW X7 roleOverrides (heller Putz) steht aus.
+{
+  id: "chapel",
+  name: "Kapelle",
+  minArea: 24,
+  coverage: { target: 0.35 },
+  // K3c (Y1): Mittelgang von der Tür zum Altar, 1 breit auf der Altarachse (die Stuhlreihen des Altars bleiben links/rechts)
+  aisle: { axis: "door", width: 1, minWidth: 1 },
+  zones: [{ id: "nave", doorAffinity: "near" }, { id: "chancel", doorAffinity: "far" }],
+  required: [
+    { tags: ["chapel_altar"], count: [1, 1], signature: true, zone: "chancel", placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["candle_rack", "candle_altar_corner"], count: [1, 2], weight: 4, zone: "chancel", placement: { zones: ["edge"] } },
+    { tags: ["font"], count: [0, 1], weight: 3, zone: "nave", placement: { zones: ["edge", "corner"], doorAffinity: "near" } },
+    { tags: ["pulpit"], count: [0, 1], weight: 3, zone: "chancel", placement: { zones: ["edge", "corner"] } },
+    { tags: ["organ"], count: [0, 1], weight: 2, zone: "chancel", placement: { zones: ["edge"] } },
+    { tags: ["wall_bench"], count: [0, 2], weight: 2, zone: "nave", placement: { zones: ["edge"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["plant_large"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen): Wandpfeiler bis zur Decke (C5), Behang unter der Decke, Glocke, Leuchter
+    { tags: ["pilaster", "gallery_bay"], count: [0, 4], weight: 3, zone: "nave", placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 2 } },
+    // FN-dense-grand: Schiffsarkade – Steinpfeiler mit Bogen entlang der Längswände des Schiffs (Seitenschiff-Gliederung)
+    { tags: ["fn_nave_bay"], count: { perArea: 14, min: 2, max: 8 }, weight: 6, zone: "nave", placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["tapestry", "wall_banner"], count: [1, 3], weight: 2 },
+    { tags: ["bell"], count: [0, 1], weight: 1 },
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 2 },
+    { tags: ["wall_candles"], count: [2, 6], weight: 4 },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 6, prefer: ["candles", "light_wall", "chandelier", "light_ceiling", "light_floor"] },
+}

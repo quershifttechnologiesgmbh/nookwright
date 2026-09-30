@@ -1,0 +1,38 @@
+// K2 · Ohrensessel (DA Furniture: Chairs; Bing-Referenzen „medieval armchair“): Treppe als Sitz, offene
+// Falltüren als Armlehnen; Variante mit hoher Lehne (offene Falltür über der Treppenlehne). Frei drehbar.
+{
+  id: "seat/wing_chair",
+  kind: "static",
+  name: "Ohrensessel",
+  category: "furniture",
+  tags: ["wing_chair", "armchair", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "arms",
+      weight: 2,
+      layers: [["TSU"]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      id: "high_back",
+      weight: 1,
+      layers: [["TSU"], [".B."]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        B: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

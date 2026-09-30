@@ -1,0 +1,18 @@
+// W15 · Kram am Eingang (switchbladegaming „medieval house ideas“: Fässer, Heuballen, Komposter neben Tür und Stall):
+// ein Paar Fässer bzw. Heuballen links und rechts einer Nebentür, an der Wand. `hay` in Hof-Themes (Tag `hay:<theme>`).
+// Nur reich, in rustic/farmstead schon dezent.
+{
+  id: "exterior/detail_entrance_goods",
+  kind: "static",
+  name: "Fässer bzw. Heuballen am Eingang",
+  category: "storage",
+  tags: ["exterior", "exterior_entrance", "exterior_detail", "outdoor", "detail_subtle:rustic", "detail_subtle:farmstead", "hay:rustic", "hay:farmstead"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "nordic", "nordic_falu", "harbor", "winter"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    { id: "barrel", weight: 1, layers: [["B"]], legend: { B: { block: "minecraft:barrel", state: { facing: "up", open: "false" } } } },
+    { id: "hay", weight: 1, layers: [["H"]], legend: { H: { block: "minecraft:hay_block", state: { axis: "y" } } } },
+  ],
+}

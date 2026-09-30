@@ -1,0 +1,55 @@
+// Welle D · D3 (research/24 §7.0, T2 `tropical` / T6 `elven`): Blattdach – eine Dachbahn aus Laub, wie sie das
+// Pfahldorf und das Baumhaus tragen (research/24 §7.2 `roof_main` = Blätter + braun). Laub hat KEINE Treppenform
+// (research/32 §5.4), deshalb ist die Dachbahn hier eine volle Blocklage (`roof_main.block` bzw. ein liegender
+// Balken) mit dem Laub als zweiter Lage darüber – nicht als Treppe. Deko-Laub bekommt im Materialisierer
+// `persistent=true` (Faktencheck #17) und braucht keine Stütze.
+{
+  id: "exterior/blattdach",
+  kind: "static",
+  name: "Blattdach",
+  category: "architecture",
+  tags: ["exterior", "exterior_roof", "leaf_roof", "roof_thatch", "outdoor"],
+  styleTags: ["tropical", "elven", "rustic"],
+  obtainability: "survival",
+  mount: "roof",
+  rotations: "all",
+  variants: [
+    {
+      id: "thatch",
+      weight: 3,
+      layers: [
+        ["RRR"], // y0: Dachbahn
+        ["LLL"], // y1: Laublage
+      ],
+      legend: {
+        R: { role: "roof_main", shape: "block" },
+        L: { role: "leaves_bush", shape: "block" },
+      },
+    },
+    {
+      id: "overgrown",
+      weight: 2,
+      layers: [
+        ["RRR"], // y0: Dachbahn
+        ["LLL"], // y1: Laublage
+        ["L.L"], // y2: aufgewachsene Spitzen (liegen auf der Laublage)
+      ],
+      legend: {
+        R: { role: "roof_main", shape: "block" },
+        L: { role: "leaves_bush", shape: "block" },
+      },
+    },
+    {
+      id: "beams",
+      weight: 2,
+      layers: [
+        ["BBB"], // y0: liegende Balken als Dachbahn
+        ["LLL"], // y1: Laub
+      ],
+      legend: {
+        B: { role: "beam", shape: "log", orient: { axis: "along" } },
+        L: { role: "leaves_bush", shape: "block" },
+      },
+    },
+  ],
+}

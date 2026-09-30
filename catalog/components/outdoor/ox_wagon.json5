@@ -1,0 +1,24 @@
+// research/56 · Ochsenkarren (DA Structural: Vehicles, größer als `outdoor/handcart`): vier Räder aus Zauntoren,
+// lange Ladefläche aus Stufen, Fass und Heuballen als gemischte Fracht. Für Hof, Zufahrt, Marktplatz.
+{
+  id: "outdoor/ox_wagon",
+  kind: "static",
+  name: "Ochsenkarren",
+  category: "decor",
+  tags: ["cart", "wagon", "outdoor", "market", "yard"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["LBR", ".B.", ".B.", "LBR"], // y0: vier Räder, Ladefläche
+    ["...", ".C.", ".H.", "..."], // y1: Fass und Heu als Fracht
+  ],
+  legend: {
+    L: { role: "furniture_wood", shape: "fence_gate", orient: { front: "left" } },
+    R: { role: "furniture_wood", shape: "fence_gate", orient: { front: "right" } },
+    B: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+    C: { block: "minecraft:barrel", orient: { front: "up" } },
+    H: { block: "minecraft:hay_block", orient: { axis: "across" } },
+  },
+}

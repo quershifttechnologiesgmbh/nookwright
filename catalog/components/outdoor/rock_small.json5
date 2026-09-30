@@ -1,0 +1,35 @@
+// research/56 · Fels klein (DA Nature: Rocks; Bing „minecraft rock formation build“): 2×2-Streuung aus
+// Stein/Andesit/Tuff bzw. bemoostem Bruchstein, kein reiner Materialblock, damit es organisch statt wie ein
+// Steinquader wirkt. Für Wegrand, Wiese, Waldboden.
+{
+  id: "outdoor/rock_small",
+  kind: "static",
+  name: "Fels (klein)",
+  category: "decor",
+  tags: ["rock", "outdoor", "meadow", "path", "field"],
+  styleTags: ["rustic", "overgrown"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "bare",
+      weight: 3,
+      layers: [["sa", "ts"]],
+      legend: {
+        s: { block: "minecraft:stone" },
+        a: { block: "minecraft:andesite" },
+        t: { block: "minecraft:tuff" },
+      },
+    },
+    {
+      id: "mossy",
+      weight: 2,
+      layers: [["mc", "cm"]],
+      legend: {
+        m: { block: "minecraft:mossy_cobblestone" },
+        c: { block: "minecraft:cobblestone" },
+      },
+    },
+  ],
+}

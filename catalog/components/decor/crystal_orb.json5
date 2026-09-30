@@ -1,0 +1,52 @@
+// K3a · Schwebender Kristall (research/17 §4.13, Tw4/Tw5, Fantasy): Amethystblock frei in der Luft (Blöcke
+// brauchen keine Stütze), darunter ein Cluster nach unten, darüber einer nach oben (Cluster halten an der Fläche
+// des Blocks, an dem sie sitzen). Licht 5 je Cluster. Unter dem schwebenden Kristall bleibt eine Zelle Luft
+// (Kopfhöhe darunter ist trotzdem belegt – man läuft nicht hindurch). Varianten nach lichter Höhe: schwebend
+// (≥ 4), auf Sockel (≥ 3), niedrig auf Sockel (2). Amethyst: Geoden (Cluster nur mit Behutsamkeit).
+{
+  id: "decor/crystal_orb",
+  kind: "static",
+  name: "Schwebender Kristall",
+  category: "decor",
+  tags: ["crystal_orb", "arcane_focus"],
+  styleTags: ["fantasy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "floating",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["_"], ["d"], ["A"], ["u"]],
+      legend: {
+        d: { block: "minecraft:amethyst_cluster", orient: { front: "down" } },
+        A: { block: "minecraft:amethyst_block" },
+        u: { block: "minecraft:amethyst_cluster", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "pedestal",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["P"], ["A"], ["u"]],
+      legend: {
+        P: { block: "minecraft:chiseled_stone_bricks" },
+        A: { block: "minecraft:amethyst_block" },
+        u: { block: "minecraft:amethyst_cluster", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [["P"], ["u"]],
+      legend: {
+        P: { block: "minecraft:chiseled_stone_bricks" },
+        u: { block: "minecraft:amethyst_cluster", orient: { front: "up" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: false }] },
+  light: "auto",
+}

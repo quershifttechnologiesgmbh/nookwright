@@ -1,0 +1,26 @@
+// W12-D (28.09.2026, Review R6-6 „Giebelzier nordisch“): gekreuzte Windbretter („Hörner“) über dem First. Auf zwei
+// Firstreihen (gerade Hausbreite) setzt der Planer (`planRidgeDecor`) je Firstende zwei Treppen der Dachkante über die
+// beiden Firstzellen, Rücken seitlich nach außen – die Windbretter der beiden Ortgänge laufen über den First hinaus und
+// bilden ein V. Immer an beiden Firstenden (spiegelgleich zur Firstmitte und zur Firstlinie), nie einzeln.
+// Vorbilder: Windbretter „joined crosswise at the gable top“ an Torfdach-Blockhäusern (en.wikipedia.org/wiki/Sod_roof),
+// Drachenköpfe paarweise an den Giebelenden der Stabkirchen (en.wikipedia.org/wiki/Borgund_Stave_Church), gekreuzte
+// Giebelbretter der Community-Wikingerhäuser (r/Minecraftbuilds 1jetil6, 1k3cfel).
+// `styleTags` nennen die Themes, die sie tragen (wie die Fenstermodule); andere Themes bleiben bitgleich.
+{
+  id: "exterior/ridge_cross",
+  kind: "static",
+  name: "Gekreuzte Windbretter",
+  category: "decor",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["nordic", "nordic_falu", "winter"],
+  obtainability: "survival",
+  mount: "roof_peak",
+  rotations: "all",
+  variants: [
+    {
+      id: "cross",
+      layers: [["T"]],
+      legend: { T: { role: "roof_trim", shape: "stairs", orient: { back: "front" } } },
+    },
+  ],
+}

@@ -1,0 +1,21 @@
+// X1 · E4 Aushängeschild (research/18 E4, research/16 W9): Zaun-Arm 2 lang in Höhe Türoberkante + 1, darunter am
+// äußeren Ende ein Hängeschild quer zur Fassade (von der Straße entlang lesbar). Hängeschilder brauchen eine stabile
+// Mitte darüber (Zaun, M2). Nur an Werkstätten und Wirtshaus (Raumtyp hinter der Tür).
+{
+  id: "exterior/shop_sign",
+  kind: "static",
+  name: "Aushängeschild",
+  category: "decor",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  // y0: Schild am äußeren Ende (z1); y1: Arm aus zwei Zäunen (z0 an der Wand, z1 außen)
+  layers: [[".", "H"], ["F", "F"]],
+  legend: {
+    F: { role: "beam", shape: "fence" },
+    H: { role: "beam", shape: "hanging_sign", orient: { front: "left" }, state: { attached: "true" } },
+  },
+  masks: { support: [{ at: [0, 0, 1], side: "up", kind: "center" }] },
+}

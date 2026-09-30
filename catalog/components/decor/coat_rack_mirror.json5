@@ -1,0 +1,28 @@
+// I52 · Garderobenleiste mit Spiegel (research/52 §Wand, Eingang): Zaunpfosten als Kleiderhaken in
+// Augenhöhe, dazwischen ein Rahmen mit Glasscheibe als Spiegel — die Wand-Variante neben dem freistehenden
+// decor/coat_stand, für schmale Flure ohne Bodenplatz. Q1a: der Rahmen sitzt zwischen den beiden Haken, nicht
+// über einem – ein Rahmen direkt über einem Zaun hat keinen Platz (der Zaun ragt ½ Block in die Zelle darüber).
+{
+  id: "decor/coat_rack_mirror",
+  kind: "static",
+  name: "Garderobenleiste mit Spiegel",
+  category: "attachment",
+  tags: ["entryway", "coat_rack_mirror"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  layers: [
+    ["FsF"], // y0: zwei Haken links und rechts, dazwischen ein Konsolebrett
+    ["___"], // y1: mittlere Zelle bleibt Luft für den Spiegel-Rahmen
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    // Q1a: die Konsole unter dem Spiegel ist eine eigene Zelle in der Rahmen-Spalte. Nur Zellen prüft der
+    // Solver gegen Fenster (`wallCellOK`) – ohne sie konnte der Spiegel vor einer Scheibe landen (kein fester
+    // Block dahinter). Eine untere Stufe ragt nicht in die Rahmen-Zelle (kein `tall`, `frameClearOK`).
+    s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+  },
+  entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+}

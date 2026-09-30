@@ -1,0 +1,12 @@
+{
+  "name": "@mcda/evaluation",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Messbarkeit des A/B-Ziels (rein): Paarvergleichs-Format mit Rubriken und Rater-Typ, Seitenzuordnung per Seed, Bradley-Terry-Schätzung (MM) mit Bootstrap-Intervallen, Übereinstimmungs- und Positionsbias-Maße, Mindestrundenzahl sowie Referenzstatistik für beliebige Bauvolumen (Maße, Blockvielfalt, Nicht-Vollblöcke, Dachneigung, Fensteranteil). Kein I/O; Werkzeuge unter spikes/arena.",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@mcda/core": "*"
+  }
+}

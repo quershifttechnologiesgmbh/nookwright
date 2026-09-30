@@ -1,0 +1,35 @@
+// Wandbord (research/10 §2.3/§3.3: Borde mit Kerzen, Töpfen, Flaschen). Obere Stufen in Kopfhöhe
+// (y = Boden + 1) vor der Wand, oben Abstellfläche. Stufen brauchen keine Stütze. Nicht durchlaufbar
+// (Kopf stößt an). Mehrbreit ist sicher: jede Spalte hat eine Zelle in der untersten Lage (Wandprüfung).
+{
+  id: "decor/wall_shelf",
+  kind: "static",
+  name: "Wandbord",
+  category: "attachment",
+  tags: ["wall_decor", "wall_shelf"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  // V3: bevorzugt über Kopfhöhe (Laufweg bleibt frei), sonst Augenhöhe, in hohen Räumen eine Reihe höher
+  wallHeights: [2, 1, 3],
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "slab",
+      weight: 3,
+      layers: [["SS"]],
+      legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "stairs",
+      weight: 1,
+      layers: [["KK"]], // Konsolen aus umgedrehten Treppen
+      legend: { K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+  ],
+  sockets: [
+    { id: "top_l", type: "surface", at: [0, 1, 0], accepts: ["candles", "plant", "tabletop_small", "light_small"], prob: 0.7 },
+    { id: "top_r", type: "surface", at: [1, 1, 0], accepts: ["plant", "tabletop_small", "candles"], prob: 0.5 },
+  ],
+}

@@ -1,0 +1,66 @@
+// research/53 D12 · Kamin, gestuft 3x1 -> 1x1 (research/18 D12, research/15 §2.2): breiter Fuß, Schulter, kurzer
+// 1x1-Hals, Kopf, oben ein Lagerfeuer ohne Deckel (Faktencheck #13).
+// W2 (Baustandard D7, X3 K5): die gestufte Form des Schornstein-Satzes (Vorbild R17: breiter, gestufter Schornstein).
+// W2-FW (26.09.2026): ruhige, spiegelsymmetrische Stufenform statt der Kreuz-Silhouette: der Fuß wächst mit der
+// Dachhöhe (Dehnung auf Lage 0), die Schulter ist eine Abwitterung aus normalen Treppen (Rücken zum Hals, fällt nach
+// außen ab), der Hals bleibt 1 Lage kurz.
+// W3 (27.09.2026, plan/spikes/W3RD_dachdetails.md): ohne Kragkrone – die Silhouette verjüngt sich nur noch (Fuß 3 →
+// Schulter → Hals 1 → Kopf 1), wie in 6 von 18 Vorbildern (Crunchiekitty, Deepslate Chimney, 5 Simple Chimney
+// Designs …). Der Kopf ist wie bei `chimney` ein Mantel aus vier offenen Falltüren um das Lagerfeuer.
+// Der Fuß liegt entlang der Höhenlinie des Dachs (der Außen-Planer dreht ihn so). „brick“ = Ziegel, „stone“ = Herd.
+{
+  id: "exterior/chimney_corbelled",
+  kind: "static",
+  name: "Kamin, gestuft",
+  category: "architecture",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "roof",
+  rotations: "all",
+  variants: [
+    {
+      id: "brick",
+      weight: 2,
+      layers: [
+        ["...", "SSS", "..."],
+        ["...", "LSR", "..."],
+        ["...", ".S.", "..."],
+        [".N.", "WCE", ".F."],
+      ],
+      legend: {
+        S: { role: "hearth_alt", shape: "block" },
+        L: { role: "hearth_alt", shape: "stairs", orient: { back: "left" } },
+        R: { role: "hearth_alt", shape: "stairs", orient: { back: "right" } },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        F: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+      stretch: { layer: 0, max: 8, fill: "ceiling" },
+    },
+    {
+      id: "stone",
+      weight: 1,
+      layers: [
+        ["...", "SSS", "..."],
+        ["...", "LSR", "..."],
+        ["...", ".S.", "..."],
+        [".N.", "WCE", ".F."],
+      ],
+      legend: {
+        S: { role: "hearth", shape: "block" },
+        L: { role: "hearth", shape: "stairs", orient: { back: "left" } },
+        R: { role: "hearth", shape: "stairs", orient: { back: "right" } },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        F: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+      stretch: { layer: 0, max: 8, fill: "ceiling" },
+    },
+  ],
+  light: "auto",
+}

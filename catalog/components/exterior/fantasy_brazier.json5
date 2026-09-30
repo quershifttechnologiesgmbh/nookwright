@@ -1,0 +1,43 @@
+// W7-D · Fantasy-Modul „Feuerschalen am Eingang“ (plan/spikes/W7D_fantasy.md): ersetzt bei Fantasy-Stufe `full` das
+// Laternenpaar des Eingangsmoduls – ein Lagerfeuer auf einer niedrigen Mauerwange links und rechts der Haustür (gleicher
+// Ort wie die Laternen auf den Wangen des Steinmoduls). Vorbilder: Feuer/Lava in 6 von 11 zwergischen Bauten, massive
+// Portale mit Feuerschalen (D3–D5, D7). Lagerfeuer stehen und brennen auf einer Mauer und entzünden keine Nachbarn
+// (Faktencheck, Nachtrag T5 #13); Licht 15.
+//
+//   Ansicht (5 breit)       Stück
+//     C . . . C   y2        dwarven         einfache Tür: Wange j = ±2 (y 1), Feuer darauf (y 2)
+//     M . D . M   y1        dwarven_double  Doppeltür: eine Spalte breiter (gerade Breite)
+//     . s s s .   y0
+//
+// Nur Kit `dwarven`.
+{
+  id: "exterior/fantasy_brazier",
+  kind: "static",
+  name: "Feuerschalen am Eingang",
+  category: "light",
+  tags: ["exterior", "exterior_entrance", "exterior_light", "exterior_fantasy", "outdoor"],
+  functionTags: ["light"],
+  styleTags: ["dwarven"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "dwarven",
+      layers: [["....."], ["M...M"], ["C...C"]],
+      legend: {
+        M: { role: "wall_plinth", shape: "wall" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+    },
+    {
+      id: "dwarven_double",
+      layers: [["......"], ["M....M"], ["C....C"]],
+      legend: {
+        M: { role: "wall_plinth", shape: "wall" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+    },
+  ],
+  light: "auto",
+}

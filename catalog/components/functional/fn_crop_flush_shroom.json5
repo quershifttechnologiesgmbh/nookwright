@@ -1,0 +1,230 @@
+// Halbautomatisches Pilzbeet (Welle FN): gleiche Spültechnik wie fn_crop_flush, aber Myzelbett statt Ackerland.
+// Pilze (rot/braun) stehen auf Myzel: dort überleben sie bei jedem Lichtpegel (minecraft.wiki Brown_Mushroom: sonst nur Licht < 13);
+// die waterlogged Laterne in der Bahnmitte macht den Keller monstersicher (Blocklicht > 0). Fließwasser bricht Pilze
+// (Wiki: Drop, wenn ein Fluid darüberfließt) und trägt sie zur Trichterreihe; die Kette endet im Fass.
+// Ablauf und Ruhezustand wie fn_crop_flush: Hebel AN = Kolben ausgefahren = Tor zu; Hebel AUS öffnet das Wasser,
+// danach wieder AN und neu bepflanzen (Pilze von Hand setzen oder per Ausbreitung: höchstens 5 je Sorte im 9×9×3-Gebiet).
+// Keller-/Höhlenraum: Bahn braucht keine Sonne. Größen 1 Bahn (5 breit) oder 2 Bahnen (9 breit), 9 tief, Höhe 3.
+{
+  id: "functional/fn_crop_flush_shroom",
+  kind: "static",
+  name: "Spülbeet Pilze",
+  category: "work",
+  tags: ["fn_crop_flush_shroom", "fn_shroom", "fn_farm_machine"],
+  functionTags: ["farm:mushroom", "automation", "hopper", "light"],
+  styleTags: ["rustic", "medieval", "cellar"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_brown",
+      weight: 9,
+      layers: [
+        [ // y0: Boden: Beet, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:mycelium" },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:brown_mushroom" },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "s_red",
+      weight: 6,
+      layers: [
+        [ // y0: Boden: Beet, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:mycelium" },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:red_mushroom" },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_brown",
+      weight: 6,
+      layers: [
+        [ // y0: Boden: Beet, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:mycelium" },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:brown_mushroom" },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_red",
+      weight: 4,
+      layers: [
+        [ // y0: Boden: Beet, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:mycelium" },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:red_mushroom" },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

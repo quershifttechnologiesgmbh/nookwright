@@ -1,0 +1,29 @@
+// W15 · Konsolenpaar unter Fensterbank bzw. Blumenkasten im Obergeschoss: umgedrehte Treppe im Holz des Fensterrahmens
+// unter beiden Enden der Bank (Vorbild: switchbladegaming „building tips“ – umgedrehte Treppe unter dem Sims trägt ihn
+// optisch). Rückseite an der Wand; je Fenster beide oder keine, je Seite alle Fenster oder keins.
+{
+  id: "exterior/detail_sill_corbel",
+  kind: "static",
+  name: "Konsole unter der Fensterbank",
+  category: "attachment",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor", "detail_subtle"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "harbor", "nordic", "nordic_falu", "winter", "elven", "dwarven", "gothic", "asian", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "wood",
+      weight: 1,
+      layers: [["V"]],
+      legend: { V: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    // unter einem Gesims bzw. einer Bank aus Stein (`wall_cornice`, Burg, Wachturm): Steinkonsole im Stein des Gesimses
+    {
+      id: "stone",
+      weight: 1,
+      layers: [["V"]],
+      legend: { V: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+  ],
+}

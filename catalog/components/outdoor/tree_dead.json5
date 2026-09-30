@@ -1,0 +1,26 @@
+// research/56 · Kleiner Custom-Baum: toter Baum (keine Blätter, ein Astpaar, Spinnweben-Akzent an einem
+// Aststummel). Für Friedhof, Ödland, verwilderte Gärten. 3×3×4.
+{
+  id: "outdoor/tree_dead",
+  kind: "static",
+  name: "Toter Baum",
+  category: "decor",
+  tags: ["tree", "custom_tree", "outdoor", "cemetery", "meadow"],
+  styleTags: ["overgrown", "ruin"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: false,
+  layers: [
+    ["...", ".F.", "..."], // y0: Stamm
+    ["...", ".F.", "..."], // y1: Stamm
+    ["BFC", "...", "..."], // y2: Astpaar
+    [".W.", ".F.", "..."], // y3: Spinnwebe am Aststummel, Stamm läuft dünn aus
+  ],
+  legend: {
+    F: { block: "minecraft:oak_log", orient: { axis: "y" } },
+    B: { block: "minecraft:oak_log", orient: { axis: "x" } },
+    C: { block: "minecraft:oak_log", orient: { axis: "x" } },
+    W: { block: "minecraft:cobweb" },
+  },
+}

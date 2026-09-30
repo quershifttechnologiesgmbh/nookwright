@@ -1,0 +1,49 @@
+// Tavernentisch 2×2 (research/11 T-4) aus oberen Stufen, ringsum Barhocker über Sockets (richtungslos,
+// weil der Solver `toParent` noch nicht kann). Oben Krüge, Kerzen, Laterne.
+// W7-F: Variante „group“ (Standard) verlangt die Hocker auf beiden Längsseiten (Pflicht-Andockpunkte) – der Tisch steht
+// nur dort, wo die ganze Gruppe Platz hat (Vorbilder: Tischgruppen mit 2–4 Hockern 12/18; vorher stand er in kleinen
+// Schankstuben an der Wand, halb ohne Hocker). Passt die Gruppe nirgends, ist „plain“ (Hocker nur wo Platz) der Rückfall.
+// W8-I (2026-09-27): Hocker-Anschlüsse spiegelsymmetrisch (Windrad-Regel, HANDOFF §1). Vorher n (0,−1), s (1,2),
+// w (−1,1), e (2,0): mit allen vier Hockern genau das Tetromino-Windrad, n+s allein eine S-Figur (W8-G §7). Jetzt
+// n (0,−1) / s (0,2) und w (−1,0) / e (2,0): je zwei Hocker sitzen sich über dem Tisch gegenüber, die Gruppe ist an der
+// Diagonale gespiegelt; die Pflicht-Hocker n/s liegen an der Querachse gespiegelt. Prüfung: catalog/test/mirror-symmetry.
+{
+  id: "table/tavern_table",
+  kind: "static",
+  name: "Tavernentisch",
+  category: "furniture",
+  tags: ["tavern_table", "table"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [["TT", "TT"]],
+  legend: { T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  sockets: [
+    { id: "top_a", type: "surface", at: [0, 1, 0], accepts: ["mug", "candles", "light_small"], prob: 0.7 },
+    { id: "top_b", type: "surface", at: [1, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+    // W3-IN: Tischgruppe mit 2–4 Hockern (Vorbilder) – die beiden Längsseiten fast immer besetzt
+    { id: "n", type: "adjacent", at: [0, 0, -1], side: "back", accepts: ["bar_stool"], prob: 0.95, facing: "same" },
+    { id: "s", type: "adjacent", at: [0, 0, 2], side: "front", accepts: ["bar_stool"], prob: 0.95, facing: "same" },
+    { id: "w", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["bar_stool"], prob: 0.5, facing: "same" },
+    { id: "e", type: "adjacent", at: [2, 0, 0], side: "left", accepts: ["bar_stool"], prob: 0.5, facing: "same" },
+    // V3: Laterne über dem Tisch (hängt unter der Decke, über dem Tisch auch tiefer als Kopfhöhe)
+    { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.7 },
+  ],
+  variants: [
+    {
+      id: "group",
+      weight: 9,
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 0], accepts: ["mug", "candles", "light_small"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [1, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+        { id: "n", type: "adjacent", at: [0, 0, -1], side: "back", accepts: ["bar_stool"], prob: 0.95, facing: "same", required: true },
+        { id: "s", type: "adjacent", at: [0, 0, 2], side: "front", accepts: ["bar_stool"], prob: 0.95, facing: "same", required: true },
+        { id: "w", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["bar_stool"], prob: 0.5, facing: "same" },
+        { id: "e", type: "adjacent", at: [2, 0, 0], side: "left", accepts: ["bar_stool"], prob: 0.5, facing: "same" },
+        { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.7 },
+      ],
+    },
+    { id: "plain", weight: 1 },
+  ],
+}

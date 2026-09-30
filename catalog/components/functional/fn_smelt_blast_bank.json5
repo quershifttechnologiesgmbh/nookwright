@@ -1,0 +1,316 @@
+// Hochofenbank (FN): Hochöfen (doppelte Geschwindigkeit, nur Erz, Metall und Rüstung) in dunklem Mauerwerk.
+// Skalierung (Signatur-Regel des Solvers: die größte passende Form gewinnt): bench_* = Handbetrieb, ein Brennstofffass je Ofen,
+// Höhe 4 (low_*: Höhe 3, flat_2: Höhe 2); line_* = gemeinsame Leitungen ohne Redstone, Höhe 5, der Pfeiler wächst bis zur Decke (stretch).
+// Aufbau line_N (x läuft nach links, z0 = Rückwand): y0 Sammelkette unter den Öfen → Truhe am linken Ende; y1 Öfen (vorn) und
+// Brennstoff-Trichter (hinten, schiebt seitlich in den Ofen); y2 Abgriffe (Trichter ↓); y3 Leitungen (hinten Brennstoff nach links,
+// vorn Erz/Gut nach rechts); y4 Fässer (Brennstoff hinten am rechten Ende, Eingabe vorn am linken Ende, Rahmen zeigen den Inhalt).
+// Ruhezustand im Export: Brennstofffass gefüllt (Kohle bzw. Lavaeimer), Eingabefass leer, Leitungen leer, Öfen leer (lit = Deko).
+// Grenzen (Spieler): nur Schmelzbares ins Eingabefass (Ofen-Eingabe nimmt jedes Item an, Nicht-Schmelzbares verstopft den Platz);
+// Lavaeimer geben einen leeren Eimer zurück, der Sammelkette holt ihn aus dem Brennstoff-Platz in die Truhe.
+// Über der Truhe bleibt Luft (öffnet). Eingabefass: nur Roherz (Rahmen zeigt Roheisen).
+// Richtungen relativ: left = +x, front = +z (Süden). Nicht im Spiel geprüft (kein Server-Prüfstand): siehe plan/spikes/FN_schmelzanlagen.md.
+{
+  id: "functional/fn_smelt_blast_bank",
+  kind: "static",
+  name: "Hochofenbank (Erz)",
+  category: "work",
+  tags: ["fn_smelt","fn_smelt_blast"],
+  functionTags: ["smelt","store","automation"],
+  styleTags: ["workshop","dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  light: "auto",
+  variants: [
+    {
+      id: "slim_2",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [
+        [
+          "SS.", // Sockel
+          "OOC", // Sammelkette → Ausgabe-Truhe
+        ],
+        [
+          "HH.", // Brennstoff-Trichter (→ Ofen-Seite)
+          "FF_", // Öfen | Luft über der Truhe
+        ],
+        [
+          "WW.", // Brennstofffässer
+          "DD.", // Eingabe-Trichter (↓ Ofen, von Hand befüllt)
+        ],
+      ],
+      legend: {
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        W: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+      },
+    },
+    {
+      id: "low_2",
+      weight: 2,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        [
+          "PSSP", // Sockel
+          "POOC", // Sammelkette → Ausgabe-Truhe
+        ],
+        [
+          "PHHP", // Brennstoff-Trichter (→ Ofen-Seite)
+          "PFF_", // Öfen | Luft über der Truhe
+        ],
+        [
+          "PWWP", // Brennstofffässer
+          "PDD.", // Eingabe-Trichter (↓ Ofen, offen oben)
+        ],
+      ],
+      legend: {
+        P: { role: "wall_quoin", shape: "block" },
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        W: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+      },
+      entities: [
+        { type: "item_frame", at: [3, 1, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+      ],
+    },
+    {
+      id: "bench_2",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        [
+          "PSSP", // Sockel
+          "POOC", // Sammelkette → Ausgabe-Truhe
+        ],
+        [
+          "PHHP", // Brennstoff-Trichter (→ Ofen-Seite)
+          "PFF_", // Öfen | Luft über der Truhe
+        ],
+        [
+          "PWWP", // Brennstofffässer
+          "PDD.", // Eingabe-Trichter (↓ Ofen, offen oben)
+        ],
+        [
+          "TUUT", // Laternen auf den Pfeilern + Deckband über den Fässern
+          "T...", // Laterne
+        ],
+      ],
+      legend: {
+        P: { role: "wall_quoin", shape: "block" },
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        W: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+        T: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      entities: [
+        { type: "item_frame", at: [3, 1, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+      ],
+      stretch: { layer: 2, max: 8, fill: "ceiling", rows: ["P..P", "P..."] },
+    },
+    {
+      id: "bench_4",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        [
+          "PSSSSP", // Sockel
+          "POOOOC", // Sammelkette → Ausgabe-Truhe
+        ],
+        [
+          "PHHHHP", // Brennstoff-Trichter (→ Ofen-Seite)
+          "PFFFF_", // Öfen | Luft über der Truhe
+        ],
+        [
+          "PWWWWP", // Brennstofffässer
+          "PDDDD.", // Eingabe-Trichter (↓ Ofen, offen oben)
+        ],
+        [
+          "TUUUUT", // Laternen auf den Pfeilern + Deckband über den Fässern
+          "T.....", // Laterne
+        ],
+      ],
+      legend: {
+        P: { role: "wall_quoin", shape: "block" },
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        W: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+        T: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      entities: [
+        { type: "item_frame", at: [5, 1, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+      ],
+      stretch: { layer: 2, max: 8, fill: "ceiling", rows: ["P....P", "P....."] },
+    },
+    {
+      id: "line_2",
+      weight: 2,
+      minRoomHeight: 5,
+      layers: [
+        [
+          "PSSP", // Sockel
+          "POOC", // Sammelkette → Ausgabe-Truhe
+          "....", // 
+        ],
+        [
+          "PHHP", // Brennstoff-Trichter (→ Ofen-Seite)
+          "PFF_", // Öfen | Luft über der Truhe
+          "....", // 
+        ],
+        [
+          "PDDP", // Abgriffe Brennstoff (↓)
+          "PDD.", // Abgriffe Eingabe (↓ Ofen)
+          "....", // 
+        ],
+        [
+          "PLDP", // Brennstoff-Leitung → nach links (+x)
+          "PDR.", // Eingabe-Leitung ← nach rechts (−x)
+          "....", // 
+        ],
+        [
+          "PBUP", // Brennstofffass (x = 1) + Deckband
+          "P_b.", // Luft für den Rahmen (x = 1), Deckband, Eingabefass (x = n)
+          ".._.", // Luft für den Rahmen am Eingabefass
+        ],
+      ],
+      legend: {
+        P: { role: "wall_quoin", shape: "block" },
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        L: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        R: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+        { type: "item_frame", at: [3, 1, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+      ],
+      stretch: { layer: 4, max: 10, fill: "ceiling", rows: ["P..P", "P...", "...."] },
+    },
+    {
+      id: "line_4",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [
+        [
+          "PSSSSP", // Sockel
+          "POOOOC", // Sammelkette → Ausgabe-Truhe
+          "......", // 
+        ],
+        [
+          "PHHHHP", // Brennstoff-Trichter (→ Ofen-Seite)
+          "PFFFF_", // Öfen | Luft über der Truhe
+          "......", // 
+        ],
+        [
+          "PDDDDP", // Abgriffe Brennstoff (↓)
+          "PDDDD.", // Abgriffe Eingabe (↓ Ofen)
+          "......", // 
+        ],
+        [
+          "PLLLDP", // Brennstoff-Leitung → nach links (+x)
+          "PDRRR.", // Eingabe-Leitung ← nach rechts (−x)
+          "......", // 
+        ],
+        [
+          "PBUUUP", // Brennstofffass (x = 1) + Deckband
+          "P_UUb.", // Luft für den Rahmen (x = 1), Deckband, Eingabefass (x = n)
+          "...._.", // Luft für den Rahmen am Eingabefass
+        ],
+      ],
+      legend: {
+        P: { role: "wall_quoin", shape: "block" },
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        L: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        R: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+        { type: "item_frame", at: [5, 1, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+      ],
+      stretch: { layer: 4, max: 10, fill: "ceiling", rows: ["P....P", "P.....", "......"] },
+    },
+    {
+      id: "line_6",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [
+        [
+          "PSSSSSSP", // Sockel
+          "POOOOOOC", // Sammelkette → Ausgabe-Truhe
+          "........", // 
+        ],
+        [
+          "PHHHHHHP", // Brennstoff-Trichter (→ Ofen-Seite)
+          "PFFFFFF_", // Öfen | Luft über der Truhe
+          "........", // 
+        ],
+        [
+          "PDDDDDDP", // Abgriffe Brennstoff (↓)
+          "PDDDDDD.", // Abgriffe Eingabe (↓ Ofen)
+          "........", // 
+        ],
+        [
+          "PLLLLLDP", // Brennstoff-Leitung → nach links (+x)
+          "PDRRRRR.", // Eingabe-Leitung ← nach rechts (−x)
+          "........", // 
+        ],
+        [
+          "PBUUUUUP", // Brennstofffass (x = 1) + Deckband
+          "P_UUUUb.", // Luft für den Rahmen (x = 1), Deckband, Eingabefass (x = n)
+          "......_.", // Luft für den Rahmen am Eingabefass
+        ],
+      ],
+      legend: {
+        P: { role: "wall_quoin", shape: "block" },
+        S: { role: "foundation", shape: "block" },
+        O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        D: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        L: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        R: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:coal", count: [24,64] }], fill: [0.2,0.45] } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+        { type: "item_frame", at: [7, 1, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+      ],
+      stretch: { layer: 4, max: 10, fill: "ceiling", rows: ["P......P", "P.......", "........"] },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

@@ -1,0 +1,57 @@
+// K3d · Gitterkäfig, frei stehend (research/11 §9 D3 „Lichthof mit Feuerbecken“, Kerker-Kompaktform): Eisengitter
+// rundum, vorn die Eisentür neben einem gemauerten Pfeiler (Rolle `foundation`); der Knopf sitzt außen am Pfeiler
+// (T5: Knopf an einem Block neben einer Türhälfte öffnet beide Hälften). Innen eine Pritsche (untere Stufe) –
+// keine leere Bodenzelle, also keine abgeschnittene Tasche. Braucht KEINE Raumwand → passt auch in Räume mit
+// eng gesetzten Fenstern (Rückfall der Kerker-Signatur, Tag `prison_cell`). Oben Gitterdecke ab lichter Höhe 3
+// (bis zur Decke gedehnt, V3). „*_low“ für lichte Höhe 2.
+{
+  id: "decor/prison_cage",
+  kind: "static",
+  name: "Gitterkäfig",
+  category: "architecture",
+  tags: ["prison_cell", "cage"],
+  functionTags: ["confine"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "cage",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["III", "IHI", "IDP", "..."], // y0: Gitter | Pritsche | Tür unten + Pfeiler
+        ["III", "I_I", "IdP", "..b"], // y1: Tür oben, Knopf außen am Pfeiler
+        ["III", "III", "III", "..."], // y2: Gitter oben (gedehnt bis zur Decke)
+      ],
+      legend: {
+        I: { block: "minecraft:iron_bars" },
+        H: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        P: { role: "foundation", shape: "block" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+    },
+    {
+      id: "cage_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["III", "IHI", "IDP", "..."],
+        ["III", "I_I", "IdP", "..b"],
+      ],
+      legend: {
+        I: { block: "minecraft:iron_bars" },
+        H: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        P: { role: "foundation", shape: "block" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

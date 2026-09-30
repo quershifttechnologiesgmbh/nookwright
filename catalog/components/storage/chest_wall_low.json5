@@ -1,0 +1,29 @@
+// Truhenwand mit Bord (research/10 §7.7 `one_high_shelf`): eine Doppeltruhe zwischen Stamm-Pfosten,
+// darüber ein Bord aus oberen Stufen (öffnet – obere Stufe leitet kein Redstone, Faktencheck #2).
+// 2 hoch → passt auch bei lichter Höhe 2; bei Höhe ≥ 3 trägt das Bord Kleinkram.
+{
+  id: "storage/chest_wall_low",
+  kind: "static",
+  name: "Truhenwand mit Bord",
+  category: "storage",
+  tags: ["storage_wall", "chest_wall"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["PCCP"], // y0
+    ["PSSP"], // y1: Bord
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+  },
+  sockets: [
+    { id: "shelf_l", type: "surface", at: [1, 2, 0], accepts: ["tabletop_small", "plant", "candles", "light_small"], prob: 0.6 },
+    { id: "shelf_r", type: "surface", at: [2, 2, 0], accepts: ["tabletop_small", "plant"], prob: 0.4 },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

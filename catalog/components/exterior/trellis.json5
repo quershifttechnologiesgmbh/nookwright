@@ -1,0 +1,21 @@
+// research/53 V2 · Rankgitter mit Pflanzen: Zaungitter 1 vor der Wand, mit Laubsäule als Vanilla-Ersatz für
+// Ranken (research/12 §6.2, die Physik-Stütze für `vine` fehlt noch). Persistentes Laub, kein Fenster verdeckt.
+// Q1a: die Dehnung ist auf 1 begrenzt (Grundform 3 + 1 = 4 Zellen) – die Facade-Montage wächst von der
+// Ankerzelle nach oben, in der Testfassade sind nur 4 Außenluft-Zellen übereinander frei.
+{
+  id: "exterior/trellis",
+  kind: "static",
+  name: "Rankgitter",
+  category: "attachment",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "cottage", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["FFF"], ["FbF"], ["FFF"]],
+  legend: {
+    F: { role: "beam", shape: "fence" },
+    b: { role: "leaves_bush", shape: "block" },
+  },
+  stretch: { layer: 1, max: 1, fill: "ceiling" },
+}

@@ -1,0 +1,39 @@
+// K3a · Flickenteppich (research/17 §4.7, N2, Ga-Refs): Karo aus vier Teppichfarben, durchlaufbar (Teppich braucht
+// nur einen Block darunter, FC #4). Bewusst NICHT mit dem Tag `rug` (research/17 §7.2): Schlafzimmer und
+// Bibliothek sollen ihn nicht ziehen, nur Kinder-, Gäste- und Spielzimmer.
+{
+  id: "decor/patchwork_rug",
+  kind: "static",
+  name: "Flickenteppich",
+  category: "decor",
+  tags: ["patchwork_rug", "rug_colorful"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "3x3",
+      weight: 2,
+      layers: [["abc", "cda", "bca"]],
+      legend: {
+        a: { block: "minecraft:red_carpet" },
+        b: { block: "minecraft:yellow_carpet" },
+        c: { block: "minecraft:light_blue_carpet" },
+        d: { block: "minecraft:white_carpet" },
+      },
+    },
+    {
+      id: "4x3",
+      weight: 1,
+      layers: [["abca", "cdbd", "abca"]],
+      legend: {
+        a: { block: "minecraft:lime_carpet" },
+        b: { block: "minecraft:pink_carpet" },
+        c: { block: "minecraft:yellow_carpet" },
+        d: { block: "minecraft:light_blue_carpet" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,15 @@
+// W15 · Regentonne an den beiden Ecken der Eingangsseite (research/53 Regentonne; Vorbild: Kessel bzw. Fass an der
+// Hausecke unter der Traufe): gefüllter Kessel an der Wand. Nur reich.
+{
+  id: "exterior/detail_rain_barrel",
+  kind: "static",
+  name: "Regentonne an der Hausecke",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "harbor"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["C"]],
+  legend: { C: { block: "minecraft:water_cauldron", state: { level: "3" } } },
+}

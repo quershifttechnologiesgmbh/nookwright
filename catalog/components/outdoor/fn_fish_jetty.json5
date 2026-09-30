@@ -1,0 +1,57 @@
+// FN Tierfarmen: Fischteich mit Angelsteg. Fünf Blöcke breites Steinbecken (Wasserquellen, ringsum eingefasst: offenes Wasser
+// auf Bodenhöhe verstößt sonst gegen `noHazardOnPath`), ein Steg aus Brettern auf wasser-gefüllten Zaunpfählen führt vom
+// Ufer ins Becken, am Ende Laternenpfosten. Fass am Ufer mit Angel, Kabeljau- und Lachs-Eimer (Fische bringt der Spieler
+// per Eimer ins Becken; Wiki: Bucket of Cod – Fische sind Mobs, sie lassen sich nicht sinnvoll automatisch sammeln,
+// deshalb kein Sammler). Angeln braucht nur offenes Wasser (Wiki: Fishing). Nur statisch geprüft.
+{
+  id: "outdoor/fn_fish_jetty",
+  kind: "static",
+  name: "Fischteich mit Angelsteg",
+  category: "work",
+  tags: ["fn_fish_jetty", "fish_pond", "outdoor", "water_feature", "pond"],
+  functionTags: ["farm:fish", "animal:fish"],
+  styleTags: ["rustic", "farm", "harbor"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    [
+      "SSSSSSS", // y0 z0: Rand hinten
+      "SwwwwwS",
+      "SwPwPwS", // Pfähle (wassergefüllte Zäune) unter dem Steg
+      "SwwwwwS",
+      "SwPwPwS",
+      "SSSSSSS", // y0 z5: Uferkante vorn
+    ],
+    [
+      ".......",
+      ".......",
+      "..pDp..", // y1: Stegende: Eckpfosten (Zaun) tragen die Laternen; Halbplatten allein tragen keine stehende Laterne
+      "..DDD..",
+      "..DDD..",
+      "b.DDD..", // y1 z5: Steg beginnt am Ufer, Fass links
+    ],
+    [
+      ".......",
+      ".......",
+      "..l.l..", // y2: Laternen auf den Eckpfosten am Stegende
+      ".......",
+      ".......",
+      ".......",
+    ],
+  ],
+  legend: {
+    S: { role: "foundation", shape: "block" },
+    w: { block: "minecraft:water", state: { level: "0" } },
+    P: { role: "furniture_wood", shape: "fence", state: { waterlogged: "true" } },
+    D: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+    p: { role: "furniture_wood", shape: "fence" },
+    b: {
+      block: "minecraft:barrel",
+      orient: { front: "front" },
+      contents: { items: [{ item: "minecraft:fishing_rod" }, { item: "minecraft:cod_bucket" }, { item: "minecraft:salmon_bucket" }] },
+    },
+    l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

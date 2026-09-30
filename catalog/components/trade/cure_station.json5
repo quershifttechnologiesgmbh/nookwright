@@ -1,0 +1,31 @@
+// K3b · Heilstation (research/17 §4.24, Th1/Th3): Zelle für einen Zombie-Dorfbewohner, vorn Eisengitter auf
+// Fußhöhe, darüber offen (Wurftrank der Schwäche und Goldapfel per Klick über das Gitter), feste Decke gegen die
+// Sonne. Gleiche Maße wie der Villager-Stand: Decke auf Höhe 2 → der Zombie (1,95) kann nicht auf das Gitter
+// steigen (dort nur 1,0 frei) und nicht fliehen; der Spieler steht 2 Blöcke entfernt (außer Schlagweite). Nach
+// der Heilung kommt der Villager in einen Stand (Rabatt bleibt). Auf dem Zellenboden eine Seelenfackel
+// (kollisionsfrei; sonst wäre die Luftzelle für den Solver eine Tasche). Mauerwerk über die Theme-Rolle `hearth`.
+// Bei lichter Höhe 2 ist die Raumdecke die Zellendecke, ab 3 kommt das Steindach als Dehnung dazu.
+{
+  id: "trade/cure_station",
+  kind: "static",
+  name: "Heilstation",
+  category: "work",
+  tags: ["cure_station"],
+  functionTags: ["trade"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["PTP", "PIP"], // y0: Mauer | Zelle (Seelenfackel) | Mauer; vorn Gitter
+    ["P_P", "P_P"], // y1: Kopfraum; über dem Gitter offen
+  ],
+  legend: {
+    P: { role: "hearth", shape: "block" },
+    T: { block: "minecraft:soul_torch" },
+    I: { role: "metal", shape: "bars" },
+  },
+  stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["PPP", "PPP"] },
+  masks: { clearance: [{ side: "front", depth: 2, hard: false }], use: [{ side: "front" }] },
+  light: "auto",
+}

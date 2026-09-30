@@ -1,0 +1,27 @@
+// research/53 A6 · Holzstapel an der Wand (research/16, R8 „Kleinteile am Sockel“): liegende Stämme in zwei
+// Lagen, unter dem Überstand oder Schuppendach. Achse quer zur Wand, damit die Stirnseiten nach außen zeigen.
+{
+  id: "exterior/wood_stack",
+  kind: "static",
+  name: "Holzstapel",
+  category: "storage",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "rustic", "farmstead"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "oak",
+      weight: 2,
+      layers: [["LLL"], ["LLL"]],
+      legend: { L: { role: "log_oak", shape: "log", orient: { axis: "along" } } },
+    },
+    {
+      id: "spruce",
+      weight: 1,
+      layers: [["LLL"], ["LLL"]],
+      legend: { L: { role: "log_spruce", shape: "log", orient: { axis: "along" } } },
+    },
+  ],
+}

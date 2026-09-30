@@ -1,0 +1,8 @@
+// Paket-eigene Typprüfung inkl. scripts/ (Node-Build-Werkzeuge: fetch/generate).
+// Die Wurzel-tsconfig prüft nur packages/*/src und packages/*/test; `npm run typecheck -w @mcda/platform`
+// deckt zusätzlich die Skripte ab.
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "types": ["node"], "noEmit": true },
+  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts"]
+}

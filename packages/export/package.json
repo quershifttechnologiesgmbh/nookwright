@@ -1,0 +1,12 @@
+{
+  "name": "@mcda/export",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Export: NBT-Kern und Writer/Reader für .nbt (Structure), .schem (Sponge v3), .litematic (v6/v7). Browser-tauglich; GZip als injizierter Port (Node-Adapter unter ./node).",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./node": "./src/node.ts"
+  },
+  "types": "./src/index.ts"
+}

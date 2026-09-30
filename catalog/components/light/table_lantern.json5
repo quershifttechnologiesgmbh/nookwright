@@ -1,0 +1,18 @@
+// Laterne auf einer Abstellfläche (research/10 §2.5: Laterne auf Nachttisch/Kopfteil 6–7/13; §3.5 auf der
+// Arbeitsplatte). Stehende Laterne braucht eine stabile Mitte darunter (Faktencheck #3): obere Stufe,
+// umgedrehte Treppe, Fass, Bücherregal ✓.
+{
+  id: "light/table_lantern",
+  kind: "static",
+  name: "Tischlaterne",
+  category: "light",
+  tags: ["light", "light_small", "tabletop_small"],
+  functionTags: ["light"],
+  obtainability: "survival",
+  mount: "surface",
+  rotations: [0],
+  layers: [["L"]],
+  legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } } },
+  masks: { support: [{ at: [0, 0, 0], side: "down", kind: "center" }] },
+  light: "auto",
+}

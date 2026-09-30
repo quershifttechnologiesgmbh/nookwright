@@ -1,0 +1,44 @@
+// Kübelbusch (research/10 §7.5: Blätter/Kübel in 6/13 Schlafzimmern, Küche K8, Schmiede F3).
+// Blätter immer persistent=true (Faktencheck #17, sonst zerfallen sie). Blühende Azaleenblätter stehen laut
+// Physik-Daten nur auf voller Oberseite → Fass als Kübel; normale Azaleenblätter auf Terrakotta.
+// Tag `plant_large` (nicht `plant`): `plant` ist für Abstellflächen gedacht (Sockets nehmen auch Boden-Komponenten).
+{
+  id: "decor/leaf_planter",
+  kind: "static",
+  name: "Kübelbusch",
+  category: "decor",
+  tags: ["plant_large"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "barrel_bush",
+      weight: 3,
+      layers: [["B"], ["L"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        L: { block: "minecraft:flowering_azalea_leaves", state: { persistent: "true" } },
+      },
+    },
+    {
+      id: "terracotta_bush",
+      weight: 2,
+      layers: [["T"], ["L"]],
+      legend: {
+        T: { block: "minecraft:terracotta" },
+        L: { block: "minecraft:azalea_leaves", state: { persistent: "true" } },
+      },
+    },
+    {
+      id: "barrel_fern",
+      weight: 1,
+      layers: [["B"], ["L"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        L: { block: "minecraft:oak_leaves", state: { persistent: "true" } },
+      },
+    },
+  ],
+}

@@ -1,0 +1,22 @@
+// Rahmen mit Essen (research/10 §3.2/§3.3: Küche 6–7/16) in Augenhöhe, darüber ein kleines Bord.
+// Der Rahmen hängt an der Raumwand (nicht an Möbeln); seine Zelle bleibt frei ('_'). Items über die
+// Item-Rollen des Themes. 1 breit, damit der Solver die Wand hinter der Rahmen-Zelle sicher prüft.
+{
+  id: "decor/frame_food",
+  kind: "static",
+  name: "Rahmen mit Essen",
+  category: "attachment",
+  tags: ["wall_decor", "wall_food"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["S"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  variants: [
+    { id: "any", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { role: "food.any" } }] },
+    { id: "baked", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { role: "food.baked" } }] },
+  ],
+}

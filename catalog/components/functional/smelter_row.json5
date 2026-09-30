@@ -1,0 +1,40 @@
+// Ofenreihe mit Trichtern (R1): drei Öfen, oben je ein Eingabe-Trichter, hinten je ein Brennstoff-Trichter mit
+// Fass darüber, unten eine Trichterkette (Ergebnisse → nach links) in die Ausgabe-Truhe. Über der Truhe bleibt
+// Luft (öffnet). Sockel hinten = Rücken zur Wand. Richtungen relativ: left = +x, front = +z (Süden).
+// Im Spiel geprüft: spikes/ingame Gruppe F (drei Öfen schmelzen parallel, alles landet in einer Truhe).
+{
+  id: "functional/smelter_row",
+  kind: "static",
+  name: "Ofenreihe mit Trichtern",
+  category: "work",
+  tags: ["auto_smelter", "smelter_row", "smelting"],
+  functionTags: ["smelt", "store", "automation"],
+  styleTags: ["workshop", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    [
+      "SSSS", // y0 z0: Sockel
+      "OOOC", // y0 z1: Trichterkette → Ausgabe-Truhe
+    ],
+    [
+      "HHH.", // y1 z0: Brennstoff-Trichter (→ Ofen-Rückseite)
+      "FFF_", // y1 z1: drei Öfen | Luft über der Truhe
+    ],
+    [
+      "BBB.", // y2 z0: Brennstoff-Fässer
+      "III.", // y2 z1: Eingabe-Trichter (↓ Ofen)
+    ],
+  ],
+  legend: {
+    S: { block: "minecraft:smooth_stone" },
+    O: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+    C: { block: "minecraft:chest", orient: { front: "front" } },
+    H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+    F: { block: "minecraft:furnace", orient: { front: "front" } },
+    B: { block: "minecraft:barrel", orient: { front: "up" } },
+    I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+  },
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

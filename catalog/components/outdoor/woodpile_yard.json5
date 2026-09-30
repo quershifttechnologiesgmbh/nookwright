@@ -1,0 +1,34 @@
+// research/56 · Holzstapel im Hof (DA Structural: liegende Stämme unter freiem Himmel, verwittert): wie
+// `storage/lumber_stack`, aber mit Moosteppich obendrauf (Wetterspuren) statt sauberer Bretter – daher ein
+// eigenes Katalog-Stück statt einer Theme-Variante. Für Hof, Scheune, Waldrand.
+{
+  id: "outdoor/woodpile_yard",
+  kind: "static",
+  name: "Holzstapel (Hof)",
+  category: "storage",
+  tags: ["woodpile", "outdoor", "yard", "farm"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "low",
+      weight: 3,
+      layers: [["LLL"], ["mmm"]],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        m: { block: "minecraft:moss_carpet" },
+      },
+    },
+    {
+      id: "tall",
+      weight: 2,
+      layers: [["LLL"], ["LL."], ["mm."]],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        m: { block: "minecraft:moss_carpet" },
+      },
+    },
+  ],
+}

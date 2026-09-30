@@ -1,0 +1,26 @@
+// FN · Handwerker-Werkstatt (plan/spikes/FN_produktionslinien.md): Schmiede-Ecke (Amboss, Schleifstein, Schmiedetisch) und
+// Kartograf-/Bogner-Ecke (Tag `fn_corner`) in einer Werkstatt; ohne Esse (`smithy` bleibt unverändert). Pflicht: eine Ecke.
+{
+  id: "artisan_workshop",
+  name: "Handwerker-Werkstatt",
+  minArea: 24,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["fn_corner"], count: [1, 1], signature: true, placement: { zones: ["edge", "corner"] } },
+  ],
+  optional: [
+    { tags: ["fn_corner"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crafting"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest", "barrel"], count: [1, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_tools", "tool_wall_corner", "utensil_rail"], count: [0, 2], weight: 2 },
+    { tags: ["anvil", "grindstone", "fletcher_bench"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["raw_materials", "lumber_stack", "sawhorse"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+    { tags: ["plant_large", "firewood"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["light_pendant"], count: [0, 2], weight: 2 },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+  ],
+  lighting: { minLevel: 9, prefer: ["light_wall", "light_ceiling"] },
+}

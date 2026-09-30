@@ -1,0 +1,29 @@
+// FN · Spawner-Kammer als Dekoration (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Dungeon-Kammer: ein LEERER
+// Spawner im Eisenkäfig (`fn_spawner_cage`, Fackel darauf) als Blickpunkt, Beute-Truhen, Gebeine, Ketten, Spinnweben nur in
+// Ecken. Der Export erzeugt nichts, das spawnt: Spawner ohne Entität, Licht ≥ 8 im ganzen Raum. Nicht neben Wohnräume setzen
+// (Gebäudeplanung Welle 2); wer eine Entität einträgt, trägt die Verantwortung für das Spawn-Verhalten.
+{
+  id: "fn_spawner_chamber",
+  name: "Spawner-Raum (Deko)",
+  minArea: 56,
+  coverage: { target: 0.35 },
+  required: [
+    { tags: ["fn_spawner_cage"], count: [1, 1], signature: true, placement: { zones: ["center", "edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["chest"], count: [0, 2], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["bone_pile"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["cobweb"], count: [0, 3], weight: 2 },
+    { tags: ["hanging_chains", "hanging_cage"], count: [0, 2], weight: 2 },
+    { tags: ["barrel"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["brazier"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["shackles"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["rubble"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["weapon_rack"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["candle_stand"], count: [0, 2], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["cage"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_banner"], count: [0, 2], weight: 1 },
+    { tags: ["light_grim", "light_wall"], count: { perArea: 10, min: 2, max: 5 }, weight: 4 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_grim", "light_wall"] },
+}

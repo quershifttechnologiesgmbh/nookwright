@@ -1,0 +1,41 @@
+// K3a · Abort (research/17 §4.9, W1, DA Furniture: Latrines): Variante „bench“ = Sitzbrett aus oberen Stufen mit
+// einer geschlossenen oberen Falltür als Deckel in der Mitte (Falltüren brauchen in Java keine Stütze), darüber
+// Papier im Rahmen an der Raumwand. Variante „composter“ = Komposter mit aufgestellter Falltür als Deckel
+// (Komposter = Bauern-Arbeitsblock, FC #7 → `villager_workstation`; in Dorfnähe lieber „bench“).
+{
+  id: "bath/latrine_seat",
+  kind: "static",
+  name: "Abort",
+  category: "furniture",
+  tags: ["latrine", "toilet"],
+  functionTags: ["sit", "villager_workstation"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "bench",
+      weight: 3,
+      layers: [
+        ["SHS"], // y0: Sitzbrett, Deckel in der Mitte
+        ["._."], // y1: Rahmen mit Papier an der Wand
+      ],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        H: { role: "beam", shape: "trapdoor", orient: { front: "front", open: false, upsideDown: true } },
+      },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:paper" } }],
+    },
+    {
+      id: "composter",
+      weight: 1,
+      layers: [["C"], ["L"]],
+      legend: {
+        C: { block: "minecraft:composter", state: { level: "0" } },
+        L: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

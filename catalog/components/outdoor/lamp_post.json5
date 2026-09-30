@@ -1,0 +1,26 @@
+// K2 · Laternenpfahl (DA Lights: Lanterns; Straße/Hof): Zaunpfosten mit Galgen-Arm, darunter die hängende
+// Laterne (Zaun-Unterseite = stabile Mitte, Faktencheck #3). 4 hoch → außen oder in hohen Hallen.
+{
+  id: "outdoor/lamp_post",
+  kind: "static",
+  name: "Laternenpfahl",
+  category: "light",
+  tags: ["light", "light_floor", "lamp_post", "outdoor"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["F."], // y0
+    ["F."], // y1
+    ["FL"], // y2: Laterne hängt am Arm
+    ["FF"], // y3: Arm
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+  },
+  masks: { support: [{ at: [1, 2, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

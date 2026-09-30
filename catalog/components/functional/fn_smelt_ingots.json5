@@ -1,0 +1,30 @@
+// Barrenlager der Schmelzhalle (FN, Welle 28.09.2026): Metallblöcke aus den Bahnen der Erzstraße, beschriftet mit Barren.
+// Reine Schau-Deko: Eisen-, Gold- und Kupferblöcke (Reihenfolge wie die Bahnen der Erzstraße) mit einem Eisenblock obenauf,
+// je Block ein Rahmen mit dem Barren. Kein Inhalt, keine Mechanik.
+{
+  id: "functional/fn_smelt_ingots",
+  kind: "static",
+  name: "Barrenlager",
+  category: "decor",
+  tags: ["fn_smelt", "fn_smelt_ingots"],
+  functionTags: ["decor"],
+  styleTags: ["workshop", "dwarven", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["IGC", "___"], // y0: Eisen, Gold, Kupfer | Luft für die Rahmen
+    ["_I_", "___"], // y1: ein Eisenblock obenauf (Pyramide)
+  ],
+  legend: {
+    I: { block: "minecraft:iron_block" },
+    G: { block: "minecraft:gold_block" },
+    C: { block: "minecraft:copper_block" },
+  },
+  entities: [
+    { type: "item_frame", at: [0, 0, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+    { type: "item_frame", at: [1, 0, 1], face: "front", item: { item: "minecraft:gold_ingot" } },
+    { type: "item_frame", at: [2, 0, 1], face: "front", item: { item: "minecraft:copper_ingot" } },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

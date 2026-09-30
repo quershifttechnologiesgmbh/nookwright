@@ -1,0 +1,35 @@
+// K2 · Kürbislaterne (DA Lights/Festivities; Erntedeko): Kürbislaterne auf Heuballen oder Fass. Licht 15,
+// Vollblöcke ohne Stützregel. Für Küche, Lager, Taverne.
+{
+  id: "light/harvest_lantern",
+  kind: "static",
+  name: "Kürbislaterne",
+  category: "light",
+  tags: ["light", "light_floor", "harvest"],
+  functionTags: ["light"],
+  styleTags: ["rustic", "festive"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "hay",
+      weight: 2,
+      layers: [["H"], ["J"]],
+      legend: {
+        H: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        J: { block: "minecraft:jack_o_lantern", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "barrel",
+      weight: 1,
+      layers: [["B"], ["J"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        J: { block: "minecraft:jack_o_lantern", orient: { front: "front" } },
+      },
+    },
+  ],
+  light: "auto",
+}

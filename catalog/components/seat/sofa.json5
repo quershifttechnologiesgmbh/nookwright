@@ -1,0 +1,94 @@
+// K3d · Sofa und Ecksofa aus Treppen (research/16 I1, P1; Quellen S13 Sofa aus Treppen + Schildern, S19 L-Sofas,
+// Fass-Beistelltische, S9 „Living Room“). Sitz = Treppen mit Lehne zur Wand, Armlehnen = offene Falltüren
+// (`beam`, dunkler Kontrast), Fässer (stehend, Deckel oben: Beistelltisch mit Lampe/Kerzen) oder Bücherregale.
+// Offene Falltür liegt an der Seite gegenüber ihrer Blickrichtung: links (x = 0, Westen) Blick nach „right“ →
+// liegt an der Treppe an (wie seat/settle). Ecksofa: die Ecktreppe bildet per Autotiling `shape=inner_*`
+// (Faktencheck #14); gespiegelte Form als eigene Variante, weil der Solver nicht spiegelt.
+// Polster aus Woll-Treppen (26.3) fehlen bewusst: 1.21.11 kennt sie nicht, Katalog-Verträge prüfen jede
+// Komponente in beiden Zielversionen (Bericht K3d, offene Punkte).
+// Tags: `sofa` und `seating_group` (Sitzgruppe: Wohnstube, Schlafzimmer, Bibliothek, Wohnküche ziehen es).
+// Bewusst NICHT `wall_bench` (zöge Kapelle, Badehaus, Methalle) – die schlichte Wandbank bleibt seat/settle.
+{
+  id: "seat/sofa",
+  kind: "static",
+  name: "Sofa",
+  category: "furniture",
+  tags: ["sofa", "seat", "seating_group"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // Dreisitzer mit hoher Rückenlehne (offene Falltüren flach an der Treppenlehne) und Falltür-Armlehnen;
+      // die schlichte Wandbank ohne Lehne ist seat/settle
+      id: "high_back",
+      weight: 3,
+      layers: [["TSSSU"], [".BBB."]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        B: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+      sockets: [{ id: "table", type: "adjacent", at: [2, 0, 2], side: "front", accepts: ["table_small"], prob: 0.5 }],
+    },
+    {
+      // Fass-Beistelltische als Armlehnen (S19): oben Laterne/Kerzen (Laterne steht auf Fass, T5 #3)
+      id: "barrel_ends",
+      weight: 2,
+      layers: [["BSSSB"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+      },
+      sockets: [
+        { id: "side_l", type: "surface", at: [0, 1, 0], accepts: ["light_small", "candles", "plant"], prob: 0.7, pairWith: "side_r" },
+        { id: "side_r", type: "surface", at: [4, 1, 0], accepts: ["light_small", "candles", "plant"], prob: 0.7 },
+        { id: "table", type: "adjacent", at: [2, 0, 2], side: "front", accepts: ["table_small"], prob: 0.4 },
+      ],
+    },
+    {
+      // Bücherregal-Wangen (Leseecke); Kerzen auf dem Regal gehen (volle Oberseite, T5 #4)
+      id: "shelf_ends",
+      weight: 1,
+      layers: [["KSSK"]],
+      legend: {
+        K: { block: "minecraft:bookshelf" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+      },
+      sockets: [
+        { id: "side_l", type: "surface", at: [0, 1, 0], accepts: ["candles", "light_small"], prob: 0.6, pairWith: "side_r" },
+        { id: "side_r", type: "surface", at: [3, 1, 0], accepts: ["candles", "light_small"], prob: 0.6 },
+      ],
+    },
+    {
+      // Ecksofa (L), Schenkel links: Rückenlehne an der Wand, Schenkel zeigt nach vorn (Ecke: inner_*)
+      id: "corner",
+      weight: 2,
+      layers: [["SSSU", "L...", "E..."]],
+      legend: {
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        L: { role: "furniture_wood", shape: "stairs", orient: { back: "right" } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+      sockets: [{ id: "table", type: "adjacent", at: [2, 0, 2], side: "front", accepts: ["table_small"], prob: 0.5 }],
+    },
+    {
+      // Ecksofa gespiegelt (Schenkel rechts)
+      id: "corner_r",
+      weight: 2,
+      layers: [["TSSS", "...R", "...E"]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        R: { role: "furniture_wood", shape: "stairs", orient: { back: "left" } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+      sockets: [{ id: "table", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["table_small"], prob: 0.5 }],
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+}

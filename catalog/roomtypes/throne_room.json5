@@ -1,0 +1,38 @@
+// K3d · Thronsaal (research/11 §10, TH1–TH6; research/17 §5 Delta: Achse + Spiegelpaare, Pilaster als Wandtakt,
+// Trophäen-Sockel). Mittelachse (K3c `aisle`): Haupttür → Läufer → Thron an der Stirnwand; im Gang steht auf
+// Laufhöhe nur der Blickpunkt (Signatur, Rücken zur Stirnwand) und Durchlaufbares (Läufer). Säulen, Feuerbecken und
+// Kerzenständer flankieren den Gang. Signatur `throne`: Thronpodest mit Glowstone unter dem Läufer (ab lichter
+// Höhe 4, L2), niedriges Podest (3) bzw. Thron an der Wand (Kompaktform, auch lichte Höhe 2).
+// „Mehr in die Höhe“: Säulen bis zur Decke, Wandbanner/Falltür-Paneele über Kopfhöhe, Deckenbanner, Kronleuchter,
+// verdecktes Kassettenlicht (L1). Licht bewusst auch am Boden (Feuerbecken, Kerzenständer; research/11 R1).
+{
+  id: "throne_room",
+  name: "Thronsaal",
+  minArea: 36,
+  coverage: { target: 0.3 },
+  required: [
+    { tags: ["throne"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["column"], count: { perArea: 16, min: 0, max: 6 }, weight: 4, placement: { zones: ["center", "corridor"] } },
+    { tags: ["brazier"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corridor"] } },
+    { tags: ["candle_stand"], count: [0, 4], weight: 2, placement: { zones: ["edge", "corridor"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 3, placement: { zones: ["center", "corridor"], doorAffinity: "near" } },
+    { tags: ["wing_chair"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["armor_display", "trophy_pedestal"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["pilaster"], count: [0, 2], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["fn_nave_bay"], count: { perArea: 22, min: 2, max: 8 }, weight: 6, pattern: { kind: "row", gap: 0 }, placement: { zones: ["edge"] } },
+    // Wand und Decke (über Kopfhöhe)
+    { tags: ["wall_banner", "tapestry"], count: [2, 6], weight: 4 },
+    { tags: ["wall_panel"], count: [1, 3], weight: 3 },
+    { tags: ["picture_frame", "trophy"], count: [0, 2], weight: 2 },
+    { tags: ["ceiling_banner"], count: [0, 3], weight: 3 },
+    { tags: ["hanging_cage"], count: [0, 1], weight: 1 },
+    { tags: ["chandelier"], count: { perArea: 30, min: 0, max: 3 }, weight: 4 },
+    { tags: ["light_hidden"], count: [0, 2], weight: 3 },
+  ],
+  // Licht-Pass: festlich (≥ 8), Kronleuchter vor verdecktem Kassettenlicht vor Feuerbecken und Kerzenständern
+  lighting: { minLevel: 8, prefer: ["chandelier", "light_hidden", "brazier", "candle_stand", "light_wall"] },
+  // Achse immer Haupttür → Gegenwand (auch bei Tür in der Längswand), Thron als Blickpunkt am Gang-Ende
+  aisle: { axis: "door", width: 3, minWidth: 1 },
+}

@@ -1,0 +1,50 @@
+// research/57 · Nähstube: Stoffballen-Stapel, zweite Bauform neben work/cloth_shelf (bislang die einzige
+// Signatur-Form der Nähstube). Tag `cloth_shelf` steht in weaving_room.json5 im Pflicht-Eintrag
+// `{ tags: ["cloth_shelf"], signature: true, zone: "work" }`. Wollballen ohne Regalbretter, direkt gestapelt
+// vor der Wand – Kompaktform für schmale Wandstücke.
+// Nachprüfung research/57: Der Rahmen in `with_shears` lag auf demselben Feld wie der Wollblock (Kollision) –
+// jetzt in einer eigenen Luft-Zeile über dem Stapel.
+{
+  id: "storage/fabric_bolts",
+  kind: "static",
+  name: "Stoffballen-Stapel",
+  category: "storage",
+  tags: ["cloth_shelf", "textile_goods"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "two_tone",
+      weight: 2,
+      layers: [["RW"], ["WB"]],
+      legend: {
+        R: { block: "minecraft:red_wool" },
+        W: { block: "minecraft:white_wool" },
+        B: { block: "minecraft:blue_wool" },
+      },
+    },
+    {
+      id: "single_column",
+      weight: 2,
+      layers: [["Y"], ["G"], ["L"]],
+      legend: {
+        Y: { block: "minecraft:yellow_wool" },
+        G: { block: "minecraft:green_wool" },
+        L: { block: "minecraft:light_blue_wool" },
+      },
+    },
+    {
+      id: "with_shears",
+      weight: 1,
+      layers: [["RW"], ["WB"], ["__"]],
+      legend: {
+        R: { block: "minecraft:red_wool" },
+        W: { block: "minecraft:white_wool" },
+        B: { block: "minecraft:blue_wool" },
+      },
+      entities: [{ type: "item_frame", at: [1, 2, 0], face: "up", item: { item: "minecraft:shears" } }],
+    },
+  ],
+}

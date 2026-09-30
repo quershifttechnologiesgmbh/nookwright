@@ -1,0 +1,27 @@
+// Rohstoffe der Schmiede (research/10 §5.3 „Rohstoffe: Fässer, Kohle-/Erzhaufen“, F9/F14).
+// Alles volle Blöcke auf dem Boden; Kies fällt nur ohne Block darunter (auf dem Boden unkritisch).
+{
+  id: "storage/raw_materials",
+  kind: "static",
+  name: "Rohstoffhaufen",
+  category: "storage",
+  tags: ["raw_materials"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "coal_iron",
+      weight: 2,
+      layers: [["CI"]],
+      legend: { C: { block: "minecraft:coal_block" }, I: { block: "minecraft:raw_iron_block" } },
+    },
+    {
+      id: "stone_heap",
+      weight: 1,
+      layers: [["SG"], ["S."]],
+      legend: { S: { block: "minecraft:cobblestone" }, G: { block: "minecraft:gravel" } },
+    },
+  ],
+}

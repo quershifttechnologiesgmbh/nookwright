@@ -1,0 +1,20 @@
+// research/53 F6 · Arkaden-Pfeiler mit Kämpfer: Steinpfeiler 1x1, oben ein Kämpferstein (umgedrehte Stufe/Treppe)
+// (EXT2: Grundhöhe 3 = Wandhöhe der Erdgeschosse, dehnt sich bis 8) als Ansatz für den Bogen zwischen zwei Pfeilern. Wird im Takt 4-5 gesetzt, Öffnung dazwischen bleibt frei.
+{
+  id: "exterior/arcade_pier",
+  kind: "static",
+  name: "Arkadenpfeiler",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "noble", "gothic", "dwarven", "steampunk", "nordic", "nordic_falu", "asian", "rustic", "farmstead", "harbor", "winter", "elven", "timber"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  // EXT2: der Schaft dehnt sich mit der Wandhöhe (Varianten-ID `~n`, zusätzliche Quader in Schicht 1)
+  stretch: { layer: 1, max: 5, fill: "ceiling" },
+  layers: [["Q"], ["Q"], ["A"]],
+  legend: {
+    Q: { role: "wall_quoin", shape: "block" },
+    A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+}

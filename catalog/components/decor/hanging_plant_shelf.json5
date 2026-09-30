@@ -1,0 +1,27 @@
+// I52 · Hängeregal für Pflanzen (research/52 §Decke): Regalbrett an zwei Ketten von der Decke, darauf eine
+// Reihe Topfpflanzen — WaxFraud-Motiv „Regal schwebt an Ketten“, ergänzt decor/hanging_planter (Einzeltopf)
+// um eine Mehrfach-Form.
+{
+  id: "decor/hanging_plant_shelf",
+  kind: "static",
+  name: "Hängeregal für Pflanzen",
+  category: "decor",
+  tags: ["decor_ceiling", "hanging_plant_shelf"],
+  styleTags: ["medieval", "cozy"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 4,
+  layers: [
+    ["ABA"], // y0: Topfpflanzen (unterste Zelle)
+    ["SSS"], // y1: Regalbrett
+    ["C_C"], // y2: Ketten (oberste Zelle, an der Decke)
+  ],
+  legend: {
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    A: { block: "minecraft:potted_fern" },
+    B: { block: "minecraft:potted_bamboo" },
+  },
+  masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [2, 2, 0], side: "up", kind: "center" }] },
+}

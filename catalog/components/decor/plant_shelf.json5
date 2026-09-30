@@ -1,0 +1,63 @@
+// K3d · Pflanzen-Etagere (research/11 F-2, G5 „Wandborde auf 3–4 Ebenen mit Topfpflanzen und Leitern“): Borde aus
+// oberen Stufen übereinander, darauf Topfpflanzen (Topf braucht keine Stütze, Faktencheck #4). V3 „mehr in die
+// Höhe“: je nach lichter Höhe 1, 2 oder 3 Ebenen, die hohe Form mit Leiter an der Raumwand (Leiter braucht volle
+// Fläche dahinter). Topfpflanzen als feste Blöcke (`potted_*`, in 1.21.11 und 26.3 vorhanden).
+// Tag `plant_shelf` (Gewächshaus, Wintergarten).
+{
+  id: "decor/plant_shelf",
+  kind: "static",
+  name: "Pflanzen-Etagere",
+  category: "furniture",
+  tags: ["plant_shelf"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "low",
+      weight: 1,
+      layers: [["zzz"], ["abc"]], // y0: Bord (obere Stufen) | y1: Töpfe
+      legend: {
+        z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        a: { block: "minecraft:potted_fern" },
+        b: { block: "minecraft:potted_flowering_azalea_bush" },
+        c: { block: "minecraft:potted_cornflower" },
+      },
+    },
+    {
+      id: "tiered",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["zzz"], ["abc"], ["zzz"], ["dea"]],
+      legend: {
+        z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        a: { block: "minecraft:potted_fern" },
+        b: { block: "minecraft:potted_flowering_azalea_bush" },
+        c: { block: "minecraft:potted_cornflower" },
+        d: { block: "minecraft:potted_red_tulip" },
+        e: { block: "minecraft:potted_azalea_bush" },
+      },
+    },
+    {
+      id: "tall_ladder",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [["zzzL"], ["abcL"], ["zzzL"], ["deaL"], ["zzz."]],
+      legend: {
+        z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        L: { block: "minecraft:ladder", orient: { front: "front" } },
+        a: { block: "minecraft:potted_fern" },
+        b: { block: "minecraft:potted_flowering_azalea_bush" },
+        c: { block: "minecraft:potted_cornflower" },
+        d: { block: "minecraft:potted_red_tulip" },
+        e: { block: "minecraft:potted_azalea_bush" },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 5, 0], accepts: ["plant", "light_small"], prob: 0.6 },
+        { id: "top_b", type: "surface", at: [2, 5, 0], accepts: ["plant"], prob: 0.6 },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

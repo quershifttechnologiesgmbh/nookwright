@@ -1,0 +1,29 @@
+// Lesetisch mit Stühlen (research/11 L-2): Platte aus oberen Stufen, je zwei Stühle vorn und hinten mit
+// Blick zum Tisch. Die Stühle gehören zur Komponente, weil die Socket-Blickregel `toParent` im Solver noch
+// fehlt. Oben Kerzen, Laterne oder Kleinkram.
+{
+  id: "table/reading_table",
+  kind: "static",
+  name: "Lesetisch",
+  category: "furniture",
+  tags: ["reading_table", "table"],
+  functionTags: ["sit", "read"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["S.S", "TTT", "N.N"], // y0: Stühle hinten (Blick nach vorn), Platte, Stühle vorn (Blick nach hinten)
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+    T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    N: { role: "furniture_wood", shape: "stairs", orient: { back: "front" } },
+  },
+  sockets: [
+    { id: "top_l", type: "surface", at: [0, 1, 1], accepts: ["candles", "light_small", "tabletop_small"], prob: 0.6 },
+    { id: "top_m", type: "surface", at: [1, 1, 1], accepts: ["tabletop_small", "plant"], prob: 0.4 },
+    { id: "top_r", type: "surface", at: [2, 1, 1], accepts: ["candles", "tabletop_small"], prob: 0.5 },
+    { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5 }, // V3: Leselampe von der Decke
+  ],
+}

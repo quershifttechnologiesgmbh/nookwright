@@ -1,0 +1,40 @@
+// research/57 · Gewächshaus: Hänge-Terrarium (Nebenobjekt, ergänzt decor/hanging_herbs/hanging_planter um eine
+// größere Glas-Kugel-Form). Tag `plant_hanging` steht in greenhouse.json5 im optionalen Eintrag
+// `{ tags: ["plant_hanging"], count: [1, 4] }`. Glasblock mit Topfpflanze an der Kette (wie hanging_planter,
+// aber mit Glashülle als „Terrarium“).
+{
+  id: "decor/hanging_terrarium",
+  kind: "static",
+  name: "Hänge-Terrarium",
+  category: "decor",
+  tags: ["decor_ceiling", "hang_small", "hanging_terrarium"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  minRoomHeight: 4,
+  variants: [
+    {
+      id: "fern_glass",
+      weight: 2,
+      layers: [["G"], ["C"]],
+      legend: {
+        G: { block: "minecraft:glass" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 1, 0], side: "up", kind: "center" }] },
+      stretch: { layer: 0, max: 8, fill: "drop", rows: ["C"] },
+    },
+    {
+      id: "moss_glass",
+      weight: 1,
+      layers: [["T"], ["C"]],
+      legend: {
+        T: { block: "minecraft:tinted_glass" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 1, 0], side: "up", kind: "center" }] },
+      stretch: { layer: 0, max: 8, fill: "drop", rows: ["C"] },
+    },
+  ],
+}

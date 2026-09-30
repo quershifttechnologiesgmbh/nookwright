@@ -1,0 +1,101 @@
+// Nordisch, Falunrot (FN M4, plan/spikes/FN_inspiration_gebaeude.md §3.1 Variante B): das schwedische Falurot-Haus –
+// rot gestrichene Bretterwand auf Steinsockel, weiße Eckbretter, Fensterrahmen und Traufe, Torfdach. Zweite Ausprägung
+// des Nordischen neben dem Blockbau (`nordic`, bleibt unverändert). Erbt Böden, Möbel, Außenwelt und Torfdach von nordic.
+// Anders als beim Blockbau ist die Wand nicht nur Holz: zwei Reihen Steinsockel, darüber Bretterwand; im Inneren
+// Kalkputz mit Brettersockel (wie medieval) statt Stämmen.
+// Vorbilder: Falunrot-Häuser (en.wikipedia.org/wiki/Falu_red – rote Holzwand, weiße Ecken/Rahmen), Det Norske Hus;
+// im Repo ist das Rot der Scheune bereits als Mangrove belegt (`rustic.json5` `wall_barn`).
+{
+  id: "nordic_falu",
+  mood: { formality: -0.25, richness: 0.25 },
+  name: "Nordisch (Falurot)",
+  description: "Falurote Bretterwand auf Steinsockel, weiße Eckbretter und Fensterrahmen, Torfdach, weiß-rote Textilien",
+  base: "nordic",
+  roles: {
+    // Falurot = Mangrovenbretter: ein gestrichenes Brett, eine Farbe (Stämme als Zufallsblöcke sind im Bretterfeld
+    // nicht erlaubt); die Gliederung tragen die weißen Ständer, Fensterrahmen und das Traufband
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        stops: [
+          { at: 0, mix: [{ family: "mangrove", weight: 1 }] },
+          { at: 1, mix: [{ family: "mangrove", weight: 1 }] },
+        ],
+      },
+    },
+    // Weiße Eckbretter, Rahmen und Traufband: Blasse Eiche (pale_oak, entrindet) ist das hellste Holz, das es in allen Zielversionen gibt
+    beam: { family: "pale_oak", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    pillar: { family: "pale_oak", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    window_frame: { family: "pale_oak" },
+    shutter: { family: "pale_oak" },
+    wall_cornice: { family: "pale_oak" },
+    door: { family: "dark_oak" },
+    // Sockel: Steinziegel und Bruchstein, bemoost
+    foundation: {
+      mix: [
+        { family: "stone_bricks", weight: 45 },
+        { family: "cobblestone", weight: 35 },
+        { family: "mossy_cobblestone", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    wall_plinth: { family: "stone_bricks" },
+    wall_quoin: { family: "stone_bricks" },
+    // Giebel: rote Bretterschalung wie die Wand
+    wall_gable: { family: "mangrove" },
+    // Dach unter dem Torf: dunkler Schiefer (D9-Wertabstand zur roten Wand); der Torf deckt die Fläche, die Kante bleibt weiß
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 0.3, mix: [{ family: "polished_blackstone_bricks", weight: 1 }] },
+          { at: 1, mix: [{ family: "polished_blackstone_bricks", weight: 1 }] },
+        ],
+      },
+    },
+    // Windbretter weiß (Kante des Torfdachs), Torf und Schiefer wie nordic
+    roof_trim: { family: "pale_oak" },
+    // Innenputz und Brettersockel wie medieval
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "calcite", weight: 55 },
+            { family: "white_terracotta", weight: 45 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 75 },
+            { family: "white_terracotta", weight: 25 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    wall_wainscot: {
+      mix: [
+        { family: "spruce", weight: 80 },
+        { family: "dark_oak", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+  },
+
+  surfaces: {
+    // Außen: zwei Reihen Steinsockel im Erdgeschoss, darüber Bretterwand mit weißen Ständern an Ecken und Fenstern
+    // (Ständer im Rhythmus 6, keine Streben, kein Fachwerk-Muster); innen Brettersockel und Kalkputz.
+    wall: [
+      { when: { exterior: true, storey: 0, hRel: [0, 1] }, role: "foundation" },
+      { when: { exterior: true }, role: "wall_primary", timber: { role: "beam", bay: 6, motifs: ["none"] } },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Deckenbalken und Rähm wie nordic (Rolle `beam`, hier weiß gestrichen)
+    ceiling: [{ beams: { role: "beam", period: 3 }, plate: { role: "beam" } }],
+  },
+}

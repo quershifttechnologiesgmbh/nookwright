@@ -1,0 +1,78 @@
+// Welle D · D3 (research/24 §7.0, T6 `elven`): Bogenpavillon – ein offener Pavillon aus vier Eckpfeilern,
+// vier Bogenringen (umgedrehte Treppen mit Schlussstein) und einem Mittelpfosten, der das Dach trägt
+// (research/24 §7.6 Kernthema (b) „Bogenpavillon“). Jede Zelle des Daches liegt auf einer Zelle des
+// Bogenkranzes oder des Pfostens – nichts schwebt. Varianten: Stein, Holz, Laubdach (`leaves_bush`, Laub
+// braucht keine Stütze, Faktencheck #17).
+{
+  id: "arch/bogenpavillon",
+  kind: "static",
+  name: "Bogenpavillon",
+  category: "architecture",
+  tags: ["bogenpavillon", "pavilion", "arch_pavilion", "outdoor"],
+  styleTags: ["elven", "dwarven", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      // Stein: Pfeiler, Zierquader-Schlusssteine, flaches Steindach
+      id: "stone",
+      weight: 3,
+      layers: [
+        ["P...P", ".....", "..P..", ".....", "P...P"], // y0: vier Eckpfeiler + Mittelpfosten
+        ["P...P", ".....", "..P..", ".....", "P...P"], // y1
+        ["PlKrP", "n...n", "K.P.K", "s...s", "PlKrP"], // y2: vier Bogenkränze
+        ["RRRRR", "RRRRR", "RRRRR", "RRRRR", "RRRRR"], // y3: Dach
+      ],
+      legend: {
+        P: { role: "wall_primary", shape: "block" },
+        K: { role: "wall_quoin", shape: "block" },
+        l: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        r: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        n: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        s: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+        R: { role: "roof_main", shape: "block" },
+      },
+    },
+    {
+      // Holz: Ständer und Bogen aus Balken, Zierriegel aus Planken
+      id: "timber",
+      weight: 2,
+      layers: [
+        ["P...P", ".....", "..P..", ".....", "P...P"], // y0
+        ["P...P", ".....", "..P..", ".....", "P...P"], // y1
+        ["PlKrP", "n...n", "K.P.K", "s...s", "PlKrP"], // y2
+        ["RRRRR", "RRRRR", "RRRRR", "RRRRR", "RRRRR"], // y3
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        K: { role: "beam", shape: "planks" },
+        l: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        r: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        n: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        s: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+        R: { role: "roof_main", shape: "block" },
+      },
+    },
+    {
+      // Laubdach: nur der Dachkranz aus Laub, der Mittelpfosten wächst durch die Öffnung
+      id: "canopy",
+      weight: 1,
+      layers: [
+        ["P...P", ".....", "..P..", ".....", "P...P"], // y0
+        ["P...P", ".....", "..P..", ".....", "P...P"], // y1
+        ["PlKrP", "n...n", "K.P.K", "s...s", "PlKrP"], // y2
+        ["LLLLL", "L...L", "L.P.L", "L...L", "LLLLL"], // y3: Laubkranz, jede Zelle über dem Bogenkranz
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        K: { role: "beam", shape: "planks" },
+        l: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        r: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        n: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        s: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+        L: { role: "leaves_bush", shape: "block" },
+      },
+    },
+  ],
+}

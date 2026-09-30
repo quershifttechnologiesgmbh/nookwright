@@ -1,0 +1,30 @@
+// Dachboden (research/17 §4.12, At1–At4). K3a. Signatur: Gerümpel (storage/junk_pile) in der türfernen Ecke, dazu
+// Truhen an der Traufe, Kisten- und Fassstapel, Spinnweben in den Deckenecken, schwaches Licht (≥ 5). Die niedrige
+// Randzone unter der Dachschräge braucht ERW Y4 `headroom` (Höhe je Zelle aus der Dachform); bis dahin gilt eine
+// lichte Höhe für den ganzen Raum. V3 „mehr in die Höhe“: Gerümpel und Truhen gestapelt (Truhe auf Truhe, T5 #6),
+// Stapel-Komponenten, Ketten und Kettenlaterne von der Decke.
+{
+  id: "attic",
+  name: "Dachboden",
+  minArea: 12,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["junk_pile"], count: [1, 1], signature: true, placement: { zones: ["corner", "edge"], doorAffinity: "far" } },
+    { tags: ["chest"], count: { perArea: 12, min: 1, max: 4 }, placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    { tags: ["storage_wall"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["crate_stack", "barrel_stack", "goods"], count: [1, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["cobweb"], count: [1, 3], weight: 3 },
+    { tags: ["bed_single"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["wardrobe"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    // FN-Dense: abgedecktes Gerümpel in der Raummitte (Insel), niedrige Lager unter der Traufe
+    { tags: ["fn_attic_heap"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["fn_eave_stash"], count: [1, 3], weight: 4, placement: { zones: ["edge", "corner"] } },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+  ],
+  lighting: { minLevel: 5, prefer: ["light_ceiling", "light_wall", "candles", "light_floor"] },
+}

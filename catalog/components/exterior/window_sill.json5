@@ -1,0 +1,16 @@
+// X1 · W3 Fensterbank (research/18 W3, research/16 F1 „Bank“): umgedrehte Treppe außen eine Reihe unter der
+// untersten Scheibe, Rücken zur Wand (Rolle `window_frame`). Der Solver setzt je Spalte ein Stück, 1 breiter als das
+// Fenster zu beiden Seiten. Schließt den Blumenkasten aus.
+{
+  id: "exterior/window_sill",
+  kind: "static",
+  name: "Fensterbank",
+  category: "architecture",
+  tags: ["exterior", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["S"]],
+  legend: { S: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+}

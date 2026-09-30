@@ -1,0 +1,41 @@
+// research/57 · Krankenstube: Verbandsbord (Nebenobjekt, ergänzt decor/potion_shelf um Verbandszeug statt
+// Alchemie-Kleinkram). Tag `potion_shelf` steht in infirmary.json5 im optionalen Eintrag
+// `{ tags: ["potion_shelf"], zone: "dispensary" }`. Bord mit weißer Wolle (Verbandsrollen) und Fläschchen.
+// Nachprüfung research/57: Die Rahmen lagen außerhalb der deklarierten Zellen (kein fester Block gefunden) –
+// jetzt eine eigene Luft-Zeile über dem Bord. Zweiter Fund: eine obere Stufe hat laut `physics-1.21.11.json`
+// IMMER `cls: "half"` (auch als „top“-Zustand), Rahmen brauchen aber `full` darunter (vertical-pipeline.test.ts
+// `assertWorld`) – Bord auf volle Planken (`shape: "planks"`) umgestellt.
+{
+  id: "decor/bandage_rack",
+  kind: "static",
+  name: "Verbandsbord",
+  category: "attachment",
+  tags: ["wall_decor", "bandage_rack"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [["SSS"], ["___"]],
+  legend: { S: { role: "furniture_wood", shape: "planks" } },
+  variants: [
+    {
+      id: "wool_rolls",
+      weight: 2,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:white_wool" } },
+        { type: "item_frame", at: [2, 1, 0], face: "up", item: { item: "minecraft:white_wool" } },
+      ],
+    },
+    {
+      id: "vials",
+      weight: 2,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:glass_bottle" } },
+        { type: "item_frame", at: [1, 1, 0], face: "up", item: { item: "minecraft:potion" } },
+        { type: "item_frame", at: [2, 1, 0], face: "up", item: { item: "minecraft:glass_bottle" } },
+      ],
+    },
+  ],
+}

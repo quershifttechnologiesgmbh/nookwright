@@ -1,0 +1,60 @@
+// K3b · Fellpritsche (research/17 §6.1, NR2): erhöhte Bank aus oberen Stufen an der Wand, darauf weiße Teppiche als
+// Felle und eine Decke in der Akzentfarbe des Themes (nordic: rot). Sitzfläche (Teppich auf oberer Stufe liegt
+// bündig, research/11 §2.2). In Reihe (row gap 0) ergibt sich die durchgehende Wandbank der Methalle. Mehr in die
+// Höhe (V3): „shields“ mit Rückenbrett (offene Falltüren an der Wand) und Schilden in Rahmen darüber an der
+// Raumwand (NR1/NR2). „short“ (2 breit) für kurze Wandstücke. Bewusst ohne Tag `wall_bench` (sonst zöge die
+// mittelalterliche Taverne die nordische Pritsche).
+{
+  id: "nordic/fur_platform",
+  kind: "static",
+  name: "Fellpritsche",
+  category: "furniture",
+  tags: ["fur_platform", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "shields",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["TTT", "TTT"], // y0: Plattform (obere Stufen)
+        ["bbb", "wrw"], // y1: Rückenbrett an der Wand; vorn Felle und Decke
+        ["_._", "..."], // y2: Schilde in Rahmen an der Raumwand
+      ],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        b: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { block: "minecraft:white_carpet" },
+        r: { role: "textile_accent", shape: "carpet" },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:shield" } },
+        { type: "item_frame", at: [2, 2, 0], face: "front", item: { item: "minecraft:shield" } },
+      ],
+    },
+    {
+      id: "long",
+      weight: 2,
+      layers: [["TTT", "TTT"], ["www", "wrw"]],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        w: { block: "minecraft:white_carpet" },
+        r: { role: "textile_accent", shape: "carpet" },
+      },
+    },
+    {
+      id: "short",
+      weight: 2,
+      layers: [["TT", "TT"], ["ww", "rw"]],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        w: { block: "minecraft:white_carpet" },
+        r: { role: "textile_accent", shape: "carpet" },
+      },
+    },
+  ],
+}

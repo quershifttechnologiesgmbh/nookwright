@@ -1,0 +1,78 @@
+// Wuestenpalast Ocker – festlich, Biome: desert, Stile: desert.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "wuestenpalast_ocker",
+  name: "Wüstenpalast Ocker",
+  mood: "festlich",
+  biomes: ["desert"],
+  styles: ["desert"],
+  values: ["minecraft:smooth_sandstone", "minecraft:sandstone", "minecraft:cut_sandstone", "minecraft:red_sandstone", "minecraft:chiseled_red_sandstone"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "sandstone", weight: 55 },
+        { family: "smooth_sandstone", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "cut_sandstone", weight: 60 },
+        { family: "sandstone", variant: "chiseled", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "red_sandstone", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      // edge_fixed: eigene Wertstufe fuer den First (Q4, research/53 §1-3)
+      blocks: [
+        { family: "nether_bricks", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "acacia", shape: "log", weight: 70 },
+        { family: "acacia", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "smooth_sandstone", weight: 60 },
+        { family: "sandstone", variant: "chiseled", weight: 40 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:orange", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:orange", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 100 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:cactus", weight: 60 },
+        { block: "minecraft:dead_bush", weight: 40 },
+      ],
+    },
+  },
+}

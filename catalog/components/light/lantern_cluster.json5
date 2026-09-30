@@ -1,0 +1,28 @@
+// V3 · Laternen-Traube (research/10 §7.10 Kettenlaternen, B11/S8; Nutzer-Wunsch „Decke nutzen“): drei
+// Laternen an unterschiedlich langen Ketten. Die Ketten wachsen mit der lichten Höhe (`stretch`, `drop`):
+// die unterste Laterne hängt etwa auf halber Raumhöhe, nie tiefer als Boden + 2 (Kopffreiheit). Hängende
+// Laternen halten unter Kette und Decke (T5, stabile Mitte). Ab lichter Höhe 5.
+{
+  id: "light/lantern_cluster",
+  kind: "static",
+  name: "Laternen-Traube",
+  category: "light",
+  tags: ["light", "light_ceiling", "lantern_cluster"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 5,
+  layers: [
+    ["..L"], // y0: tiefste Laterne
+    [".LC"], // y1
+    ["LCC"], // y2: eine Laterne direkt unter der Decke bzw. der Kette
+  ],
+  legend: {
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+  },
+  stretch: { layer: 2, max: 10, fill: "drop", rows: ["CCC"] },
+  light: "auto",
+}

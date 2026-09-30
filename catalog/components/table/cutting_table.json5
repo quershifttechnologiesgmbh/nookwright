@@ -1,0 +1,30 @@
+// K3b · Zuschneidetisch (research/17 §4.14, Y1/Y2): Tafel mit umgedrehten Treppen als Wangen (Stufe hängt nach
+// außen = Tischbein, wie table/trestle_table), in der Mitte ein Vollholz-Brett (Planken): darauf liegt die
+// Schere im Rahmen flach (Rahmen nur an vollen Blöcken, K1-Regel). Links und rechts Stoffe als Teppiche auf der
+// Platte (Teppich auf Treppe ✓). Frei stehend, von beiden Seiten nutzbar (Laden-Front: quer zur Tür).
+// Bewusst ohne Tag `table` (sonst zöge jeder Raumtyp mit Tischen den Zuschneidetisch).
+{
+  id: "table/cutting_table",
+  kind: "static",
+  name: "Zuschneidetisch",
+  category: "furniture",
+  tags: ["cutting_table", "textile_work"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["WTE"], // y0: Wange | Brett | Wange
+    ["r_b"], // y1: roter Stoff | Schere (Rahmen) | blauer Stoff
+  ],
+  legend: {
+    W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+    T: { role: "beam", shape: "planks" },
+    E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+    r: { block: "minecraft:red_carpet" },
+    b: { block: "minecraft:blue_carpet" },
+  },
+  entities: [{ type: "item_frame", at: [1, 1, 0], face: "up", item: { item: "minecraft:shears" } }],
+  sockets: [{ id: "lamp", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.4 }],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

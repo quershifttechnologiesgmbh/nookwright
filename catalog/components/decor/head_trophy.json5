@@ -1,0 +1,37 @@
+// V3 · Kopf-Trophäe hoch an der Wand (DA Decoration: Trophies; Nutzer-Wunsch „Geweihe/Köpfe oben“): Konsole
+// aus oberer Stufe, darauf ein Mob-Kopf (Köpfe brauchen keine Stütze). Wunsch-Höhe über Kopfhöhe, sonst
+// direkt unter der Decke oder in Augenhöhe (`wallHeights`). Mob-Köpfe gibt es nur über geladene Creeper →
+// survival_rare. Ergänzt decor/skull_trophy.
+{
+  id: "decor/head_trophy",
+  kind: "static",
+  name: "Kopf-Trophäe",
+  category: "attachment",
+  tags: ["wall_decor", "trophy", "head_trophy"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival_rare",
+  mount: "wall",
+  wallHeight: 2,
+  wallHeights: [2, -1, 1],
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "zombie",
+      weight: 2,
+      layers: [["S"], ["H"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        H: { block: "minecraft:zombie_head", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "creeper",
+      weight: 1,
+      layers: [["S"], ["H"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        H: { block: "minecraft:creeper_head", orient: { front: "front" } },
+      },
+    },
+  ],
+}

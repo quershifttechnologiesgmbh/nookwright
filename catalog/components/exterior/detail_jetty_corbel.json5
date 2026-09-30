@@ -1,0 +1,30 @@
+// W15 (plan/spikes/W15_fassaden_detailbloecke.md) · Konsole unter der Auskragung: umgedrehte Treppe im Balkenholz,
+// Rückseite an der Wand des unteren Geschosses, oben unter der vorkragenden Bodenplatte bzw. Wand des Obergeschosses
+// (Vorbilder: Instructables „medieval house“ – umgedrehte Treppe unter dem Überstand; YT „Simple timber corbel“).
+// Dezent an den Pfosten des Fassadenrasters und an den Enden, reich jede zweite Zelle (Zahnschnitt).
+{
+  id: "exterior/detail_jetty_corbel",
+  kind: "static",
+  name: "Konsole unter der Auskragung",
+  category: "attachment",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor", "detail_subtle"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "nordic", "nordic_falu", "harbor", "winter", "elven"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "wood",
+      weight: 1,
+      layers: [["V"]],
+      legend: { V: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    // unter einem Gesims bzw. einer Bank aus Stein (`wall_cornice`, Burg, Wachturm): Steinkonsole im Stein des Gesimses
+    {
+      id: "stone",
+      weight: 1,
+      layers: [["V"]],
+      legend: { V: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+  ],
+}

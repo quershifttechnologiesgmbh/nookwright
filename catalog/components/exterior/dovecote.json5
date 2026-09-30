@@ -1,0 +1,19 @@
+// research/53 · Taubenschlag: Pfahl vor der Fassade mit Nistkasten und kleinem Schutzdach. Der Bienenstock-Block
+// dient hier als Nistkasten-Ersatz (Lochreihe), das Dach schützt vor Regen.
+{
+  id: "exterior/dovecote",
+  kind: "static",
+  name: "Taubenschlag",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "rustic", "farmstead"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["P"], ["P"], ["H"], ["R"]],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    H: { block: "minecraft:beehive", state: { facing: "south" } },
+    R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+}

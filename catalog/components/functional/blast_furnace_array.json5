@@ -1,0 +1,51 @@
+// research/57 · Redstone-Werkstatt: Schmelzofen-Reihe, zweite Bauform neben functional/auto_furnace/smelter_row
+// (mehr Auswahl für die Pflicht-Signatur `auto_smelter`). Tag `auto_smelter` steht in workshop_redstone.json5
+// im Pflicht-Eintrag `{ tags: ["auto_smelter"] }`. Gefletteten Gefäßblöcken statt Ofen (schneller, Erz),
+// mit sichtbarer Fass-Batterie für Brennstoff.
+{
+  id: "functional/blast_furnace_array",
+  kind: "static",
+  name: "Hochofen-Reihe",
+  category: "work",
+  tags: ["auto_smelter", "smelting"],
+  functionTags: ["smelt", "store", "automation"],
+  styleTags: ["workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // Zwei Hochofen-Einheiten Rücken an Rücken: außen je eine Truhe (mit Luft darüber – unter dem Ofen dürfte
+      // keine Truhe stehen, sie öffnet dann nicht), daneben der seitliche Brennstoff-Trichter mit Fass, oben der
+      // Eingabe-Trichter, der in den Hochofen fällt.
+      id: "double",
+      weight: 2,
+      layers: [
+        ["CJSSJC"], // y0: Truhe | Hochofen | Brennstoff-Trichter | Brennstoff-Trichter | Hochofen | Truhe
+        [".IBBI."], // y1: Eingabe-Trichter | Fass | … | Fass | Eingabe-Trichter
+      ],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        J: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+        S: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "single",
+      weight: 2,
+      layers: [
+        ["JS"], // y0: Hochofen | Brennstoff-Trichter (→ Ofen-Seite)
+        ["IB"], // y1: Eingabe-Trichter (↓ Ofen) | Brennstoff-Fass
+      ],
+      legend: {
+        J: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+        S: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

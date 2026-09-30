@@ -1,0 +1,28 @@
+// research/56 · Gartentor mit Torbogen (Holz) (DA Structural: Fences/Gates): zwei Zaunpfosten mit Zauntor in der
+// Mitte, oben ein Sturz aus Stufen, auf den Pfosten je eine stehende Laterne. Für Garten-, Hof- und
+// Koppeleingänge. Durchgehbar.
+// W1-I (26.09.2026, W1E M1): nicht mehr in den Zonen-Pools `garden`/`yard`/`paddock` – das Tor stand zufällig frei
+// in der Fläche, ohne Zaun (4–5 je Gehöft); Garten, Koppel und Feld bekommen ihr Tor vom Zaunring.
+{
+  id: "outdoor/fence_gate_wood",
+  kind: "static",
+  name: "Gartentor (Holz)",
+  category: "architecture",
+  tags: ["fence_gate", "outdoor"],
+  styleTags: ["medieval", "rustic", "cottage", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: false,
+  layers: [
+    ["PGP"], // y0: Pfosten, Zauntor, Pfosten
+    ["LbL"], // y1: Laternen, Sturz
+  ],
+  legend: {
+    P: { role: "furniture_wood", shape: "fence" },
+    G: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+    L: { role: "light_hanging", shape: "lantern" },
+    b: { role: "beam", shape: "slab", orient: { upsideDown: false } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

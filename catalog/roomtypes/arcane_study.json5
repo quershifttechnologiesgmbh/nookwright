@@ -1,0 +1,31 @@
+// FN · Verzauberungs-Studio (plan/spikes/FN_produktionslinien.md): Verzauberungstisch mit echten Regalpositionen
+// (Pflicht: `fn_study`; Ring 5×5 = genau 15 Regale, Studie/Bibliothek mit Lesepult und Chiseled-Regalen), dazu Amboss/Schleifstein-Ecke.
+// Nur Bücherregale im Abstand 2 zählen – die Komponente sichert das, der Raum darf dort nichts davor stellen (Maske).
+{
+  id: "arcane_study",
+  name: "Verzauberungs-Studio",
+  minArea: 40,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["fn_study"], count: [1, 1], signature: true, placement: { zones: ["center", "edge"] } },
+  ],
+  optional: [
+    { tags: ["fn_smith_corner"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["fn_scribe_fletch_corner"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["lectern"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["bookshelf_wall"], count: [0, 2], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["reading_table"], count: [0, 1], weight: 3, placement: { zones: ["center"] } },
+    { tags: ["candle_stand"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["rug"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["wing_chair", "seating_group"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_books", "wall_banner"], count: [0, 2], weight: 2 },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["tall_clock", "pedestal"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["ceiling_banner"], count: [0, 1], weight: 1 },
+    { tags: ["candles", "candle_rack"], count: [0, 2], weight: 2 },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling", "light_pendant"], count: [1, 2], weight: 3 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

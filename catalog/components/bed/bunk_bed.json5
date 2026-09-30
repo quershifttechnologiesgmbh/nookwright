@@ -1,0 +1,77 @@
+// K3b · Etagenbett (research/17 §4.21, K2): zwei Betten direkt übereinander, am Fußende eine Spind-Truhe (Luft
+// darüber, Faktencheck #2). Vanilla kennt Etagenbetten: `BedBlock#isBunkBed` (Bett direkt auf Bett) sucht die
+// Aufsteh-Position des oberen Betts unten am Fußboden – deshalb gibt es bewusst keine Form mit Stufe dazwischen
+// (dort fände das obere Bett keinen Aufwachplatz). Ein Bett über einem Bett erstickt nicht (Faktencheck #8,
+// Code), Betten brauchen keine Stütze (Wiki Tutorial:Furniture; im Spiel prüfen: research/17 T12). Über dem
+// oberen Bett bleibt eine Zelle Luft (kein erstickender Block; Schild im Rahmen an der Wand), links ein
+// Aufwachplatz (`use`). Mehr in die Höhe: ab lichter Höhe 4 ein Gepäckbrett darüber. Ab lichter
+// Höhe 3; bei 2 ist „cot“ (Pritsche mit Spind, ein Bett) die Kompaktform der Kasernen-Signatur – so zieht die
+// Kaserne keine fremden Einzelbett-Formen (Tag `bed_single`, z. B. Bettnische mit Regalen).
+{
+  id: "bed/bunk_bed",
+  kind: "static",
+  name: "Etagenbett",
+  category: "furniture",
+  tags: ["bunk_bed", "bed", "barracks_bed"],
+  functionTags: ["sleep", "store"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "stacked",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [
+        ["H", "F", "C"], // y0: unteres Bett (Kopf an der Wand) + Spind-Truhe am Fußende
+        ["H", "F", "_"], // y1: oberes Bett direkt auf dem unteren, Luft über der Truhe
+        ["_", "_", "."], // y2: Luft über dem oberen Bett
+      ],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+      },
+      entities: [{ type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:shield" } }],
+    },
+    {
+      // ab lichter Höhe 4: Gepäckbrett (obere Stufen) über dem Kopfraum, Schild an der Wand
+      id: "shelf",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["H", "F", "C"],
+        ["H", "F", "_"],
+        ["_", "_", "."], // Luft über dem oberen Bett (nicht erstickend)
+        ["s", "s", "."], // Gepäckbrett
+      ],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      entities: [{ type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:shield" } }],
+    },
+    {
+      // lichte Höhe 2: Pritsche mit Spind (ein Bett), Luft über Bett und Truhe
+      id: "cot",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["H", "F", "C"],
+        ["_", "_", "_"],
+      ],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: {
+    clearance: [{ side: "left", depth: 1, hard: false }, { side: "right", depth: 1, hard: false }],
+    use: [{ side: "left" }, { side: "front" }],
+  },
+}

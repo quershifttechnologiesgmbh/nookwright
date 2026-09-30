@@ -1,0 +1,23 @@
+// Hängelaterne an einer Kette. V3 adaptiv: die Kette wächst mit der lichten Höhe (`stretch`, `drop`) – die
+// Laterne hängt etwa auf halber Raumhöhe, nie tiefer als Boden + 2 (Kopffreiheit); Tag `light_pendant` für
+// die `hang`-Sockets über Tischen.
+{
+  id: "light/hanging_lantern",
+  kind: "static",
+  name: "Hängelaterne",
+  category: "light",
+  tags: ["light", "light_ceiling", "light_pendant"],
+  functionTags: ["light"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  // y=0: Laterne, y=1: Kette; darüber muss eine stabile Mitte sein (Faktencheck #3)
+  layers: [["L"], ["C"]],
+  legend: {
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+  },
+  masks: { support: [{ at: [0, 1, 0], side: "up", kind: "center" }] },
+  stretch: { layer: 0, max: 10, fill: "drop", rows: ["C"] },
+  light: "auto",
+}

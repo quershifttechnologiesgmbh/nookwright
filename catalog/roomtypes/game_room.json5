@@ -1,0 +1,32 @@
+// Spielzimmer (research/17 §4.27, Ga1–Ga5). K3a. Signatur: Spieltisch(e) mit Hockern in der Mitte (table/game_table),
+// dazu Schachbrett-Boden (Teppich-Karo; die Fliesen-Variante braucht ERW X5), Dartscheibe an einer freien Wand
+// (Wurfbahn als weiche Maske), Getränke-Theke, Musikecke, Wandbänke. V3 „mehr in die Höhe“: Laternen über den
+// Tischen (`hang`-Sockets), Behang, Fass-/Kistenstapel, Kronleuchter.
+{
+  id: "game_room",
+  name: "Spielzimmer",
+  minArea: 12,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["game_table", "board_game_shelf"], count: { perArea: 30, min: 1, max: 2 }, signature: true, placement: { zones: ["center"] } },
+  ],
+  optional: [
+    { tags: ["game_floor"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["dart_board"], count: [0, 1], weight: 3 },
+    { tags: ["tavern_table", "seating_group"], count: [0, 2], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["bar_counter"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["music", "jukebox"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["wall_bench"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["patchwork_rug", "rug"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    // V3 (Raumhöhe nutzen): Pokal-/Spieleregal, Borde und Behang über Kopfhöhe, Stapel, Deckenbanner
+    // FN-dense-grand: Schiffsbucht-Arkade (Steinpfeiler mit Bogen) gliedert die Längswände
+    { tags: ["fn_nave_bay"], count: { perArea: 18, min: 2, max: 8 }, weight: 4, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["display_shelf"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["wall_banner", "tapestry"], count: [1, 2], weight: 2 },
+    { tags: ["wall_shelf", "upper_cabinet"], count: [1, 2], weight: 2 },
+    { tags: ["barrel_stack", "crate_stack"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["ceiling_banner"], count: [1, 2], weight: 1 },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 2], weight: 4 },
+  ],
+  lighting: { minLevel: 7, prefer: ["chandelier", "light_ceiling", "candles", "light_wall", "light_floor"] },
+}

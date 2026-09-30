@@ -1,0 +1,409 @@
+// FN · Handelsbude (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md): 1 (solo), 2 (Paar) bzw. 3 (Trio) Villager-Stände in EINEM Baukörper, die
+// Pfosten zwischen den Ständen werden geteilt (5 bzw. 7 breit statt 2 × 3 bzw. 3 × 3 = 6/9). Je Stand gilt die Geometrie
+// von `trade/villager_stall` (Wiki Villager/Trading, Faktencheck #7): hinten der Villager-Platz (Fackel, kollisionsfrei,
+// 2 hoch), vorn der Arbeitsblock seines Berufs auf Fußhöhe, darüber untere Stufen als Decke auf Höhe 2 – der Villager
+// (1,95) steht darunter, kann nicht auf den Arbeitsblock steigen (dort ≤ 1,0 frei) und nicht seitlich hinaus (Pfosten,
+// die Diagonale ist durch die Ecken versperrt) → keine Flucht, kein Bett nötig (Nachschub bis 2× täglich, solange der
+// Villager seinen Arbeitsblock beansprucht: Java Reichweite 48, Bedrock 16; Belege: minecraft.wiki/w/Villager#Job_site_blocks).
+// Die Gruppen sind fachlich gemischt (Schmiede, Markt, Handwerk, Gelehrte), JEDER Stand hat einen anderen Beruf; die
+// Paare decken zusammen mit den Trios alle 13 Berufe ab. Bewusst NICHT der Tag `villager_stall` (sonst würde die Bude in
+// den Bestandsraum `trading_hall` laufen – Prüfsummen-Pins); der Tag `fn_trade_booth` ist nur über `fn_villager_hall`
+// erreichbar. Die Mechanik-Lint-Regeln des Stands (`stallGeometry`, `jobSiteReachable`) prüft `fn-villagers.test.ts`
+// an jeder Bude mit angehängtem Tag.
+{
+  id: "trade/fn_trade_booth",
+  kind: "static",
+  name: "Handelsbude",
+  category: "work",
+  tags: ["fn_trade_booth"],
+  functionTags: ["trade", "villager_workstation"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pair_armorer_weaponsmith",
+      weight: 2,
+      layers: [
+        ["PTPTP", "PaPbP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W", "s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:blast_furnace", orient: { front: "front" } }, // armorer
+        b: { block: "minecraft:grindstone", orient: { front: "front" } }, // weaponsmith
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsW", ".s.s."] },
+    },
+    {
+      id: "pair_toolsmith_mason",
+      weight: 2,
+      layers: [
+        ["PTPTP", "PaPbP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W", "s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:smithing_table" }, // toolsmith
+        b: { block: "minecraft:stonecutter", orient: { front: "front" } }, // mason
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsW", ".s.s."] },
+    },
+    {
+      id: "pair_butcher_farmer",
+      weight: 2,
+      layers: [
+        ["PTPTP", "PaPbP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W", "s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:smoker", orient: { front: "front" } }, // butcher
+        b: { block: "minecraft:composter", state: { level: "0" } }, // farmer
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsW", ".s.s."] },
+    },
+    {
+      id: "pair_fisherman_fletcher",
+      weight: 2,
+      layers: [
+        ["PTPTP", "PaPbP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W", "s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:barrel", orient: { front: "front" } }, // fisherman
+        b: { block: "minecraft:fletching_table" }, // fletcher
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsW", ".s.s."] },
+    },
+    {
+      id: "pair_cartographer_librarian",
+      weight: 2,
+      layers: [
+        ["PTPTP", "PaPbP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W", "s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:cartography_table" }, // cartographer
+        b: { block: "minecraft:lectern", orient: { front: "front" } }, // librarian
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsW", ".s.s."] },
+    },
+    {
+      id: "pair_cleric_leatherworker",
+      weight: 2,
+      layers: [
+        ["PTPTP", "PaPbP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W", "s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:brewing_stand" }, // cleric
+        b: { block: "minecraft:water_cauldron", state: { level: "3" } }, // leatherworker
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsW", ".s.s."] },
+    },
+    {
+      id: "trio_armorer_weaponsmith_toolsmith",
+      weight: 1,
+      layers: [
+        ["PTPTPTP", "PaPbPcP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W_W", "s_s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:blast_furnace", orient: { front: "front" } }, // armorer
+        b: { block: "minecraft:grindstone", orient: { front: "front" } }, // weaponsmith
+        c: { block: "minecraft:smithing_table" }, // toolsmith
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsWsW", ".s.s.s."] },
+    },
+    {
+      id: "trio_farmer_butcher_fisherman",
+      weight: 1,
+      layers: [
+        ["PTPTPTP", "PaPbPcP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W_W", "s_s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:composter", state: { level: "0" } }, // farmer
+        b: { block: "minecraft:smoker", orient: { front: "front" } }, // butcher
+        c: { block: "minecraft:barrel", orient: { front: "front" } }, // fisherman
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsWsW", ".s.s.s."] },
+    },
+    {
+      id: "trio_shepherd_leatherworker_fletcher",
+      weight: 1,
+      layers: [
+        ["PTPTPTP", "PaPbPcP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W_W", "s_s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:loom", orient: { front: "front" } }, // shepherd
+        b: { block: "minecraft:water_cauldron", state: { level: "3" } }, // leatherworker
+        c: { block: "minecraft:fletching_table" }, // fletcher
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsWsW", ".s.s.s."] },
+    },
+    {
+      id: "trio_librarian_cartographer_cleric",
+      weight: 1,
+      layers: [
+        ["PTPTPTP", "PaPbPcP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W_W_W", "s_s_s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:lectern", orient: { front: "front" } }, // librarian
+        b: { block: "minecraft:cartography_table" }, // cartographer
+        c: { block: "minecraft:brewing_stand" }, // cleric
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsWsWsW", ".s.s.s."] },
+    },
+    {
+      id: "solo_armorer",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:blast_furnace", orient: { front: "front" } }, // armorer
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_weaponsmith",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:grindstone", orient: { front: "front" } }, // weaponsmith
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_toolsmith",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:smithing_table" }, // toolsmith
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_mason",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:stonecutter", orient: { front: "front" } }, // mason
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_butcher",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:smoker", orient: { front: "front" } }, // butcher
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_farmer",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:composter", state: { level: "0" } }, // farmer
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_fisherman",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:barrel", orient: { front: "front" } }, // fisherman
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_fletcher",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:fletching_table" }, // fletcher
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_cartographer",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:cartography_table" }, // cartographer
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_librarian",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:lectern", orient: { front: "front" } }, // librarian
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_cleric",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:brewing_stand" }, // cleric
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_leatherworker",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:water_cauldron", state: { level: "3" } }, // leatherworker
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+    {
+      id: "solo_shepherd",
+      weight: 1,
+      layers: [
+        ["PTP", "PaP"], // y0: Stammpfosten | Villager-Platz (Fackel) | Pfosten …; vorn die Arbeitsblöcke
+        ["W_W", "s_s"], // y1: Zaunpfosten als Kopfhöhe (kein Vollblock, sonst sperrt jedes Fenster die Bude); Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        W: { role: "furniture_wood", shape: "fence" },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        a: { block: "minecraft:loom", orient: { front: "front" } }, // shepherd
+      },
+      stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["WsW", ".s."] },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 2, hard: true }], use: [{ side: "front" }] },
+}

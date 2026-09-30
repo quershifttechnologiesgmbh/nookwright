@@ -1,0 +1,27 @@
+// I52 · Frühstücksbox (research/52 §Möbel): zwei Bänke einander zugewandt, Tischplatte aus umgedrehten Stufen
+// dazwischen — die Sitzbox-Variante des Esstisches für kleine Küchen/Wohnräume (WaxFraud-Motiv „Booth“).
+{
+  id: "table/breakfast_nook_booth",
+  kind: "static",
+  name: "Frühstücksbox",
+  category: "furniture",
+  tags: ["breakfast_nook_booth"],
+  functionTags: ["sit", "eat"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["SSS", "TTT", "NNN"], // y0: Bank hinten (Blick nach vorn) | Tischplatte | Bank vorn (Blick nach hinten)
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+    T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    N: { role: "furniture_wood", shape: "stairs", orient: { back: "front" } },
+  },
+  sockets: [
+    { id: "top_l", type: "surface", at: [0, 1, 1], accepts: ["candles", "food.any", "tabletop_small"], prob: 0.6 },
+    { id: "top_r", type: "surface", at: [2, 1, 1], accepts: ["candles", "food.any", "tabletop_small"], prob: 0.6 },
+    { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+  ],
+}

@@ -1,0 +1,23 @@
+// research/56 · Fels mittel (größerer Findling, 3×3, zweite Lage für Höhe): gemischte Steinsorten
+// (Stein/Andesit/Tuff/Bruchstein), oben ein Andesit-Buckel als Silhouette. Für Wegrand, Wiese, Bachlauf.
+{
+  id: "outdoor/rock_medium",
+  kind: "static",
+  name: "Fels (mittel)",
+  category: "decor",
+  tags: ["rock", "outdoor", "meadow", "path", "pond"],
+  styleTags: ["rustic", "overgrown"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["sat", "tsc", "cts"], // y0
+    ["...", ".a.", "..."], // y1: Buckel
+  ],
+  legend: {
+    s: { block: "minecraft:stone" },
+    a: { block: "minecraft:andesite" },
+    t: { block: "minecraft:tuff" },
+    c: { block: "minecraft:cobblestone" },
+  },
+}

@@ -1,0 +1,26 @@
+// K3a · Wandpfeiler (research/17 §4.2, H1/H4 „Pilaster im Takt“; E1 Säulenhalle, B2 Arkaden, O1 Kuppelrippen):
+// Stamm vor der Wand bis unter die Decke (V3 `stretch`, `ceiling`), oben ein Kapitell aus einer umgedrehten Treppe
+// (volle Oberseite an der Decke, Konsole zur Raumseite). 1 × 1, Rücken zur Wand → passt an jedes Wandstück, auch
+// zwischen eng gesetzten Fenstern, und schon bei lichter Höhe 2. Als Reihe (`pattern: row`, gap 2) entsteht der
+// Pfeiler-Rhythmus der Galerie; die Funktion dazwischen (Banner, Licht, Sockel, Bank) kommt aus den übrigen
+// Einträgen bzw. den Pfeiler-Buchten (arch/pilaster_bay, Tag `gallery_bay`).
+{
+  id: "arch/wall_pilaster",
+  kind: "static",
+  name: "Wandpfeiler",
+  category: "architecture",
+  tags: ["pilaster"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["P"], // y0: Stamm (wird bis unter das Kapitell gedehnt)
+    ["K"], // oben: Kapitell
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    K: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+  stretch: { layer: 0, max: 14, fill: "ceiling" },
+}

@@ -1,0 +1,122 @@
+// K3d · Thron (research/11 R-1, TH1/TH2): Sitz aus einer Treppe, offene Falltüren als Armlehnen, hohe Lehne aus
+// Planken, Krone aus Goldblock. Kompaktform der Thron-Familie (Tag `throne`); die großen Formen mit Podest sind
+// arch/throne_dais. „posts“: Lehne zwischen zwei Stamm-Pfosten mit Kerzen (braucht 3 Zellen feste Wand),
+// „narrow“: nur die Lehne steht an der Wand (1 Zelle) – passt auch zwischen eng gesetzte Fenster; „chair“ =
+// Thronsessel ohne Armlehnen (1 × 2), die Kompaktform für kleine Räume mit Fenstern in jeder Wand.
+// Woll-Sitz (26.3) fehlt bewusst (Katalog muss in 1.21.11 und 26.3 materialisieren). Über dem Sitz Luft.
+// „*_low“ für lichte Höhe 2 (Krone direkt unter der Decke).
+{
+  id: "seat/throne",
+  kind: "static",
+  name: "Thron",
+  category: "furniture",
+  tags: ["throne", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "posts",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PBP", "aSA"], // y0: Pfosten | Lehne | Pfosten; vorn Armlehne | Sitz | Armlehne
+        ["PBP", "._."], // y1: hohe Lehne, Luft über dem Sitz
+        ["KgK", "..."], // y2: Kerzen auf den Pfosten, Goldkrone
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+        K: { block: "minecraft:candle", state: { candles: "1", lit: "true" } },
+      },
+    },
+    {
+      id: "narrow",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        [".B.", "aSA"], // y0: Lehne an der Wand; Armlehne | Sitz | Armlehne
+        [".B.", "._."], // y1: hohe Lehne
+        [".g.", "..."], // y2: Goldkrone
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+      },
+    },
+    {
+      id: "chair",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [
+        ["B", "S"], // y0: Lehne an der Wand | Sitz
+        ["B", "_"], // y1: hohe Lehne, Luft über dem Sitz
+        ["g", "."], // y2: Goldkrone
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        g: { block: "minecraft:gold_block" },
+      },
+    },
+    {
+      id: "chair_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["B", "S"],
+        ["g", "_"],
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        g: { block: "minecraft:gold_block" },
+      },
+    },
+    {
+      id: "posts_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["PBP", "aSA"],
+        ["KgK", "._."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+        K: { block: "minecraft:candle", state: { candles: "1", lit: "true" } },
+      },
+    },
+    {
+      id: "narrow_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        [".B.", "aSA"],
+        [".g.", "._."],
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 2, hard: false }] },
+  light: "auto",
+}

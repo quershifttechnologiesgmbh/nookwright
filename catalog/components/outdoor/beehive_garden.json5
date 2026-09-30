@@ -1,0 +1,22 @@
+// research/56 · Bienenstock-Ecke (statisches Katalog-Stück, ergänzt das prozedurale `terrain/decor.ts beehive()`):
+// Bienenstock zwischen zwei warmen Blumen, damit Bienen in Reichweite Nahrung finden. Für Gartenrand, Obstgarten.
+// Q1a: unter den Blumen liegt die Theme-Rolle `garden_soil` (Blumen brauchen Erde/Gras/Ackerland unter sich).
+// W1-I (26.09.2026, W1E M1): nicht mehr im Hof-Pool `yard` (Erdlage auf dem Pflaster), nur Garten und Obstgarten.
+{
+  id: "outdoor/beehive_garden",
+  kind: "static",
+  name: "Bienenstock-Ecke",
+  category: "work",
+  tags: ["beehive", "outdoor", "garden", "orchard"],
+  functionTags: ["farm"],
+  styleTags: ["rustic", "farm", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["sBs"], ["f.f"]],
+  legend: {
+    s: { role: "garden_soil", shape: "block" },
+    f: { role: "flower_warm", shape: "block" },
+    B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+  },
+}

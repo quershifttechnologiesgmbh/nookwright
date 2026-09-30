@@ -1,0 +1,95 @@
+// FN-Lager · Beschriftete Fasswand: liegende Fässer (Deckel nach vorn, öffnen immer, auch unter einem Vollblock:
+// Faktencheck #2) in Spalten zwischen Stamm-Pfosten, darüber ein Etikett-Band mit einem Item-Rahmen je Spalte.
+// Weil Fässer immer öffnen, sitzt das Band DIREKT auf den Fässern: die Wand ist nur 3 hoch (passt in lichte Höhe 3),
+// die Form `mini` passt in jede Höhe und unter Fenster. Breite wächst mit den Kategorien: b2 (5), b3 (7),
+// b4 (9), mini (2 breit, 2 hoch, ohne Rahmen). Rahmen halten auf dem vollen Vollholz-Band (nicht auf Fässern: Klick würde nur drehen).
+// Beispiel-Etiketten; der Spieler tauscht die Items. Fässer leer.
+{
+  id: "storage/fn_barrel_wall_label",
+  kind: "static",
+  name: "Fasswand mit Etiketten",
+  category: "storage",
+  tags: ["fn_barrel_wall", "fn_store"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // kompakte Form (2 breit, 2 hoch, nur Halbstufe über den Fässern, keine Rahmen): passt auch unter Fenster-Wänden und bei
+      // lichter Höhe 2 (wie `storage/chest_wall_low`) – die Rückfall-Form der Signatur der Lagerhalle
+      id: "mini",
+      weight: 0.25,
+      layers: [
+        ["BB", "__"],
+        ["SS", ".."],
+      ],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "b2",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PBPBP", "_____"],
+        ["PBPBP", "_____"],
+        ["PLPLP", "_._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        L: { role: "furniture_wood", shape: "planks" },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 1], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [3, 2, 1], face: "front", item: { item: "minecraft:potato" } },
+      ],
+    },
+    {
+      id: "b3",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PBPBPBP", "_______"],
+        ["PBPBPBP", "_______"],
+        ["PLPLPLP", "_._._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        L: { role: "furniture_wood", shape: "planks" },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 1], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [3, 2, 1], face: "front", item: { item: "minecraft:potato" } },
+        { type: "item_frame", at: [5, 2, 1], face: "front", item: { item: "minecraft:carrot" } },
+      ],
+    },
+    {
+      id: "b4",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PBPBPBPBP", "_________"],
+        ["PBPBPBPBP", "_________"],
+        ["PLPLPLPLP", "_._._._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        L: { role: "furniture_wood", shape: "planks" },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 1], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [3, 2, 1], face: "front", item: { item: "minecraft:potato" } },
+        { type: "item_frame", at: [5, 2, 1], face: "front", item: { item: "minecraft:carrot" } },
+        { type: "item_frame", at: [7, 2, 1], face: "front", item: { item: "minecraft:beetroot" } },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,15 @@
+// W15 · Banner im Giebeldreieck (Hausbanner in der Farbe des Themes, Rolle `textile_primary`): flach an der Giebelwand
+// in der Mittelachse, das Tuch hängt eine Zelle tief (Luftmaske darunter). Nur reich.
+{
+  id: "exterior/detail_gable_banner",
+  kind: "static",
+  name: "Giebelbanner",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor"],
+  styleTags: ["medieval", "timber", "harbor", "dwarven", "gothic", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["_"], ["B"]],
+  legend: { B: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } } },
+}

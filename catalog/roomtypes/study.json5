@@ -1,0 +1,31 @@
+// Arbeitszimmer / Studierzimmer (research/17 §4.8, S1–S5). K3a. Signatur: Schreibtisch vor der Bücherwand mit Blick
+// zur Tür (table/study_desk; Kompaktform: der kleine Schreibtisch table/desk). Regale an den Seitenwänden, Besucher-
+// Sessel, Kartentisch (work/map_desk, research/11) oder Lesepult am Fenster, Armillarsphäre/Standuhr in der Ecke,
+// Fischgrät-Boden aus dem Theme (surfaces.floor → study). Arbeitslicht ≥ 8. V3 „mehr in die Höhe“: Bücherwand
+// hinter dem Tisch bis unter die Decke, hohe Regale, Hängelaterne über der Platte, Trophäe/Oberschrank über
+// Kopfhöhe. Die Truhe ersetzt vorerst die Geldkassette (storage/strongbox, research/17 §4.23, K3b).
+{
+  id: "study",
+  name: "Arbeitszimmer",
+  minArea: 9,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["study_desk", "desk"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["bookshelf_wall"], count: [1, 3], weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["wing_chair", "seating_group"], count: [0, 2], weight: 3, placement: { zones: ["edge", "center"] } },
+    { tags: ["lectern", "map_desk"], count: [0, 1], weight: 3, placement: { zones: ["edge"], windowAffinity: "near" } },
+    { tags: ["armillary", "tall_clock"], count: [0, 1], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["chest"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["fn_rug", "rug"], count: [1, 1], weight: 4, placement: { zones: ["center"] } },
+    { tags: ["wall_books", "tapestry", "fn_tapestry"], count: [0, 2], weight: 3 },
+    // FN (Innenraum-Offensive): Ecken belegen
+    { tags: ["fn_corner"], count: [0, 2], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["head_trophy", "upper_cabinet", "wall_panel"], count: [0, 1], weight: 1 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+  ],
+  lighting: { minLevel: 8, prefer: ["candles", "light_ceiling", "light_wall", "light_floor"] },
+}

@@ -1,0 +1,68 @@
+// K3b · Tresor (research/17 §4.23, T4): Endertruhe (spielergebundener Speicher) zwischen zwei Truhen – durch
+// die Endertruhe getrennt, also keine Doppeltruhe (Faktencheck #18). Über allen Truhen Luft (Endertruhe wie
+// Truhe, Faktencheck #2); an der Raumwand darüber Gold, Enderauge und Smaragd in Rahmen. Mehr in die Höhe (V3):
+// „tall“ stapelt Truhe auf Truhe (T5 #6), die Rahmen hängen eine Reihe höher. „compact“ (2 breit) für kurze
+// Wandstücke – so passt die Signatur der Schatzkammer in jeden Raum.
+{
+  id: "storage/strongbox",
+  kind: "static",
+  name: "Tresor",
+  category: "storage",
+  tags: ["strongbox", "ender_storage", "treasure"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "vault",
+      weight: 3,
+      layers: [
+        ["CEC"], // y0: Truhe | Endertruhe | Truhe
+        ["___"], // y1: Luft über den Truhen, Rahmen an der Wand
+      ],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        E: { block: "minecraft:ender_chest", orient: { front: "front" } },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:gold_ingot" } },
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:ender_eye" } },
+        { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:emerald" } },
+      ],
+    },
+    {
+      // Truhe auf Truhe (T5 #6), Endertruhe unten in der Mitte, Rahmen eine Reihe höher
+      id: "tall",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["CEC"], // y0
+        ["C_C"], // y1: Truhen auf den Truhen, über der Endertruhe Luft (Rahmen: Enderauge)
+        ["_._"], // y2: Luft über den oberen Truhen (Rahmen: Gold, Smaragd)
+      ],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        E: { block: "minecraft:ender_chest", orient: { front: "front" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:ender_eye" } },
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:gold_ingot" } },
+        { type: "item_frame", at: [2, 2, 0], face: "front", item: { item: "minecraft:emerald" } },
+      ],
+    },
+    {
+      // Kompaktform: Endertruhe + Truhe
+      id: "compact",
+      weight: 1,
+      layers: [["EC"], ["__"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        E: { block: "minecraft:ender_chest", orient: { front: "front" } },
+      },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:gold_ingot" } }],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+local/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+packages/*/out/
+packages/*/raw/
+.vercel/

@@ -1,0 +1,23 @@
+// research/53 L2 · Konsolenlaterne: hängt an einer Konsole an der Wand, statt am Zaunarm (unterscheidet sich von
+// `exterior/wall_lantern`). Für Stellen ohne Platz für einen Arm, z. B. schmale Gassen.
+// Q1a: die Konsole ist ein Zaunbalken statt einer oberen Falltür – eine Falltür hat an ihrer Unterseite keine
+// volle/mittige Stützfläche, eine hängende Laterne fällt darunter im Spiel ab (Stützregel `up/center`).
+{
+  id: "exterior/bracket_lantern",
+  kind: "static",
+  name: "Konsolenlaterne",
+  category: "light",
+  tags: ["exterior", "exterior_light", "outdoor"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["L"], ["F"]],
+  legend: {
+    F: { role: "beam", shape: "fence" },
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+  },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

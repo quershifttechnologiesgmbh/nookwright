@@ -1,0 +1,33 @@
+// Handelshalle mit Villager-Ständen (K3b, research/17 §4.24). Signatur: Villager-Stand (Zelle 1 × 2 hoch, Arbeits-
+// block davor, Decke auf Höhe 2 → der Villager kann nicht fliehen; 13 Berufe). Die Villager bringt der Spieler
+// (wie Tiere im Stall). Weitere Stände im Takt an den Wänden (row gap 0), Heilstation türfern (Rabatte), Läufer im
+// Gang. Licht ≥ 8 überall (Zombies gefährden Villager). Mittelgang/Doppelreihe = Y1 `aisle` (trägt K3c nach);
+// „jeder Stand ein anderer Arbeitsblock“ = Wunsch distinct/X4 (Validator distinctJobBlocks).
+// Pflicht ist genau EIN Stand (in Räumen mit Fenstern alle 3 Zellen passt oft nur einer), die Reihe ist optional.
+// Mehr in die Höhe (V3): Deckenbanner über dem Gang (Th1), Wandbanner.
+{
+  id: "trading_hall",
+  name: "Handelshalle",
+  minArea: 36,
+  coverage: { target: 0.4 },
+  // K3c (Y1): Mittelgang ≥ 3 (research/17 §4.24), Stände an beiden Längswänden
+  aisle: { width: 3, minWidth: 2 },
+  required: [
+    { tags: ["villager_stall"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["villager_stall"], count: { perArea: 8, min: 2, max: 12 }, weight: 5, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["cure_station"], count: [0, 1], weight: 3, placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 3, placement: { zones: ["center", "corridor"] } },
+    { tags: ["bench"], count: [0, 2], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["chest", "trade_chest"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    // Q1a: Handel braucht Ware. Ohne diesen Eintrag blieb die Handelshalle mit 22 wählbaren Komponenten unter
+    // dem Q1a-Ziel von 25 (research/57 §1); `goods` bringt die Warenkisten/-fässer der Entwürfe mit herein.
+    { tags: ["goods"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_banner", "guild_banner"], count: [0, 4], weight: 2 },
+    { tags: ["light_ceiling"], count: { perArea: 12, min: 2, max: 8 }, weight: 4 },
+    // V3 (Raumhöhe nutzen): Banner unter der Decke über dem Gang
+    { tags: ["ceiling_banner"], count: [0, 3], weight: 2 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

@@ -1,0 +1,105 @@
+// FN · Schmiede-Ecke (Produktionslinien, plan/spikes/FN_produktionslinien.md): Arbeitsblöcke in einer Reihe an der Wand,
+// davor der Amboss, darüber Werkzeug im Rahmen – eine Handwerker-Ecke ohne Esse (Esse: `work/forge`). Berufe (Faktencheck #7):
+// Schmiedetisch = Werkzeugschmied, Schleifstein = Waffenschmied, Hochofen = Rüstungsschmied, Wasserkessel (Abschrecken) =
+// Gerber. Mechanik im Spiel: Amboss repariert/benennt/kombiniert, Schleifstein entzaubert/repariert, Schmiedetisch wertet
+// Diamant→Netherit auf. Der Amboss steht auf dem Boden (Schwerkraft), Wasserkessel voll (Stufe 3), Hochofen ohne Brennstoff.
+// Größen: `small` 3×2 (Höhe ≥ 2), `medium` 5×2, `large` 7×2 (zwei Schleifsteine, zwei Schmiedetische, zwei Ambosse).
+// Richtungen relativ: left = +x. Kein Windrad (Reihe, Amboss-Achse mittig).
+{
+  id: "work/fn_smith_corner",
+  kind: "static",
+  name: "Schmiede-Ecke",
+  category: "work",
+  tags: ["fn_smith_corner", "fn_corner"],
+  functionTags: ["repair", "craft", "villager_workstation", "work:toolsmith", "work:weaponsmith", "work:armorer"],
+  styleTags: ["medieval", "martial", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "small",
+      weight: 3,
+      layers: [
+        ["TQG", "_A_"], // y0: Arbeitsblöcke an der Wand | Amboss davor
+        ["___", "___"], // y1: Werkzeug-Rahmen an der Wand
+      ],
+      legend: {
+        T: { block: "minecraft:smithing_table" },
+        Q: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        G: { block: "minecraft:grindstone", orient: { front: "front" } },
+        A: { block: "minecraft:anvil", orient: { front: "front" } },
+      },
+      entities: [
+      { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } },
+      { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:iron_axe" } },
+      { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+      ],
+      sockets: [
+        { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "medium",
+      weight: 3,
+      layers: [
+        ["TQFQG", "__A__"], // y0: Arbeitsblöcke an der Wand | Amboss davor
+        ["_____", "_____"], // y1: Werkzeug-Rahmen an der Wand
+      ],
+      legend: {
+        T: { block: "minecraft:smithing_table" },
+        Q: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        G: { block: "minecraft:grindstone", orient: { front: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+        A: { block: "minecraft:anvil", orient: { front: "front" } },
+      },
+      entities: [
+      { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } },
+      { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:iron_helmet" } },
+      { type: "item_frame", at: [4, 1, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+      ],
+      sockets: [
+        { id: "lamp", type: "hang", at: [2, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "large",
+      weight: 2,
+      layers: [
+        ["GQTFTQG", "_A___A_"], // y0: Arbeitsblöcke an der Wand | Amboss davor
+        ["_______", "_______"], // y1: Werkzeug-Rahmen an der Wand
+      ],
+      legend: {
+        T: { block: "minecraft:smithing_table" },
+        Q: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        G: { block: "minecraft:grindstone", orient: { front: "front" } },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+        A: { block: "minecraft:anvil", orient: { front: "front" } },
+      },
+      entities: [
+      { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+      { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } },
+      { type: "item_frame", at: [3, 1, 0], face: "front", item: { item: "minecraft:iron_chestplate" } },
+      { type: "item_frame", at: [4, 1, 0], face: "front", item: { item: "minecraft:iron_axe" } },
+      { type: "item_frame", at: [6, 1, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+      ],
+      sockets: [
+        { id: "lamp", type: "hang", at: [3, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "nook",
+      weight: 1,
+      // Kompaktform (Tiefe 1): Amboss neben Schleifstein
+      layers: [
+        ["GA"],
+      ],
+      legend: {
+        G: { block: "minecraft:grindstone", orient: { front: "front" } },
+        A: { block: "minecraft:anvil", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

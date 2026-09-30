@@ -1,0 +1,33 @@
+// K2 · Brunnen (DA Structural: Constructions / Village; Bing „minecraft small medieval well“): Brunnenkranz
+// aus Bruchstein-Mauern um eine Wasserquelle (allseitig geschlossen, Boden darunter), Zaunpfosten an den
+// Ecken, Satteldach aus der Dachrolle des Themes (`roof_main`, wie das Haus), in der Mitte Kette + hängende
+// Laterne über dem Wasser. 4 hoch → außen oder in hohen Hallen.
+{
+  id: "outdoor/well",
+  kind: "static",
+  name: "Brunnen",
+  category: "architecture",
+  tags: ["well", "outdoor", "water_feature"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["WWW", "WQW", "WWW"], // y0: Kranz + Wasser
+    ["F.F", ".L.", "F.F"], // y1: Pfosten, Laterne
+    ["F.F", ".C.", "F.F"], // y2: Pfosten, Kette
+    ["NNN", "RRR", "SSS"], // y3: Satteldach, First als Vollblock (Kette hängt daran)
+  ],
+  legend: {
+    W: { block: "minecraft:cobblestone_wall" },
+    Q: { block: "minecraft:water", state: { level: "0" } },
+    F: { role: "furniture_wood", shape: "fence" },
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+    N: { role: "roof_main", shape: "stairs", orient: { back: "front" } },
+    R: { role: "roof_main", shape: "block" },
+    S: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+  masks: { support: [{ at: [1, 1, 1], side: "up", kind: "center" }] },
+  light: "auto",
+}

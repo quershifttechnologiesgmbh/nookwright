@@ -1,0 +1,38 @@
+// Hügelland: deutlicher Höhenunterschied, das Gebäude sitzt auf einem planierten Absatz (Überblendung 8).
+{
+  id: "hills",
+  name: "Hügelland",
+  description: "Ausgeprägte Hügel, weite Überblendung um das Fundament, gemischter Baumbestand",
+  // Q3: freie Landschaft – Fels-Pinsel im Hügelland (L3: Felsanteil hoch, research/51 §1.2/§7).
+  // W1-I (26.09.2026, W1E M1): Dichte 0,60 → 0,25 – vorher 5,4 lose Steinblöcke je 100 Zellen, der Weg zur Tür ging
+  // darin unter. Tote Bäume bewusst nicht: versuchsweise mit `outdoor/tree_dead` standen 3–8 Stämme je Wachturm-
+  // Grundstück, gehäuft vor der Tür (`spikes/w1i_gelaende.ts`, Bild `watchtower-M-560943719_front`); Totholz bleibt
+  // dem Waldrand (`forest`).
+  landscape: { density: 0.25, only: ["outdoor/rock_small", "outdoor/rock_medium"], prefer: ["rock_medium"],
+    near: { anchors: ["trees", "rim"], distance: 2 } },
+  // Echte Hügel: höhere Amplitude, kürzere Wellenlänge, mehr Oktaven (research/38 §4)
+  relief: { amplitude: 7, scale: 30, octaves: 4, gain: 0.55 },
+  soil: { depth: 3 },
+  // Wegbeleuchtung (research/37/38): Laterne am Hauptweg alle 8 Blöcke; vorher stand der Weg 29–43 Blöcke dunkel
+  lighting: { mode: "paths", every: { main: 8, side: 12 }, entry: true },
+  foundation: { pad: 2, blend: 8 },
+  // W1-I (26.09.2026, W1E M1 „Weg zur Tür“): Wegprofil statt 1 breiter Trampelpfad – die Zufahrt läuft von der
+  // Haustür in Türrichtung zum Grundstücksrand (2 breit, weicher Rand), Nebenwege 1 breit, Pfade als Trittsteine;
+  // vorher 7–13 Weg-Zellen je Grundstück, der Eingang war kaum zu finden.
+  // W3 (27.09.2026, plan/spikes/W3GA_grundstueck.md): ausgefranster Wegrand statt Erdflecken, Laterne an der
+  // Wegmündung, Baumgruppen am Rand (nie vor einer Fassade), Findlinge nur am Gehölz und am Rand (`landscape.near`),
+  // keine Einzelbüsche. Kein Straßenzaun: das Hügelland bleibt offene Landschaft.
+  // W4 (27.09.2026, Review M3): Vorplatz 3 × 6 vor der Tür als Pflaster aus einer Rolle (≤ 3 Blockarten)
+  paths: { profile: { main: 2, side: 1, edge: 0, bulge: 0.3, median: false, stepping: true, forecourt: 6 } },
+  vegetation: {
+    trees: { spacing: 9, density: 0.4, threshold: 0.3, species: { oak: 45, birch: 20, spruce: 35 },
+      groups: { size: [2, 3], every: 64, rim: [2, 7], understory: 2 } },
+    bushes: { spacing: 6, density: 0, foundation: 0.45 },
+    ground: { spacing: 1, density: 0.45, threshold: 0.4, flowers: 0.25, carpet: 0.08,
+      // Q3: Blumenflecken auf den Kuppen statt Zellkonfetti (research/51 §4)
+      clusters: { spacing: 6, radius: [1, 3], core: 0.9, edge: 0.3 },
+      near: { distance: 3, open: 0.2 } },
+    // W1-I: Vorplatz vor der Tür 2 → 5 frei (Tür und Weg lesbar)
+    keepFree: [{ along: "path", distance: 1 }, { around: "door", distance: 5 }],
+  },
+}

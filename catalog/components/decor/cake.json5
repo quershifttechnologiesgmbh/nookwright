@@ -1,0 +1,4 @@
+{ id: "decor/cake", kind: "static", name: "Kuchen", category: "decor",
+  tags: ["tabletop_small", "food"], obtainability: "survival",
+  mount: "surface", rotations: [0],
+  layers: [["C"]], legend: { C: { block: "minecraft:cake" } } }

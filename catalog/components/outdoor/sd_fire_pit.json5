@@ -1,0 +1,22 @@
+// SD Grundstücks-Deko: Feuerstelle mit Sitzstämmen (Lagerfeuer im Steinring, an den Ecken vier Sitzbalken). Vollständig
+// spiegelsymmetrisch (kein Windrad). Nur über die Deko-Regeln der Umgebung (`siteDecor`), bewusst in keinem Zonen-Pool.
+{
+  id: "outdoor/sd_fire_pit",
+  kind: "static",
+  name: "Feuerstelle",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_fire_pit"],
+  styleTags: ["rustic", "village", "nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["SWS", "WCW", "SWS"], // y0: Sitzbalken an den Ecken, Steinring, Lagerfeuer in der Mitte
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab" },
+    W: { role: "wall_plinth", shape: "block" },
+    C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+  },
+  light: "auto",
+}

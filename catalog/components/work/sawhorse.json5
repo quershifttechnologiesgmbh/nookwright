@@ -1,0 +1,18 @@
+// K2 · Sägebock (DA Utility: Carpenter's Tools): zwei Zaunpfosten, darüber ein liegender Stamm (Rolle
+// `beam`, Achse längs). Blöcke ohne Stützregel. Für Lager, Werkstatt, Hof.
+{
+  id: "work/sawhorse",
+  kind: "static",
+  name: "Sägebock",
+  category: "decor",
+  tags: ["sawhorse", "workshop_prop"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [["F.F"], ["LLL"]],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    L: { role: "beam", shape: "log", orient: { axis: "along" } },
+  },
+}

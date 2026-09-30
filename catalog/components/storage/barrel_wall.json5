@@ -1,0 +1,23 @@
+// Fasswand (research/10 §4.3, S8/S10): liegende Fässer mit Deckel nach vorn im Rahmen aus Stamm-Pfosten.
+// Fässer öffnen immer, auch gestapelt (Faktencheck #2). 2 hoch → passt auch bei lichter Höhe 2.
+{
+  id: "storage/barrel_wall",
+  kind: "static",
+  name: "Fasswand",
+  category: "storage",
+  tags: ["storage_wall", "barrel_wall"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["PBBP"], // y0
+    ["PBBP"], // y1
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    B: { block: "minecraft:barrel", orient: { front: "front" } },
+  },
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

@@ -1,0 +1,49 @@
+// research/57 · Trophäenraum: Geweih-Trophäe (Nebenobjekt, ergänzt decor/head_trophy/skull_trophy um eine
+// jagdliche statt Mob-Kopf-Form). Tag `trophy` steht in trophy_room.json5 im optionalen Eintrag
+// `{ tags: ["trophy"], count: [2, 4] }`. Zaun-Geweih auf Holzkonsole, kein `obtainability: survival_rare`
+// nötig (keine Mob-Köpfe).
+{
+  id: "decor/mounted_antlers",
+  kind: "static",
+  name: "Geweih-Trophäe",
+  category: "attachment",
+  tags: ["wall_decor", "mounted_antlers"],
+  styleTags: ["medieval", "rustic", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 2,
+  wallHeights: [2, -1, 1],
+  rotations: "backToWall",
+  layers: [["S"], ["F"], ["_"]],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    F: { role: "beam", shape: "fence" },
+  },
+  variants: [
+    { id: "small", weight: 2 },
+    {
+      id: "wide",
+      weight: 2,
+      layers: [["SSS"], ["FFF"], ["___"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+    },
+    {
+      // Jagdtrophäe: zusätzliches Fleisch im Rahmen neben dem Geweih (Rahmen hält an der Raumwand dahinter).
+      // Q1a: der Rahmen sitzt in einer eigenen Spalte neben dem Zaun (direkt über einem Zaun fällt er ab,
+      // `frameClearOK`). Diese Spalte hat unten eine eigene Konsole: nur so prüft der Solver die Wand hinter
+      // dem Rahmen (`wallCellOK` sieht nur Zellen) und die Luft-Maske bleibt in der Rauminnenfläche – vorher
+      // ragte eine 3 Blöcke hohe Luft-Spalte an der Komponentenkante in Eckpfeiler (air_mask).
+      id: "boar",
+      weight: 1,
+      layers: [["SS"], ["F_"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:porkchop" } }],
+    },
+  ],
+}

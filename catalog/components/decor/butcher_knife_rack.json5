@@ -1,0 +1,23 @@
+// research/57 · Metzgerei: Messerbrett an der Wand (Nebenobjekt, ergänzt decor/frame_meat um Werkzeug statt
+// Ware). Tag `wall_meat` steht in butchery.json5 im optionalen Eintrag `{ tags: ["wall_meat"] }`. Rahmen mit
+// Messer/Beil auf einer Konsole, wie frame_meat aber Werkzeug statt Fleisch – so wirkt die Ladenwand gemischt.
+{
+  id: "decor/butcher_knife_rack",
+  kind: "static",
+  name: "Messerbrett",
+  category: "attachment",
+  tags: ["wall_decor", "wall_meat", "butcher_knife_rack"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [["_"], ["K"]],
+  legend: { K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+  variants: [
+    { id: "cleaver", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_axe" } }] },
+    { id: "knife", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_sword" } }] },
+    { id: "flint", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:flint" } }] },
+  ],
+}

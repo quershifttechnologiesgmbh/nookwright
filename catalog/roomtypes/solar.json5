@@ -1,0 +1,43 @@
+// Wohnstube / Kaminzimmer (research/17 §4.3, L1–L4). K3a. Signatur: Kamin (arch/fireplace_wall) an der türfernen
+// Wand, flankiert von Bücherregalen; davor die Sitzgruppe (Ohrensessel/Sitzgruppe) auf einem Teppich. Kompaktform
+// der Familie ist die Feuerbank mit Schlot (2 × 1) – keine Küchenherde (Tag `hearth` bewusst nicht verlangt).
+// V3 „mehr in die Höhe“: Kaminvorsprung und Regale bis unter die Decke, Kerzen auf dem Sims, Wandteppich/Trophäe,
+// Borde und Oberschrank über Kopfhöhe, Deckenlicht. ERW: `near: "signature"` für die Sitzgruppe (heute über die
+// Zone `hearth` mit doorAffinity far angenähert). K3d-Teile: Sofa (über `seating_group`), Wohnzimmer-Kamin
+// decor/fireplace (über `fireplace`), Falltür-Paneele über Kopfhöhe, Raumteiler in großen Stuben.
+{
+  id: "solar",
+  name: "Wohnstube",
+  minArea: 16,
+  coverage: { target: 0.4 },
+  zones: [{ id: "hearth", doorAffinity: "far" }, { id: "side", doorAffinity: "neutral" }],
+  required: [
+    { tags: ["fireplace"], count: [1, 1], signature: true, zone: "hearth", placement: { zones: ["edge"], doorAffinity: "far" } },
+    // W3-IN: Sitzgruppe vor dem Kamin mit Blick zum Feuer (höchstens 2 Zellen Abstand)
+    { tags: ["wing_chair", "seating_group", "breakfast_nook_booth"], count: [1, 1], zone: "hearth", placement: { zones: ["center", "edge"] }, near: { tags: ["fireplace"], maxGap: 2, facing: true } },
+  ],
+  optional: [
+    // W3-IN: zweiter Sessel als Wunsch (vorher Pflicht [1, 2]) – in kleinen Stuben nahm die Blickrichtung zum Kamin ihm
+    // sonst den Platz
+    { tags: ["wing_chair", "seating_group"], count: [0, 1], weight: 3, zone: "hearth", placement: { zones: ["center", "edge"] }, near: { tags: ["fireplace"], maxGap: 2, facing: true } },
+    { tags: ["fn_rug", "rug"], count: [1, 1], weight: 4, zone: "hearth", placement: { zones: ["center"] } },
+    { tags: ["wall_bench", "reading_nook_corner"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["bookshelf_wall"], count: [0, 2], weight: 2, zone: "side", placement: { zones: ["edge"] } },
+    { tags: ["tall_clock", "sideboard"], count: [0, 2], weight: 2, zone: "side", placement: { zones: ["edge"] } },
+    // W2 (I6): Spieltisch (Schachbrett) nur noch im Spielzimmer – in Schankraum/Wohnstube wirkte er wie ein Teppich-Fleck
+    { tags: ["room_divider"], count: [0, 1], weight: 1, zone: "side", placement: { zones: ["center"] } },
+    { tags: ["plant_large", "moss_corner_planter"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["tapestry", "trophy", "fn_tapestry"], count: [1, 3], weight: 3 },
+    // FN (Innenraum-Offensive): Ecken belegen
+    { tags: ["fn_corner"], count: [1, 2], weight: 3, placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["wall_shelf", "upper_cabinet", "mantel_shelf_display"], count: [0, 2], weight: 2 },
+    // FN: Paneele als eigener Eintrag (im gemischten Pool verlor die Tafel gegen die neuen Wandbehänge). FN-Integration:
+    // [1, 1] statt [0, 1] – mit 0 als Untergrenze setzte der Solver das Paneel in Wohnstuben ab H4 nie (K3d-Test: 0 von 24)
+    { tags: ["wall_panel"], count: [1, 1], weight: 3 },
+    { tags: ["ceiling_banner"], count: [0, 1], weight: 1 },
+    { tags: ["light_pendant"], count: [0, 1], weight: 3 },
+  ],
+  // W3-IN (I7): Kaminfeuer, Kerzen auf Sims und Tisch, Laternen an der Wand; Budget je Fläche
+  lighting: { minLevel: 6, prefer: ["candles", "light_wall", "light_pendant"], budget: { cellsPer: 14, min: 2 }, anchors: ["fireplace", "seating_group", "table", "sideboard"] },
+}

@@ -1,0 +1,40 @@
+// research/57 · Observatorium: Sternkarte an der Wand (Nebenobjekt, ergänzt decor/instrument_frames um eine
+// Kartenform statt Werkzeugrahmen). Tag `instrument_frames` steht in observatory.json5 im optionalen Eintrag
+// `{ tags: ["instrument_frames", "wall_books", "wall_shelf"] }`. Große Karte aus Terrakotta-Fries mit
+// Rahmen-Sternbild darüber.
+// Nachprüfung research/57: Die Rahmen saßen ursprünglich auf denselben Zellen wie die Terrakotta (Kollision,
+// entity_support: „Kollision mit blue_terracotta“). Jetzt wie decor/tool_wall eine eigene Luft-Zeile über der
+// Karte, die Rahmen hängen an der Raumwand dahinter.
+{
+  id: "decor/star_chart",
+  kind: "static",
+  name: "Sternkarte",
+  category: "attachment",
+  tags: ["instrument_frames", "wall_decor"],
+  styleTags: ["medieval", "scholarly", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [1, 2],
+  variants: [
+    {
+      id: "chart",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["TT"], ["TT"], ["__"]],
+      legend: { T: { block: "minecraft:blue_terracotta" } },
+      entities: [{ type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:paper" } }],
+    },
+    {
+      id: "constellation",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["TTT"], ["TTT"], ["___"]],
+      legend: { T: { block: "minecraft:cyan_terracotta" } },
+      entities: [
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:amethyst_shard" } },
+        { type: "item_frame", at: [2, 2, 0], face: "front", item: { item: "minecraft:phantom_membrane" } },
+      ],
+    },
+  ],
+}

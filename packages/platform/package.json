@@ -1,0 +1,18 @@
+{
+  "name": "@mcda/platform",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Minecraft-Plattform: Anti-Corruption-Layer um Mojang-Daten (Registry, Block-States, Familien, Physik je Version)",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./node": "./src/node.ts"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "fetch": "tsx scripts/fetch.ts",
+    "generate": "tsx scripts/generate.ts",
+    "build:data": "npm run fetch && npm run generate",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

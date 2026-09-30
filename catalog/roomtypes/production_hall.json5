@@ -1,0 +1,29 @@
+// FN · Produktionshalle (plan/spikes/FN_produktionslinien.md): Werkhalle mit Autocrafter-Linie (Pflicht, Tag
+// `fn_autocrafter`), dazu optional Brau-Straße, Backlinie und Handwerker-Ecken. Nur eigene `fn_`-Tags plus Alltags-Deko;
+// Bestandsräume ändern sich nicht. Die Crafter-Linie braucht lichte Höhe 3 (Trichter, Crafter, Knopf) – die Solver-Auswahl
+// über `minRoomHeight` fällt bei niedrigen Räumen auf Truhen/Werkbank zurück.
+{
+  id: "production_hall",
+  name: "Produktionshalle",
+  minArea: 30,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["fn_autocrafter"], count: [1, 1], signature: true, placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    { tags: ["fn_autocrafter"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["fn_brew_street"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["fn_bakery_line"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["fn_corner"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crafting"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest", "barrel"], count: [1, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_tools", "schematic_board"], count: [0, 2], weight: 2 },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+    { tags: ["utensil_rail", "raw_materials", "lumber_stack", "sawhorse"], count: [0, 2], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["light_ceiling", "light_pendant"], count: [1, 3], weight: 3 },
+  ],
+  lighting: { minLevel: 9, prefer: ["light_wall", "light_ceiling", "light_floor"] },
+}

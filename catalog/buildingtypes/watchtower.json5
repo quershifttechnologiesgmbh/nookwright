@@ -1,0 +1,55 @@
+// BT03 Wachturm (research/19 §3): schlanker Turm 7×7 bis 9×9 mit 3–5 Geschossen; unten Lager, in der Mitte Schlaf-
+// bzw. Waffenkammer, oben das Turmzimmer; Leitern im Wechsel an gegenüberliegenden Wänden. Flachdach mit Ausguck
+// (W3-CA), Luke mit Leiter zum Ausguck (W4-B). Offen: auskragende Plattform, Verjüngung `taper`, Wachstube.
+{
+  id: "watchtower",
+  name: "Wachturm",
+  family: "fort",
+  themes: ["medieval", "rustic"],
+  sizes: {
+    S: { footprint: [[7, 7], [7, 7]], floors: 3, floorHeight: [3, 4] },
+    M: { footprint: [[7, 7], [9, 9]], floors: 4 },
+    L: { footprint: [[9, 9], [9, 9]], floors: 5 },
+  },
+  massing: { generator: "tower" },
+  program: [
+    { room: "storage", floor: "ground", required: true },
+    { room: ["bedroom", "armory", "study"], floor: [1, 3] },
+    { room: "tower_room", floor: "top", share: 1, required: true },
+  ],
+
+  // Funktionsgrad (W2-1): Tresor oder Geheimstudie in einem Obergeschoss (ein Raum je Etage; die Anlage verdrängt die
+  // Wohnkammer dieser Etage). `minArea` unter dem Katalogwert: der Turm ist innen nur 5 × 5 bis 7 × 7.
+  functions: [
+    { room: "vault_room", floor: 1, share: 1, minArea: 16, weight: 3, group: "lower" },
+    { room: "secret_study", floor: 2, share: 1, minArea: 16, weight: 2, group: "upper", sizes: ["M", "L"] },
+    { room: "arcane_study", floor: 3, level: "rich", share: 1, minArea: 20, weight: 1, group: "top", sizes: ["L"] },
+  ],
+  stairs: { type: "ladder" },
+  // W3-CA (W1-E L2 „Pagode, kein Ausguck“; plan/spikes/W3CA_burg.md): glatter Schaft ohne Gesims je Etage – das
+  // einzige Band ist der Traufrand des Flachdachs –, oben ein offener Ausguck (Pfosten, Zaun-Brüstung, Zeltdach mit
+  // Stange und Laternen) auf einem Steinbelag: so in 6 von 8 Wachturm-Anleitungen, Gesimse je Etage in keiner.
+  shell: {
+    roof: "flat",
+    overhang: 1,
+    // W4-B: glatter Schaft (Bodenplatten in der Außenwand aus Wandstein statt Holz-Schwelle, Traufrand aus Stein) und
+    // Dachluke (Leiter an der Wand des Turmzimmers, Falltür im Belag des Ausgucks) – der Ausguck ist begehbar
+    roofDetail: { pitch: "normal", trim: true, hatch: true, plainShaft: true },
+    // ohne `cornice` (Gesims je Etage = Pagode)
+    // W5-B (Review W4-R N2): Fensterrahmen aus Stein (Bank und Sturz über die ganze Breite in `wall_cornice`) – kein
+    // Holz am Turmschaft
+    facade: { plinthProfile: true, quoins: true, frameRole: "wall_cornice" },
+    // W4-B (Review M1 „Pagode“): ein Fenster je Seite und Geschoss – schlanke Wachtürme haben kleine Einzelfenster
+    // (Vorbilder y01–y13); zwei Fenster je Seite ergaben mit Bank und Sturz ein fast durchgehendes Holzband je Etage
+    windows: { spacing: 6 },
+  },
+  parapet: { crown: "lookout", deck: true },
+  // Stein-Laibung wie die Burg (Wangen aus Wandstein, Sturz, Bank)
+  // W4-B (Review M2): Eingang aus derselben Familie wie die Fenster
+  // W5-B (Review W4-R N4): Stein-Module nur an Steinwänden, der rustikale Holzturm nimmt die Module seines Themes
+  exterior: { density: 0.75, off: ["flowerBoxes"], windowModule: "stone", entranceModule: "stone", themeMaterial: true },
+  site: { style: "hills", lighting: "paths" },
+  // Silhouette misst die Hülle ohne den Ausguck (Deck, Pfosten und Zeltdach: 13–15 Blöcke): gemessen 1,78–2,29
+  // (S/M/L × 7 Seeds); mit Ausguck rund 3,6–4,1
+  checks: { heightToWidth: [1.75, 6] },
+}

@@ -1,0 +1,46 @@
+// Warenstapel (research/10 §4.3/§7.6: sichtbare Ware in Lager, Küche, Schmiede). Höchstens 2 hoch.
+// Fässer öffnen immer, auch mit Teppich obendrauf; Teppich braucht nur einen Block darunter (Faktencheck #4).
+// Teppichfarbe = Ware (rot Äpfel, hellgrün Kohl, braun Kartoffeln). Säcke als Wolle (fest, bis das Theme
+// `textile_neutral` kennt). Komposter-Kisten bewusst nicht (Bauern-Arbeitsblock, research/10 §11 #10).
+// W3-IN: die Säcke aus Wolle (Variante `sacks_hay`) stehen jetzt als eigene Komponente storage/sack_pile nur im Lager –
+// Warenstapel kommen auch in Küche, Taverne und Brauhaus, Stoff-/Wollballen gehören dort nicht hin.
+{
+  id: "storage/goods_stack",
+  kind: "static",
+  name: "Warenstapel",
+  category: "storage",
+  tags: ["goods"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  // W4 (27.09.2026, Review M7): Ware steht mit dem Rücken an der Wand (Vorbilder W3-IN §1.5: Stapel an den Wänden,
+  // Mitte frei) – vorher frei drehbar und oft als Insel mitten im Lager
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "barrels_produce",
+      weight: 3,
+      layers: [
+        ["BB", "BH"], // y0: Fässer + Heuballen
+        ["rg", "c."], // y1: Ware-Teppiche
+      ],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        H: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        r: { block: "minecraft:red_carpet" },
+        g: { block: "minecraft:lime_carpet" },
+        c: { block: "minecraft:brown_carpet" },
+      },
+    },
+    {
+      id: "barrel_pair",
+      weight: 2,
+      layers: [["BB"], ["r."]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        r: { block: "minecraft:red_carpet" },
+      },
+    },
+  ],
+}

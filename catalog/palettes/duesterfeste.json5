@@ -1,0 +1,79 @@
+// Duesterfeste – duester, Biome: mountains, cave, badlands, Stile: ruin, dwarven.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "duesterfeste",
+  name: "Düsterfeste",
+  mood: "duester",
+  biomes: ["mountains", "cave", "badlands"],
+  styles: ["ruin", "dwarven"],
+  values: ["minecraft:tuff", "minecraft:cobbled_deepslate", "minecraft:deepslate_bricks", "minecraft:blackstone", "minecraft:polished_blackstone_bricks"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "tuff", weight: 30 },
+        { family: "cobbled_deepslate", weight: 45 },
+        { family: "deepslate_bricks", weight: 25 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "polished_blackstone", weight: 60 },
+        { family: "blackstone", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "polished_blackstone_bricks", weight: 40 },
+      ],
+    },
+    roof: {
+      // roof_fixed: Basalt und Schwarzstein zu nah -> Tuff als hellere Dachflaeche (Q4, research/54 §1.2 Wertkontrast)
+      blocks: [
+        { family: "tuff", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { family: "gilded_blackstone", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "crimson", weight: 70 },
+        { family: "crimson", shape: "log", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "polished_blackstone_bricks", weight: 70 },
+        { family: "polished_blackstone_bricks", variant: "cracked", weight: 30 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:gray", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:soul_lantern", weight: 80 },
+        { block: "minecraft:soul_torch", weight: 20 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "crimson", shape: "sapling", weight: 60 },
+        { family: "crimson", shape: "leaves", weight: 40 },
+      ],
+    },
+  },
+}

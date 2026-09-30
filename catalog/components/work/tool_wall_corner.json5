@@ -1,0 +1,22 @@
+// I52 · Werkzeugwand-Ecke (research/52 §Wand, Werkstatt): Wandbrett mit aufgehängten Werkzeugen als
+// Rahmen-Items in einer Reihe — die kompakte Ecken-Variante zu decor/tool_wall für kleine Werkstätten.
+{
+  id: "work/tool_wall_corner",
+  kind: "static",
+  name: "Werkzeugwand-Ecke",
+  category: "attachment",
+  tags: ["tool_wall_corner"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  // y0: Rahmen frei vor der Wand (Träger = reale Wand, wie decor/frame_tools), y1: Zaun-Leiste darüber.
+  layers: [["___"], ["FFF"]],
+  legend: { F: { role: "furniture_wood", shape: "fence" } },
+  entities: [
+    { type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_axe" } },
+    { type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } },
+    { type: "item_frame", at: [2, 0, 0], face: "front", item: { item: "minecraft:iron_hoe" } },
+  ],
+}

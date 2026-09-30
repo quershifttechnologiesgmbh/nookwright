@@ -1,0 +1,28 @@
+// X1 · W3 Verdachung (research/18 W3, research/12 B19, research/16 F1): über der obersten Scheibe, je Spalte ein
+// Stück, 1 breiter als das Fenster. „stairs“ = kleines Pultdach aus der Dachfläche (Rücken zur Wand), „slab“ = flache
+// Leiste aus der Dachkante. Nur wo die Zelle frei ist – unter einer Traufe ersetzt der Dachüberstand die Verdachung.
+{
+  id: "exterior/window_hood",
+  kind: "static",
+  name: "Verdachung",
+  category: "architecture",
+  tags: ["exterior", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "noble", "timber"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "stairs",
+      weight: 2,
+      layers: [["R"]],
+      legend: { R: { role: "roof_main", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "slab",
+      weight: 1,
+      layers: [["R"]],
+      legend: { R: { role: "roof_trim", shape: "slab", orient: { upsideDown: false } } },
+    },
+  ],
+}

@@ -1,0 +1,32 @@
+// Wachstube / Kaserne (K3b, research/17 §4.21). Signatur: Etagenbetten in Reihe (row gap 1 = Aufwachplatz
+// daneben; je Bett eine Spind-Truhe am Fußende); Kompaktform bei lichter Höhe 2: Pritsche mit Spind (bunk_bed#cot).
+// Zone `dorm` (türfern): Betten an den Längswänden; Zone `mess` (türnah): Mannschaftstafel, Waffen, Dienstplan.
+// Doppelreihe mit Mittelgang = Y1 `aisle` (trägt K3c nach). Licht ≥ 7 (Schlafen: keine Monster in 8 Blöcken).
+// Mehr in die Höhe (V3): Etagenbett (2 Betten übereinander), Deckenbanner, Waffenwand über Kopfhöhe.
+{
+  id: "barracks",
+  name: "Kaserne",
+  minArea: 20,
+  coverage: { target: 0.45 },
+  // K3c (Y1): Mittelgang, Etagenbetten als gespiegelte Doppelreihe; (Y9) passt nicht zu Rustic (research/17 §6.2)
+  aisle: { width: 2, minWidth: 1 },
+  styleTags: { exclude: ["rustic"] },
+  zones: [{ id: "dorm", doorAffinity: "far" }, { id: "mess", doorAffinity: "near" }],
+  required: [
+    { tags: ["bunk_bed"], count: { perArea: 10, min: 2, max: 8 }, signature: true, zone: "dorm", placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 1 } },
+  ],
+  optional: [
+    { tags: ["chest"], count: [0, 2], weight: 2, zone: "dorm", placement: { zones: ["edge"] } },
+    { tags: ["dining_table"], count: [0, 1], weight: 4, zone: "mess", placement: { zones: ["center"] } },
+    { tags: ["wall_weapons"], count: [1, 3], weight: 4, zone: "mess", placement: { zones: ["edge"] } },
+    { tags: ["menu_board", "wall_sign"], count: [0, 1], weight: 2, zone: "mess", placement: { doorAffinity: "near" } },
+    { tags: ["grindstone"], count: [0, 1], weight: 2, zone: "mess", placement: { zones: ["edge", "corner"] } },
+    { tags: ["archery_target"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["wall_banner"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling", "light_wall"], count: { perArea: 15, min: 1, max: 5 }, weight: 4 },
+    // V3 (Raumhöhe nutzen): Deckenbanner, Werkzeug-/Waffenwand
+    { tags: ["ceiling_banner"], count: [1, 2], weight: 2 },
+    { tags: ["tool_wall"], count: [0, 1], weight: 1 },
+  ],
+  lighting: { minLevel: 7, prefer: ["light_wall", "light_ceiling"] },
+}

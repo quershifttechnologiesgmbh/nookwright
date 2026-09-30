@@ -1,0 +1,31 @@
+// Turmzimmer (research/17 §4.13, Tw1–Tw5). K3a. Signatur: Eckregale (storage/corner_shelf, L-förmig in den Ecken;
+// Kompaktform gerades Regal) – alles an der Wand, die Mitte bleibt frei für ein Zentralstück (schwebender Kristall
+// oder Teleskop) bzw. später die Wendeltreppe (`reserve`, Y2, K3c). Zonen „corner“ + „edge“: ein L in
+// der Ecke liegt mit allen drei Zellen an Wänden und schlägt so das verkehrt herum gedrehte L. Schreibpult am
+// Fenster, Bett, Truhen, runder Teppich. V3 „mehr in die Höhe“: Eckregale bis unter die Decke, Hängegrün,
+// Kronleuchter über der Mitte, Behang/Borde über Kopfhöhe.
+{
+  id: "tower_room",
+  name: "Turmzimmer",
+  minArea: 9,
+  coverage: { target: 0.35 },
+  // K3c (Y2): freie Mitte auf Laufhöhe für Kristall/Teleskop oder später die Wendeltreppe; Leuchter darüber erlaubt
+  reserve: { zone: "center", size: [3, 3], reason: "focal", allow: ["crystal_orb", "telescope"] },
+  required: [
+    { tags: ["corner_shelf"], count: { perArea: 12, min: 1, max: 4 }, signature: true, placement: { zones: ["corner", "edge"] } },
+  ],
+  optional: [
+    { tags: ["desk"], count: [0, 1], weight: 3, placement: { zones: ["edge"], windowAffinity: "near" } },
+    { tags: ["bed_single"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["chest"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["crystal_orb", "telescope"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["rug"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["wall_banner", "wall_shelf"], count: [0, 2], weight: 2 },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["plant_hanging"], count: [0, 2], weight: 2 },
+    // W2 (I6): Lesenische (Q1a-Entwurf, jetzt nur Wohnstube/Bibliothek/Studierzimmer/Turmstube)
+    { tags: ["reading_nook_corner"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 1], weight: 4 },
+  ],
+  lighting: { minLevel: 7, prefer: ["candles", "light_ceiling", "light_wall", "light_floor"] },
+}

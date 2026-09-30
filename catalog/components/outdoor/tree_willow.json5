@@ -1,0 +1,26 @@
+// research/56 · Kleiner Custom-Baum: Weide (Silhouette – kein eigenes Blatt-Textur-Set in Vanilla, daher normales
+// Eichenlaub in einer breiten, flachen Krone statt der hohen Eichen-Krone aus `vegetation.ts growTree`). Q1a:
+// 5×5×5 statt 5×5×6 – der Standard-Testraum (lichte Höhe 5) und die üblichen Raumhöhen sollen ihn aufnehmen.
+{
+  id: "outdoor/tree_willow",
+  kind: "static",
+  name: "Weide",
+  category: "decor",
+  tags: ["tree", "custom_tree", "outdoor", "pond", "meadow"],
+  styleTags: ["rustic", "overgrown"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: false,
+  layers: [
+    [".....", ".....", "..F..", ".....", "....."], // y0: Stamm
+    [".....", ".....", "..F..", ".....", "....."], // y1: Stamm
+    [".....", ".lll.", ".lll.", ".lll.", "....."], // y2: innere Krone (schmal)
+    [".lll.", "lllll", "lllll", "lllll", ".lll."], // y3: breite, flache Hauptkrone
+    [".....", ".lll.", ".lll.", ".lll.", "....."], // y4: Kronenspitze (schmal, tropft aus)
+  ],
+  legend: {
+    F: { block: "minecraft:oak_log", orient: { axis: "y" } },
+    l: { block: "minecraft:oak_leaves", state: { persistent: "true" } },
+  },
+}

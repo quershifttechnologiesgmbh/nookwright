@@ -1,0 +1,24 @@
+// FN Tierfarmen: Imkerei / Bienenhof. Pflicht: die Bienenhof-Reihe (`fn_apiary`, 2 / 3 / 4 Stöcke nach Raumbreite, lichte
+// Höhe ≥ 3) mit Beobachter-Spender-Ernte. Blumen vorn gehören zur Komponente; im Raum zusätzlich Pflanzen, Fässer, Regale.
+// Bienen bringt der Spieler; ohne Blumen in Reichweite (~22 Blöcke) sammeln sie nichts (Wiki: Bee).
+{
+  id: "apiary",
+  name: "Imkerei",
+  minArea: 64,
+  minHeight: 3,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["fn_apiary"], count: [1, 1], placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    { tags: ["plant_large", "plant_pot"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["barrel", "chest"], count: [0, 2], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["herb_rack", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["crafting"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["table_small"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["vase"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["light_ceiling", "light_wall"], count: [1, 3], weight: 3 },
+  ],
+  lighting: { minLevel: 9, prefer: ["light_wall", "light_ceiling"] },
+}

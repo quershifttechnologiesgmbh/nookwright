@@ -1,0 +1,38 @@
+// Regal-Bucht (research/11 §4.6 L-1, „Pfosten-Bucht“ §2.1): Bücherregale zwischen Stamm-Pfosten, 3 hoch.
+// Als Boden-Komponente mit Rücken zur Wand (entspricht Wand-Montage mit wallHeight 0). Lichte Höhe ≥ 3;
+// für niedrige/schmale Wände gibt es storage/bookshelf_bay_low.
+// Gemeißelte Regale nur LEER (Inhalt + slot-State kann die Materialisierung noch nicht, research/11 B2);
+// Regal-Blöcke (1.21.9) folgen, wenn `furniture_wood.shelf` im Rollen-Schnappschuss zugelassen ist.
+{
+  id: "storage/bookshelf_bay",
+  kind: "static",
+  name: "Regal-Bucht",
+  category: "storage",
+  tags: ["bookshelf_wall", "bookshelf_bay"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "classic",
+      weight: 3,
+      layers: [["PBBBP"], ["PBBBP"], ["PBBBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:bookshelf" },
+      },
+    },
+    {
+      id: "mixed",
+      weight: 2,
+      layers: [["PBBBP"], ["PBCBP"], ["PBBBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:bookshelf" },
+        C: { block: "minecraft:chiseled_bookshelf", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

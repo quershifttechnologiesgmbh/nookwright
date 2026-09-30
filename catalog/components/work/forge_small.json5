@@ -1,0 +1,49 @@
+// Kleine Esse (research/10 §5.3, Grube F1/F12 im Kleinformat): Glutbecken hinter Eisengittern, darüber die
+// Haube. Nur 2 breit und 2 hoch → passt an kurze Wandstücke und bei lichter Höhe 2; damit hat jede Schmiede
+// ihre Esse (Tag `forge`). Glut vorn hinter Gittern, oben unter der Haube: niemand kann darauf stehen.
+// Kein Lava-Kessel (research/10 §11 #5). Mauerwerk fest, bis das Theme `hearth` kennt.
+{
+  id: "work/forge_small",
+  kind: "static",
+  name: "Esse (klein)",
+  category: "work",
+  tags: ["forge", "fire_feature", "smithing"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "campfire_stone",
+      weight: 2,
+      layers: [
+        ["GG", "II"], // y0: Glut, davor Gitter
+        ["MM", "UU"], // y1: Haube
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "ember_deepslate",
+      weight: 2,
+      layers: [
+        ["GG", "II"],
+        ["MM", "UU"],
+      ],
+      legend: {
+        M: { block: "minecraft:deepslate_bricks" },
+        U: { block: "minecraft:deepslate_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:magma_block" },
+      },
+    },
+  ],
+  sockets: [{ id: "anvil", type: "adjacent", at: [0, 0, 2], side: "front", accepts: ["anvil"], prob: 0.4, facing: "same" }],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

@@ -1,0 +1,20 @@
+// research/56 · Steintrog (offenes Wasserbecken, anders als `outdoor/trough` mit Kessel): Bruchstein-Einfassung
+// mit offenem Wasser dazwischen – größer und „gemauert“ statt Kessel. Für Koppel, Brunnenplatz, Stall.
+// Q1a: das Wasser muss rundum eingefasst sein (Regel `noHazardOnPath`: offenes Wasser auf Bodenhöhe neben einer
+// freien Lauffläche ist eine Gefahr) – daher ein 3×3-Becken statt einer offenen 3×1-Rinne.
+{
+  id: "outdoor/stone_trough",
+  kind: "static",
+  name: "Steintrog",
+  category: "work",
+  tags: ["trough", "outdoor", "water_feature", "paddock", "yard"],
+  styleTags: ["rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [["WWW", "WwW", "WWW"]],
+  legend: {
+    W: { block: "minecraft:cobblestone_wall" },
+    w: { block: "minecraft:water", state: { level: "0" } },
+  },
+}

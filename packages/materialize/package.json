@@ -1,0 +1,9 @@
+{
+  "name": "@mcda/materialize",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Materialisierung: Theme-Auflösung (Rolle → Block), Orientierungs-Adapter, Autotiling, Physik- und Licht-Pass → VoxelVolume je Zielversion.",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts"
+}

@@ -1,0 +1,26 @@
+// FN-Dense · Dachboden-Haufen (Raummitte): mit Laken abgedecktes Gerümpel zwischen Fässern und Heuballen (Vorbild:
+// Dachböden der Community mit Möbeln unter Staubtüchern statt leerer Mitte). 4 breit, 2 tief, 2 hoch. Wollblöcke mit
+// Teppich darauf = Laken; Teppich braucht feste Unterlage (Wolle). Symmetrisch in der Breite; harter Freiraum an beiden
+// Längsseiten, damit man um den Haufen herumgehen kann. Insel-Eintrag von `attic` (Tag `fn_attic_heap`).
+{
+  id: "storage/fn_attic_heap",
+  kind: "static",
+  name: "Abgedecktes Gerümpel",
+  category: "storage",
+  tags: ["fn_attic_heap"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["bwwb", "hwwh"], // y0: Fässer | Laken | Fässer; vorn Heuballen
+    [".cc.", "...."], // y1: Laken-Zipfel (Teppich)
+  ],
+  legend: {
+    b: { block: "minecraft:barrel", orient: { front: "back" } },
+    w: { block: "minecraft:light_gray_wool" },
+    h: { block: "minecraft:hay_block", orient: { axis: "along" } },
+    c: { block: "minecraft:light_gray_carpet" },
+  },
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+}

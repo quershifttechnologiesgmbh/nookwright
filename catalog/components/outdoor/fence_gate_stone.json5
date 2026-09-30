@@ -1,0 +1,30 @@
+// research/56 · Torbogen aus Stein (DA Structural: Gates; Bing „minecraft stone archway gate“): zwei
+// Bruchstein-Pfeiler mit Eisengitter als Torfüllung (dekorativ, nicht öffenbar), Sturz aus sauberem Steinziegel,
+// Laternen obendrauf. Für Burghof, Friedhof, Marktplatz-Zugang.
+// W1-I (26.09.2026, W1E M1): nicht mehr in den Zonen-Pools `yard`/`plaza` – dort stand der Torbogen zufällig frei
+// im Hof, ohne Mauer oder Zaun (bis zu 11 je Burghof). Tore setzen Zaun- und Mauerzüge selbst.
+{
+  id: "outdoor/fence_gate_stone",
+  kind: "static",
+  name: "Torbogen (Stein)",
+  category: "architecture",
+  tags: ["fence_gate", "outdoor", "cemetery"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: false,
+  layers: [
+    ["WbW"], // y0: Pfeiler, Gitter
+    ["WbW"], // y1: Pfeiler, Gitter
+    ["MMM"], // y2: Sturz
+    ["L.L"], // y3: Laternen
+  ],
+  legend: {
+    W: { block: "minecraft:cobblestone_wall" },
+    b: { block: "minecraft:iron_bars" },
+    M: { role: "wall_cornice", shape: "block" },
+    L: { role: "light_hanging", shape: "lantern" },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

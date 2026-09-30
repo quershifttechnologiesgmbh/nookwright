@@ -1,0 +1,41 @@
+// K3a · Sternen-Gruppe (research/17 §4.28, O1/O2): „Sterne“ direkt unter der Decke – Endstäbe mit der Spitze nach
+// unten (Licht 14, brauchen keine Stütze; Export-Prüfung T14 offen) und Amethyst-Cluster nach unten (Licht 5, halten
+// an der Unterseite des Deckenblocks). Sparsam gestreut, damit das Observatorium dunkel wirkt; der Licht-Pass zählt
+// sie mit. Endstäbe brauchen Chorus/Lohenrute (End) → survival_rare. Deckenmontage ab lichter Höhe 3.
+// Bewusst ohne `light_ceiling`/`decor_ceiling`: andere Räume ziehen sie nicht als Deckenlicht.
+{
+  id: "astro/star_cluster",
+  kind: "static",
+  name: "Sternen-Gruppe",
+  category: "decor",
+  tags: ["star_cluster", "astronomy"],
+  functionTags: ["light"],
+  styleTags: ["fantasy", "noble"],
+  obtainability: "survival_rare",
+  mount: "ceiling",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "rods",
+      weight: 1,
+      layers: [["E.E", "...", ".E."]],
+      legend: { E: { block: "minecraft:end_rod", orient: { front: "down" } } },
+    },
+    {
+      id: "mixed",
+      weight: 2,
+      layers: [["a.a", ".E.", "a.a"]],
+      legend: {
+        a: { block: "minecraft:amethyst_cluster", orient: { front: "down" } },
+        E: { block: "minecraft:end_rod", orient: { front: "down" } },
+      },
+    },
+    {
+      id: "amethyst",
+      weight: 2,
+      layers: [["a..", "..a", ".a."]],
+      legend: { a: { block: "minecraft:amethyst_cluster", orient: { front: "down" } } },
+    },
+  ],
+  light: "auto",
+}

@@ -1,0 +1,18 @@
+// research/53 W5/W6 · Kreuzsprossen-Rahmenset: schmale Klarglas-Scheiben mit einem Mittelpfosten (Zaun) als
+// Sprosse, 1 vor der Wand (R8). Für Fensterbreite ab 3, ersetzt den einfachen Rahmen bei Fensterbändern.
+{
+  id: "exterior/window_frame_cross",
+  kind: "static",
+  name: "Kreuzsprossen-Rahmen",
+  category: "architecture",
+  tags: ["exterior", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "cottage"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["GGG"], ["GXG"], ["GGG"]],
+  legend: {
+    G: { block: "minecraft:glass_pane" },
+    X: { role: "beam", shape: "fence" },
+  },
+}

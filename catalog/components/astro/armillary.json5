@@ -1,0 +1,37 @@
+// K3a · Armillarsphäre (research/17 §4.28, Ableitung aus O-Refs; Globus-Ersatz im Arbeitszimmer): Tiefenschiefer-
+// Mauer als Fuß, gewachstes Kupfergitter als Kugel (Gitterringe, ab 1.21), oben ein gewachster Blitzableiter als Achse
+// (gewachst: oxidiert seit 1.21.9 nicht; beide Blöcke gibt es in 1.21.11 und 26.3). Kompakt „desk“ für lichte Höhe 2.
+{
+  id: "astro/armillary",
+  kind: "static",
+  name: "Armillarsphäre",
+  category: "decor",
+  tags: ["armillary", "astronomy"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  minVersion: 3953,
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "stand",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [["W"], ["G"], ["R"]],
+      legend: {
+        W: { block: "minecraft:polished_deepslate_wall" },
+        G: { block: "minecraft:waxed_copper_grate" },
+        R: { block: "minecraft:waxed_lightning_rod", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "desk",
+      weight: 1,
+      layers: [["G"], ["R"]],
+      legend: {
+        G: { block: "minecraft:waxed_copper_grate" },
+        R: { block: "minecraft:waxed_lightning_rod", orient: { front: "up" } },
+      },
+    },
+  ],
+}

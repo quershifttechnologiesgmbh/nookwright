@@ -1,0 +1,46 @@
+// FN · Futterspender (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Zuchtkammer-Baustein für Villager: ein Dropper
+// (Wiki Dropper: wirft beim Signal ein Item aus dem Inhalt in Blickrichtung, hier auf den Boden vor den Spender) mit einem
+// Steinknopf auf der Oberseite (Wiki Button: ein Klick = ein Impuls = ein Wurf). Der Spieler füllt Brot, Karotten, Kartoffeln
+// oder Rote Bete in den Dropper und drückt den Knopf; Villager sammeln die Items vom Boden auf (Wiki Villager, Abschnitt
+// Breeding: 12 Nahrungspunkte im Inventar machen „bereit“, Brot zählt 4, Karotte/Kartoffel/Rote Bete je 1) und paaren sich,
+// sobald ein unbeanspruchtes Bett frei ist. Zaunpfosten mit stehenden Laternen rahmen den Knopf (Licht gegen Spawns).
+// Ruhezustand im Export: der Dropper ist LEER (nichts wird geworfen), der Knopf unbetätigt.
+// Nicht im Spiel geprüft: das Aufheben der Items durch Villager (nur Wiki), der Wurf auf den Boden vor der Wand.
+{
+  id: "functional/fn_mob_feed_trough",
+  kind: "static",
+  name: "Futterspender",
+  category: "work",
+  tags: ["fn_feed_trough"],
+  functionTags: ["farm:villager", "breeding"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "narrow", // 1 breit: passt auch zwischen zwei Fenster; das Licht kommt aus dem Raumlicht (Mindestlicht 8)
+      weight: 2,
+      layers: [["D"], ["b"]], // y0: Dropper (wirft nach vorn) | y1: Steinknopf auf dem Dropper
+      legend: {
+        D: { block: "minecraft:dropper", orient: { front: "front" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "down", front: "front" } },
+      },
+    },
+    {
+      id: "wide", // 3 breit: Zaunpfosten mit stehenden Laternen rahmen den Knopf
+      weight: 1,
+      layers: [
+        ["fDf"], // y0: Zaunpfosten | Dropper (wirft nach vorn) | Zaunpfosten
+        ["LbL"], // y1: Laterne | Steinknopf auf dem Dropper | Laterne
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        D: { block: "minecraft:dropper", orient: { front: "front" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "down", front: "front" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: false }], use: [{ side: "front" }] },
+}

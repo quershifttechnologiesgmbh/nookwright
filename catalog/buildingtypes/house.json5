@@ -1,0 +1,75 @@
+// Feste Vorlage „Beispielhaus“ (bisher App-Vorlage `house`, packages/app/src/templates.ts): Küche, Schlafzimmer, Lager,
+// Schmiede auf einer Etage. Ohne `shell` übernimmt die App den Stil des bisherigen Projekts (headless: Standard-Stil).
+// W6 (27.09.2026, Review W4-R R1): Trennwände aufs Fassadenraster (23 lang, Feld 3: Pfosten 4, 9, 13, 18) – das
+// Schlafzimmer lag allein im Mittelfeld der Nordseite und verlor sein einziges Fenster an die Haustür (4 von 6 Seeds);
+// jetzt liegt dort das Lager, das Schlafzimmer zieht nach Süden über drei Felder. Die Schmiede beginnt am Pfosten 13
+// (Wand auf 14), vorher stand ihre Wand auf der Achse 15 (Feld nord und süd blind).
+{
+  id: "house",
+  name: "Beispielhaus",
+  label: "Beispielhaus (4 Räume)",
+  // W12-A (28.09.2026, Review R6-3): die Diele im Quergiebel (`hallway`) hat die Flur-Rolle der Hülle – dort liegt die
+  // Haustür, das erste Bild zeigt die gegliederte Front statt einer Kiste
+  family: "house",
+  massing: {
+    generator: "fixed",
+    rooms: [
+      { rect: [0, 0, 8, 6], room: "kitchen" },
+      { rect: [9, 0, 13, 6], room: "storage" },
+      { rect: [0, 7, 13, 11], room: "bedroom" },
+      { rect: [14, 0, 22, 11], room: "smithy", volume: "workshop" },
+      // W13-A (Runde 2): Eckturm hinten an der Ostecke neben der Werkstatt (7 × 7), zwei Geschosse, Zeltdach
+      { rect: [23, 0, 29, 6], room: "library", volume: "tower" },
+      { rect: [23, 0, 29, 6], room: "tower_room", floor: 1, volume: "tower" },
+    ],
+    stairs: [{ floor: 0, origin: [24, 3], facing: "west", type: "ladder", volume: "tower" }],
+    // W9-G1 (27.09.2026, Review R5 G1): Baumasse-Akzente statt Kiste – Quergiebel über dem Schlafzimmer bzw. der Schmiede (L/T wie die
+    // Vorbilder reddit 1mqe6ho, YT 1XXpmsOBWpE); Lage per Seed, „neu würfeln“ wechselt sie
+    // W12-A (28.09.2026, Review R6-3): Diele im Erdgeschoss des Quergiebels (`room`, 3 tief: die Haustür liegt dann in seiner
+    // Front, nicht in einer Seitenwand); nur an einer Ecke (L) – mittig blieb vor dem Schlafzimmer nur 5 breit, zu schmal
+    // für die Garderobe. Auskragung nur mit Obergeschoss (Rückseite und die Giebelseite, die der Eck-Quergiebel nicht verlängert; vorn steht er selbst)
+    features: {
+      jetty: { sides: ["back", "left", "right"] },
+      cross: { width: [7, 9], depth: [3, 4], align: "corner", room: "hallway" },
+    },
+    // W13-A (28.09.2026, Komposition der Baumasse; plan/spikes/W13A_komposition.md): die Schmiede ist ein eigener,
+    // eingeschossiger Baukörper „Werkstatt“ mit eigenem Satteldach – der First läuft quer zum Hauptfirst (Giebel zur Straße),
+    // Traufe und First liegen tiefer (lichte Höhe 3 statt 4 beim eingeschossigen Haus; beim zweigeschossigen trägt sie kein
+    // Obergeschoss). So besteht das Haus aus Hauptbau, Quergiebel und Werkstatt-Flügel mit gestaffelten Dächern (L/T, nie
+    // Windrad) statt einer Kiste unter einem Dach. Vorbilder: reddit 1mqe6ho (Hauptbau + Eckbau mit eigenem Dach),
+    // 1ruegft (zwei Giebelflügel verschiedener Höhe), Hall-and-crosswing (vernacularbuildingglossary.org.uk)
+    // W13-A (Runde 2, 28.09.2026): dritter Körper – Eckturm hinten an der Ostecke (neben der niedrigen Werkstatt) mit Zeltdach (Vorbild reddit 1mqe6ho: L-Haus
+    // mit Eckturm; Minecraft-Tutorials „corner tower“), lichte Höhe 4 je Geschoss, zwei bzw. (zweigeschossiges Haus) drei
+    // Geschosse, Leiter an der Brandwand. Anordnung Turm – Hauptbau mit Eck-Quergiebel – Werkstatt: L/T, kein Windrad.
+    // An der Westecke nahm er Küche bzw. Stube die Giebelfenster (fensterlose Räume 60 → 349 bzw. 109 in 360 Welten).
+    volumes: { workshop: { name: "Werkstatt", floorHeight: 3 }, tower: { name: "Eckturm", floorHeight: 4, roof: "hip", pitch: "steep" } },
+    // W12-A: zweigeschossige Variante wie die Community-Vorbilder (reddit 1mqe6ho, 1ruegft, YT 1XXpmsOBWpE): unten Stube,
+    // Küche, Lager und Schmiede, die Treppe in der Stube (wie der Zweistöcker), oben Schlafkammer, Studierzimmer und Gästezimmer; S nie, L immer, M per Seed
+    storeys: {
+      upperFloors: 1,
+      prob: 0.5,
+      rooms: [
+        { rect: [0, 0, 8, 6], room: "kitchen" },
+        { rect: [9, 0, 13, 6], room: "storage" },
+        { rect: [0, 7, 13, 11], room: "solar" },
+        { rect: [14, 0, 22, 11], room: "smithy", volume: "workshop" },
+        // W13-A: oben nur über dem Hauptbau (vorher auch ein Gästezimmer über der Schmiede)
+        { rect: [0, 0, 8, 11], room: "bedroom", floor: 1 },
+        { rect: [9, 0, 13, 11], room: "study", floor: 1 },
+        // W13-A (Runde 2): Eckturm dreigeschossig, lichte Höhe 4 – er überragt den First des Hauptbaus
+        { rect: [23, 0, 29, 6], room: "library", volume: "tower" },
+        { rect: [23, 0, 29, 6], room: "tower_room", floor: 1, volume: "tower" },
+        { rect: [23, 0, 29, 6], room: "tower_room", floor: 2, volume: "tower" },
+      ],
+      stairs: [
+        { floor: 0, origin: [3, 10], facing: "east", type: "straight" },
+        // W13-A (Runde 2): Leitern im Eckturm, an der Brandwand zur Werkstatt (keine Fensterachse), versetzt je Etage
+        { floor: 0, origin: [24, 2], facing: "west", type: "ladder", volume: "tower" },
+        { floor: 1, origin: [24, 4], facing: "west", type: "ladder", volume: "tower" },
+      ],
+    },
+  },
+  // W12-A (28.09.2026): Konsolen tragen die Auskragung des Obergeschosses (F3a, wie Zweistöcker/Fachwerkhaus); sonst wie
+  // der Standard-Stil (Sockel, Gesims, Eckquader)
+  shell: { facade: { plinthProfile: true, cornice: true, quoins: true, brackets: 3, upperFrame: true }, dormers: { kind: "gable", width: 3 } },
+}

@@ -1,0 +1,59 @@
+// K3d · Spüle (research/16 I3, P2; S13 Spüle, S16 Küchen-Ideen): Wasserkessel (voll, `level=3`) in der
+// Arbeitsplatten-Zeile, darüber an der Wand der Hahn. Wasser nur im Kessel (Regel `fluid`).
+// Hahn-Formen: Kette waagerecht aus der Wand (Auslauf, research/16 I3 „Hahn aus Kette“) oder Hebel an der
+// Wand (Hebel braucht volle Fläche dahinter – die Raumwand). Der Stolperdrahthaken als Hahn fehlt bewusst: die
+// Physik prüft ihn mangels Wand-Regel als „volle Oberseite darunter“ (über dem Kessel ein Fehlalarm) → Wunsch
+// an die Materialisierung im Bericht K3d. Kessel = Gerber-Arbeitsblock (Faktencheck #7).
+// Tag `sink` (die Küche zieht ihn schon), Arbeitsplatten-Wangen als Abstellfläche.
+{
+  id: "work/sink",
+  kind: "static",
+  name: "Spüle",
+  category: "work",
+  tags: ["sink", "kitchen_sink"],
+  functionTags: ["work:leatherworker"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "chain_tap",
+      weight: 2,
+      layers: [["K"], ["C"]],
+      legend: {
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        C: { role: "metal", shape: "chain", orient: { axis: "across" } },
+      },
+    },
+    {
+      id: "counter_chain",
+      weight: 3,
+      layers: [["UKU"], [".C."]],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        C: { role: "metal", shape: "chain", orient: { axis: "across" } },
+      },
+      sockets: [
+        { id: "top_l", type: "surface", at: [0, 1, 0], accepts: ["kitchen_utensil", "tabletop_small", "food"], prob: 0.5 },
+        { id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["tabletop_small", "plant", "candles"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "counter_lever",
+      weight: 2,
+      layers: [["UKU"], [".H."]],
+      legend: {
+        U: { role: "counter_top", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        H: { block: "minecraft:lever", orient: { attachTo: "back" } },
+      },
+      sockets: [
+        { id: "top_l", type: "surface", at: [0, 1, 0], accepts: ["kitchen_utensil", "tabletop_small", "food"], prob: 0.5 },
+        { id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["tabletop_small", "plant", "candles"], prob: 0.5 },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

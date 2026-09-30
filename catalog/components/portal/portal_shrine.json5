@@ -1,0 +1,55 @@
+// K3b · Portal-Schrein (Kompaktform der Portalraum-Signatur für lichte Höhe < 5, in die ein Nether-Portal
+// – Rahmen 4 × 5 – nicht passt; research/17 §4.25): kleiner Bogen aus Obsidian mit weinendem Obsidian als Sturz
+// (Anklang an Ruinenportale, Licht 10), darunter ein Fass mit Feuerzeug und Gold für Piglin-Tausch (öffnet
+// immer, Faktencheck #2). Kein Portal: der Bogen ist zu klein, es entstehen keine Portalblöcke. Frei stehend,
+// damit er auch an kurze Wandstücke passt. Hinweis für den Editor/K3c: echter Portalraum erst ab lichter Höhe 5.
+{
+  id: "portal/portal_shrine",
+  kind: "static",
+  name: "Portal-Schrein",
+  category: "decor",
+  tags: ["portal_shrine"],
+  functionTags: ["store", "light", "villager_workstation", "work:fisherman"], // Fass = Fischer-Arbeitsblock
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [["OBO"], ["OCO"]],
+      legend: {
+        O: { block: "minecraft:obsidian" },
+        C: { block: "minecraft:crying_obsidian" },
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:flint_and_steel" }, { item: "minecraft:gold_ingot", count: [2, 8] }] } },
+      },
+    },
+    {
+      id: "arch",
+      weight: 2,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [["OBO"], ["O_O"], ["OCO"]],
+      legend: {
+        O: { block: "minecraft:obsidian" },
+        C: { block: "minecraft:crying_obsidian" },
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:flint_and_steel" }, { item: "minecraft:gold_ingot", count: [2, 8] }] } },
+      },
+    },
+    {
+      id: "arch_high",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["OBO"], ["O_O"], ["O_O"], ["OCO"]],
+      legend: {
+        O: { block: "minecraft:obsidian" },
+        C: { block: "minecraft:crying_obsidian" },
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:flint_and_steel" }, { item: "minecraft:gold_ingot", count: [2, 8] }] } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

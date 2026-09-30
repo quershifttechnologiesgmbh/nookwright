@@ -1,0 +1,36 @@
+// research/57 · Metzgerei: Wurstschnur von der Decke (Nebenobjekt neben decor/hanging_carcass, mehr Auswahl für
+// `hanging_meat`). Tag `hanging_meat` steht in butchery.json5 im optionalen Eintrag `{ tags: ["hanging_meat"],
+// zone: "work" }`. Kürzer als der ganze Tierkörper (2 statt 4 Zellen lichte Höhe), passt auch in niedrige Räume.
+{
+  id: "decor/sausage_string",
+  kind: "static",
+  name: "Wurstschnur",
+  category: "decor",
+  tags: ["hanging_meat", "decor_ceiling"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "brown",
+      weight: 3,
+      layers: [["C"], ["M"]],
+      legend: {
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+        M: { block: "minecraft:brown_mushroom_block", state: { north: "true", south: "true", east: "true", west: "true", up: "true", down: "true" } },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "pair",
+      weight: 2,
+      layers: [["C.C"], ["M.M"]],
+      legend: {
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+        M: { block: "minecraft:brown_mushroom_block", state: { north: "true", south: "true", east: "true", west: "true", up: "true", down: "true" } },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }, { at: [2, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+}

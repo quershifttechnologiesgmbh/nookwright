@@ -1,0 +1,34 @@
+// K3d · Hochtisch auf Podest (research/11 §6.4 „Hochtisch auf Podest an der Stirnseite (quer)“, DH2/DH3;
+// research/17 §5 Delta Speisesaal „High Table“): ein Holzpodest (Rolle `floor_border`, Stufen vorn), darauf
+// Stühle mit hoher Lehne an der Wand und die Tafel aus oberen Stufen mit Läufer (Teppich auf oberen Stufen,
+// G4). Die Herrschaft sitzt erhöht mit Blick in den Saal. Nur die Podestreihe an der Wand braucht feste Wand.
+// Ab lichter Höhe 3 (Lehnen auf Boden + 2). Tag `high_table` (+ `dais`).
+{
+  id: "table/high_table",
+  kind: "static",
+  name: "Hochtisch auf Podest",
+  category: "furniture",
+  tags: ["high_table", "dais", "table"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  minRoomHeight: 3,
+  layers: [
+    ["BBBBB", "BBBBB", "SSSSS"], // y0: Podest, Stufen vorn
+    ["CCCCC", "TTTTT", "....."], // y1: Stühle (Blick in den Saal) | Tafel
+    ["hhhhh", "xRRRx", "....."], // y2: hohe Lehnen | Läufer, Kerzen-Plätze an den Enden
+  ],
+  legend: {
+    B: { role: "floor_border", shape: "block" },
+    S: { role: "floor_border", shape: "stairs", orient: { back: "back" } },
+    C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+    T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    R: { role: "textile_primary", shape: "carpet" },
+    h: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+    x: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+  },
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

@@ -1,0 +1,16 @@
+// Wandfackel (Licht 14). Keine Kollision → durchlaufbar; braucht volle Fläche dahinter (Faktencheck 15).
+{
+  id: "light/wall_torch",
+  kind: "static",
+  name: "Wandfackel",
+  category: "light",
+  tags: ["light", "light_wall"],
+  functionTags: ["light"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  walkable: true,
+  cells: [{ at: [0, 0, 0], mat: { block: "minecraft:wall_torch", orient: { attachTo: "back" } } }],
+  masks: { support: [{ at: [0, 0, 0], side: "back", kind: "full" }] },
+  light: 14,
+}

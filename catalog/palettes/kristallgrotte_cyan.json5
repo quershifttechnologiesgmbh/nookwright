@@ -1,0 +1,80 @@
+// Kristallgrotte Cyan – magisch, Biome: cave, mountains, Stile: fantasy.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "kristallgrotte_cyan",
+  name: "Kristallgrotte Cyan",
+  mood: "magisch",
+  biomes: ["cave", "mountains"],
+  styles: ["fantasy"],
+  values: ["minecraft:calcite", "minecraft:diorite", "minecraft:amethyst_block", "minecraft:cobbled_deepslate", "minecraft:deepslate"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "cobbled_deepslate", weight: 45 },
+        { family: "deepslate", weight: 35 },
+        { family: "tuff", weight: 20 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "calcite", weight: 60 },
+        { family: "diorite", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "amethyst", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "deepslate_tiles", weight: 55 },
+        { family: "cobbled_deepslate", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:amethyst_cluster", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "warped", shape: "stripped_log", weight: 70 },
+        { family: "warped", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "calcite", weight: 55 },
+        { family: "deepslate_tiles", weight: 45 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:cyan", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:cyan", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:sea_lantern", weight: 55 },
+        { block: "minecraft:end_rod", weight: 45 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:glow_lichen", weight: 55 },
+        { family: "moss", shape: "carpet", weight: 45 },
+      ],
+    },
+  },
+}

@@ -1,0 +1,64 @@
+// FN-dense · schmale Schiffsbucht: gleiche Arkadensprache wie `fn/nave_bay`, aber Breite 3 (Pfeiler, eine Nischenzelle,
+// Pfeiler; der Schlussstein sitzt als Block über der Nische). Füllt kurze Wandstücke zwischen Türen und Fenstern und
+// sorgt in kleinen Flurräumen dafür, dass die Steinarkade (Tag `fn_nave_bay`) überhaupt einen Platz findet.
+// Spiegelsymmetrisch, Rücken an der Wand. Die Pfeiler wachsen mit `stretch` bis zur Decke.
+{
+  id: "fn/nave_bay_narrow",
+  kind: "static",
+  name: "Schmale Schiffsbucht",
+  category: "architecture",
+  tags: ["fn_nave_bay"],
+  styleTags: ["medieval", "noble", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "tall_banner",
+      weight: 4,
+      minRoomHeight: 4,
+      layers: [
+        ["P_P"],
+        ["P_P"],
+        ["PVP"],
+        ["PbP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        b: { role: "wall_cornice", shape: "block" },
+      },
+      stretch: { layer: 1, max: 10, fill: "ceiling", rows: ["P_P"] },
+    },
+    {
+      id: "low_banner",
+      weight: 4,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["P_P"],
+        ["PVP"],
+        ["PbP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        b: { role: "wall_cornice", shape: "block" },
+      },
+    },
+    {
+      id: "low_plain",
+      weight: 4,
+      maxRoomHeight: 2,
+      layers: [
+        ["P_P"],
+        ["PbP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        b: { role: "wall_cornice", shape: "block" },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: false }] },
+}

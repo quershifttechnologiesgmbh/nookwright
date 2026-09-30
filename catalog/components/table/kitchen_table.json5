@@ -1,0 +1,50 @@
+// W7-F · Küchentisch (Arbeitsinsel) für die Raummitte der Küche (plan/spikes/W7F_innen.md: Tisch/Insel mittig in 10 von
+// 17 Küchen-Vorbildern, meist 2–4 lang, darauf Kerzen/Essen, darüber eine Laterne). Platte aus einer oberen Stufe, an den
+// Stirnseiten umgedrehte Treppen als Böcke (wie table/trestle_table, aber nur eine Reihe tief: rundum bleibt der Weg).
+// Kerzen stehen auf umgedrehter Treppe bzw. oberer Stufe (Faktencheck #4), die Hängelaterne hängt unter der Decke.
+// Genutzt wird der Tisch von beiden Längsseiten.
+{
+  id: "table/kitchen_table",
+  kind: "static",
+  name: "Küchentisch",
+  category: "furniture",
+  tags: ["table", "kitchen_table"],
+  functionTags: ["eat"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "trestle",
+      weight: 3,
+      layers: [["WTE"]],
+      legend: {
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 0], accepts: ["candles", "tabletop_small", "kitchen_utensil"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [1, 1, 0], accepts: ["food", "kitchen_utensil"], prob: 0.5 },
+        { id: "top_c", type: "surface", at: [2, 1, 0], accepts: ["candles", "food", "tabletop_small"], prob: 0.5 },
+        { id: "lamp", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.7 },
+      ],
+    },
+    {
+      id: "short",
+      weight: 2,
+      layers: [["WE"]],
+      legend: {
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 0], accepts: ["candles", "tabletop_small", "kitchen_utensil"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [1, 1, 0], accepts: ["food", "kitchen_utensil", "candles"], prob: 0.5 },
+        { id: "lamp", type: "hang", at: [0, 99, 0], accepts: ["light_pendant"], prob: 0.7 },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

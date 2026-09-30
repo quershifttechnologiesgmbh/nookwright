@@ -1,0 +1,26 @@
+// W3-IN · Sackstapel (vorher Variante `sacks_hay` von storage/goods_stack): Heu, Säcke aus brauner Wolle und ein
+// Mehlsack aus weißer Wolle. Stoff- und Wollballen gehören ins Lager (Nutzer-Befund W2-FD: bunte Ballen in der
+// Alchemie) – deshalb ein eigener Tag `sack_pile`, den nur der Raumtyp `storage` verlangt.
+{
+  id: "storage/sack_pile",
+  kind: "static",
+  name: "Sackstapel",
+  category: "storage",
+  tags: ["sack_pile"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  // W4 (27.09.2026, Review M7): Ware steht mit dem Rücken an der Wand (Vorbilder W3-IN §1.5: Stapel an den Wänden,
+  // Mitte frei) – vorher frei drehbar und oft als Insel mitten im Lager
+  rotations: "backToWall",
+  layers: [
+    ["HW", "Ws"], // y0: Heu, Säcke (braune Wolle), Mehlsack
+    ["H.", ".."], // y1
+  ],
+  legend: {
+    H: { block: "minecraft:hay_block", orient: { axis: "y" } },
+    W: { block: "minecraft:brown_wool" },
+    s: { block: "minecraft:white_wool" },
+  },
+}

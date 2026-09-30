@@ -1,0 +1,79 @@
+// Magierturm Violett – magisch, Biome: mountains, cave, Stile: fantasy.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "magierturm_violett",
+  name: "Magierturm Violett",
+  mood: "magisch",
+  biomes: ["mountains", "cave"],
+  styles: ["fantasy"],
+  values: ["minecraft:amethyst_block", "minecraft:purpur_block", "minecraft:deepslate_tiles", "minecraft:polished_blackstone", "minecraft:crying_obsidian"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "deepslate_tiles", weight: 55 },
+        { family: "polished_blackstone", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "purpur", weight: 60 },
+        { family: "purpur", shape: "pillar", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "amethyst", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "polished_blackstone_bricks", weight: 60 },
+        { family: "blackstone", weight: 40 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:amethyst_cluster", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "warped", shape: "log", weight: 70 },
+        { family: "warped", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "polished_blackstone_bricks", weight: 70 },
+        { family: "purpur", weight: 30 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:purple", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:purple", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:end_rod", weight: 60 },
+        { block: "minecraft:shroomlight", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "warped", shape: "sapling", weight: 60 },
+        { family: "crimson", shape: "sapling", weight: 40 },
+      ],
+    },
+  },
+}

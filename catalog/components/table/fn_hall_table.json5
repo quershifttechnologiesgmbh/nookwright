@@ -1,0 +1,96 @@
+// FN · Hallentafel (Innenraum-Offensive, Methalle/Taverne/Speisesaal): lange Tafel (7 bzw. 9 Blöcke) mit Bänken auf
+// beiden Längsseiten und Böcken an den Stirnseiten, wie die Festtafel table/trestle_table, aber gestreckt, damit die
+// Hallenachse eine echte Tafel bekommt (Community-Methallen: eine lange Tafel zwischen zwei Sitzreihen, darüber
+// Hängelaternen im Takt). Oben Krüge, Kerzen, Essen; über der Tafel Hänge-Sockets für Laternen. Tag `fn_hall_table`.
+{
+  id: "table/fn_hall_table",
+  kind: "static",
+  name: "Hallentafel",
+  category: "furniture",
+  tags: ["fn_hall_table"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "nordic", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    // Schmale Tafel ohne Bänke (1 tief): passt zwischen zwei Fellpritschen-Reihen, die Pritschen dienen als Sitz
+    {
+      id: "spine7",
+      weight: 3,
+      layers: [["PTTTTTP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 0], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [3, 1, 0], accepts: ["candles", "light_small"], prob: 0.8 },
+        { id: "top_c", type: "surface", at: [5, 1, 0], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "lamp_a", type: "hang", at: [2, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+        { id: "lamp_b", type: "hang", at: [4, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+      masks: { use: [{ side: "front" }, { side: "back" }] },
+    },
+    {
+      id: "spine9",
+      weight: 2,
+      layers: [["PTTTTTTTP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 0], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [3, 1, 0], accepts: ["candles", "light_small"], prob: 0.8 },
+        { id: "top_c", type: "surface", at: [5, 1, 0], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_d", type: "surface", at: [7, 1, 0], accepts: ["candles", "light_small"], prob: 0.8 },
+        { id: "lamp_a", type: "hang", at: [2, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+        { id: "lamp_b", type: "hang", at: [4, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+        { id: "lamp_c", type: "hang", at: [6, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+      masks: { use: [{ side: "front" }, { side: "back" }] },
+    },
+    {
+      id: "long7",
+      weight: 3,
+      layers: [["bbbbbbb", "WTTTTTE", "WTTTTTE", "bbbbbbb"]],
+      legend: {
+        b: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 1], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [3, 1, 1], accepts: ["candles", "light_small"], prob: 0.8 },
+        { id: "top_c", type: "surface", at: [5, 1, 1], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_d", type: "surface", at: [2, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.7 },
+        { id: "top_e", type: "surface", at: [4, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.7 },
+        { id: "lamp_a", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+        { id: "lamp_b", type: "hang", at: [5, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "long9",
+      weight: 2,
+      layers: [["bbbbbbbbb", "WTTTTTTTE", "WTTTTTTTE", "bbbbbbbbb"]],
+      legend: {
+        b: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 1], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [4, 1, 1], accepts: ["candles", "light_small"], prob: 0.8 },
+        { id: "top_c", type: "surface", at: [7, 1, 1], accepts: ["mug", "food"], prob: 0.7 },
+        { id: "top_d", type: "surface", at: [2, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.7 },
+        { id: "top_e", type: "surface", at: [6, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.7 },
+        { id: "lamp_a", type: "hang", at: [2, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+        { id: "lamp_b", type: "hang", at: [4, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+        { id: "lamp_c", type: "hang", at: [6, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+    },
+  ],
+}

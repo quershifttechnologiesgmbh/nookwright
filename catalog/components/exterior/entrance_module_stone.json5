@@ -1,0 +1,120 @@
+// W3-EN · Eingangsmodul „Stein“ (plan/spikes/W3EN_eingang.md, Vorbild-Archetyp A in der Burg-/Zwergenform): volle
+// Gewände aus dem Eckstein des Themes 1 vor der Wand (wie die Eckquader), darüber ein Bogen aus umgedrehten Gesims-Treppen
+// mit Schlussstein im Gesimsstein; die Tür liegt dadurch in einer Laibung. Laternenpaar stehend auf zwei niedrigen
+// Wangen aus Sockelstein neben der Tür (Vorbilder: Laternen auf Wangen/Pfosten an der Stufe), Stufe 3 breit.
+//
+//   Ansicht (5 breit)       Stück            Lage (j ab Türachse, y ab Bodenplatte)
+//     . A K B .   y3        frame            Gewände j = ±1 (y = 1 … 2), Bogen y = 3 (Mitte frei)
+//     L W . W L   y2        lanterns         Wange j = ±2 (y = 1), Laterne stehend darauf (y = 2)
+//     M W . W M   y1        lanterns_arm     Rückfall: Laterne unter dem Zaun-Arm (y = 2 … 3)
+//     . s s s .   y0        step/block       Vortreppe bzw. Podest/Unterbau
+//
+// Vorbilder (URLs im Bericht): YouTube BoyC6uII6Xg „Castle Porch“, KSisHhP6Xt0, 5T53K4Xl4ig, 2oZVyEAUeOg; Reddit gs0zo5,
+// 1mwpg8t, 1u9ywd3.
+//
+// W4-C (plan/spikes/W4C_tueren.md) Doppeltür: Stücke `double_*` sind eine Spalte breiter (gerade Breite, spiegelsymmetrisch
+// um die Mitte zwischen den beiden Flügeln); der Planer setzt ihre zwei Mittelspalten auf die Flügel. Gewände 4 breit,
+// Laternen auf den Mauerwangen eine Spalte weiter außen.
+{
+  id: "exterior/entrance_module_stone",
+  kind: "static",
+  name: "Eingangsmodul Stein",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_entrance", "exterior_entrance_module", "outdoor", "walls_stone"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["dwarven", "ruin", "gothic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [[".SSS."], ["MW_WM"], ["LW_WL"], [".AKB."]],
+      legend: {
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        W: { role: "wall_quoin", shape: "block" },
+        M: { role: "wall_plinth", shape: "wall" },
+        L: { role: "light_hanging", shape: "lantern" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "wall_cornice", shape: "block" },
+      },
+    },
+    {
+      id: "frame",
+      layers: [["..."], ["W_W"], ["W_W"], ["AKB"]],
+      legend: {
+        W: { role: "wall_quoin", shape: "block" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "wall_cornice", shape: "block" },
+      },
+    },
+    {
+      id: "lanterns",
+      // Laterne stehend auf der Mauer-Wange (Mauer = Mittel-Stützung, Faktencheck #3)
+      layers: [["....."], ["M...M"], ["L...L"]],
+      legend: {
+        M: { role: "wall_plinth", shape: "wall" },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "down", kind: "center" }, { at: [4, 2, 0], side: "down", kind: "center" }] },
+    },
+    {
+      id: "lanterns_arm",
+      layers: [["....."], ["....."], ["L...L"], ["F...F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [4, 2, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "double_frame",
+      layers: [["...."], ["W__W"], ["W__W"], ["AKKB"]],
+      legend: {
+        W: { role: "wall_quoin", shape: "block" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "wall_cornice", shape: "block" },
+      },
+    },
+    {
+      id: "double_lanterns",
+      layers: [["......"], ["M....M"], ["L....L"]],
+      legend: {
+        M: { role: "wall_plinth", shape: "wall" },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "down", kind: "center" }, { at: [5, 2, 0], side: "down", kind: "center" }] },
+    },
+    {
+      id: "double_lanterns_arm",
+      layers: [["......"], ["......"], ["L....L"], ["F....F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [5, 2, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "double_blind",
+      // W4-C Rückfall der Doppeltür (wie `door_canopy#trapdoor`): Blende aus Falltüren über beiden Flügeln
+      layers: [["...."], [".__."], [".__."], ["TTTT"]],
+      legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", upsideDown: true, open: false } } },
+    },
+    {
+      id: "step",
+      layers: [["S"]],
+      legend: { S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "block",
+      layers: [["B"]],
+      legend: { B: { role: "wall_cornice", shape: "block" } },
+    },
+  ],
+  light: "auto",
+}

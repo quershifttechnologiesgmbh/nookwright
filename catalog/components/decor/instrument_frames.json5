@@ -1,0 +1,25 @@
+// K3d · Instrumentenwand (research/11 C-4, Kartenraum M3/M6): Kompass, Uhr und Fernrohr in Rahmen an der Raumwand,
+// darüber ein Bord aus oberen Stufen (wie decor/frame_food). Die Rahmen-Zellen bleiben frei ('_'); jede Spalte
+// hat einen Block (Bord) → der Solver prüft die Wand hinter jedem Rahmen (kein Fenster, keine Tür dahinter).
+// Tag `instrument_frames` (Kartenraum, Observatorium, Arbeitszimmer).
+{
+  id: "decor/instrument_frames",
+  kind: "static",
+  name: "Instrumentenwand",
+  category: "attachment",
+  tags: ["instrument_frames", "wall_decor"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  layers: [["___"], ["SSS"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  entities: [
+    { type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:compass" } },
+    { type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:clock" } },
+    { type: "item_frame", at: [2, 0, 0], face: "front", item: { item: "minecraft:spyglass" } },
+  ],
+  sockets: [{ id: "shelf", type: "surface", at: [1, 2, 0], accepts: ["candles", "tabletop_small"], prob: 0.4 }],
+}

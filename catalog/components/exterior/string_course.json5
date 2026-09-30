@@ -1,0 +1,27 @@
+// research/53 F7 · Gesims und Geschossband: „cornice“ = Gesims an der Traufe (Stufe oben, 1 vor der Wand),
+// „band“ = Geschossband an der Geschossgrenze (Stufe unten, Kontrastfamilie). Schließen sich an einer Zelle aus.
+{
+  id: "exterior/string_course",
+  kind: "static",
+  name: "Gesims/Geschossband",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "noble", "gothic", "dwarven", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "cornice",
+      weight: 1,
+      layers: [["S"]],
+      legend: { S: { role: "wall_cornice", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "band",
+      weight: 1,
+      layers: [["S"]],
+      legend: { S: { role: "wall_plinth", shape: "slab", orient: { upsideDown: false } } },
+    },
+  ],
+}

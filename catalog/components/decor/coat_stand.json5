@@ -1,0 +1,45 @@
+// K3a · Mantelständer (research/17 §4.1, E-Refs/W2): Zaunpfosten, vorn am Pfosten ein Wandbanner als Umhang
+// (Banner halten an Zäunen, In-Game T5 #9: Regel `isSolid`). Das Tuch hängt optisch einen Block tief → darunter
+// Luft ('_'). Einen Rahmen als Hut trägt der Zaun nicht (FC #9); der Hut ist ein Teppich oben auf dem Pfosten
+// (Teppich braucht nur „nicht Luft“ darunter, FC #4). Frei stehend, jede Drehung. Lichte Höhe ≥ 2, mit Hut ≥ 3.
+{
+  id: "decor/coat_stand",
+  kind: "static",
+  name: "Mantelständer",
+  category: "decor",
+  tags: ["coat_stand", "entry_furniture"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "cloak",
+      weight: 1,
+      layers: [
+        ["F", "_"], // y0: Pfosten, davor Luft (der Umhang hängt hinein)
+        ["F", "V"], // y1: Umhang am Pfosten
+      ],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+    {
+      // V3: Hut über Kopfhöhe – Teppich auf dem Pfosten
+      id: "cloak_hat",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["F", "_"],
+        ["F", "V"],
+        ["H", "."], // y2: Hut
+      ],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        H: { role: "textile_neutral", shape: "carpet" },
+      },
+    },
+  ],
+}

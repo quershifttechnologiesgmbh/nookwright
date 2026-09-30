@@ -1,0 +1,38 @@
+// K3a · Schachbrett-Boden (research/17 §4.27, Ga1/Ga2): 4 × 4 Teppich-Karo, durchlaufbar (Teppich braucht nur
+// einen Block darunter, FC #4). Die Variante „inlay“ aus research/17 (Fliesen im Boden + Kerzen als Figuren) braucht
+// ERW X5 (`floor_inset`, Boden ersetzen) und ist weggelassen: eine Kerze kann nicht in derselben Zelle wie ein
+// Teppich stehen. Variante „framed“: Brett mit Teppich-Rand in der Neutralfarbe des Themes (ein Falltür-Rahmen wie
+// bei overlay/floor_map wäre 3/16 hoch und damit nicht „durchlaufbar“ im Sinn der Physik-Klassen).
+{
+  id: "decor/chess_floor",
+  kind: "static",
+  name: "Schachbrett-Boden",
+  category: "overlay",
+  tags: ["chess_floor", "game_floor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  walkable: true,
+  variants: [
+    {
+      id: "carpet",
+      weight: 2,
+      layers: [["wbwb", "bwbw", "wbwb", "bwbw"]],
+      legend: {
+        w: { block: "minecraft:white_carpet" },
+        b: { block: "minecraft:black_carpet" },
+      },
+    },
+    {
+      id: "framed",
+      weight: 1,
+      layers: [["tttttt", "twbwbt", "tbwbwt", "twbwbt", "tbwbwt", "tttttt"]],
+      legend: {
+        t: { role: "textile_neutral", shape: "carpet" },
+        w: { block: "minecraft:white_carpet" },
+        b: { block: "minecraft:black_carpet" },
+      },
+    },
+  ],
+}

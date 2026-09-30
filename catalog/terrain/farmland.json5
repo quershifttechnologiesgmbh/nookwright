@@ -1,0 +1,21 @@
+// Flachland für Höfe: eben, wenige Bäume, breiter Hauptweg – Platz für Felder und Gärten.
+{
+  id: "farmland",
+  name: "Flachland",
+  description: "Ebenes Gelände für Felder und Gärten, einzelne Obstbäume, breite Wege",
+  // Q3: freie Landschaft – flaches Kulturland, nur einzelne Lesesteine, sonst nichts (L3: Fels/Baum/Blume niedrig)
+  landscape: { density: 0.10, only: ["outdoor/rock_small"] },
+  relief: { amplitude: 1, scale: 40, octaves: 2, gain: 0.5 },
+  soil: { depth: 3 },
+  foundation: { pad: 1, blend: 4 },
+  paths: { width: 2 },
+  vegetation: {
+    trees: { spacing: 20, density: 0.03, threshold: 0.55, species: { oak: 80, birch: 20 } },
+    bushes: { spacing: 6, density: 0.25, foundation: 0.5 },
+    // Blumen nur an den Feldrändern (Flecken), Wege bleiben frei
+    ground: { spacing: 1, density: 0.35, threshold: 0.4, flowers: 0.14, carpet: 0.05,
+      // Q3: Flecken mit dichtem Kern und ausgedünntem Rand statt Zellkonfetti (research/51 §4)
+      clusters: { spacing: 3, radius: [1, 2], core: 1, edge: 0.5 } },
+    keepFree: [{ along: "path", distance: 1 }, { around: "door", distance: 2 }],
+  },
+}

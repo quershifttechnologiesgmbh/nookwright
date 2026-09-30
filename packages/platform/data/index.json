@@ -1,0 +1,16 @@
+{
+  "versions": [
+    {
+      "id": "1.21.1",
+      "dataVersion": 3955
+    },
+    {
+      "id": "1.21.11",
+      "dataVersion": 4671
+    },
+    {
+      "id": "26.3",
+      "dataVersion": 5023
+    }
+  ]
+}

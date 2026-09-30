@@ -1,0 +1,155 @@
+// Sortier-Bank (FN-Lager): 4 oder 6 Kategorien in einer Reihe, wächst mit der Halle.
+// Grundzelle = der im Spiel geprüfte R1-Sortierer (functional/item_sorter, Gruppe F): Filter-Trichter F (Filter: 41x Sortiergut
+// + 4 Füllitems in Slot 1-5 -> Komparator 2), Sperr-Trichter L darunter, Sperre als Komparator im Vergleichsmodus gegen einen
+// Wasserkessel Stufe 1 (KEINE Fackel: Burnout bei voller Trichtergeschwindigkeit, R1 §3). Zwei Filter teilen sich einen Kessel.
+// Neu gegenüber item_sorter (FN-Lager): (1) Kasten - Wände, Trenner, Front und Deckel aus Vollholz-Rolle, Hohlräume gefüllt
+// (kein dunkler Spawn-Hohlraum, kein Redstone-Kabel sichtbar); (2) Einwurf-Truhe auf dem Deckel über dem ersten Transport-Trichter
+// (lichte Höhe >= 4); (3) die Fässer (eine Spalte je Kategorie) sitzen vorn, darüber Etikett-Rahmen auf der Blende; (4) das
+// Wartungsfenster vor jedem Filter-Trichter (y1) ist offen, dort stellt der Spieler den Filter ein; (5) der Überlauf endet nicht
+// hoch oben, sondern biegt in der letzten Spalte über zwei Trichter nach unten in ein Fass an der Front (Höhe des Spielers).
+// Stufe hinab: Der Staub hinter dem Filter-Komparator (y1) steigt über eine umgedrehte Halbstufe (Nicht-Leiter) zum Boden-Staub
+// (y0), der die Seite des Sperr-Komparators speist; die Vollholz-Zellen daneben sind keine Staub-Nachbarn.
+// Ruhezustand im Export: Filter LEER, Staub 0, Sperr-Komparatoren an (Ausgang 1), L gesperrt (enabled=false), Kessel Stufe 1.
+// Richtungen relativ: left = +x, right = -x, back = -z (Wand), front = +z (Spieler). Erzeugt von spikes/gen_fn_storage.mjs.
+// Im Spiel NICHT geprüft (nur statisch: Materialize-Konsistenz, Stützregeln, Autotiling); die Grundzelle ist es (R1, Gruppe F).
+{
+  id: "functional/fn_store_sorter_bank",
+  kind: "static",
+  name: "Sortier-Bank (4-6 Kategorien)",
+  category: "storage",
+  tags: ["fn_sorter_bank", "fn_store", "fn_wide"],
+  functionTags: ["store", "sort", "automation", "redstone"],
+  styleTags: ["workshop", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "quad", // vier Kategorien, 14 breit
+      minRoomHeight: 4,
+      layers: [
+        [
+          "PQdBdQPQdBdQPP", // y0
+          "PScKeSPScKeSPP",
+          "PLPPPLPLPPPLHP",
+          "WAPPPAPAPPPAAW",
+          "______________",
+        ],
+        [
+          "PduPudPduPudPP", // y1
+          "PCPPPCPCPPPCPP",
+          "PFPPPFPFPPPFVP",
+          "W_PPP_P_PPP_PW",
+          "______________",
+        ],
+        [
+          "PPPPPPPPPPPPPP", // y2
+          "PPPPPPPPPPPPPP",
+          "PTTTTTTTTTTTVP",
+          "WPPPPPPPPPPPPW",
+          "______________",
+        ],
+        [
+          "ZZZZZZZZZZZZZZ", // y3
+          "ZZZZZZZZZZZZZZ",
+          "ZXZZZZZZZZZZZZ",
+          "ZZZZZZZZZZZZZZ",
+          "..............",
+        ],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        W: { role: "beam", shape: "log", orient: { axis: "y" } },
+        Z: { role: "furniture_wood", shape: "slab" },
+        u: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        Q: { block: "minecraft:stone_bricks" },
+        B: { block: "minecraft:stone_bricks" },
+        S: { block: "minecraft:stone_bricks" },
+        d: { block: "minecraft:redstone_wire" },
+        c: { block: "minecraft:comparator", orient: { front: "right" }, state: { powered: "true" } },
+        e: { block: "minecraft:comparator", orient: { front: "left" }, state: { powered: "true" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "1" } },
+        L: { block: "minecraft:hopper", orient: { attachTo: "front" }, state: { enabled: "false" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        A: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:comparator", orient: { front: "back" } },
+        F: { block: "minecraft:hopper", orient: { attachTo: "back" } },
+        T: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        V: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        X: { block: "minecraft:chest", orient: { front: "front" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 4], face: "front", item: { item: "minecraft:iron_ingot" } },
+        { type: "item_frame", at: [5, 2, 4], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [7, 2, 4], face: "front", item: { item: "minecraft:oak_log" } },
+        { type: "item_frame", at: [11, 2, 4], face: "front", item: { item: "minecraft:coal" } },
+        { type: "item_frame", at: [12, 2, 4], face: "front", item: { item: "minecraft:hopper" } },
+      ],
+    },
+    {
+      id: "hex", // sechs Kategorien, 20 breit
+      minRoomHeight: 4,
+      layers: [
+        [
+          "PQdBdQPQdBdQPQdBdQPP", // y0
+          "PScKeSPScKeSPScKeSPP",
+          "PLPPPLPLPPPLPLPPPLHP",
+          "WAPPPAPAPPPAPAPPPAAW",
+          "____________________",
+        ],
+        [
+          "PduPudPduPudPduPudPP", // y1
+          "PCPPPCPCPPPCPCPPPCPP",
+          "PFPPPFPFPPPFPFPPPFVP",
+          "W_PPP_P_PPP_P_PPP_PW",
+          "____________________",
+        ],
+        [
+          "PPPPPPPPPPPPPPPPPPPP", // y2
+          "PPPPPPPPPPPPPPPPPPPP",
+          "PTTTTTTTTTTTTTTTTTVP",
+          "WPPPPPPPPPPPPPPPPPPW",
+          "____________________",
+        ],
+        [
+          "ZZZZZZZZZZZZZZZZZZZZ", // y3
+          "ZZZZZZZZZZZZZZZZZZZZ",
+          "ZXZZZZZZZZZZZZZZZZZZ",
+          "ZZZZZZZZZZZZZZZZZZZZ",
+          "....................",
+        ],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        W: { role: "beam", shape: "log", orient: { axis: "y" } },
+        Z: { role: "furniture_wood", shape: "slab" },
+        u: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        Q: { block: "minecraft:stone_bricks" },
+        B: { block: "minecraft:stone_bricks" },
+        S: { block: "minecraft:stone_bricks" },
+        d: { block: "minecraft:redstone_wire" },
+        c: { block: "minecraft:comparator", orient: { front: "right" }, state: { powered: "true" } },
+        e: { block: "minecraft:comparator", orient: { front: "left" }, state: { powered: "true" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "1" } },
+        L: { block: "minecraft:hopper", orient: { attachTo: "front" }, state: { enabled: "false" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        A: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:comparator", orient: { front: "back" } },
+        F: { block: "minecraft:hopper", orient: { attachTo: "back" } },
+        T: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        V: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        X: { block: "minecraft:chest", orient: { front: "front" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 4], face: "front", item: { item: "minecraft:iron_ingot" } },
+        { type: "item_frame", at: [5, 2, 4], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [7, 2, 4], face: "front", item: { item: "minecraft:oak_log" } },
+        { type: "item_frame", at: [11, 2, 4], face: "front", item: { item: "minecraft:coal" } },
+        { type: "item_frame", at: [13, 2, 4], face: "front", item: { item: "minecraft:redstone" } },
+        { type: "item_frame", at: [17, 2, 4], face: "front", item: { item: "minecraft:cobblestone" } },
+        { type: "item_frame", at: [18, 2, 4], face: "front", item: { item: "minecraft:hopper" } },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

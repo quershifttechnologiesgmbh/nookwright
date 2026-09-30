@@ -1,0 +1,29 @@
+// Kleine Schanktheke (research/11 T-1 im Kleinformat): 2 Fässer übereinander hinten, Wirtsgang, Theke vorn.
+// 2 breit → passt an kurze Wandstücke zwischen Fenstern; damit hat jede Taverne ihre Theke (Tag `bar_counter`).
+// Der Gang ist nur über die Stirnseiten erreichbar; die Konnektivitätsregel des Solvers sichert das.
+{
+  id: "table/bar_counter_small",
+  kind: "static",
+  name: "Schanktheke (klein)",
+  category: "furniture",
+  tags: ["bar_counter"],
+  functionTags: ["store", "work:fisherman"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["RR", "__", "UU"], // y0: Fässer | Wirtsgang | Theke
+    ["RR", "__", ".."], // y1
+  ],
+  legend: {
+    R: { block: "minecraft:barrel", orient: { front: "front" } },
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+  sockets: [
+    { id: "top_0", type: "surface", at: [0, 1, 2], accepts: ["mug", "candles", "light_small"], prob: 0.7 },
+    { id: "top_1", type: "surface", at: [1, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+    { id: "stool", type: "adjacent", at: [0, 0, 3], side: "front", accepts: ["bar_stool"], prob: 0.8, facing: "same" },
+  ],
+  masks: { clearance: [{ side: "front", depth: 2, hard: false }] },
+}

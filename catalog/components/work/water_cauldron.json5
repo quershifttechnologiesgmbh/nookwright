@@ -1,0 +1,6 @@
+// Kessel mit Wasser: Spüle (Küche) oder Abschreckbecken (Schmiede). Wasser nur im Kessel (Regel fluid).
+{ id: "work/water_cauldron", kind: "static", name: "Wasserkessel", category: "work",
+  tags: ["water_cauldron", "sink", "work"], functionTags: ["work:leatherworker"], obtainability: "survival",
+  mount: "floor", rotations: [0],
+  layers: [["K"]], legend: { K: { block: "minecraft:water_cauldron", state: { level: "3" } } },
+  masks: { use: [{ side: "front" }] } }

@@ -1,0 +1,65 @@
+// K3a · Teleskop (research/17 §4.28, O1/O2/O4): Zaun als Stativ, darauf das Okular (umgedrehte Treppe), dahinter
+// das Rohr (liegender Stamm) schräg nach hinten oben, am Ende eine Linse aus getöntem Glas (Blöcke brauchen keine
+// Stütze; die Diagonale aus Einzelblöcken – Ingame-Ansicht offen). Der Beobachter steht vor dem Okular (Nutzung
+// vorn). Gegenüber dem Entwurf in research/17 sitzt das Okular direkt auf dem Stativ: sonst läge vor dem Stativ
+// keine freie Nutzungszelle. V3: ab lichter Höhe 4 das große Fernrohr mit doppelt langem Rohr (4 hoch).
+// Getöntes Glas braucht Amethyst → survival.
+{
+  id: "astro/telescope",
+  kind: "static",
+  name: "Teleskop",
+  category: "furniture",
+  tags: ["telescope", "astronomy"],
+  functionTags: ["observe"],
+  styleTags: ["medieval", "fantasy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "refractor",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        [".", "f"], // y0: Stativ
+        ["L", "E"], // y1: Rohr | Okular auf dem Stativ
+        ["G", "."], // y2: Linse (hinten oben)
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        G: { block: "minecraft:tinted_glass" },
+      },
+    },
+    {
+      id: "great",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        [".", ".", "f"], // y0: Stativ (vorn)
+        [".", "L", "E"], // y1: Rohr | Okular auf dem Stativ
+        ["L", ".", "."], // y2: Rohr steigt nach hinten
+        ["G", ".", "."], // y3: Linse
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        G: { block: "minecraft:tinted_glass" },
+      },
+    },
+    {
+      // lichte Höhe 2: kurzes Fernrohr ohne Linsenaufsatz
+      id: "small",
+      weight: 1,
+      layers: [[".", "f"], ["L", "E"]],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

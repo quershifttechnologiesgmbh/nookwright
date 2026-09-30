@@ -1,0 +1,31 @@
+// K3b · Webstuhl (research/11 §12.6 J-1, research/17 §4.14): Schäfer-Arbeitsblock (Faktencheck #7), Banner-
+// Muster am Webstuhl. Rücken zur Wand, Nutzungsfeld vorn. Variante „pattern“ (W4 „Handwerks-Nische“): darüber
+// eine Bannervorlage im Rahmen an der Raumwand (Rahmen über 1 hohem Möbel, Zelle bleibt frei).
+{
+  id: "work/loom",
+  kind: "static",
+  name: "Webstuhl",
+  category: "work",
+  tags: ["loom", "job_block"],
+  functionTags: ["craft", "villager_workstation", "work:shepherd"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "plain",
+      weight: 2,
+      layers: [["L"]],
+      legend: { L: { block: "minecraft:loom", orient: { front: "front" } } },
+    },
+    {
+      id: "pattern",
+      weight: 2,
+      layers: [["L"], ["_"]],
+      legend: { L: { block: "minecraft:loom", orient: { front: "front" } } },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:flower_banner_pattern" } }],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,24 @@
+// SD Grundstücks-Deko: Gartenbogen. Zwei Pfosten, Laubdach obenauf; überspannt einen Weg (Mitte bleibt frei,
+// Kopffreiheit 3). Spiegelsymmetrisch.
+{
+  id: "outdoor/sd_arch",
+  kind: "static",
+  name: "Gartenbogen",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_arch"],
+  styleTags: ["cottage", "village", "elven", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["F.F"], // y0
+    ["F.F"], // y1
+    ["F.F"], // y2
+    ["lll"], // y3: Laubdach
+    [".l."], // y4: Krone
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    l: { role: "leaves_bush", shape: "block" },
+  },
+}

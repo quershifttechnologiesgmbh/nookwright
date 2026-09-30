@@ -1,0 +1,44 @@
+// K3d · Bilderrahmen aus Falltüren (research/16 I13, P3; S5 „You can also FRAME your paintings with
+// trapdoors!“): ein Rahmen (Entity) an der Raumwand, eingefasst von offenen Falltüren, die flach an der Wand
+// liegen (Muster als Zierleiste). Gemälde als Entity kann die Materialisierung noch nicht (nur Rahmen) →
+// im Rahmen hängt eine leere Karte, ein Kompass oder eine Uhr (keine Kartendaten nötig, T5: `filled_map` bliebe
+// ohne Daten braun). Die Rahmen-Zelle bleibt frei ('_'); Rahmen haften an der Raumwand (voller Block).
+// Über Kopfhöhe (Wandhöhe 2 bzw. unter der Decke): die Falltüren belegen keinen Laufweg.
+// „ring“ = 8 Falltüren rundum (3 × 3, ab lichter Höhe 5), „bar_*“ = links, rechts und darüber (3 × 2). Jede
+// Spalte hat eine Blockzelle – so prüft der Solver auch die Wand hinter dem Rahmen (kein Fenster dahinter).
+{
+  id: "decor/trapdoor_frame",
+  kind: "static",
+  name: "Falltür-Bilderrahmen",
+  category: "attachment",
+  tags: ["picture_frame", "wall_decor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [2, -1],
+  variants: [
+    {
+      id: "ring",
+      weight: 2,
+      minRoomHeight: 5,
+      layers: [["TTT"], ["T_T"], ["TTT"]],
+      legend: { T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+      entities: [{ type: "glow_item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:map" } }],
+    },
+    {
+      id: "bar_map",
+      weight: 2,
+      layers: [["T_T"], [".T."]], // y1: Falltür über dem Rahmen (Spalte wird auf Fenster geprüft)
+      legend: { T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+      entities: [{ type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:map" } }],
+    },
+    {
+      id: "bar_compass",
+      weight: 1,
+      layers: [["T_T"], [".T."]], // y1: Falltür über dem Rahmen (Spalte wird auf Fenster geprüft)
+      legend: { T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+      entities: [{ type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:compass" } }],
+    },
+  ],
+}

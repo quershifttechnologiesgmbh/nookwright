@@ -1,0 +1,22 @@
+// SD Grundstücks-Deko: schlichte Gartenbank (zwei Zaunbeine, Sitzplatte). Frei stehend oder mit dem Rücken zur Hauswand.
+{
+  id: "outdoor/sd_bench",
+  kind: "static",
+  name: "Gartenbank",
+  category: "furniture",
+  tags: ["outdoor", "sd_decor", "sd_bench"],
+  functionTags: ["sit"],
+  styleTags: ["cottage", "rustic", "village", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["F.F"], // y0: Beine
+    ["sss"], // y1: Sitzplatte (untere Hälfte)
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    s: { role: "furniture_wood", shape: "slab" },
+  },
+  masks: { use: [{ side: "front" }] },
+}

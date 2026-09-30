@@ -1,0 +1,46 @@
+// K3a · Bauklötze (research/17 §4.7, N1): bunte Terrakotta-Blöcke als Stapel, oben eine Kerze als Spielfigur
+// (Kerze auf vollem Block, unbeleuchtet). V3: ab lichter Höhe 3 ein dritter Klotz obenauf (Turm).
+{
+  id: "decor/toy_blocks",
+  kind: "static",
+  name: "Bauklötze",
+  category: "decor",
+  tags: ["toys", "toy_blocks"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "pair",
+      weight: 1,
+      layers: [
+        ["RB"], // y0
+        ["Yc"], // y1: gelber Klotz auf Rot, Figur auf Blau
+      ],
+      legend: {
+        R: { block: "minecraft:red_terracotta" },
+        B: { block: "minecraft:blue_terracotta" },
+        Y: { block: "minecraft:yellow_terracotta" },
+        c: { block: "minecraft:lime_candle", state: { candles: "1", lit: "false" } },
+      },
+    },
+    {
+      id: "tower",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["RB"],
+        ["Yc"],
+        ["L."], // y2: grüner Klotz obenauf
+      ],
+      legend: {
+        R: { block: "minecraft:red_terracotta" },
+        B: { block: "minecraft:blue_terracotta" },
+        Y: { block: "minecraft:yellow_terracotta" },
+        L: { block: "minecraft:lime_terracotta" },
+        c: { block: "minecraft:pink_candle", state: { candles: "2", lit: "false" } },
+      },
+    },
+  ],
+}

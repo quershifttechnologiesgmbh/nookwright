@@ -1,0 +1,90 @@
+// FN-Lager · Beschriftete Truhenwand (Sortier-Lager-Front): eine Spalte je Kategorie = zwei übereinander stehende
+// Einzeltruhen zwischen Stamm-Pfosten, darüber ein Bord aus umgedrehten Halbstufen und ein Etikett-Band mit einem
+// Item-Rahmen je Spalte. Breite wächst mit der Kategorienzahl: c2 (5), c3 (7), c4 (9 breit).
+// Warum das Etikett OBEN sitzt: Rahmen halten zwar an Truhenfronten (T5, im Spiel), aber ein Klick auf den Rahmen
+// dreht das Item statt die Truhe zu öffnen. Das Band liegt auf dem Bord (Halbstufe leitet nicht, Faktencheck #2: über einer
+// Truhe darf kein redstone-leitender Block sein) und trägt die Rahmen auf vollem Vollholz. Rahmen-Zellen sind Luft (`_`).
+// Rollen: Pfosten `beam`, Bord/Band `furniture_wood`. Truhen bleiben leer (Lager im Ruhezustand).
+// Beispiel-Etiketten (Eisen, Weizen, Holz, Kohle): der Spieler tauscht die Rahmen-Items nach Bedarf.
+// Lichte Höhe >= 4 (Truhen 2 + Bord 1 + Band 1).
+{
+  id: "storage/fn_chest_wall_label",
+  kind: "static",
+  name: "Truhenwand mit Etiketten",
+  category: "storage",
+  tags: ["fn_chest_wall", "fn_store"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "c2",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["PCPCP", "_____"], // y0
+        ["PCPCP", "_____"], // y1
+        ["PsPsP", "....."], // y2: Bord
+        ["PLPLP", "_._._"], // y3: Etikett-Band (Rahmen davor)
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        L: { role: "furniture_wood", shape: "planks" },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 3, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+        { type: "item_frame", at: [3, 3, 1], face: "front", item: { item: "minecraft:wheat" } },
+      ],
+    },
+    {
+      id: "c3",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["PCPCPCP", "_______"],
+        ["PCPCPCP", "_______"],
+        ["PsPsPsP", "......."],
+        ["PLPLPLP", "_._._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        L: { role: "furniture_wood", shape: "planks" },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 3, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+        { type: "item_frame", at: [3, 3, 1], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [5, 3, 1], face: "front", item: { item: "minecraft:oak_log" } },
+      ],
+    },
+    {
+      id: "c4",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["PCPCPCPCP", "_________"],
+        ["PCPCPCPCP", "_________"],
+        ["PsPsPsPsP", "........."],
+        ["PLPLPLPLP", "_._._._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        L: { role: "furniture_wood", shape: "planks" },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 3, 1], face: "front", item: { item: "minecraft:iron_ingot" } },
+        { type: "item_frame", at: [3, 3, 1], face: "front", item: { item: "minecraft:wheat" } },
+        { type: "item_frame", at: [5, 3, 1], face: "front", item: { item: "minecraft:oak_log" } },
+        { type: "item_frame", at: [7, 3, 1], face: "front", item: { item: "minecraft:coal" } },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,54 @@
+// K3b · Topfregal (research/17 §4.16, P1/P3): unten verzierte Töpfe, darauf ein Brett (obere Stufen), oben die
+// nächste Reihe Töpfe. Töpfe fassen seit 1.20.3 je einen Stapel (Wiki), Befüllen per Klick/Trichter (Inhalt
+// kann die Materialisierung für Töpfe noch nicht, research/17 Y10). Töpfe brauchen keine Stütze (K2
+// storage/pottery). Mehr in die Höhe (V3): bei lichter Höhe 4 zwei Bretter bis unter die Decke, ab 5 drei Reihen.
+// Bewusst ohne Tag `pottery` (sonst stünde das Regal als Andock-Kind neben der Töpferscheibe und in der Alchemie).
+{
+  id: "storage/pot_rack",
+  kind: "static",
+  name: "Topfregal",
+  category: "storage",
+  tags: ["pot_rack", "goods"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "rack",
+      weight: 3,
+      layers: [
+        ["VVV"], // y0: Töpfe
+        ["sss"], // y1: Brett
+        ["V.V"], // y2: Töpfe auf dem Brett
+      ],
+      legend: {
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "rack4",
+      weight: 3,
+      minRoomHeight: 4,
+      maxRoomHeight: 4,
+      layers: [["VVV"], ["sss"], ["VVV"], ["sss"]],
+      legend: {
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "rack5",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [["VVV"], ["sss"], ["VVV"], ["sss"], ["V.V"]],
+      legend: {
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

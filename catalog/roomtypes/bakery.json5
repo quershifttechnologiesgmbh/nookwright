@@ -1,0 +1,33 @@
+// Bäckerei (K3b, research/17 §4.17). Signatur: Backofen aus Ziegeln mit Räucherofen als Ofenmund (Metzger-
+// Arbeitsblock, doppelt schnelles Garen; Schlot bis zur Decke); Kompaktform: einzelner Räucherofen (Tag `smoker`).
+// Laden-Front: Brottheke quer vor der Tür (Kunde ↔ Bäcker, Kuchen + Brot); Ofen an der Rückwand, Arbeitsplatten
+// und Mehl daneben, Holzvorrat neben dem Ofen.
+// Mehr in die Höhe (V3): Heu-/Mehlballen gestapelt (Ba4), Kräuterstange, Borde/Oberschrank, Laterne über der Theke.
+{
+  id: "bakery",
+  name: "Bäckerei",
+  minArea: 12,
+  coverage: { target: 0.5 },
+  zones: [{ id: "shop", doorAffinity: "near" }, { id: "work", doorAffinity: "far" }],
+  required: [
+    { tags: ["bread_oven", "smoker"], count: [1, 1], signature: true, zone: "work", placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["bread_counter", "shop_counter"], count: [1, 1], zone: "shop", placement: { zones: ["center", "edge"] } },
+  ],
+  optional: [
+    // FN-Dense: Backtisch in der Raummitte (Insel)
+    { tags: ["fn_bakery_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["counter"], count: [1, 3], weight: 3, zone: "work", placement: { zones: ["edge"] } },
+    { tags: ["wall_food"], count: [1, 3], weight: 4 },
+    { tags: ["harvest", "goods"], count: [1, 2], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["pantry"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["water_cauldron"], count: [0, 1], weight: 2, zone: "work", placement: { zones: ["edge"] } },
+    { tags: ["firewood"], count: [0, 1], weight: 2, zone: "work", placement: { zones: ["corner", "edge"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, zone: "shop", placement: { zones: ["corner"] } },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+    // V3 (Raumhöhe nutzen): Mehl-/Heuballen gestapelt, Kräuter unter der Decke, Borde über Kopfhöhe
+    { tags: ["hay_stack"], count: [0, 2], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["herb_rack"], count: [0, 1], weight: 1 },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

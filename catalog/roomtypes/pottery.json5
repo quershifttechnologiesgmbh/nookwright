@@ -1,0 +1,30 @@
+// Töpferei (K3b, research/17 §4.16). Signatur: Ziegel-Brennofen (Ofen lit, T5: bleibt ohne Brennstoff an; Schlot
+// bis zur Decke); Kompaktform: einzelner Ofen (Tag `furnace`). Töpferscheibe ist Pflicht. Laden-Front: Topfregale
+// und Töpferware zur Tür; hinten Brennofen an der Rückwand, Scheibe am Fenster; Wasserkessel (Ton nass halten).
+// Mehr in die Höhe (V3): Topfregal bis zur Decke, Borde mit Krügen, Hängepflanzen, Tonvorrat gestapelt.
+{
+  id: "pottery",
+  name: "Töpferei",
+  minArea: 12,
+  coverage: { target: 0.45 },
+  zones: [{ id: "shop", doorAffinity: "near" }, { id: "work", doorAffinity: "far" }],
+  required: [
+    { tags: ["kiln", "furnace"], count: [1, 1], signature: true, zone: "work", placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["potters_wheel"], count: [1, 2], zone: "work", placement: { zones: ["edge", "center"], windowAffinity: "near" } },
+  ],
+  optional: [
+    // FN-Dense: Töpfertisch in der Raummitte (Insel)
+    { tags: ["fn_pottery_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["pot_rack", "pottery"], count: [1, 3], weight: 4, zone: "shop", placement: { zones: ["edge"] } },
+    { tags: ["water_cauldron"], count: [0, 1], weight: 3, zone: "work", placement: { zones: ["edge", "corner"] } },
+    { tags: ["crafting"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest", "barrel"], count: [1, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["light_ceiling", "light_wall"], count: [1, 3], weight: 3 },
+    // V3 (Raumhöhe nutzen): Borde (Krüge obenauf), Hängepflanzen
+    { tags: ["wall_shelf"], count: [1, 2], weight: 2 },
+    { tags: ["plant_hanging"], count: [1, 2], weight: 2 },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["upper_cabinet"], count: [0, 1], weight: 1 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_wall", "light_ceiling"] },
+}

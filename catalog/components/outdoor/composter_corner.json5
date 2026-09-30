@@ -1,0 +1,21 @@
+// research/56 · Kompost-Ecke (DA Structural: Farm/Garden props): gefüllter Komposter neben einem Fass für
+// Küchenabfälle, Moosteppich als Verrottungsspur. Für Küchengarten, Hof, Gemüsebeet.
+// W1-I (26.09.2026, W1E M1): nur noch im Garten-Pool – im Hof-Pool stand der Komposter bis zu 13-mal im Burghof.
+{
+  id: "outdoor/composter_corner",
+  kind: "static",
+  name: "Kompost-Ecke",
+  category: "work",
+  tags: ["composter", "outdoor", "garden"],
+  functionTags: ["farm"],
+  styleTags: ["rustic", "farm", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["Cb", "m."]],
+  legend: {
+    C: { block: "minecraft:composter", state: { level: "5" } },
+    b: { block: "minecraft:barrel", orient: { front: "up" } },
+    m: { block: "minecraft:moss_carpet" },
+  },
+}

@@ -1,0 +1,293 @@
+// Wüste / Mesa (research/24 §7.1, T1): Sandstein-Palast und Adobe, kühles Weiß im Inneren, flaches Dach als
+// Terrasse, Schatten als Gestaltungsmittel. Erbt Möbel, Außenprofil und die meisten Außen-Rollen von medieval.
+// Kernthemes: (a) Sandstein-Palast, (b) Mesa-Adobe, (c) Karawanserei, (d) Felsengrab.
+// Fallen (research/24 §7.1): Blau/Lapis als FLÄCHE und dunkle Hölzer als Fläche vermeiden – beides nur als Akzent.
+{
+  id: "desert",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { richness: -0.5, wear: 0.25 },
+  name: "Wüste",
+  description: "Sandstein mit Lehmziegelsockel, dunkle Vigas aus Dschungelholz, Lehmziegeldach, türkise Läden, weiß gekalkte Innenwände",
+  base: "medieval",
+  roles: {
+    // P1 Sandsteinwand über die ganze Fassade (W2 Regeln W4/W5): unten der rauere Sandstein, oben glatt und hell –
+    // drei Sandsteine derselben Familie. Das Rot der Mesa sitzt gezielt im Sockel und an den Eckquadern, nicht als
+    // Zufallsblock in der Fläche.
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        // Tonordnung in ALLEN Stopps gleich (hell → dunkel), sonst meldet der Validator einen Widerspruch
+        stops: [
+          { at: 0, mix: [
+            { family: "cut_sandstone", weight: 30 },
+            { family: "sandstone", weight: 70 },
+          ] },
+          { at: 0.5, mix: [
+            { family: "smooth_sandstone", weight: 20 },
+            { family: "cut_sandstone", weight: 25 },
+            { family: "sandstone", weight: 55 },
+          ] },
+          { at: 1, mix: [
+            { family: "smooth_sandstone", weight: 55 },
+            { family: "sandstone", weight: 45 },
+          ] },
+        ],
+      },
+      // Sandstein ist glatt: ruhige Fläche, nur leichte Flecken
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    // Innen und Obergeschoss: gekalkt (kühlt), unten ein Spritzwasser-Saum aus Cut-Sandstein
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "calcite", weight: 20 },
+            { family: "cut_sandstone", weight: 45 },
+            { family: "sandstone", weight: 35 },
+          ] },
+          // W4: vier Grundblöcke im Ganzen – oben nur noch Kalk und weiße Terrakotta
+          { at: 1, mix: [
+            { family: "calcite", weight: 70 },
+            { family: "white_terracotta", weight: 30 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      // W13-F (28.09.2026): Dschungel- statt Akaziendielen – warmes Hellbraun statt Orange (Akazie überall machte den Bau
+      // einfarbig orange); Fichte als einzelne Bretter
+      mix: [
+        { family: "jungle", weight: 88 },
+        { family: "spruce", weight: 12 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_stone: {
+      mix: [
+        { family: "smooth_sandstone", weight: 45 },
+        { family: "cut_sandstone", weight: 30 },
+        { family: "polished_granite", weight: 15 },
+        { family: "sandstone", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Sand fällt (Gravitation) – Erdreich im Haus ist gestampft/Lehm, Sand bleibt draußen
+    floor_earth: {
+      mix: [
+        { block: "minecraft:packed_mud", weight: 45 },
+        { block: "minecraft:coarse_dirt", weight: 35 },
+        { block: "minecraft:rooted_dirt", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Bordüre und Streifen sind HOLZ (Form log/wood) – wie in allen anderen Themes
+    floor_border: { family: "jungle" },
+    floor_strip: { family: "dark_oak" },
+    floor_tile_light: { family: "smooth_sandstone" },
+    floor_tile_dark: { family: "terracotta" },
+    // Sockel (W7, zwei Steine): Sandstein mit einem Hauch Mesa-Rot, weiche Flecken statt Zellstreifen
+    // W13-F (28.09.2026): Sockel aus Lehmziegeln (Adobe) – ein Stein, dunkler als der Sandstein darüber (Wertstufe
+    // Sockel → Wand; vorher rote Sandstein-Flecken im Sandstein). Vorbild: Wüstendorf-Sockel in Terrakotta/Lehm
+    // (blockblend.app/guides/desert-palette-guide „brown terracotta at the base“)
+    foundation: { family: "mud_bricks" },
+    // W13-F: Vigas (Deckenbalken, die aus der Wand ragen) in Dschungelholz mit Rinde wie im Wüstendorf
+    // (minecraft.wiki/w/Village/Structure: Dschungel-Tür und -Zaun, Holzbalken aus der Wand) – dunkler Rahmen auf
+    // hellem Sandstein statt Akazie auf Sandstein (orange auf orange mit dem Dach)
+    beam: { family: "jungle" },
+    pillar: { family: "cut_sandstone" },
+    door: { family: "jungle" },
+    // Kleine, tiefe Fenster: getöntes Glas gegen die Hitze
+    window: { color: "gray", shapes: { pane: "stained_glass_pane" } },
+    // W13-F: dunkle Fensterrahmen (dunkle Eiche) – klarer Rahmen im hellen Sandstein
+    window_frame: { family: "dark_oak" },
+    // W13-F: helle Decke zwischen den dunklen Vigas (Pueblo-Decke), ein Holz statt Akazie mit Sandstein-Flecken
+    ceiling: { family: "birch" },
+    // Dach als Deckungsrezept (W2 Regel D1), W4 (27.09.2026, Baustandard D9, Review M5): glatter roter Sandstein
+    // (Ziegelton) statt glattem Sandstein – vorher hell auf hell (Helligkeitsabstand 0,03), die Dachlinie verschwand.
+    // Kante (D3) weiter Akazie.
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        // W9-G5 (27.09.2026, Review R5 G5 „Dach eine glatte Fläche“): Traufband und Fläche in zwei Tönen, ganze Ringe (D1).
+        // W13-F (28.09.2026): Lehmziegel statt rotem Sandstein – vorher orange Dach, orange Akazien-Rahmen und orange
+        // Böden (ein Ton über den ganzen Bau). Lehmziegel = Adobe (Mesa-/Pueblo-Vorbild), Traufband in Granit (die
+        // Schlote des Wüstendorfs, minecraft.wiki/w/Village/Structure). Vorher: red_sandstone → smooth_red_sandstone.
+        stops: [
+          { at: 0, mix: [{ family: "granite", weight: 1 }] },
+          { at: 0.3, mix: [{ family: "mud_bricks", weight: 1 }] },
+          { at: 1, mix: [{ family: "mud_bricks", weight: 1 }] },
+        ],
+      },
+    },
+    // W13-F: Dachkante als helle Linie (glatter Sandstein) – setzt das Ziegeldach gegen den Himmel und die Wand ab
+    roof_trim: { family: "smooth_sandstone" },
+    // W2 (Baustandard D4, Giebel-Rezept): glatter Cut-Sandstein als Kontrastputz über dem rauen Sandstein
+    wall_gable: { family: "cut_sandstone" },
+    // Außenprofil: Sockel in Cut-Sandstein, Gesims glatt. Eckquader (W3) bossiert im Rot der Mesa – sichtbarer
+    // Helligkeitsabstand zum hellen Sandstein (vorher gemeißelter Sandstein, gleich hell wie die Wand).
+    wall_plinth: { family: "cut_sandstone" },
+    wall_cornice: { family: "smooth_sandstone" },
+    // W13-F: Eckquader im gemeißelten Sandstein (Muster statt Farbe) – die orangen Eckstreifen fielen weg
+    wall_quoin: { family: "sandstone", shapes: { block: "chiseled" } },
+    // W13-F: Läden als türkiser Akzent (Wirrholz-Falltür) – das Blau der Wüstenbauten nur als Akzent (research/24 §7.1,
+    // blockblend.app „light blue concrete/prismarine as contrast“)
+    shutter: { family: "warped" },
+    furniture_wood: { family: "dark_oak" },
+    textile_primary: { color: "orange" },
+    textile_accent: { color: "light_blue" },
+    textile_neutral: { color: "white" },
+    // W13-F: Eisenlaterne (warmes Licht) statt Kupferlaterne (grüne Flamme, im Bild fremd)
+    light_hanging: { family: "iron" },
+    metal: { family: "copper" },
+
+    // ---------------------------------------------------------------- Außen: Sand, Fels, trockene Gehölze
+    // Der tragende Boden muss ERDARTIG sein (Pflanzen wachsen nur auf Erde/Gras/Podsol/Moos, Physik-Prüfung)
+    // und darf nicht fallen: Sand/Red-Sand kommen als Deckschicht (ground_cover) und auf Wegen/Höfen darüber.
+    ground_grass: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 40 },
+        { block: "minecraft:rooted_dirt", weight: 25 },
+        { block: "minecraft:grass_block", weight: 20 },
+        { block: "minecraft:moss_block", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Auch die Bodensäule (unter der Oberfläche) ohne fallende Blöcke: die unterste Reihe hat im Test keine
+    // Unterlage, und Pflanzen brauchen ohnehin Erde/Gras darunter.
+    ground_dirt: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 50 },
+        { block: "minecraft:packed_mud", weight: 30 },
+        { block: "minecraft:rooted_dirt", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:smooth_sandstone", weight: 45 },
+        { block: "minecraft:cut_sandstone", weight: 30 },
+        { block: "minecraft:dirt_path", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:smooth_sandstone", weight: 45 },
+        { block: "minecraft:sandstone", weight: 25 },
+        { block: "minecraft:cut_sandstone", weight: 20 },
+        { block: "minecraft:mud_bricks", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    pond_bed: { family: "sand", blocks: { block: "minecraft:sand" } },
+    leaves_oak: { family: "acacia" },
+    // Die Rolle `leaves_bush` verlangt die Form `block` – `variant: "leaves"` liefert das Laub der Familie
+    leaves_bush: {
+      mix: [
+        { family: "acacia", variant: "leaves", weight: 60 },
+        { block: "minecraft:oak_leaves", weight: 40 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:dead_bush", weight: 55 },
+        { block: "minecraft:cactus", weight: 30 },
+        { block: "minecraft:dandelion", weight: 15 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:dead_bush", weight: 60 },
+        { block: "minecraft:short_grass", weight: 30 },
+        { block: "minecraft:bush", weight: 10 },
+      ],
+    },
+    // Deckschicht: hier liegt der Sand (auf dem Boden, also mit Unterlage)
+    ground_cover: {
+      mix: [
+        { block: "minecraft:sand", weight: 55 },
+        { block: "minecraft:dead_bush", weight: 30 },
+        { block: "minecraft:red_sand", weight: 10 },
+        { block: "minecraft:pink_petals", weight: 5 },
+      ],
+    },
+    hedge: { family: "acacia" },
+    // Innenhaut (W2-FD): helle Paneele (nah an der Kalkung), Leisten aus entrindeter Akazie; deren Falltür hat
+    // Löcher, deshalb Sockel und Türrahmen als Falltür ohne Löcher.
+    // W3-IN: Blasseiche statt Birke – hell wie Kalkputz, ohne das Fenstermuster der Birken-Falltür; Sockel und
+    // Türrahmen als Fichten-Falltür (dunkler Fuß wie die Akazien-Leisten, statt Birken-Rahmenmuster)
+    lining_panel: { family: "pale_oak" },
+    lining_trim: { family: "dark_oak" },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld (Putz/glatter Stein, Kontrast zur Wand) färbt die Palette wie die Zweitwand
+    wall_secondary: ["wall_secondary", "floor_tile_light", "floor_tile_dark", "wall_gable"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    wood_frame: ["beam", "pillar"],
+    floor: ["floor_primary", "floor_stone", "floor_earth", "ground_grass", "ground_dirt", "ground_path", "ground_yard", "pond_bed"],
+    accent: ["textile_primary", "textile_accent", "textile_neutral"],
+    glass: ["window", "window_frame", "shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "grass_tuft", "ground_cover", "hedge"],
+  },
+
+  surfaces: {
+    // W13-E (28.09.2026): Wand- und Deckenregeln von medieval ohne das Fachwerk-Obergeschoss (`when.upperFrame`) – der
+    // Sandsteinbau bleibt auch bei Wohnbauten in allen Geschossen Stein (bitgleich zu vorher)
+    wall: [
+      { when: { exterior: true, minHeight: 5, hRel: [2, 64] }, role: "wall_secondary" },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    ceiling: [
+      { when: { exterior: true }, plate: { role: "wall_primary", shape: "block", corner: "block" } },
+      { beams: { role: "beam", period: 3 }, plate: { role: "beam" } },
+    ],
+    // Geschossband (W2 Regel W6) beim Steinhaus als Gesims: glatter Sandstein außen an der Bodenplatte der
+    // Obergeschosse; innen die Schwelle aus Akazie in der Decke darunter (I3), im Erdgeschoss der Sockel
+    footing: [
+      { when: { exterior: true, storey: [1, 16] }, role: "wall_cornice", shape: "block" },
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      // I3: auch der Wandfuß innen über einem Keller ist dessen Decke – Schwelle statt Fundamentstein
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+  },
+  decor: {
+    // Sandstein hat keine bemooste/rissige Variante – Verwitterung greift nur am Sockel und am Steinboden
+    weathering: { age: 0.25, fade: 1.5, roles: ["foundation", "floor_stone", "wall_plinth"] },
+  },
+  items: {
+    "food.any": ["minecraft:bread", "minecraft:dried_kelp", "minecraft:cooked_mutton", "minecraft:melon_slice"],
+    "deco.small": ["minecraft:gold_nugget", "minecraft:paper", "minecraft:leather"],
+  },
+}

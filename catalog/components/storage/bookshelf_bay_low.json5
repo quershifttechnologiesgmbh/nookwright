@@ -1,0 +1,20 @@
+// Schmale, niedrige Regal-Bucht (research/11 §4.6): ein Regal zwischen zwei Pfosten, 2 hoch – passt bei
+// lichter Höhe 2 und an kurzen Wandstücken. Oben Platz für Kerzen oder einen Topf (ab lichter Höhe 3).
+{
+  id: "storage/bookshelf_bay_low",
+  kind: "static",
+  name: "Regal-Bucht (klein)",
+  category: "storage",
+  tags: ["bookshelf_wall", "bookshelf_bay"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["PBP"], ["PBP"]],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    B: { block: "minecraft:bookshelf" },
+  },
+  sockets: [{ id: "top", type: "surface", at: [1, 2, 0], accepts: ["candles", "plant", "tabletop_small"], prob: 0.5 }],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

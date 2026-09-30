@@ -1,0 +1,30 @@
+// Wein- und Vorratskeller (K3b, research/17 §4.20). Signatur: Weinregal (Kerzen als Flaschen; ab lichter Höhe 4
+// bis unter die Decke mit Fässern obenauf); Kompaktform bei lichter Höhe 2: niedrige Truhen-/Fasswand (Tag
+// `storage_wall`). Pfeiler-Rhythmus an den Wänden: weitere Regale im Takt (row gap 1 = Platz für eine Fass-Bucht),
+// große Stückfässer an der Stirnwand (türfern), Verkostungstisch in der Mitte. Gedämpftes Licht (≥ 4), Kerzen.
+// Mehr in die Höhe (V3): Fässer/Kisten gestapelt, Stückfass mit Fässchen, Hängemoos.
+{
+  id: "wine_cellar",
+  name: "Weinkeller",
+  minArea: 12,
+  coverage: { target: 0.5 },
+  required: [
+    { tags: ["wine_rack", "storage_wall", "root_cellar_shelf"], count: [1, 1], signature: true, placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    { tags: ["wine_rack"], count: { perArea: 14, min: 1, max: 4 }, weight: 4, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 1 } },
+    { tags: ["cask_big"], count: [0, 2], weight: 4, placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["storage_wall", "root_cellar_shelf"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["tavern_table", "table_small"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["barrel"], count: [0, 3], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["mushrooms", "moss_rug"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["hanging_moss"], count: [0, 2], weight: 2 },
+    { tags: ["candle_stand"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 2 },
+    // FN-Dense: Weininsel (beidseitiges Regal mit Gang rundum) für die Raummitte größerer Keller
+    { tags: ["fn_wine_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    // V3 (Raumhöhe nutzen): Fässer/Kisten gestapelt
+    { tags: ["barrel_stack", "crate_stack"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+  ],
+  lighting: { minLevel: 4, prefer: ["candles", "light_floor", "light_ceiling"] },
+}

@@ -1,0 +1,27 @@
+// research/53 F3 · Stützstrebe unter dem Dachüberstand (Traufkonsole): trägt optisch die Traufe an Pfostenachsen.
+// „corbel“ = einfache umgedrehte Treppe. Q1a: die Variante „post_corbel“ (Zaunpfosten + Konsole) ist entfallen –
+// die Eave-Montage setzt die Komponente mit ihrer untersten Zelle AN die Traufe und wächst nach oben, unter dem
+// Dachüberstand ist aber nur eine Zelle frei; ein zweiter Block stößt an die Dachzelle.
+// W3 (27.09.2026, plan/spikes/W3RD_dachdetails.md): jetzt angebunden – `planEaveBraces` setzt sie im Takt der
+// Rasterpfosten und an den Ecken unter jede Traufe (nicht an Pfosten mit Laterne, nicht im Eingangsbereich). Rolle
+// der Dachkante (`roof_trim`) statt `beam`: in rustic/nordic ist `beam` das Holz der Wand, die Konsole verschwand
+// darin; in der Kantenrolle liest sie sich als Zahn der Traufe (Vorbilder: Konsolen im Material der Traufkante).
+{
+  id: "exterior/eave_brace",
+  kind: "static",
+  name: "Traufkonsole",
+  category: "attachment",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "eave",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "corbel",
+      weight: 2,
+      layers: [["V"]],
+      legend: { V: { role: "roof_trim", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+  ],
+}

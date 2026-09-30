@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nookwright</title>
+<meta name="description" content="Beschreib deine Minecraft-Base in einem Satz oder male sie Raum für Raum – und bekomm sie fertig eingerichtet als Datei für deine Welt.">
+<!-- Schriften (SIL OFL) liefert der Build selbst aus: dist/fonts/, @font-face in css/site.css -->
+<link rel="preload" href="fonts/Unbounded.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="media/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#top">Zum Inhalt springen</a>
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="logo" href="#start"><svg viewBox="0 0 120 120" aria-hidden="true">
+      <polygon points="60,10 106,36 60,62 14,36" fill="#ffd27a"/>
+      <polygon points="14,36 60,62 60,112 14,86" fill="#ff9a3c"/>
+      <polygon points="106,36 60,62 60,112 106,86" fill="#c9562c"/>
+      <polygon points="72,80 88,71 88,94 72,103" fill="#2a1a12"/>
+      <polygon points="26,58 40,66 40,78 26,70" fill="#fff3d6"/>
+    </svg>Nookwright</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#galerie" data-nav="galerie">Galerie</a>
+    <a href="#ki" data-nav="ki">KI-Architekt</a>
+    <a href="#roadmap" data-nav="roadmap">Roadmap</a>
+    <a href="#faq" data-nav="faq">FAQ</a>
+    <a href="#konto" data-nav="konto">Konto</a>
+  </div>
+  <div class="nav-right">
+    <a class="btn primary" href="#editor">Jetzt bauen</a>
+    <button type="button" class="btn ghost menu-btn" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span class="sr">Menü</span></button>
+  </div>
+</nav>
+
+<main id="top" tabindex="-1">
+<div data-page="start">
+
+  <div class="story">
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="fallback"></div>
+      <canvas id="storyCanvas"></canvas>
+      <div id="stageLabels"></div>
+      <div id="stageTheme"></div>
+      <div class="stage-dip" id="stageDip"></div>
+      <div id="rail"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="chapters">
+      <section class="chapter hero">
+        <div class="card">
+          <span class="eyebrow">Für Minecraft Java</span>
+          <h1>Du planst.<br><em>Es baut.</em><br>Du ziehst ein.</h1>
+          <p class="lede">Beschreib deine Base in einem Satz oder male sie Raum für Raum. Du bekommst sie fertig eingerichtet, direkt für deine Welt.</p>
+          <form class="describe" id="heroForm" novalidate>
+            <label class="describe-label" for="heroPrompt">Beschreib deine Base</label>
+            <div class="describe-box">
+              <textarea id="heroPrompt" name="prompt" rows="2" maxlength="500" autocomplete="off" spellcheck="true" placeholder="z. B. Kleine Taverne mit Flachdach" aria-describedby="heroKeys heroCount heroError"></textarea>
+              <button class="btn primary" type="button" data-submit>Bauen</button>
+            </div>
+            <div class="describe-meta"><span id="heroKeys">Enter sendet · Umschalt+Enter: neue Zeile</span><span class="count" id="heroCount">0 / 500</span></div>
+            <p class="field-error" id="heroError" hidden></p>
+            <div class="examples" role="group" aria-label="Beispiele zum Ausprobieren">
+              <button type="button" class="example">Große mittelalterliche Taverne mit Flachdach</button>
+              <button type="button" class="example">Kleines Erdhaus im Hügel, Eingang nach Osten</button>
+              <button type="button" class="example">Nordisches Wikinger-Langhaus mit steilem Dach</button>
+            </div>
+          </form>
+          <div class="ctas">
+            <span class="ctas-note">Lieber selbst Räume malen?</span>
+            <a class="btn ghost" href="#editor">Editor öffnen</a>
+          </div>
+          <span class="hint">Scroll weiter und sieh zu, wie sie entsteht</span>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 1 · 06:00 · Die Idee</span>
+          <h2>Alles beginnt mit einem <em>Grundriss.</em></h2>
+          <p>Küche hier, Schlafzimmer daneben, die Schmiede ans Ende. Du ziehst Räume auf wie auf Karopapier. Mehr Planung braucht es nicht.</p>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 1 · 06:01 · Ein Klick</span>
+          <h2>Und dann <em>baut es.</em></h2>
+          <p>Wände ziehen hoch, Fenster setzen sich, Möbel finden ihren Platz, das Dach schließt sich. Was sonst einen ganzen Abend kostet, steht, bevor der Kaffee fertig ist.</p>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 1 · 08:30 · Einziehen</span>
+          <h2>Jeder Raum hat eine <em>Aufgabe.</em></h2>
+          <p>Wo gebraut wird, steht der Braustand. Wo gelesen wird, stehen Regale. Wo geschlafen wird, das Bett mit der Truhe daneben. Nichts ist nur Kulisse, alles lässt sich im Spiel benutzen.</p>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 1 · 12:00 · Dein Stil</span>
+          <h2>Ein Grundriss. <em>Viele Welten.</em></h2>
+          <p>Mittelalterlich aus Stein, nordisch aus dunklem Holz, rustikal oder mit Fachwerk. Derselbe Plan bekommt ein ganz anderes Gesicht.</p>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 1 · 15:00 · Weiter gedacht</span>
+          <h2>Nicht nur ein Haus. <em>Deine Base.</em></h2>
+          <p>Gelände, Felder und Gärten, ein Mauerring mit Türmen und Tor. Die Umgebung wächst mit und passt zum Haus.</p>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 1 · 19:30 · Sonnenuntergang</span>
+          <h2>Bereit für die <em>erste Nacht.</em></h2>
+          <p>Jeder Raum ist beleuchtet, Wege und Tor auch. Wenn die Sonne untergeht, bleiben die Zombies draußen.</p>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <div class="card">
+          <span class="clock">Tag 2 · In deiner Welt</span>
+          <h2>Direkt in <em>deine Welt.</em></h2>
+          <ol class="steps-inline">
+            <li><span class="n">1</span><div><b>Exportieren</b>Als .litematic, .schem oder .nbt.</div></li>
+            <li><span class="n">2</span><div><b>Als Hologramm platzieren</b>Block für Block nachbauen oder mit einem Befehl einfügen.</div></li>
+            <li><span class="n">3</span><div><b>Einziehen</b>Bett, Truhe, Ofen: alles funktioniert.</div></li>
+          </ol>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="section" id="werkzeuge">
+    <div class="section-head">
+      <span class="eyebrow">So kommt sie ins Spiel</span>
+      <h2>Mit dem Werkzeug, <em>das du schon kennst.</em></h2>
+      <p>Die Base kommt als Datei, die gängige Bau-Mods und Minecraft selbst lesen. Du entscheidest, ob du sie nachbaust oder sofort einfügst.</p>
+    </div>
+    <div class="tools">
+      <article class="tool">
+        <span class="ext">.litematic</span>
+        <h3>Litematica</h3>
+        <p>Datei in den Ordner <code>schematics</code> legen, laden und als Hologramm in die Welt setzen. Im Survival baust du Block für Block nach, die Materialliste zeigt, was noch fehlt.</p>
+        <span class="best">Ideal für Survival</span>
+      </article>
+      <article class="tool">
+        <span class="ext">.schem</span>
+        <h3>WorldEdit</h3>
+        <p>Mit <code>//schem load</code> laden und mit <code>//paste</code> einfügen. Die ganze Base steht in einem Augenblick, auch auf Servern.</p>
+        <span class="best">Ideal für Creative und Server</span>
+      </article>
+      <article class="tool">
+        <span class="ext">.nbt</span>
+        <h3>Vanilla</h3>
+        <p>Ganz ohne Mods: Datei in den Strukturordner der Welt legen und mit <code>/place template</code> einfügen. Der Strukturblock selbst lädt höchstens 48 × 48 × 48 Blöcke.</p>
+        <span class="best">Ideal ohne Mods</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="ausprobieren">
+    <div class="section-head">
+      <span class="eyebrow">Selbst ausprobieren</span>
+      <h2>Dreh sie, <em>zieh ein.</em></h2>
+      <p>Ein echtes Haus aus dem Generator, live in deinem Browser. Dreh es, wechsle den Stil, nimm das Dach ab oder lass die Nacht kommen.</p>
+    </div>
+    <div class="play" id="play">
+      <div class="fallback">3D wird geladen</div>
+      <canvas id="playCanvas" aria-label="3D-Ansicht eines generierten Hauses, mit der Maus oder dem Finger drehbar"></canvas>
+      <span class="play-hint"><span class="hint-mouse">Ziehen zum Drehen · Scrollen zum Zoomen</span><span class="hint-touch">Wischen zum Drehen · Zwei Finger zum Zoomen</span></span>
+      <div class="controls">
+        <div role="group" aria-label="Stil">
+          <button type="button" id="theme-0" data-theme="0" aria-pressed="true">Mittelalter</button>
+          <button type="button" id="theme-1" data-theme="1" aria-pressed="false">Nordisch</button>
+          <button type="button" id="theme-2" data-theme="2" aria-pressed="false">Rustikal</button>
+          <button type="button" id="theme-3" data-theme="3" aria-pressed="false">Fachwerk</button>
+        </div>
+        <div role="group" aria-label="Ansicht">
+          <button type="button" id="toggleRoof" aria-pressed="false">Dach ab</button>
+          <button type="button" id="toggleNight" aria-pressed="false">Nacht</button>
+          <button type="button" id="rebuild">Neu aufbauen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="bautypen-start">
+    <div class="section-head">
+      <span class="eyebrow">Bautypen</span>
+      <h2>Von der Hütte <em>bis zur Burg.</em></h2>
+      <p>Keine Lust auf Grundrisse? Wähle einen Bautyp, und der Generator entwirft ihn für dich. Gefällt er dir nicht, würfelst du neu.</p>
+      <a class="btn ghost" href="#galerie" style="justify-self:start">Alle Bauten in der Galerie ansehen</a>
+    </div>
+    <div class="types">
+      <figure class="type"><img src="media/type_castle.jpg" alt="Kompakte Burg mit Mauern, Türmen und Burghof auf einer Grasinsel" loading="lazy"><figcaption><b>Burg</b><span>Mauern, Türme und ein Burghof</span></figcaption></figure>
+      <figure class="type"><img src="media/type_tavern.jpg" alt="Große Taverne im Fachwerkstil mit Laternen" loading="lazy"><figcaption><b>Taverne</b><span>Schankraum, Küche, Zimmer für Gäste</span></figcaption></figure>
+      <figure class="type"><img src="media/type_hobbit.jpg" alt="Erdhaus, halb in einen grünen Hügel gebaut, mit Blumenbeet" loading="lazy"><figcaption><b>Erdhaus</b><span>Halb im Hügel versteckt</span></figcaption></figure>
+      <figure class="type"><img src="media/type_watchtower.jpg" alt="Schlanker Wachturm aus Stein mit spitzem Dach" loading="lazy"><figcaption><b>Wachturm</b><span>Stockwerk für Stockwerk nach oben</span></figcaption></figure>
+      <figure class="type"><img src="media/type_longhouse.jpg" alt="Langgestrecktes Holzhaus zwischen Bäumen" loading="lazy"><figcaption><b>Langhaus</b><span>Eine lange Halle im nordischen Stil</span></figcaption></figure>
+      <figure class="type"><img src="media/type_farmhouse.jpg" alt="Bauernhaus mit Feldern und Garten" loading="lazy"><figcaption><b>Bauernhaus</b><span>Hof, Felder und Garten</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section" id="fuer-wen">
+    <div class="section-head">
+      <span class="eyebrow">Für wen</span>
+      <h2>Mehr Zeit zum <em>Spielen.</em></h2>
+    </div>
+    <div class="who">
+      <div><h3>Survival</h3><p>Plan in Ruhe, bau mit dem Hologramm nach. Du weißt vorher, welche Materialien du brauchst, und musst nichts improvisieren.</p></div>
+      <div><h3>Server</h3><p>Ein Spawn-Dorf, eine Taverne, ein Händlerviertel: Ganze Siedlungen stehen, ohne dass dein Team wochenlang baut.</p></div>
+      <div><h3>Creative</h3><p>Ideen ausprobieren, Stil wechseln, neu würfeln. Du kuratierst und veredelst, statt jede Wand von Hand zu ziehen.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="section-head">
+      <span class="eyebrow">Fragen</span>
+      <h2>Gut zu <em>wissen.</em></h2>
+    </div>
+    <div class="faq">
+      <details><summary>Ist das ein offizielles Minecraft-Produkt?</summary><p>Nein. Nookwright ist ein unabhängiges Werkzeug und nicht mit Mojang oder Microsoft verbunden. Es erzeugt Dateien, die Minecraft und gängige Bau-Mods lesen können.</p></details>
+      <details><summary>Für welche Versionen funktioniert es?</summary><p>Für die Java Edition, aktuell 1.21.11 und 26.3. Beim Export wählst du die Version deiner Welt.</p></details>
+      <details><summary>Brauche ich Mods?</summary><p>Nicht unbedingt. Mit <code>/place template</code> und der .nbt-Datei geht es ganz ohne Mods. Für große Basen empfehlen wir Litematica oder WorldEdit.</p></details>
+      <details><summary>Kann ich im Survival nachbauen?</summary><p>Ja. Mit Litematica siehst du die Base als Hologramm in deiner Welt und baust sie Block für Block nach. Die Materialliste zeigt dir, was noch fehlt.</p></details>
+      <details><summary>Sind die Möbel nur Deko?</summary><p>Nein. Betten, Truhen, Öfen, Werkbänke und Braustände sind echte Blöcke, die du im Spiel benutzen kannst. Der Generator stellt sie so, dass man gut an sie herankommt.</p></details>
+      <details><summary>Was macht der KI-Architekt mit meiner Beschreibung?</summary><p>Er liest daraus Bautyp, Größe, Stil, Dach und Lage und zeigt dir, wie sicher er sich bei jeder Angabe ist. Gebaut wird danach im Editor, auf deinem Gerät. Was mit dem Text passiert, steht im <a href="#datenschutz">Datenschutz</a>.</p></details>
+      <details><summary>Was kostet es, und wann geht es los?</summary><p>Editor und KI-Architekt laufen schon jetzt als Beta im Browser. Ob und was Nookwright später kostet, sagen wir vor dem offiziellen Start.</p></details>
+    </div>
+  </section>
+
+  <section class="wait" id="loslegen">
+    <div class="wait-inner">
+      <div class="wait-copy">
+        <span class="eyebrow">Loslegen</span>
+        <h2>Bau deine erste Base <em>jetzt.</em></h2>
+        <p>Beschreib sie in einem Satz oder mal sie Raum für Raum. Der Editor läuft direkt im Browser, ohne Konto und ohne Installation.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#editor">Jetzt bauen</a>
+          <a class="btn ghost" href="#ki">Beschreiben</a>
+        </div>
+      </div>
+      <div class="wait-side" id="warteliste">
+        <div class="wait-off">
+          <h3>Neuigkeiten</h3>
+          <p>Eine Warteliste gibt es noch nicht, und diese Website speichert keine E-Mail-Adressen. Fragen, Wünsche für Bautypen oder einen Fehler gefunden? Schreib uns an <a href="mailto:hello@quershift.com">hello@quershift.com</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================ Editor -->
+<section data-page="editor" class="editor-page" hidden>
+  <header class="editor-bar">
+    <a class="logo" href="#start" aria-label="Nookwright – zur Startseite"><svg viewBox="0 0 120 120" aria-hidden="true">
+      <polygon points="60,10 106,36 60,62 14,36" fill="#ffd27a"/>
+      <polygon points="14,36 60,62 60,112 14,86" fill="#ff9a3c"/>
+      <polygon points="106,36 60,62 60,112 106,86" fill="#c9562c"/>
+      <polygon points="72,80 88,71 88,94 72,103" fill="#2a1a12"/>
+      <polygon points="26,58 40,66 40,78 26,70" fill="#fff3d6"/>
+    </svg><span>Nookwright</span></a>
+    <span class="editor-tag">Editor · Beta</span>
+    <nav class="editor-links" aria-label="Website">
+      <a href="#start"><span aria-hidden="true">←</span> Website</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#ki">KI-Architekt</a>
+    </nav>
+  </header>
+  <div class="editor-host" id="editorHost">
+    <div class="editor-loading" id="editorLoading" role="status"><span class="blocks" aria-hidden="true"><i></i><i></i><i></i></span><span id="editorLoadingText">Editor wird geladen …</span></div>
+  </div>
+</section>
+
+<!-- ============================================================ Galerie -->
+<section data-page="galerie" class="page" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Galerie</span>
+    <h1>Gebaut vom <em>Generator.</em></h1>
+    <p>Jeder Bau hier ist echte Ausgabe des Generators: aus einem Bautyp oder einem gemalten Grundriss, mit Seed reproduzierbar. Ansehen, drehen, herunterladen und in deine Welt legen.</p>
+  </div>
+  <div class="section" style="padding-top:36px">
+    <div class="filters" id="galleryFilters" role="group" aria-label="Filter"></div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section data-page="bau" class="page" hidden>
+  <div class="detail">
+    <div class="viewer" id="detailViewer">
+      <canvas id="detailCanvas" aria-label="3D-Ansicht des Baus, mit Maus oder Finger drehbar"></canvas>
+      <div class="loading" id="detailLoading">3D wird geladen …</div>
+      <span class="play-hint"><span class="hint-mouse">Ziehen zum Drehen · Scrollen zum Zoomen</span><span class="hint-touch">Wischen zum Drehen · Zwei Finger zum Zoomen</span></span>
+      <div class="controls">
+        <div role="group" aria-label="Kamera" id="detailCams">
+          <button type="button" data-cam="auge" aria-pressed="true" title="Augenhöhe vor dem Eingang">Augenhöhe</button>
+          <button type="button" data-cam="schraeg" aria-pressed="false" title="Tiefe Schrägansicht">Schräg</button>
+          <button type="button" data-cam="oben" aria-pressed="false" title="Draufsicht">Oben</button>
+        </div>
+        <div role="group" aria-label="Ansicht">
+          <button type="button" id="detailRoof" aria-pressed="false">Dach ab</button>
+          <button type="button" id="detailNight" aria-pressed="false" title="Tag → Abend → Nacht">Abend</button>
+          <button type="button" id="detailBuild">Neu aufbauen</button>
+        </div>
+      </div>
+    </div>
+    <aside class="side" id="detailSide"></aside>
+  </div>
+</section>
+
+<!-- ============================================================ KI-Architekt -->
+<section data-page="ki" class="page" hidden>
+  <div class="page-head ki-head">
+    <span class="status">Beta</span>
+    <h1>Beschreib sie. <em>Die KI plant sie.</em></h1>
+    <p>Ein Satz genügt: Gebäudeart, Größe, Stil, Dach, Lage. Der KI-Architekt macht daraus einen Bauplan, und der Generator baut ihn im Editor – eingerichtet, beleuchtet und direkt exportierbar.</p>
+  </div>
+  <div class="ki">
+    <div class="ki-main">
+      <form class="composer" id="kiForm" novalidate>
+        <label for="kiPrompt">Deine Beschreibung</label>
+        <textarea id="kiPrompt" name="prompt" rows="4" maxlength="500" autocomplete="off" spellcheck="true" placeholder="z. B. Kleines Erdhaus im Hügel, rustikal, Eingang nach Osten, ohne Garten" aria-describedby="kiKeys kiCount kiError"></textarea>
+        <div class="composer-foot">
+          <span class="keys" id="kiKeys">Enter sendet · Umschalt+Enter: neue Zeile</span>
+          <span class="count" id="kiCount">0 / 500</span>
+          <button class="btn primary" type="button" id="kiSubmit" data-submit>Plan erstellen</button>
+        </div>
+        <p class="field-error" id="kiError" hidden></p>
+      </form>
+      <div class="ki-examples">
+        <span class="eyebrow">Beispiele zum Ausprobieren</span>
+        <div class="examples" role="group" aria-label="Beispiele zum Ausprobieren">
+          <button type="button" class="example">Große mittelalterliche Taverne mit Flachdach</button>
+          <button type="button" class="example">Ein kleines Erdhaus im Hügel, rustikal, Eingang nach Osten, ohne Garten</button>
+          <button type="button" class="example">Nordisches Wikinger-Langhaus mit steilem Dach</button>
+          <button type="button" class="example">Bauernhof mit Scheune, viel Deko</button>
+          <button type="button" class="example">Stadthaus im Bauernhof-Stil</button>
+          <button type="button" class="example">Ein Wachturm aus nordischem Holz, seed 42</button>
+        </div>
+      </div>
+    </div>
+    <div class="ki-result" id="kiResult" tabindex="-1" aria-label="Dein Plan"></div>
+    <p class="sr" id="kiStatus" role="status" aria-live="polite"></p>
+  </div>
+  <div class="section ki-how">
+    <ol class="ki-steps">
+      <li><span class="n">1</span><div><b>Du beschreibst</b><p>In deinen Worten, auf Deutsch oder Englisch: welche Gebäudeart, wie groß, welcher Stil, welches Dach, wo es steht.</p></div></li>
+      <li><span class="n">2</span><div><b>Die KI plant</b><p>Das Entscheidungsmodell JEV wählt die passenden Werte aus dem Katalog des Generators und zeigt dir, wie sicher es sich bei jeder Angabe ist.</p></div></li>
+      <li><span class="n">3</span><div><b>Der Generator baut</b><p>Im Editor, auf deinem Gerät: Möbel an sinnvollen Plätzen, beleuchtet, exportierbar. Du kannst alles weiter anpassen.</p></div></li>
+    </ol>
+    <p class="ki-privacy">Deine Beschreibung geht an unseren Server und, falls dort eingerichtet, zur Auswertung an den Anbieter des Entscheidungsmodells. Bitte gib keine persönlichen Daten ein. Mehr dazu im <a href="#datenschutz">Datenschutz</a>.</p>
+  </div>
+</section>
+
+<!-- ============================================================ Roadmap -->
+<section data-page="roadmap" class="page" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Roadmap</span>
+    <h1>Woran wir <em>bauen.</em></h1>
+    <p>Was schon geht, was als Nächstes kommt und was wir uns für später vorgenommen haben. Reihenfolge und Umfang können sich ändern.</p>
+  </div>
+  <div class="section" style="padding-top:36px">
+    <div class="lanes">
+      <div class="lane now">
+        <h2>Jetzt <span class="chip">verfügbar</span></h2>
+        <ul>
+          <li><b>Editor im Browser</b><span>Räume malen, Etagen, Treppen, Dächer, Fassaden – ohne Installation.</span></li>
+          <li><b>Automatische Einrichtung</b><span>Funktionale Möbel je Raumtyp, erreichbar und beleuchtet.</span></li>
+          <li><b>Bautypen und Themes</b><span>Von der Hütte bis zur Burg, in mehreren Stilen, neu würfelbar.</span></li>
+          <li><b>Umgebung</b><span>Gelände, Felder, Gärten, Mauerring und Türme.</span></li>
+          <li><b>Export</b><span>.litematic, .schem und .nbt für Java 1.21.11 und 26.3.</span></li>
+          <li><b>KI-Architekt (Beta)</b><span>Aus einem Satz wird ein Bauplan: Gebäudeart, Größe, Stil, Dach und Lage, mit Sicherheit je Angabe.</span></li>
+        </ul>
+      </div>
+      <div class="lane next">
+        <h2>Als Nächstes <span class="chip">vorbereitet</span></h2>
+        <ul>
+          <li><b>Open-Source-Veröffentlichung</b><span>Lizenz, Beitragsregeln und nachvollziehbare Vorlagen vorbereiten. Der erste eigene Bau soll frei zugänglich bleiben.</span></li>
+          <li><b>Konten und Cloud-Projekte</b><span>Eigene Projekte speichern und später auf einem anderen Gerät weiterbearbeiten.</span></li>
+          <li><b>Vorlagen und Remixes</b><span>Vollständige Projekte teilen, persönlich verändern und den Ursprung sichtbar machen.</span></li>
+          <li><b>Import-Tutorials und Bauanleitungen</b><span>Den Weg vom Download zum eigenen Nachbau Schritt für Schritt erklären.</span></li>
+        </ul>
+      </div>
+      <div class="lane">
+        <h2>Später <span class="chip">geplant</span></h2>
+        <ul>
+          <li><b>Mehr Bautypen und Themes</b><span>Neue Stile und Gebäude aus Wünschen der Community.</span></li>
+          <li><b>Siedlungen</b><span>Mehrere Gebäude, Wege und Plätze als ein Dorf.</span></li>
+          <li><b>Creator- und Team-Angebote</b><span>Gemeinsame Projekte, private Varianten, KI-Kontingente und betreuter Betrieb für regelmäßige Nutzer.</span></li>
+          <li><b>KI-Architekt mit Rückfragen</b><span>Unklare Wünsche gemeinsam klären und einzelne Räume gezielt bearbeiten.</span></li>
+          <li><b>Server-Werkzeuge und Integrationen</b><span>Für Teams, die Spawn-Städte und Events bauen, und Produkte, die unsere Engine einbinden möchten.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Über uns -->
+<section data-page="ueber-uns" class="page" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Über uns</span>
+    <h1>Mehr Zeit zum <em>Spielen.</em></h1>
+    <p>Wir lieben es, in Minecraft zu bauen. Wir lieben es weniger, zum hundertsten Mal Truhen zu sortieren und Fackeln zu setzen. Deshalb bauen wir ein Werkzeug, das den mühsamen Teil übernimmt, damit der schöne Teil mehr Platz bekommt.</p>
+  </div>
+  <div class="section" style="padding-top:44px">
+    <div class="values" style="padding:0">
+      <div><h3>Spieltauglich zuerst</h3><p>Ein Bett, das man nicht erreicht, ist Deko. Der Generator prüft, dass Möbel benutzbar, Räume erreichbar und Ecken beleuchtet sind.</p></div>
+      <div><h3>Dein Bau, deine Datei</h3><p>Der Editor läuft in deinem Browser. Deine Projekte bleiben bei dir, und jeder Bau ist eine offene Datei, die du in jede Welt mitnehmen kannst.</p></div>
+      <div><h3>Reproduzierbar</h3><p>Jeder Bau hat einen Seed. Gleicher Seed, gleicher Bau – ideal zum Teilen, Vergleichen und gemeinsamen Weiterbauen.</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="prose" style="padding:0;margin:0">
+      <h2>Unabhängig</h2>
+      <p>Nookwright ist ein Produkt der Quershift Technologies GmbH aus Frankfurt am Main und kein offizielles Minecraft-Produkt. Wir verwenden keine Texturen, Logos oder anderen Inhalte von Mojang. Die Bilder auf dieser Seite zeigen echte Ausgabe unseres Generators mit eigenen Pixeltexturen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Presse -->
+<section data-page="presse" class="page" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Presse</span>
+    <h1>Material für <em>Presse und Videos.</em></h1>
+    <p>Logo, Farben und Kurzbeschreibung für deinen Bericht. Bilder, Interviews und Testzugänge bekommst du auf Anfrage.</p>
+  </div>
+  <div class="section" style="padding-top:36px">
+    <div class="press-grid">
+      <div>
+        <div class="logo-tile"><svg viewBox="0 0 120 120" aria-hidden="true">
+      <polygon points="60,10 106,36 60,62 14,36" fill="#ffd27a"/>
+      <polygon points="14,36 60,62 60,112 14,86" fill="#ff9a3c"/>
+      <polygon points="106,36 60,62 60,112 106,86" fill="#c9562c"/>
+      <polygon points="72,80 88,71 88,94 72,103" fill="#2a1a12"/>
+      <polygon points="26,58 40,66 40,78 26,70" fill="#fff3d6"/>
+    </svg></div>
+        <h3>Logo</h3>
+        <p class="dl-note">Das Würfel-Haus. Bitte nicht verzerren, einfärben oder mit Mojang-Logos kombinieren.</p>
+      </div>
+      <div>
+        <h3>Farben</h3>
+        <div class="swatches">
+          <span><i style="background:#0d1020"></i>#0D1020</span>
+          <span><i style="background:#2b3a78"></i>#2B3A78</span>
+          <span><i style="background:#ffb547"></i>#FFB547</span>
+          <span><i style="background:#ff8a3c"></i>#FF8A3C</span>
+          <span><i style="background:#fff6e8"></i>#FFF6E8</span>
+        </div>
+        <h3>Schriften</h3>
+        <p class="dl-note">Unbounded (Überschriften), Inter (Text), JetBrains Mono (Details) – alle unter SIL Open Font License.</p>
+      </div>
+      <div>
+        <h3>Kurzbeschreibung</h3>
+        <p class="copybox">Nookwright ist ein Generator für eingerichtete Minecraft-Basen. Man malt Räume oder wählt einen Bautyp, und das Werkzeug baut daraus eine fertige, spieltaugliche Base mit Möbeln, Dach, Gelände und Beleuchtung. Die Base lässt sich als .litematic, .schem oder .nbt exportieren und direkt in die eigene Welt legen. Nookwright läuft im Browser, ist ein Produkt der Quershift Technologies GmbH (Frankfurt am Main) und kein offizielles Minecraft-Produkt.</p>
+      </div>
+      <div>
+        <h3>Bilder und Videos</h3>
+        <p class="dl-note">Bilder aus dem Generator, einen kurzen Produktfilm und Beiträge für soziale Netzwerke schicken wir dir auf Anfrage: <a href="mailto:hello@quershift.com">hello@quershift.com</a>, Betreff „Presse“.</p>
+        <p class="dl-note">Pflichthinweis bei Veröffentlichung: „NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.“</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Kontakt -->
+<section data-page="kontakt" class="page" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Kontakt</span>
+    <h1>Schreib <em>uns.</em></h1>
+    <p>Fragen, Ideen für Bautypen, Fehler im Generator oder Interesse an einer Zusammenarbeit: Wir lesen alles. Nookwright ist ein Produkt der Quershift Technologies GmbH aus Frankfurt am Main.</p>
+  </div>
+  <div class="section" style="padding-top:36px">
+    <div class="contact-grid" style="padding:0">
+      <div><h3>Allgemein</h3><p>Fragen zum Produkt und Feedback.</p><p><a href="mailto:hello@quershift.com">hello@quershift.com</a></p></div>
+      <div><h3>Presse und Videos</h3><p>Interviews, Testzugänge, Material. Bitte „Presse“ in den Betreff.</p><p><a href="mailto:hello@quershift.com">hello@quershift.com</a></p></div>
+      <div><h3>Community</h3><p>Zeig uns deine Bauten, teile Ideen oder melde einen Fehler.</p><p><a href="https://github.com/quershifttechnologiesgmbh/nookwright/issues" rel="noopener">Nookwright auf GitHub</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Konto -->
+<section data-page="konto" class="page" hidden>
+  <div class="page-head"><span class="eyebrow">Kostenlos dabei sein</span><h1>Dein Nookwright-Konto.</h1><p>Ein Konto ist optional. Bauen, speichern und exportieren kannst du sofort im Editor.</p></div>
+  <div class="section" style="padding-top:28px">
+    <div class="account-card">
+      <p id="accountStatus" role="status" aria-live="polite">Anmeldung wird geladen …</p>
+      <button id="accountSignIn" class="btn primary" type="button" hidden>Anmelden / Konto erstellen</button>
+      <button id="accountRetry" class="btn ghost" type="button" hidden>Erneut versuchen</button>
+      <div id="accountSignedIn" hidden>
+        <div class="account-identity"><div id="accountUserButton"></div><h2 id="accountName">Dein Konto</h2></div>
+        <div class="actions"><button id="accountProfile" class="btn ghost" type="button">Konto verwalten</button><button id="accountSignOut" class="btn ghost" type="button">Abmelden</button></div>
+      </div>
+      <p>Deine Bauten bleiben auf deinem Gerät. Das Konto synchronisiert derzeit keine Projekte.</p>
+      <a class="btn primary" href="#editor">Im Editor bauen</a>
+      <p class="fineprint">Für die Anmeldung verwenden wir Clerk. Details im <a href="#datenschutz">Datenschutz</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Impressum -->
+<section data-page="impressum" class="page" hidden>
+  <div class="page-head"><span class="eyebrow">Rechtliches</span><h1>Impressum</h1></div>
+  <div class="section" style="padding-top:28px">
+    <div class="prose">
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <address>Quershift Technologies GmbH<br>Wolfsgangstraße 92<br>60322 Frankfurt am Main<br>Deutschland</address>
+      <p>Nookwright ist ein Produkt der Quershift Technologies GmbH.</p>
+      <h3>Vertreten durch</h3>
+      <p>Maximilian Friedrich Dickel, Justus Felix Dickel, Elias Jelinek</p>
+      <h3>Kontakt</h3>
+      <p>E-Mail: <a href="mailto:hello@quershift.com">hello@quershift.com</a></p>
+      <h3>Registereintrag</h3>
+      <p>Amtsgericht Frankfurt am Main, HRB 141849</p>
+      <h3>Umsatzsteuer-ID</h3>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE460152662</p>
+      <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+      <p>Maximilian Friedrich Dickel, Justus Felix Dickel, Elias Jelinek, Frankfurt am Main (Anschrift wie oben)</p>
+      <h3>Streitschlichtung</h3>
+      <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      <h3>Haftung für Inhalte und Links</h3>
+      <p>Wir haften für eigene Inhalte nach den allgemeinen Gesetzen. Wir sind nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Für externe Links sind ihre Betreiber verantwortlich; bei Kenntnis von Rechtsverstößen entfernen wir sie.</p>
+      <h3>Urheberrecht</h3>
+      <p>Für den veröffentlichten Quellcode gilt die GNU AGPL 3.0. Die eigenen Galerie-Bauten stehen unter CC BY 4.0. Details zu Software, Bildern, Schriften und Bibliotheken findest du im <a href="LICENSE_SCOPE.md">Lizenzumfang</a> und den <a href="THIRD_PARTY_NOTICES.md">Drittanbieter-Hinweisen</a>.</p>
+      <h2>Hinweis zu Minecraft</h2>
+      <p>NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT. „Minecraft“ ist eine Marke von Mojang AB.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Datenschutz -->
+<section data-page="datenschutz" class="page" hidden>
+  <div class="page-head"><span class="eyebrow">Rechtliches</span><h1>Datenschutz</h1></div>
+  <div class="section" style="padding-top:28px">
+    <div class="prose">
+      <p class="legal-note">Stand: 30. September 2026. Konten sind optional; Projekte werden auf deinem Gerät gespeichert.</p>
+      <h2>Verantwortliche Stelle</h2>
+      <address>Quershift Technologies GmbH<br>Wolfsgangstraße 92<br>60322 Frankfurt am Main<br>Deutschland<br>E-Mail: <a href="mailto:hello@quershift.com">hello@quershift.com</a></address>
+      <h2>Der Editor läuft in deinem Browser</h2>
+      <p>Der Editor berechnet Bauten vollständig auf deinem Gerät. Projekte speichern wir nicht auf unseren Servern: Sie liegen im Speicher deines Browsers (localStorage) oder in Dateien, die du selbst herunterlädst. Wenn du dein eigenes Minecraft-JAR für die Texturvorschau lädst, wird es nur lokal gelesen und nicht hochgeladen; auf Wunsch wird ein Cache im Browser (IndexedDB) angelegt, den du jederzeit löschen kannst. Die einzige Ausnahme sind Beschreibungen, die du abschickst (nächster Abschnitt).</p>
+      <h2>KI-Architekt und „Beschreibe dein Gebäude“</h2>
+      <p>Wenn du im KI-Architekten, im Beschreibungsfeld der Startseite oder im Editor unter „Beschreibe dein Gebäude“ eine Beschreibung abschickst, geht dieser Text an unseren Server. Ist dort ein Entscheidungsmodell eingerichtet, leitet der Server den Text zur Auswertung an dessen Anbieter weiter: das Entscheidungsmodell JEV von TypeSafe, je nach Einstellung direkt oder über OpenRouter. Übertragen wird nur der Text, nicht deine IP-Adresse. Ist kein Modell eingerichtet oder gerade nicht erreichbar, wertet unser Server den Text selbst aus, und er verlässt den Server nicht. Liegt die Website ohne unseren Server auf einem reinen Datei-Hosting, erkennt der Editor die Beschreibung in deinem Browser, und es wird nichts übertragen.</p>
+      <p>Beschreibungen protokollieren wir standardmäßig nicht; das Zugriffsprotokoll des Servers enthält weder den Text noch Schlüssel. Bitte gib in Beschreibungen keine personenbezogenen Daten ein. Rechtsgrundlage, Anbieter und Speicherdauer beim Modellanbieter: <span class="todo">[vor Livegang rechtlich prüfen: Art. 6 Abs. 1 lit. b bzw. f DSGVO, Sitz von TypeSafe und OpenRouter, Auftragsverarbeitungsvertrag, Übermittlung in Drittländer, Speicherdauer]</span></p>
+      <h2>Hosting und Server-Logs</h2>
+      <p>Beim Aufruf der Website verarbeitet der Hosting-Anbieter technisch notwendige Daten wie IP-Adresse, Zeitpunkt und abgerufene Datei (Art. 6 Abs. 1 lit. f DSGVO). Unser Server kann je nach Betriebskonfiguration Zeitpunkt, Pfad, Status, Dauer und IP-Adresse protokollieren; die IP-Adresse dient auch der Begrenzung der Anfragen je Nutzer. Das Hosting für den öffentlichen Betrieb ist noch nicht eingerichtet. <span class="todo">[Vor dem Website-Livegang ergänzen: tatsächlicher Hosting-Anbieter, Vertragsgrundlage, gegebenenfalls Drittlandübermittlung und Speicherdauer der Logs.]</span></p>
+      <h2>Optionales Konto mit Clerk</h2>
+      <p>Wenn du die Kontoseite öffnest, lädt dein Browser die Anmeldeoberfläche von Clerk und verbindet sich mit der für Nookwright eingerichteten Clerk-Instanz. Dabei fallen technische Verbindungsdaten wie IP-Adresse und Browserinformationen an. Bei einer Registrierung verarbeitet Clerk deine eingegebenen Kontodaten, zum Beispiel E-Mail-Adresse und Anmeldeinformationen, sowie Sitzungsdaten zur Anmeldung und Verwaltung deines Kontos. Projekte und Minecraft-Dateien werden dabei nicht zu Clerk übertragen.</p>
+      <p>Clerk verwendet technisch notwendige Cookies für die Anmeldung und Sitzungen. Daten deines Kontos werden bis zur Löschung des Kontos verarbeitet; Sicherheits- und gesetzlich erforderliche Aufbewahrungen richten sich nach den Bedingungen des Dienstes. Du kannst dein Konto über „Konto verwalten“ löschen. Informationen zum Anbieter: <a href="https://clerk.com/legal/privacy" rel="noopener">Clerk-Datenschutzerklärung</a> und <a href="https://clerk.com/docs/guides/how-clerk-works/cookies" rel="noopener">Clerk-Cookies</a>. Die Nutzung eines Kontos ist freiwillig; der Editor funktioniert ohne Anmeldung.</p>
+      <h2>Kontakt und Newsletter</h2>
+      <p>Wenn du uns per E-Mail kontaktierst, verarbeiten wir die von dir gesendeten Angaben zur Bearbeitung deiner Anfrage. Eine Warteliste oder ein Newsletter ist nicht angebunden.</p>
+      <h2>Schriften und Bibliotheken</h2>
+      <p>Schriften (Unbounded, Inter, JetBrains Mono) und die 3D-Bibliothek three.js liefern wir selbst aus. Die Website stellt dafür keine Anfragen an Google Fonts oder andere Drittanbieter.</p>
+      <h2>Cookies und Tracking</h2>
+      <p>Wir setzen keine eigenen Marketing- oder Analyse-Werkzeuge ein. Beim Öffnen der Kontoseite werden die für Clerk notwendigen Anmelde- und Sitzungscookies verwendet. Die optionale Clerk-SDK-Telemetrie ist in unserer Integration deaktiviert. Der Editor speichert Projekte lokal im Browser, wie oben beschrieben.</p>
+      <h2>Deine Rechte</h2>
+      <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ Nutzungsbedingungen -->
+<section data-page="nutzungsbedingungen" class="page" hidden>
+  <div class="page-head"><span class="eyebrow">Rechtliches</span><h1>Nutzungs&shy;bedingungen</h1></div>
+  <div class="section" style="padding-top:28px">
+    <div class="prose">
+      <p class="legal-note">Kostenlose Open-Source-Beta. Kein Abo und keine Bezahlung erforderlich.</p>
+      <h2>Anbieter</h2>
+      <p>Nookwright wird angeboten von der Quershift Technologies GmbH, Wolfsgangstraße 92, 60322 Frankfurt am Main (siehe <a href="#impressum">Impressum</a>).</p>
+      <h2>Beta</h2>
+      <p>Nookwright befindet sich in der Entwicklung. Funktionen können sich ändern, und Fehler sind möglich. Prüfe Bauten vor dem Einfügen in wichtige Welten und lege Sicherungen an.</p>
+      <h2>Deine Bauten</h2>
+      <p>Du darfst deine erzeugten Bauten in privaten und kommerziellen Welten und auf Servern verwenden, verändern, teilen und veröffentlichen. Dafür verlangen wir keine Zahlung und keine Veröffentlichung deines Projekts unter der Softwarelizenz. Rechte an fremden Vorlagen, Marken oder Spielassets werden dadurch nicht eingeräumt.</p>
+      <h2>Galerie</h2>
+      <p>Unsere eigenen Galerie-Bauten und ihre Vorschaubilder stehen unter <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>. Du darfst sie kostenlos verwenden, verändern und weitergeben, auch kommerziell. Nenne dabei Nookwright / Quershift Technologies GmbH, verlinke die Lizenz und kennzeichne Änderungen. Marken und Minecraft-Spielassets sind hiervon ausgenommen.</p>
+      <h2>Quellcode und Konto</h2>
+      <p>Den Quellcode findest du auf <a href="https://github.com/quershifttechnologiesgmbh/nookwright" rel="noopener">GitHub</a> unter GNU AGPL 3.0. Fremde Bestandteile behalten ihre eigenen Lizenzen. Ein kostenloses Konto über Clerk ist optional und synchronisiert derzeit keine Projekte; es gibt keine kostenpflichtigen Kontofunktionen.</p>
+      <h2>Kein offizielles Minecraft-Produkt</h2>
+      <p>NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT. Für die Nutzung von Minecraft gelten die Bedingungen von Mojang.</p>
+      <h2>Haftung</h2>
+      <p>Für die Nutzung gelten die gesetzlichen Haftungsregeln. Das Angebot befindet sich in der Beta; sichere deine Welt vor dem Import und prüfe die erzeugten Dateien.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-cols">
+    <div>
+      <a class="logo" href="#start"><svg viewBox="0 0 120 120" aria-hidden="true">
+      <polygon points="60,10 106,36 60,62 14,36" fill="#ffd27a"/>
+      <polygon points="14,36 60,62 60,112 14,86" fill="#ff9a3c"/>
+      <polygon points="106,36 60,62 60,112 106,86" fill="#c9562c"/>
+      <polygon points="72,80 88,71 88,94 72,103" fill="#2a1a12"/>
+      <polygon points="26,58 40,66 40,78 26,70" fill="#fff3d6"/>
+    </svg>Nookwright</a>
+      <p style="margin-top:12px">Du planst. Es baut. Du ziehst ein. Eingerichtete Minecraft-Basen, direkt aus dem Browser. Ein Produkt der Quershift Technologies GmbH.</p>
+    </div>
+    <div><h4>Produkt</h4><ul><li><a href="#editor">Editor</a></li><li><a href="#galerie">Galerie</a></li><li><a href="#ki">KI-Architekt</a></li><li><a href="#konto">Konto</a></li><li><a href="#roadmap">Roadmap</a></li><li><a href="https://github.com/quershifttechnologiesgmbh/nookwright" rel="noopener">Quellcode auf GitHub</a></li></ul></div>
+    <div><h4>Unternehmen</h4><ul><li><a href="#ueber-uns">Über uns</a></li><li><a href="#presse">Presse</a></li><li><a href="#kontakt">Kontakt</a></li></ul></div>
+    <div><h4>Rechtliches</h4><ul><li><a href="#impressum">Impressum</a></li><li><a href="#datenschutz">Datenschutz</a></li><li><a href="#nutzungsbedingungen">Nutzungsbedingungen</a></li></ul></div>
+  </div>
+  <div class="row"><span>© 2026 Quershift Technologies GmbH · Nookwright ist ein Produkt von Quershift</span><span>Gebaut mit eigenen Pixeltexturen, ohne Mojang-Assets.</span></div>
+  <p class="disclaimer">NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
+</footer>
+
+<!-- three.js: der Build liefert es selbst aus (scripts/build.mjs biegt die Import-Map auf vendor/three/ um).
+     Die Quellseite (nur Entwicklung, scripts/thumbs.mjs) lädt es aus node_modules der Repo-Wurzel. -->
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js", "three/addons/": "/node_modules/three/examples/jsm/" } }</script>
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

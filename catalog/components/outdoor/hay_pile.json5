@@ -1,0 +1,39 @@
+// research/56 · Heuhaufen im Feld (DA Nature/Farm: gestapelte Heuballen im Freien, lose statt ordentlich gestapelt
+// wie `storage/hay_stack`): eine liegende Reihe, ein „wilder“ Haufen mit Grasbüschel obendrauf, ein hoher Haufen
+// für Scheunenhöfe. Heuballen brauchen keine Stütze. Q1a: das Grasbüschel in `wild` braucht Erde unter sich –
+// dafür ein Block `garden_soil` in der untersten Lage.
+{
+  id: "outdoor/hay_pile",
+  kind: "static",
+  name: "Heuhaufen",
+  category: "storage",
+  tags: ["hay_pile", "outdoor", "field", "paddock", "farm"],
+  styleTags: ["rustic", "farm", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "row",
+      weight: 3,
+      layers: [["HH"]],
+      legend: { H: { block: "minecraft:hay_block", orient: { axis: "along" } } },
+    },
+    {
+      id: "wild",
+      weight: 3,
+      layers: [["HD", "H."], [".g", ".."]],
+      legend: {
+        H: { block: "minecraft:hay_block", orient: { axis: "along" } },
+        D: { role: "garden_soil", shape: "block" },
+        g: { role: "grass_tuft", shape: "block" },
+      },
+    },
+    {
+      id: "heap",
+      weight: 2,
+      layers: [["HH", "HH"], ["H.", ".."]],
+      legend: { H: { block: "minecraft:hay_block", orient: { axis: "across" } } },
+    },
+  ],
+}

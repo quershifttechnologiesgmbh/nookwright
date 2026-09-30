@@ -1,0 +1,17 @@
+// Arbeitsplatte: umgedrehte Treppe mit Rücken zur Wand; oben Platz für Kleinkram.
+// Variante „barrel“: Fass mit Deckel nach vorn als Unterschrank (research/10 §3.3, K7/K11 – öffnet immer).
+{ id: "table/counter", kind: "static", name: "Arbeitsplatte", category: "furniture",
+  tags: ["counter", "work_surface"], obtainability: "survival",
+  mount: "floor", rotations: "backToWall",
+  layers: [["U"]], legend: { U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+  variants: [
+    { id: "stairs", weight: 3 },
+    { id: "barrel", weight: 2, layers: [["B"]], legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } } },
+  ],
+  // K2: auch Schneidebrett (`kitchen_utensil`) und Essen auf der Arbeitsplatte
+  // V3: Kräuter über der Arbeitsplatte (`hang`, darf über dem Möbel tiefer hängen)
+  sockets: [
+    { id: "top", type: "surface", at: [0, 1, 0], accepts: ["tabletop_small", "kitchen_utensil", "food"], prob: 0.6 },
+    { id: "herbs", type: "hang", at: [0, 99, 0], accepts: ["hang_small"], prob: 0.25 },
+  ],
+  masks: { use: [{ side: "front" }] } }

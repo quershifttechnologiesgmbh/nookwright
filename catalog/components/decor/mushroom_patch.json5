@@ -1,0 +1,34 @@
+// K2 · Pilzbeet (DA Nature: Mushrooms): Podsol bzw. Myzel mit Pilzen – dort überleben Pilze bei jedem Licht
+// (auf anderem Boden brauchen sie Licht ≤ 12). Für Lager/Keller und Alchemie.
+{
+  id: "decor/mushroom_patch",
+  kind: "static",
+  name: "Pilzbeet",
+  category: "decor",
+  tags: ["mushrooms", "plant_cellar"],
+  styleTags: ["rustic", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "podzol",
+      weight: 2,
+      layers: [["PP"], ["rb"]],
+      legend: {
+        P: { block: "minecraft:podzol" },
+        r: { block: "minecraft:red_mushroom" },
+        b: { block: "minecraft:brown_mushroom" },
+      },
+    },
+    {
+      id: "mycelium",
+      weight: 1,
+      layers: [["YY"], ["bb"]],
+      legend: {
+        Y: { block: "minecraft:mycelium" },
+        b: { block: "minecraft:brown_mushroom" },
+      },
+    },
+  ],
+}

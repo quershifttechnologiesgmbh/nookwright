@@ -1,0 +1,31 @@
+// Redstone-Werkstatt / Technikraum (R1, plan/spikes/R1_funktional.md): funktionierende Automatik statt Deko.
+// Pflicht: ein Auto-Schmelzofen (Tag `auto_smelter`; Kompaktform passt auch bei lichter Höhe 2). Dazu
+// Lagersortierer, Braustation, Kompost-Automat, Werkbank, Lager, Werkzeug-Rahmen, Licht.
+// Kolbentüren sind Katalog-Stationen zum Hineinziehen (freistehend), nicht im Programm.
+{
+  id: "workshop_redstone",
+  name: "Redstone-Werkstatt",
+  minArea: 30,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["auto_smelter"], count: [1, 1], placement: { zones: ["edge", "corner"] } },
+  ],
+  optional: [
+    // Q1b (research/57 §4.3): in großen Werkstätten eine zweite Schmelzstation – nutzt `smelter_row` und
+    // `functional/blast_furnace_array` (beide `auto_smelter`), die sonst nur als Ersatz für die Pflichtstation dienen.
+    { tags: ["auto_smelter"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["item_sorter", "hopper_line"], count: [0, 1], weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["auto_brewer"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["auto_composter"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crafting"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest", "barrel"], count: [1, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_tools", "schematic_board", "tool_wall_corner"], count: [0, 2], weight: 2 },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+  ],
+  // Arbeitslicht ≥ 9, Wandlichter vor Decke (Werkbänke stehen an den Wänden)
+  lighting: { minLevel: 9, prefer: ["light_wall", "light_ceiling", "light_floor"] },
+}

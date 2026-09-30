@@ -1,0 +1,36 @@
+// research/53 T4 · Glockentürmchen auf dem First: vier Pfosten mit offener Mitte, Glocke zwischen zwei Pfosten
+// (attachment double_wall), kleines Zeltdach. Nur am First des Haupthauses oder der Kapelle.
+// Q1a: die Glocke hängt zwischen zwei vollen Holzbalken (ein Zaun gibt keine volle Wandfläche), ihre Ausrichtung
+// kommt über `orient.front` (dreht mit der Komponente), die Befestigungsart über den State.
+{
+  id: "exterior/bell_turret",
+  kind: "static",
+  name: "Glockentürmchen",
+  category: "architecture",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "roof_peak",
+  rotations: "all",
+  layers: [["F.F"], ["F.F"], ["QBQ"], ["RRR"]],
+  legend: {
+    F: { role: "beam", shape: "fence" },
+    Q: { role: "beam", shape: "block" },
+    B: { block: "minecraft:bell", orient: { front: "left" }, state: { attachment: "double_wall" } },
+    R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+  // EXT: „ridge“ = Dach aus Halbstufen (rundum gleich; Treppen mit Rücken nach hinten wären auf dem First einseitig)
+  variants: [
+    {
+      id: "ridge",
+      weight: 1,
+      layers: [["Q.Q"], ["F.F"], ["QBQ"], ["RRR"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        Q: { role: "beam", shape: "block" },
+        B: { block: "minecraft:bell", orient: { front: "left" }, state: { attachment: "double_wall" } },
+        R: { role: "roof_main", shape: "slab" },
+      },
+    },
+  ],
+}

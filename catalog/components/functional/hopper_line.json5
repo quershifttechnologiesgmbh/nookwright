@@ -1,0 +1,46 @@
+// research/57 · Redstone-Werkstatt: Trichterkette, einfachere Bauform neben functional/item_sorter (das
+// aufwendige 2-Filter-Redstoneteil). Tag `item_sorter` steht in workshop_redstone.json5 im optionalen Eintrag
+// `{ tags: ["item_sorter"] }`. Reine Sammelkette ohne Redstone: Einwurf-Trichter → Trichterkette → Sammelfass,
+// zeigt „Automatisierung“ auch ohne Komparator-Logik. Richtungen relativ: left = +x, right = −x (wie
+// functional/auto_composter).
+{
+  id: "functional/hopper_line",
+  kind: "static",
+  name: "Trichterkette",
+  category: "storage",
+  tags: ["storage_automation", "hopper_line"],
+  functionTags: ["store", "sort", "automation"],
+  styleTags: ["workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "three_hop",
+      weight: 3,
+      layers: [
+        ["THHB"], // y0: Einwurf-Trichter (offen oben) | Trichter | Trichter | Sammelfass
+      ],
+      legend: {
+        T: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "vertical_drop",
+      weight: 2,
+      layers: [
+        ["B"], // y0: Sammelfass (unten)
+        ["H"], // y1: Trichter (↓ ins Fass)
+        ["T"], // y2: Einwurf-Trichter (oben, offen)
+      ],
+      legend: {
+        T: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

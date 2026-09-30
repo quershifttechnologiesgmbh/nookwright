@@ -1,0 +1,50 @@
+// Bett mit Kopfhimmel („Halbhimmel“): die kompakte Form der Himmelbett-Familie für niedrige (lichte Höhe 2)
+// und kleine Räume – Grundfläche wie ein Einzelbett. Über dem Kopfteil eine obere Stufe bzw. ein Wandbehang,
+// über dem Fußteil Luft. Eine obere Stufe erstickt nicht (Faktencheck #8: nur volle Blöcke stören).
+// Der Wandbehang haftet an der Wand hinter dem Kopfteil (backToWall garantiert dort feste Wand, kein Fenster).
+{
+  id: "bed/canopy_head",
+  kind: "static",
+  name: "Bett mit Kopfhimmel",
+  category: "furniture",
+  tags: ["bed", "canopy_bed"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "slab",
+      weight: 2,
+      layers: [["H", "F"], ["T", "_"]],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "banner",
+      weight: 1,
+      layers: [["H", "F"], ["V", "_"]],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+  sockets: [
+    { id: "nightstand_l", type: "adjacent", at: [1, 0, 0], side: "left", accepts: ["nightstand"], prob: 0.7, pairWith: "nightstand_r", facing: "same" },
+    { id: "nightstand_r", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["nightstand"], prob: 0.7, facing: "same" },
+    // W7-F (I7): Laterne neben dem Kopfende oder über dem Fußteil (dort ist Luft, wie bed/single)
+    { id: "lamp_l", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "lamp_r", type: "hang", at: [-1, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "lamp_foot", type: "hang", at: [0, 99, 1], accepts: ["light_pendant"], prob: 0.8 },
+  ],
+  masks: {
+    clearance: [{ side: "left", depth: 1, hard: false }, { side: "right", depth: 1, hard: false }],
+    use: [{ side: "left" }, { side: "right" }],
+  },
+}

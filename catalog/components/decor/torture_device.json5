@@ -1,0 +1,42 @@
+// research/57 · Kerker: Folterständer (Nebenobjekt zur Signatur-Zelle). Ergänzt `decor/shackles` um weitere,
+// größere Wandformen mit Eisenketten und Trophäen-Rahmen. Tag `shackles` steht in dungeon.json5 bereits im
+// optionalen Eintrag `{ tags: ["shackles"] }` – diese Komponente erweitert den Pool direkt, ohne den Raumtyp
+// zu ändern. Flach an der Wand (kein Tiefenversatz, wie decor/shackles), über Kopfhöhe (Boden + 2).
+// Nachprüfung research/57: Rolle `metal` kennt in 1.21.11 keine Form `fence` (nur `block, bars, chain, door,
+// trapdoor, lantern, pressure_plate`, siehe `families-1.21.11.json`) – auf `bars` (Eisenstab) korrigiert.
+{
+  id: "decor/torture_device",
+  kind: "static",
+  name: "Folterständer",
+  category: "attachment",
+  tags: ["shackles", "grim_decor", "wall_decor"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [2],
+  variants: [
+    {
+      id: "rack",
+      weight: 2,
+      layers: [["F.F"], ["FCF"]],
+      legend: {
+        F: { role: "metal", shape: "bars" },
+        C: { role: "metal", shape: "chain", orient: { axis: "x" } },
+      },
+    },
+    {
+      id: "double_chain",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["C.C"], ["C.C"], ["C.C"]],
+      legend: { C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+    },
+    {
+      id: "skull_frame",
+      weight: 1,
+      layers: [["I.I"], ["III"]],
+      legend: { I: { block: "minecraft:iron_bars" } },
+    },
+  ],
+}

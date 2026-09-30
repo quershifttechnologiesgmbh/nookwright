@@ -1,0 +1,79 @@
+// Hafenstadt Blau – gemuetlich, Biome: beach, ocean, Stile: coastal.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "hafenstadt_blau",
+  name: "Hafenstadt Blau",
+  mood: "gemuetlich",
+  biomes: ["beach", "ocean"],
+  styles: ["coastal"],
+  values: ["minecraft:white_concrete", "minecraft:light_blue_terracotta", "minecraft:spruce_planks", "minecraft:cyan_terracotta", "minecraft:blue_terracotta"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { block: "minecraft:white_concrete", weight: 60 },
+        { block: "minecraft:white_terracotta", weight: 40 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:light_blue_terracotta", weight: 60 },
+        { block: "minecraft:cyan_terracotta", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "spruce", weight: 40 },
+      ],
+    },
+    roof: {
+      // roof_fixed: blaue Terrakotta zu nah am weissen Putz -> Schiefer (Q4, research/54 §1.2 Wertkontrast)
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      // edge_fixed: eigene Wertstufe fuer den First (Q4, research/53 §1-3)
+      blocks: [
+        { family: "polished_diorite", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "spruce", shape: "log", weight: 70 },
+        { family: "spruce", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "spruce", weight: 70 },
+        { family: "spruce", shape: "stripped_log", weight: 30 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:light_blue", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:light_blue", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 100 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:kelp", weight: 50 },
+        { block: "minecraft:sea_pickle", weight: 50 },
+      ],
+    },
+  },
+}

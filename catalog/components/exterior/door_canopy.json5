@@ -1,0 +1,31 @@
+// X1 · E2 Vordach ohne Pfosten (research/18 E2 a, research/16 W7): „pent“ = Pultvordach aus Dachtreppen 1 über der
+// Tür auf zwei Konsolen (umgedrehte Balkentreppen, Rücken zur Wand); „trapdoor“ = schmale Blende aus oberen
+// Falltüren (Nebentüren). 3 breit, die Mitte bleibt Laufweg.
+{
+  id: "exterior/door_canopy",
+  kind: "static",
+  name: "Vordach",
+  category: "architecture",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pent",
+      weight: 2,
+      layers: [["._."], ["K_K"], ["RRR"]],
+      legend: {
+        K: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+      },
+    },
+    {
+      id: "trapdoor",
+      weight: 1,
+      layers: [["._."], ["._."], ["TTT"]],
+      legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", upsideDown: true, open: false } } },
+    },
+  ],
+}

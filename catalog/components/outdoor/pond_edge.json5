@@ -1,0 +1,26 @@
+// research/56 · Teichrand (DA Nature: Pond edges): Sandufer mit Zuckerrohr, kleine Wasserfläche in der Mitte.
+// Für Übergänge zwischen Rasenfläche und `pond`-Zone.
+// Q1a: das Wasser ist ringsum von eigenen Uferzellen eingefasst (Vorbild `functional/sugarcane_farm` /
+// `outdoor/stone_trough`): offenes Wasser auf Bodenhöhe neben freier Lauffläche verstößt gegen `noHazardOnPath`.
+// Eine Seerose über dem Wasser geht nicht – `lily_pad` hat keine geprüfte Stützregel (gilt konservativ als
+// Vollblock-Stütze) und fällt über Wasser durch.
+{
+  id: "outdoor/pond_edge",
+  kind: "static",
+  name: "Teichrand",
+  category: "decor",
+  tags: ["pond_edge", "outdoor", "pond", "water_feature"],
+  styleTags: ["rustic", "overgrown"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["SSS", "SwS", "SSS"], // y0: Sandufer ringsum, Wasser in der Mitte
+    [".C.", "...", "..."], // y1: Zuckerrohr am Ufer neben dem Wasser
+  ],
+  legend: {
+    S: { block: "minecraft:sand" },
+    w: { block: "minecraft:water", state: { level: "0" } },
+    C: { block: "minecraft:sugar_cane" },
+  },
+}

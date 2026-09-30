@@ -1,0 +1,31 @@
+// Innenfarm (R1, research/11 §7, In-Game-Befunde T5): Minifelder mit Bewässerungs-Laterne sind Pflicht
+// (eigenes Licht ≥ 9 an jeder Pflanze), dazu Kürbis-/Melonenbeet, Zuckerrohr-Automat (nur ab lichter Höhe 4),
+// Kompost-Automat, Hühnerstall, Vorratsfässer, Feldgerät an der Wand. Export-Hinweis: Feldfrüchte in
+// geschlossenen Räumen strict platzieren (T5 §3.4).
+{
+  id: "farm_room",
+  name: "Innenfarm",
+  minArea: 30,
+  coverage: { target: 0.45 },
+  // Ein Feld ist Pflicht (Kompaktform 3×3 passt immer), weitere sind optional – zwei Pflicht-5×5 sprengen kleine Räume
+  required: [
+    { tags: ["crop_plot"], count: [1, 1], placement: { zones: ["center", "edge"] } },
+  ],
+  optional: [
+    { tags: ["crop_plot"], count: { perArea: 40, min: 0, max: 3 }, weight: 4, placement: { zones: ["center", "edge"] } },
+    { tags: ["melon_patch"], count: [0, 2], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["sugarcane_farm"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["auto_composter"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["egg_collector"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["barrel"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["farm_tools", "decor_scarecrow"], count: [0, 2], weight: 2 },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["hay_stack", "crate_stack", "seed_crate"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["herb_rack"], count: [0, 2], weight: 2 },
+    // W2 (I6): Erntegut und Hackklotz (passende Stücke statt der Q1a-Entwürfe fremder Räume)
+    { tags: ["harvest", "chopping_block"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["wall_shelf", "tool_wall"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling"], count: [1, 3], weight: 3 },
+  ],
+  lighting: { minLevel: 9, prefer: ["light_ceiling", "light_wall", "light_floor"] },
+}

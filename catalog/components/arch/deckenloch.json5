@@ -1,0 +1,44 @@
+// Welle D · D3 (research/24 §7.0, T7 `ruin`): Deckenloch – der ausgebrochene Rand einer Deckeneinbruchstelle.
+// Die Komponente hängt unter der Decke (`mount: ceiling`) und legt den Kranz aus umgedrehten Treppen um die
+// Öffnung; die Öffnung selbst bleibt Luft (`_`). Das fehlende Deckenfeld schneidet der Schadens-Pass der Ruine
+// heraus (research/50 D3, `materialize/src/ruin.ts`) – das Komponenten-Schema kennt kein `carve`/`ceiling_inset`,
+// deshalb liefert die Komponente nur den sichtbaren Bruchrand (dieselbe Grenze wie decor/fireplace, decor/wall_map).
+// Der Rücken der Treppen zeigt nach außen, die Stufe kippt in die Öffnung.
+{
+  id: "arch/deckenloch",
+  kind: "static",
+  name: "Deckenloch (Bruchrand)",
+  category: "architecture",
+  tags: ["deckenloch", "ceiling_breach", "decor_ceiling", "ruin"],
+  styleTags: ["ruin", "abandoned"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: "all",
+  variants: [
+    {
+      id: "wide",
+      weight: 3,
+      layers: [
+        ["nnn", "w_e", "sss"], // y0: Ring, Mitte offen
+      ],
+      legend: {
+        n: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        s: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+        w: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        e: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+    },
+    {
+      // nur eine Ecke ausgebrochen
+      id: "corner",
+      weight: 2,
+      layers: [
+        ["n_", "ss"], // y0
+      ],
+      legend: {
+        n: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        s: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+      },
+    },
+  ],
+}

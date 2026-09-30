@@ -1,0 +1,45 @@
+// X1 · D13 Firstschmuck (research/18 D13, research/16 D9): Endstab an den Firstenden – Zaunpfosten mit
+// Blitzableiter („rod“) oder mit Banner als Wetterfahne („banner“, quer zum First). Zaun, Blitzableiter und Banner
+// auf dem Zaun (fest, T5) brauchen keine weitere Stütze. Je Gebäude eine Form (Konsistenz).
+// W3 (27.09.2026, plan/spikes/W3RD_dachdetails.md): „tip“ = Firstabschluss – eine Treppe der Dachkante auf dem
+// Firstende, Rücken nach außen (der First biegt am Giebel sichtbar auf, Vorbild „Roof Guide“ NYRMhpl1sAk). Der Planer
+// setzt nur noch diese Form (bei zwei Firstreihen auf beiden, damit sie mittig sitzt); „rod“ und „banner“ wirkten auf
+// dem First wie Antennen und bleiben nur als Katalog-Varianten erhalten.
+{
+  id: "exterior/ridge_finial",
+  kind: "static",
+  name: "Firstschmuck",
+  category: "decor",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "roof_peak",
+  rotations: "all",
+  variants: [
+    {
+      id: "tip",
+      weight: 2,
+      layers: [["T"]],
+      legend: { T: { role: "roof_trim", shape: "stairs", orient: { back: "front" } } },
+    },
+    {
+      id: "rod",
+      weight: 1,
+      layers: [["F"], ["R"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        // Theme-Rolle wie die Turmspitzen (gewachst, keine Patina; G2 Befund 2)
+        R: { role: "finial", shape: "lightning_rod", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "banner",
+      weight: 1,
+      layers: [["F"], ["B"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        B: { role: "textile_primary", shape: "banner", orient: { front: "left" } },
+      },
+    },
+  ],
+}

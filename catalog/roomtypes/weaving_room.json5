@@ -1,0 +1,31 @@
+// Nähstube / Weberei (K3b, research/17 §4.14). Signatur: Stoffregal (Y3; 5/3 breit, bis zur Decke; Kompaktform
+// Stoffballen). Webstuhl ist Pflicht (Schäfer-Arbeitsblock, Banner-Muster = Spielnutzen). Laden-Front: Zuschneide-
+// tisch zur Tür, Rüstungswand (Lederrüstung = Schneiderpuppe, bis Rüstungsständer-Entities gehen) an der Seite;
+// hinten Webstuhl und Spinnrad am Fenster (Licht zum Arbeiten), Stoffregal an der Rückwand.
+// Mehr in die Höhe (V3): Stoffbahnen als Deckenbanner (Y1 „Banner in einer Reihe unter einem Balken“), Borde.
+{
+  id: "weaving_room",
+  name: "Nähstube",
+  minArea: 12,
+  coverage: { target: 0.45 },
+  zones: [{ id: "shop", doorAffinity: "near" }, { id: "work", doorAffinity: "far" }],
+  required: [
+    { tags: ["cloth_shelf"], count: [1, 2], signature: true, zone: "work", placement: { zones: ["edge"] } },
+    { tags: ["loom"], count: [1, 1], zone: "work", placement: { zones: ["edge"], windowAffinity: "near" } },
+  ],
+  optional: [
+    // FN-Dense: Webertisch in der Raummitte (Insel)
+    { tags: ["fn_weaving_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["spinning_wheel"], count: [0, 1], weight: 3, zone: "work", placement: { zones: ["edge", "corner"], windowAffinity: "near" } },
+    { tags: ["cutting_table"], count: [0, 1], weight: 4, zone: "shop", placement: { zones: ["center"] } },
+    { tags: ["armor_display"], count: [0, 2], weight: 2, zone: "shop", placement: { zones: ["edge"] } },
+    { tags: ["tapestry", "wall_banner", "thread_spool_display"], count: [1, 3], weight: 3 },
+    { tags: ["chest", "crate_stack", "dye_crate"], count: [1, 2], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["fur_rug", "rug"], count: [0, 1], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 2], weight: 4 },
+    // V3 (Raumhöhe nutzen): Stoffbahnen unter der Decke, Borde über Kopfhöhe
+    { tags: ["ceiling_banner"], count: [0, 3], weight: 3 },
+    { tags: ["wall_shelf", "upper_cabinet"], count: [0, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

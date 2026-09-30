@@ -1,0 +1,27 @@
+// research/53 F5/E3 · Geländer-Segment für Außentreppen: ein Zaunfeld je Stufenreihe, „post“ setzt an Ecken und
+// am Fuß einen Stammpfosten (1 höher als der Zaun, F1-Rhythmus).
+{
+  id: "exterior/stair_rail",
+  kind: "static",
+  name: "Treppengeländer",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "rail",
+      weight: 3,
+      layers: [["F"]],
+      legend: { F: { role: "beam", shape: "fence" } },
+    },
+    {
+      id: "post",
+      weight: 1,
+      layers: [["P"], ["P"]],
+      legend: { P: { role: "beam", shape: "log", orient: { axis: "y" } } },
+    },
+  ],
+}

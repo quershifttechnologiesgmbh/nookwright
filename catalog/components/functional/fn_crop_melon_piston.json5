@@ -1,0 +1,246 @@
+// Kompakte Kürbis-/Melonen-Kolbenfarm (Welle FN), abgeleitet von minecraft.wiki Tutorial:Pumpkin_and_melon_farming
+// (Bauart „Beobachter am Stiel“). Je Spalte (x ungerade): Rückwand, Stiel auf Ackerland (z1), Fruchtzelle (z2), Kolben (z3).
+// Mechanik:
+//  - Die Frucht wächst nur auf die einzige freie Nachbarzelle des Stiels (z2); alle anderen Nachbarn sind Blöcke.
+//  - Der Beobachter sitzt über dem STIEL und blickt nach unten: beim Fruchtansatz wird der Stiel zum „attached“-Stiel
+//    (Zustandswechsel) → Impuls. Er sieht die Fruchtzelle nicht, darum kein Takt-Kreislauf mit dem Kolbenkopf.
+//  - Sein Ausgang (Rückseite, oben) speist Staub; Staub liegt auf Beobachter, Deckblock über der Fruchtzelle und Block über dem Kolben;
+//    der Block versorgt den Kolben (Staub speist den Block darunter, wie im im Spiel geprüften sugarcane_farm).
+//  - Der Kolben schiebt in die Fruchtzelle; Melonen-/Kürbisblöcke haben Schubreaktion „zerstören“ und droppen (Wiki Piston).
+//  - Ernte: Items liegen auf dem Ackerland der Fruchtzelle; Trichter darunter saugen sie (Wiki Tutorial:Pumpkin_and_melon_farming,
+//    Bauart mit Trichter unter Ackerland), Kette nach vorn ins Fass (Fass ist von vorn offen, Beobachter/Kolben frei von Leitern darüber unnötig).
+//  - Ackerland: waterlogged Laterne in der Zwischenwand auf Ackerland-Höhe (Wasser Reichweite ≤ 4, Licht 14−2 = 12 am Stiel, ≥ 9 nötig).
+//  - Ruhezustand im Export: Stiel ausgewachsen (age 7), Fruchtzelle leer, Kolben eingefahren, Staub stromlos. Pflanzen in geschlossenen
+//    Räumen strict platzieren.
+// Größen: 2 Spalten (5 breit) oder 4 Spalten (9 breit), 4 tief, Höhe 6; größere Hallen setzen mehrere Stücke.
+{
+  id: "functional/fn_crop_melon_piston",
+  kind: "static",
+  name: "Kolben-Kürbis-/Melonenfarm",
+  category: "work",
+  tags: ["fn_crop_melon", "fn_crop", "fn_farm_machine"],
+  functionTags: ["farm:melon", "farm:pumpkin", "automation", "redstone", "hopper", "light"],
+  styleTags: ["workshop", "rustic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "s_melon",
+      weight: 9,
+      layers: [
+        [ // y0: Fass + Trichterkette unter dem Beet
+          "BBBBB", // z0 Rückwand
+          "BHBHB", // z1 Stiel
+          "BHBHB", // z2 Fruchtzelle
+          "BbBbB", // z3 Kolben / Fass
+        ],
+        [ // y1: Ackerland (Stiel + Fruchtfeld)
+          "BBBBB", // z0 Rückwand
+          "BFLFB", // z1 Stiel
+          "BFBFB", // z2 Fruchtzelle
+          "sBsBs", // z3 Kolben / Fass
+        ],
+        [ // y2: Stiel, Fruchtzelle, Kolben
+          "BBBBB", // z0 Rückwand
+          "BSBSB", // z1 Stiel
+          "B_B_B", // z2 Fruchtzelle
+          "sPsPs", // z3 Kolben / Fass
+        ],
+        [ // y3: Beobachter, Kolbendeckel
+          "BBBBB", // z0 Rückwand
+          "BoBoB", // z1 Stiel
+          "BBBBB", // z2 Fruchtzelle
+          ".B.B.", // z3 Kolben / Fass
+        ],
+        [ // y4: Staub
+          "BBBBB", // z0 Rückwand
+          "BrBrB", // z1 Stiel
+          "BrBrB", // z2 Fruchtzelle
+          ".r.r.", // z3 Kolben / Fass
+        ],
+        [ // y5: Deckel
+          "sssss", // z0 Rückwand
+          "sssss", // z1 Stiel
+          "sssss", // z2 Fruchtzelle
+          ".....", // z3 Kolben / Fass
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        S: { block: "minecraft:melon_stem", state: { age: "7" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { block: "minecraft:piston", orient: { front: "back" } },
+        o: { block: "minecraft:observer", orient: { front: "down" } },
+        r: { block: "minecraft:redstone_wire" },
+      },
+    },
+    {
+      id: "s_pumpkin",
+      weight: 6,
+      layers: [
+        [ // y0: Fass + Trichterkette unter dem Beet
+          "BBBBB", // z0 Rückwand
+          "BHBHB", // z1 Stiel
+          "BHBHB", // z2 Fruchtzelle
+          "BbBbB", // z3 Kolben / Fass
+        ],
+        [ // y1: Ackerland (Stiel + Fruchtfeld)
+          "BBBBB", // z0 Rückwand
+          "BFLFB", // z1 Stiel
+          "BFBFB", // z2 Fruchtzelle
+          "sBsBs", // z3 Kolben / Fass
+        ],
+        [ // y2: Stiel, Fruchtzelle, Kolben
+          "BBBBB", // z0 Rückwand
+          "BSBSB", // z1 Stiel
+          "B_B_B", // z2 Fruchtzelle
+          "sPsPs", // z3 Kolben / Fass
+        ],
+        [ // y3: Beobachter, Kolbendeckel
+          "BBBBB", // z0 Rückwand
+          "BoBoB", // z1 Stiel
+          "BBBBB", // z2 Fruchtzelle
+          ".B.B.", // z3 Kolben / Fass
+        ],
+        [ // y4: Staub
+          "BBBBB", // z0 Rückwand
+          "BrBrB", // z1 Stiel
+          "BrBrB", // z2 Fruchtzelle
+          ".r.r.", // z3 Kolben / Fass
+        ],
+        [ // y5: Deckel
+          "sssss", // z0 Rückwand
+          "sssss", // z1 Stiel
+          "sssss", // z2 Fruchtzelle
+          ".....", // z3 Kolben / Fass
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        S: { block: "minecraft:pumpkin_stem", state: { age: "7" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { block: "minecraft:piston", orient: { front: "back" } },
+        o: { block: "minecraft:observer", orient: { front: "down" } },
+        r: { block: "minecraft:redstone_wire" },
+      },
+    },
+    {
+      id: "m_melon",
+      weight: 6,
+      layers: [
+        [ // y0: Fass + Trichterkette unter dem Beet
+          "BBBBBBBBB", // z0 Rückwand
+          "BHBHBHBHB", // z1 Stiel
+          "BHBHBHBHB", // z2 Fruchtzelle
+          "BbBbBbBbB", // z3 Kolben / Fass
+        ],
+        [ // y1: Ackerland (Stiel + Fruchtfeld)
+          "BBBBBBBBB", // z0 Rückwand
+          "BFLFLFLFB", // z1 Stiel
+          "BFBFBFBFB", // z2 Fruchtzelle
+          "sBsBsBsBs", // z3 Kolben / Fass
+        ],
+        [ // y2: Stiel, Fruchtzelle, Kolben
+          "BBBBBBBBB", // z0 Rückwand
+          "BSBSBSBSB", // z1 Stiel
+          "B_B_B_B_B", // z2 Fruchtzelle
+          "sPsPsPsPs", // z3 Kolben / Fass
+        ],
+        [ // y3: Beobachter, Kolbendeckel
+          "BBBBBBBBB", // z0 Rückwand
+          "BoBoBoBoB", // z1 Stiel
+          "BBBBBBBBB", // z2 Fruchtzelle
+          ".B.B.B.B.", // z3 Kolben / Fass
+        ],
+        [ // y4: Staub
+          "BBBBBBBBB", // z0 Rückwand
+          "BrBrBrBrB", // z1 Stiel
+          "BrBrBrBrB", // z2 Fruchtzelle
+          ".r.r.r.r.", // z3 Kolben / Fass
+        ],
+        [ // y5: Deckel
+          "sssssssss", // z0 Rückwand
+          "sssssssss", // z1 Stiel
+          "sssssssss", // z2 Fruchtzelle
+          ".........", // z3 Kolben / Fass
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        S: { block: "minecraft:melon_stem", state: { age: "7" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { block: "minecraft:piston", orient: { front: "back" } },
+        o: { block: "minecraft:observer", orient: { front: "down" } },
+        r: { block: "minecraft:redstone_wire" },
+      },
+    },
+    {
+      id: "m_pumpkin",
+      weight: 4,
+      layers: [
+        [ // y0: Fass + Trichterkette unter dem Beet
+          "BBBBBBBBB", // z0 Rückwand
+          "BHBHBHBHB", // z1 Stiel
+          "BHBHBHBHB", // z2 Fruchtzelle
+          "BbBbBbBbB", // z3 Kolben / Fass
+        ],
+        [ // y1: Ackerland (Stiel + Fruchtfeld)
+          "BBBBBBBBB", // z0 Rückwand
+          "BFLFLFLFB", // z1 Stiel
+          "BFBFBFBFB", // z2 Fruchtzelle
+          "sBsBsBsBs", // z3 Kolben / Fass
+        ],
+        [ // y2: Stiel, Fruchtzelle, Kolben
+          "BBBBBBBBB", // z0 Rückwand
+          "BSBSBSBSB", // z1 Stiel
+          "B_B_B_B_B", // z2 Fruchtzelle
+          "sPsPsPsPs", // z3 Kolben / Fass
+        ],
+        [ // y3: Beobachter, Kolbendeckel
+          "BBBBBBBBB", // z0 Rückwand
+          "BoBoBoBoB", // z1 Stiel
+          "BBBBBBBBB", // z2 Fruchtzelle
+          ".B.B.B.B.", // z3 Kolben / Fass
+        ],
+        [ // y4: Staub
+          "BBBBBBBBB", // z0 Rückwand
+          "BrBrBrBrB", // z1 Stiel
+          "BrBrBrBrB", // z2 Fruchtzelle
+          ".r.r.r.r.", // z3 Kolben / Fass
+        ],
+        [ // y5: Deckel
+          "sssssssss", // z0 Rückwand
+          "sssssssss", // z1 Stiel
+          "sssssssss", // z2 Fruchtzelle
+          ".........", // z3 Kolben / Fass
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        S: { block: "minecraft:pumpkin_stem", state: { age: "7" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { block: "minecraft:piston", orient: { front: "back" } },
+        o: { block: "minecraft:observer", orient: { front: "down" } },
+        r: { block: "minecraft:redstone_wire" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

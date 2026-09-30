@@ -1,0 +1,39 @@
+// research/57 · Nähstube: Färbekiste (Nebenobjekt, ergänzt storage/crate_stack um eine kleinere Form mit
+// Farbstoff-Fässern). Tag `crate_stack` steht in weaving_room.json5 im optionalen Eintrag `{ tags: ["chest",
+// "crate_stack"] }`.
+// Nachprüfung research/57: Der Rahmen lag außerhalb der deklarierten Zellen (kein fester Block gefunden) –
+// jetzt eine eigene Luft-Zeile über Fass/Kessel, wie work/chopping_block es vormacht. Zweiter Fund: der Kessel
+// (`cauldron`) hat laut `physics-1.21.11.json` `cls: "half"` – zunächst auf das Fass verschoben, aber Rahmen
+// dürfen laut Testregel auch nicht an Truhe/Fass hängen („Rahmen an Truhe/Fass“). Dritter Fund: jetzt eine
+// eigene kleine Planken-Konsole neben Fass und Kessel, nur für den Rahmen.
+{
+  id: "storage/dye_crate",
+  kind: "static",
+  name: "Färbekiste",
+  category: "storage",
+  tags: ["dye_crate"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "barrels",
+      weight: 2,
+      layers: [["BB"]],
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+    },
+    {
+      id: "cauldron_dye",
+      weight: 1,
+      layers: [["BKP"], ["___"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        K: { block: "minecraft:cauldron" },
+        P: { role: "beam", shape: "planks" },
+      },
+      entities: [{ type: "item_frame", at: [2, 1, 0], face: "up", item: { item: "minecraft:purple_dye" } }],
+    },
+  ],
+}

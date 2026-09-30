@@ -1,0 +1,12 @@
+{
+  "name": "@mcda/classify",
+  "version": "0.0.0",
+  "private": true,
+  "description": "System-One-Client (Jev über OpenRouter, TypeSafe direkt, Kev lokal): Anfrage-/Antwort-Typen, Anbieter-Voreinstellungen, Env-Regel, Fehlerbehandlung, Retry, Zeitlimit, Aufteilung über 255 Optionen. Keine Abhängigkeit zur Engine; die Engine nutzt dieses Paket.",
+  "type": "module",
+  "exports": { ".": "./src/index.ts", "./env": "./src/env.ts" },
+  "types": "./src/index.ts",
+  "scripts": {
+    "roomtype": "npm run roomtype -w @mcda/engine --"
+  }
+}

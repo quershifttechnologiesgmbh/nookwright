@@ -1,0 +1,38 @@
+// Hühnerstall mit Eier-Sammler (R1): zwei Trichter als Boden des Pferchs (Hühner stehen in der Trichter-Schale,
+// gelegte Eier fallen hinein) → Trichterkette → Truhe. Zaun 1,5 hoch hält Hühner (Faktencheck #14), Tor vorn.
+// Über der Truhe ein Zaun (leitet nicht → Truhe öffnet), vor der Truhe Luft. Alle Ecken des Pferchs sind
+// Zaunpfosten: eine offene Diagonale zwischen zwei Pfosten lässt Hühner durch (im Spiel gemessen). Tiere exportieren wir nicht
+// (plan/01 §4.7, research/11 H5): Hühner bringt der Spieler (Eier werfen oder an der Leine).
+// Im Spiel geprüft: spikes/ingame Gruppe F (Huhn mit kurzer Legezeit → Ei landet in der Truhe).
+{
+  id: "functional/egg_collector",
+  kind: "static",
+  name: "Hühnerstall mit Eier-Sammler",
+  category: "furniture",
+  tags: ["egg_collector", "chicken_coop"],
+  functionTags: ["farm:eggs", "animal:chicken", "store", "automation"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    [
+      "BBBB", // y0 z0: Sockel (Heu)
+      "BHHC", // y0 z1: Trichter → Trichter → Truhe
+      "BBB_", // y0 z2: Sockel | Luft vor der Truhe
+    ],
+    [
+      "ffff", // y1 z0: Zaun hinten
+      "f__f", // y1 z1: Pferch über den Trichtern | Zaun über der Truhe
+      "fgff", // y1 z2: Zaun | Tor | Zaun | Eckzaun über dem Truhen-Zugang (sonst schlüpfen Hühner diagonal durch)
+    ],
+  ],
+  legend: {
+    B: { block: "minecraft:hay_block", orient: { axis: "y" } },
+    H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+    C: { block: "minecraft:chest", orient: { front: "front" } },
+    f: { role: "furniture_wood", shape: "fence" },
+    g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,32 @@
+// Nether-Portalraum (K3b, research/17 §4.25). Signatur: Portal mit Zierrahmen (gültiger Obsidian-Rahmen 4 × 5,
+// UNENTZÜNDET – der Spieler zündet selbst, Zombie-Piglins erst dann; 2 Zellen Ankunftsfläche davor), türfern an
+// der Wand, Läufer von der Tür, Kübel/Regale als Paare, Vorratstruhen seitlich (Feuerresistenz, Gold für Piglins).
+// Ein Portal braucht lichte Höhe ≥ 5; darunter setzt der Solver den Portal-Schrein (Kompaktform, kein Portal) –
+// Editor-Hinweis/Raumtyp-Mindesthöhe ist ein Wunsch an K3c. Achse + Spiegelpaare = X7 (research/11).
+// Mehr in die Höhe (V3): Pfeiler bis zur Decke, Deckenbanner, Ketten (Po3).
+{
+  id: "portal_room",
+  name: "Portalraum",
+  minArea: 16,
+  // K3c (Wunsch K3b): Portal ab lichter Höhe 5; darunter Portal-Schrein + Hinweis (roomTypeFitsHeight, Qualitäts-Notiz)
+  minHeight: 5,
+  coverage: { target: 0.3 },
+  required: [
+    { tags: ["nether_portal", "portal_shrine"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["plant_large"], count: [2, 2], weight: 4, placement: { zones: ["edge", "corner"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 3, placement: { zones: ["center"] } },
+    { tags: ["bookshelf_wall"], count: [0, 2], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["chest", "barrel"], count: [1, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    // FN-dense-grand: Schiffsbucht-Arkade (Steinpfeiler mit Bogen) gliedert die Längswände
+    { tags: ["fn_nave_bay"], count: { perArea: 14, min: 2, max: 8 }, weight: 6, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["wall_banner", "tapestry"], count: [0, 2], weight: 2 },
+    { tags: ["light_wall"], count: [2, 4], weight: 4 },
+    { tags: ["light_ceiling"], count: [0, 2], weight: 2 },
+    // V3 (Raumhöhe nutzen): Deckenbanner, Ketten
+    { tags: ["ceiling_banner"], count: [1, 2], weight: 2 },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_wall", "light_ceiling"] },
+}

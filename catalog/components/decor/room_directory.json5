@@ -1,0 +1,41 @@
+// K3a · Wegweiser-Tafel (research/17 §4.1, Generator-Idee): Wandschilder aus dunklem Holz (`beam`) als Tafel an
+// der Raumwand. Übergangsform bis ERW Y3 (Text-Platzhalter `{{room:n}}`/`{{dir:n}}` aus dem Grundriss): nur die
+// Kopfzeile trägt Text, die übrigen Schilder sind leer und im Spiel beschreibbar (Rechtsklick, seit 1.20).
+// Wandschilder halten an „soliden“ Blöcken (T5 #2) und haben keine Kollision → durchlaufbar. Die unterste Lage
+// ist voll belegt → der Solver prüft die Wand hinter jeder Spalte (K1 §6 Nr. 3). Lichte Höhe ≥ 3.
+{
+  id: "decor/room_directory",
+  kind: "static",
+  name: "Wegweiser-Tafel",
+  category: "attachment",
+  tags: ["room_directory", "wall_sign"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1],
+  minRoomHeight: 3,
+  rotations: "backToWall",
+  walkable: true,
+  variants: [
+    {
+      id: "board",
+      weight: 2,
+      layers: [["aaa"], ["aea"]], // y0: drei leere Schilder, y1: Kopfzeile in der Mitte
+      legend: {
+        a: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" } },
+        e: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" }, contents: { text: ["", "~ Wegweiser ~", "", ""] } },
+      },
+    },
+    {
+      // schmale Form für Flure und kurze Wandstücke
+      id: "post",
+      weight: 1,
+      layers: [["a"], ["e"]],
+      legend: {
+        a: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" } },
+        e: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" }, contents: { text: ["", "~ Wegweiser ~", "", ""] } },
+      },
+    },
+  ],
+}

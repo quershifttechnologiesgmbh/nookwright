@@ -1,0 +1,27 @@
+// Brau-Theke (research/11 §5.6 A-1): Theke | Wasserkessel bündig | Theke, Braustände auf den Theken-Enden,
+// über dem Kessel Luft (A3). Braustände OHNE Flaschen: `has_bottle_*` muss zum Inhalt passen (A1) und
+// Braustand-Inhalte kann die Materialisierung noch nicht → Flaschen-Deko folgt mit `ItemRef.slot` (X3).
+// Jobblöcke: Braustand = Geistlicher, Kessel = Gerber (Faktencheck #7).
+{
+  id: "work/brewing_counter",
+  kind: "static",
+  name: "Brau-Theke",
+  category: "work",
+  tags: ["brewing_counter", "brewing_stand"],
+  functionTags: ["brew", "work:cleric", "work:leatherworker"],
+  styleTags: ["medieval", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["UKU"], // y0: Theke | Wasserkessel | Theke
+    ["B_B"], // y1: Braustände, über dem Kessel frei
+  ],
+  legend: {
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+    B: { block: "minecraft:brewing_stand" },
+  },
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

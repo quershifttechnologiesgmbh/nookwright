@@ -1,0 +1,70 @@
+// Gemauerte Kochstelle mit Rauchfang (Küchen-Signatur, research/10 §3.3/§7.3: 14/16 Referenzen).
+// Lichte Höhe ≥ 3: Feuer/Ofen unten, darüber Luft, oben Sturz + Haubenkante (umgedrehte Treppen).
+// Für lichte Höhe 2 gibt es work/kitchen_hearth_low. Der Schlot bis zur Decke/Dach ist adaptiv → Folgeaufgabe.
+// Mauerwerk als feste Blöcke, bis das Theme die Rolle `hearth` kennt (research/10 §10).
+// open_fire: Lagerfeuer brennt dauerhaft und entzündet nichts; davor eine freie Nische ('_', begehbar) zum
+//   Kochen, seitlich Herdwangen (untere Stufen), darüber ein Kessel als Topf.
+// smoker: Räucherofen (Metzger), NICHT lit=true, solange ungeklärt ist, ob er ohne Brennstoff leuchtet
+//   (research/10 §11 #4, Spike T5). Die Zelle vor dem Ofen bleibt frei ('_').
+{
+  id: "work/kitchen_hearth",
+  kind: "static",
+  name: "Kochstelle mit Rauchfang",
+  category: "work",
+  tags: ["hearth", "cooking", "fire_feature"],
+  functionTags: ["cook", "light"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "open_fire_stone",
+      weight: 3,
+      layers: [
+        ["MCM", "S_S"], // y0: Feuer in der Nische, vorn Herdwangen, Mitte frei
+        ["MKM", "..."], // y1: Kessel über dem Feuer
+        ["MMM", "UUU"], // y2: Sturz + Rauchfang-Kante
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        S: { block: "minecraft:stone_brick_slab", orient: { upsideDown: false } },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        K: { block: "minecraft:cauldron" },
+      },
+    },
+    {
+      id: "open_fire_brick",
+      weight: 2,
+      layers: [
+        ["MCM", "S_S"],
+        ["MKM", "..."],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { block: "minecraft:bricks" },
+        S: { block: "minecraft:brick_slab", orient: { upsideDown: false } },
+        U: { block: "minecraft:brick_stairs", orient: { upsideDown: true, back: "back" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        K: { block: "minecraft:cauldron" },
+      },
+    },
+    {
+      id: "smoker_stone",
+      weight: 2,
+      layers: [
+        ["MOM", "._."], // y0: Räucherofen zwischen Mauerwangen, davor frei
+        ["M_M", "..."], // y1: Luft über dem Ofen
+        ["MMM", "UUU"], // y2: Haube
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

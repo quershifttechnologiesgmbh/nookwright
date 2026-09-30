@@ -1,0 +1,811 @@
+// Mittelalter: Steinverlauf außen (unten dunkel und rau, oben Steinziegel + Andesit), Putz mit Vertäfelung
+// innen, Fichtendielen mit Eichen-Bordüre, Steinboden in Küche/Schmiede, Lehmboden im Lager, Balkendecke mit
+// Rähm, Schieferdach mit Verlauf Traufe → First. Basis für rustic und nordic.
+// Paletten nach research/12 §2 (P1–P12), Flächen-Muster nach §3–§5, neue Rollen nach research/10 §10.
+// Konvention: Einträge jeder Mischung und jedes Verlaufs-Stopps stehen HELL → DUNKEL; das Cluster-Rauschen
+// (noise.type "cluster") lässt so nur Nachbarn der Liste aneinanderstoßen.
+{
+  id: "medieval",
+  name: "Mittelalter",
+  description: "Steinziegel mit Verlauf, Putz, Fichte, Balkendecke, Schieferdach, Eisenlaternen",
+  roles: {
+    // ---------------------------------------------------------------- Böden
+    // P6 Holzboden: Fichte trägt, Eiche und dunkle Eiche als einzelne Bretter
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "oak", weight: 6 },
+        { family: "spruce", weight: 86 },
+        { family: "dark_oak", weight: 8 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_secondary: { family: "oak" },
+    // Bordüre und Türschwellen: Stamm parallel zur Wand, Ecken rundum Rinde (Form + Achse aus surfaces.floor)
+    floor_border: { family: "dark_oak" },
+    // Innere Bordüre, Fischgrät: entrindete Fichte als liegender Stamm
+    floor_strip: { family: "spruce", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    // P7 Steinboden (Küche, Schmiede, Halle): ohne Kies (fällt ohne Unterbau)
+    floor_stone: {
+      mix: [
+        { family: "smooth_stone", weight: 5 },
+        { family: "polished_andesite", weight: 25 },
+        { family: "stone", weight: 10 },
+        { family: "stone_bricks", weight: 30 },
+        { family: "cobblestone", weight: 25 },
+        { family: "tuff", weight: 5 },
+      ],
+      // Pflaster: Zellverband mit harter Kante (research/30 K1)
+      noise: { type: "cells", cell: 3 },
+    },
+    // P8 Lehm- und Erdboden (Lager, Stall): ohne dirt_path (wird unter Möbeln zu Erde)
+    floor_earth: {
+      mix: [
+        { family: "packed_mud", weight: 40 },
+        { block: "minecraft:rooted_dirt", weight: 15 },
+        { block: "minecraft:coarse_dirt", weight: 30 },
+        { block: "minecraft:podzol", weight: 15 },
+      ],
+      // Erdschollen: kleine Zellen, unregelmäßig wirkend (research/30 K1)
+      noise: { type: "cells", cell: 2 },
+    },
+    // Fliesen (Kapelle: Schachbrett)
+    floor_tile_light: { family: "calcite" },
+    floor_tile_dark: { family: "polished_andesite" },
+
+    // ---------------------------------------------------------------- Wände
+    // P1 Burgmauer: Verlauf über die ganze Fassade (W2 Regel W5: `facade_h`, Sockel → Traufe, nicht je Geschoss).
+    // W4 Materialbudget: vier Grundblöcke, je Stopp drei – Steinziegel tragen, Bruchstein nur am Fuß des Gebäudes (rau,
+    // Spritzwasser), Andesit hellt nach oben auf. Moos macht die Verwitterung, nicht die Mischung.
+    // W9-G5 (27.09.2026, Review R5 G5 „Burg einfarbig grau“): stärkerer Wertverlauf – am Fuß dunkler und rauer (Bruch-
+    // Tiefenschiefer wie im Fundament, Bruchstein), oben heller und glatter (Andesit 32 %). Vorbilder: „Classic Castle“
+    // Bruchstein → Andesit → Steinziegel und 60/30/10 (minecraftgradient.blog/minecraft-wall-gradient), dunkler Fuß aus
+    // Bruch-Tiefenschiefer (deltacalculator.com/minecraft/block-palette/deepslate), plan/spikes/W9G5_materialspiel.md
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.12,
+        // Weiche Kurve (research/30 K2): der Übergang kippt in der Mitte, statt linear durchzulaufen
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "cobblestone", weight: 45 },
+            { family: "stone_bricks", weight: 30 },
+            { family: "cobbled_deepslate", weight: 25 },
+          ] },
+          { at: 0.4, mix: [
+            { family: "andesite", weight: 15 },
+            { family: "cobblestone", weight: 20 },
+            { family: "stone_bricks", weight: 65 },
+          ] },
+          { at: 1, mix: [
+            { family: "andesite", weight: 32 },
+            { family: "stone_bricks", weight: 68 },
+          ] },
+        ],
+      },
+      // Zellverband statt weicher Flecken (research/30 K1, Vorbild Blenders Voronoi): Steinverband mit harter Kante
+      noise: { type: "cells", cell: 3 },
+    },
+    // P3 Putz (Innenwände, Fachwerk-Gefach): unten Spritzwasser-Saum, oben hell. Verlauf je Raum (`wall_h`): der Saum
+    // gehört an jede Innenwand. W4: höchstens drei Grundblöcke je Stopp, vier im Ganzen (Diorit entfällt, er sprenkelt).
+    // Kalzit/Terrakotta haben keine Treppen/Stufen → Quarz als Ersatz
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        // Weiche Kurve (research/30 K2): der Spritzwasser-Saum läuft weich aus, der Putz darüber wird schneller hell
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "calcite", weight: 40 },
+            { family: "white_terracotta", weight: 40 },
+            { family: "light_gray_terracotta", weight: 20 },
+          ] },
+          { at: 0.3, mix: [
+            { family: "calcite", weight: 55 },
+            { block: "minecraft:mushroom_stem", weight: 15 },
+            { family: "white_terracotta", weight: 30 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 70 },
+            { block: "minecraft:mushroom_stem", weight: 20 },
+            { family: "white_terracotta", weight: 10 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+      fallback: ["quartz"],
+    },
+    // W13-E (28.09.2026): Gefach des Fachwerk-Obergeschosses (Wohnbauten, `when.upperFrame`) – ein heller Kalkputz wie
+    // beim Fachwerk-Theme (W4 S5: ein Füllmaterial; der Innenputz `wall_secondary` mit weißer Terrakotta las sich außen
+    // im Schatten als rosa Fleck). rustic ersetzt die Rolle durch seinen eigenen Putz.
+    wall_plaster: { family: "calcite" },
+    // Vertäfelung der Innenwände (unterste Reihe): senkrechte Bretter
+    wall_wainscot: {
+      mix: [
+        { family: "spruce", variant: "stripped_log", weight: 25 },
+        { family: "spruce", weight: 60 },
+        { family: "dark_oak", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    // P4 Fachwerk-Holz
+    beam: { family: "dark_oak" },
+    pillar: { family: "dark_oak" },
+    // P12 Fundament und Sockel (Bodenplatte unter den Wänden): dunkel und rau. W7: zwei Grundsteine – Bruchstein trägt,
+    // Bruch-Tiefenschiefer dunkelt ab; das Moos am Geländekontakt setzt die Verwitterung (decor).
+    foundation: {
+      mix: [
+        { family: "cobblestone", weight: 70 },
+        { family: "cobbled_deepslate", weight: 30 },
+      ],
+      // Weiche Flecken: der Zellverband zweier so verschieden heller Steine wirkte im Bild wie ein Schachbrett
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+
+    // FN-Dense (28.09.2026): Kellerstein – Innenwände, Gewölbefelder und Rippen von Kerker, Weinkeller und Lagerkeller.
+    // Steinziegel tragen, Bruchstein und Tiefenschiefer dunkeln ab, wenig Moos/Risse (Kellerfeuchte) – kein Holz an der
+    // Wand (Vorbild: Kerker/Weinkeller der Community-Bauten sind durchgehend gemauert, Gewölbe statt Balkendecke).
+    cellar_stone: {
+      mix: [
+        { family: "stone_bricks", weight: 52 },
+        { family: "cobblestone", weight: 20 },
+        { family: "cobbled_deepslate", weight: 12 },
+        { block: "minecraft:mossy_stone_bricks", weight: 8 },
+        { block: "minecraft:cracked_stone_bricks", weight: 8 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Gewölbefelder der Kellerdecke: helle Steinziegel; die Rippen (Bogen) liegen als Rolle `cellar_rib`
+    cellar_vault: {
+      mix: [
+        { family: "stone_bricks", weight: 70 },
+        { block: "minecraft:cracked_stone_bricks", weight: 15 },
+        { block: "minecraft:mossy_stone_bricks", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    cellar_rib: { family: "polished_andesite" },
+
+    // ---------------------------------------------------------------- Öffnungen, Decke, Dach
+    door: { family: "spruce" },
+    window: { family: "glass" },
+    window_frame: { family: "spruce" },
+    // Deckenfelder: Fichte, 20 % entrindet als Flecken, dunkle Eiche als seltene Ausbesserung
+    ceiling: {
+      mix: [
+        { family: "spruce", variant: "stripped_wood", weight: 20 },
+        { family: "spruce", weight: 72 },
+        { family: "dark_oak", weight: 8 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    // P9 Schieferdach als Deckungsrezept (W2 Regel D1): Tiefenschieferfliesen tragen die Fläche, die obersten Ringe
+    // am First in helleren Tiefenschieferziegeln – ganze Ringe, kein Rauschen in der Reihe. Kante in dunkler Eiche (D3).
+    // W9-G5 (27.09.2026, Review R5 G5 „Dach eine glatte Fläche“): drei Töne statt zwei – Fliesen bis 0,6, Ziegel, am First
+    // raue Bruch-Tiefenschiefer-Ringe (heller, andere Textur). 60/30/10 und „dunkel an der Traufe, hell am First“
+    // (minecraftgradient.blog/minecraft-gradient-roof), weiter ganze Ringe (D1: Hauptton + 2 Nachbartöne).
+    // Dazu 6 % Flecken des Nachbartons je Ring (`patch`, D1 < 10 % je Reihe): Textur statt glatter Fläche, Flecken statt
+    // Sprenkel („mix 10–20 % neighbouring-tone stairs“, buildingguide.app/minecraft-roof-designs)
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        patch: 0.06,
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 0.6, mix: [{ family: "deepslate_bricks", weight: 1 }] },
+          { at: 0.8, mix: [{ family: "cobbled_deepslate", weight: 1 }] },
+          { at: 1, mix: [{ family: "cobbled_deepslate", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "dark_oak" },
+    // W12-C (Review R6-4): heller Kantenrahmen je Baukörper (`Volume.exterior.trim`, Scheune des Bauernhauses) – Ortgang,
+    // Traufe und Eckbretter in heller Eiche (Pale Oak, 1.21.4+: fast weiße Bretter)
+    // wie die weißen Kanten roter Scheunen (thisoldhouse.com „Why barns are red“: weiße Kanten an Ecken, Giebeln, Toren;
+    // Minecraft-Vorbilder mit Quarz/weißem Beton an Giebel und Ecken). Rückfall für Themes ohne die Rolle: `roof_trim`.
+    trim_light: { family: "pale_oak", fallback: ["birch"] },
+    // W16-B (28.09.2026, Review R7-2 „Dächer braun in braun“): Dachfläche der Scheune (`Volume.exterior.roof`) –
+    // dunkle Tiefenschieferziegel unter dem hellen Rahmen, abgesetzt vom Holzschindeldach des Wohnhauses (Vorbilder
+    // review-r5 farmhouse_1/_2: rote Scheune, weißer Rahmen, dunkles Dach; guide.astroworldmc.com „How to build a barn“).
+    // Ganze Ringe wie `roof_main`, dunkel an der Traufe. Rückfall für Themes ohne die Rolle: `roof_main`.
+    roof_barn: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        patch: 0.06,
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 0.6, mix: [{ family: "deepslate_bricks", weight: 1 }] },
+          { at: 1, mix: [{ family: "deepslate_bricks", weight: 1 }] },
+        ],
+      },
+    },
+    // W12-C: Mantel des Hochsilos (Bauernhof, @mcda/structures) – Steinsilo in hellem Grau (Vorbild ref1 reddit 1p5rck5:
+    // grauer Silo mit heller Kuppel neben der roten Scheune; en.wikipedia.org/wiki/Silo: Tower silo aus Stein/Beton)
+    silo: {
+      mix: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "polished_andesite", weight: 30 },
+        { family: "andesite", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1 },
+    },
+    // W16-B (Review R7-2 „Silo schematisch gestreift“): Reifen des Silos in glattem Stein – eine Stufe heller als der
+    // Mantel statt weißer Bretter (Vorbild ref1 reddit 1p5rck5: grauer Betonsilo mit feinen Bändern, heller Kopf)
+    silo_band: { family: "smooth_stone" },
+    // W9-G5 (Materialspiel, `WallPlan.accents` der Burg): Holzakzente an den Mauertürmen – Turmdach aus Fichte mit
+    // Traufring in dunkler Eiche (Vorbilder: Holzhelme der Tutorial-Burgen, 8bittoast.com/minecraft-castle-blueprint
+    // „dark oak or deepslate tile tower roofs“), Hurde am Torbau aus Fichtenbrettern auf den Steinkragsteinen
+    // (en.wikipedia.org/wiki/Hoarding_(castle): hölzerne Galerie auf Kragsteinen, Carcassonne) und Fichtenkappen auf
+    // den Turmzinnen. Themes ohne diese Rollen nehmen `roof_main`, `parapet` und `wall_cornice`.
+    roof_tower: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        patch: 0.06,
+        stops: [
+          { at: 0, mix: [{ family: "dark_oak", weight: 1 }] },
+          { at: 0.2, mix: [{ family: "spruce", weight: 1 }] },
+          { at: 1, mix: [{ family: "spruce", weight: 1 }] },
+        ],
+      },
+    },
+    hoarding: { family: "spruce" },
+    crown_cap: { family: "spruce" },
+
+    // ---------------------------------------------------------------- Außenprofil (research/18 §3, research/16)
+    // Dunkler Rahmen, helle Füllung: Sockel und Gesims in Steinziegeln, Läden Fichte. Sockelprofil (W7) aus einem
+    // Stein, außen bemoost. Eckquader (W3) mit sichtbarem Helligkeitsabstand: Tiefenschieferziegel (mittlere
+    // Texturhelligkeit etwa ein Drittel der Steinziegel) – dunkle Ecke wie der Fachwerk-Eckständer darüber.
+    wall_plinth: {
+      mix: [
+        { family: "stone_bricks", weight: 75 },
+        { family: "stone_bricks", variant: "mossy", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    wall_cornice: { family: "stone_bricks" },
+    // W9-G4 (27.09.2026, plan/spikes/W9G4_erdhaus.md): Steinring der Rundtür und Rundfenster am Erdhaus – eine Blockart
+    // (keine Mischung), damit der Ring spiegelsymmetrisch bleibt
+    portal_stone: { family: "stone_bricks" },
+    wall_quoin: { family: "deepslate_bricks" },
+    shutter: { family: "spruce" },
+
+    // ---------------------------------------------------------------- Einrichtung
+    // Je Möbel eine Holzart (Mischung je Platzierung): Fichte trägt, dunkle Eiche als Gegenton
+    furniture_wood: {
+      mix: [
+        { family: "spruce", weight: 75 },
+        { family: "dark_oak", weight: 25 },
+      ],
+    },
+    // Herd-, Esse- und Kamin-Mauerwerk (research/10 §10): je Zelle gemischt, Risse und Ruß
+    hearth: {
+      mix: [
+        { family: "stone_bricks", weight: 55 },
+        { family: "stone_bricks", variant: "cracked", weight: 20 },
+        { family: "cobblestone", weight: 15 },
+        { family: "blackstone", weight: 10 },
+      ],
+      perCell: true,
+    },
+    // Schlot/Rückwand aus Ziegeln
+    hearth_alt: { family: "bricks" },
+    // Arbeitsplatte (glatter Stein; Treppen gibt es nur als polierter Andesit)
+    counter_top: { family: "smooth_stone", fallback: ["polished_andesite"] },
+    textile_primary: { color: "red" },
+    // Teppich-Gegenfarbe Grau statt Blau (Rot/Grau-Muster, research/10 §10)
+    textile_accent: { color: "gray" },
+    // Säcke, Ballen, schlichte Teppiche
+    textile_neutral: { color: "brown" },
+    // Deko-Blätter (Komponenten setzen persistent=true, sonst zerfällt das Laub)
+    plant: { family: "oak", blocks: { leaves: "minecraft:flowering_azalea_leaves" } },
+    light_hanging: { family: "iron" },
+    metal: { family: "iron" },
+
+    // ---------------------------------------------------------------- Innenhaut (W2-FD, Baustandard I1/I4)
+    // Paneele (offene Falltüren vor der Wand) und Leisten/Ständer/Türrahmen. Nur Hölzer mit geschlossener
+    // Falltür-Textur (Fichte, dunkle Eiche, Birke, Blasseiche) – durch Löcher sähe man die Fassade dahinter.
+    lining_panel: { family: "spruce" },
+    lining_trim: { family: "dark_oak" },
+
+    // ---------------------------------------------------------------- Etagen (Hülle, F1)
+    // Leiter als Treppenart (Form `ladder`); die Familie ist nur Ersatz für andere Formen
+    ladder: { family: "oak", blocks: { ladder: "minecraft:ladder" } },
+
+    // ---------------------------------------------------------------- Befestigung (Kontext Bauwerke, @mcda/structures)
+    // Rollen laut materialize/src/shell-shapes.ts (SHELL_ROLE_SHAPES). Der Mauerkörper bleibt wall_primary
+    // (Verlauf vom Fuß zur Krone), der Sockel foundation.
+    // Brüstung und Zinnen: heller als der Mauerkörper (Krone), Steinziegel mit Andesit
+    parapet: {
+      mix: [
+        { family: "andesite", weight: 20 },
+        { family: "stone_bricks", weight: 80 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // W9-G5 (Materialspiel, Review R5 G5 „Burg einfarbig grau“): Sockelgeschoss der Mauertürme bis zum Wehrgang rau und
+    // dunkler (Bruchstein, Bruch-Tiefenschiefer), darüber die Turmwand im Verlauf der Mauer – unten rau, oben sauber wie
+    // in den Burg-Vorbildern (Bruchstein-Unterbau, Steinziegel darüber; minecraftgradient.blog/minecraft-wall-gradient)
+    fort_base: {
+      mix: [
+        { family: "stone_bricks", weight: 25 },
+        { family: "cobblestone", weight: 55 },
+        { family: "cobbled_deepslate", weight: 20 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Wehrgang und Turmplattformen: Pflaster (Stufen im Wehrgang als Treppen derselben Mischung)
+    walkway: {
+      mix: [
+        { family: "polished_andesite", weight: 25 },
+        { family: "stone_bricks", weight: 50 },
+        { family: "cobblestone", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Turmböden der Geschosse: Holzbohlen
+    tower_floor: { family: "spruce" },
+    // Schießscharten: Eisengitter statt Glas
+    arrow_slit: { family: "iron", shapes: { pane: "bars" } },
+    // Glockenstube (research/18 T4): Glocke als fester Block (keine Familie hat die Form `bell`)
+    bell: { family: "iron", blocks: { bell: "minecraft:bell" } },
+    // Windmühlen-Flügel (research/18 T6): weißes Segeltuch
+    sail: { color: "white" },
+    // Turmspitze (O1): Blitzableiter aus gewachstem Grünspan-Kupfer (ungewachst oxidiert er seit 1.21.9 im Spiel
+    // weiter; gewachst gibt es in 1.21.11 und 26.3), Endstab als fester Block
+    finial: { family: "waxed_oxidized_copper", blocks: { end_rod: "minecraft:end_rod" } },
+
+    // ---------------------------------------------------------------- Außen (Kontext Gelände, @mcda/terrain)
+    // Rollen laut terrain/src/roles.ts (TERRAIN_ROLE_SHAPES). Feste Blöcke ohne Plattform-Familie stehen als
+    // `block`-Einträge in Mischungen (Form `block`). Einzelblöcke (Ackerland, Wasser, Feldfrüchte) nutzen
+    // `blocks`; die Pflicht-`family` daneben ist nur Ersatz für andere Formen.
+    // Wiese: Gras trägt, Podsol und Moos als seltene Flecken (Blumen wachsen auf allen dreien)
+    // W3 (27.09.2026, Grundstück): Rasen ohne braune Erdflecken – Podsol 7 → 1 % (Vorbilder: Gras stößt ruhig an Weg
+    // und Beet; Erde gehört in Beete und Wege, nicht als Sprenkel in den Rasen)
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 96 },
+        { block: "minecraft:moss_block", weight: 3 },
+        { block: "minecraft:podzol", weight: 1 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    // W9-G4 (27.09.2026, plan/spikes/W9G4_erdhaus.md): Erdhügel – Stufenkanten aus Moos (auch seitlich grün, keine
+    // Erdkante), Stützmauer aus Bruchstein mit Moos, wo der Hügel mehr als eine Stufe offen zeigt
+    ground_moss: { family: "moss" },
+    mound_wall: {
+      mix: [
+        { family: "cobblestone", weight: 45 },
+        { family: "mossy_cobblestone", weight: 40 },
+        { block: "minecraft:andesite", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_dirt: {
+      mix: [
+        { block: "minecraft:dirt", weight: 80 },
+        { block: "minecraft:coarse_dirt", weight: 20 },
+      ],
+    },
+    // Untergrund (sichtbar nur an Böschungen und Schnittkanten); ohne Kies/Sand, die unterste Lage hängt frei
+    ground_stone: {
+      mix: [
+        { family: "diorite", weight: 5 },
+        { family: "andesite", weight: 15 },
+        { family: "stone", weight: 70 },
+        { family: "tuff", weight: 10 },
+      ],
+    },
+    // P8 Trampelpfad (research/12 §6.3): dirt_path wird unter festen Blöcken zu Erde – Wege bleiben frei
+    ground_path: {
+      mix: [
+        { block: "minecraft:dirt_path", weight: 55 },
+        { family: "packed_mud", weight: 20 },
+        { block: "minecraft:coarse_dirt", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    // Hof: Kopfsteinpflaster mit Kies und Moos (Kies liegt immer auf Erde)
+    ground_yard: {
+      mix: [
+        { family: "andesite", weight: 10 },
+        { block: "minecraft:gravel", weight: 15 },
+        { family: "cobblestone", weight: 45 },
+        { family: "mossy_cobblestone", weight: 15 },
+        { family: "cobbled_deepslate", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    garden_soil: {
+      mix: [
+        { block: "minecraft:rooted_dirt", weight: 40 },
+        { block: "minecraft:coarse_dirt", weight: 35 },
+        { block: "minecraft:podzol", weight: 25 },
+      ],
+    },
+    farmland: { family: "packed_mud", blocks: { block: "minecraft:farmland" } },
+    water: { family: "glass", blocks: { block: "minecraft:water" } },
+    pond_bed: {
+      mix: [
+        { block: "minecraft:sand", weight: 25 },
+        { block: "minecraft:clay", weight: 20 },
+        { block: "minecraft:gravel", weight: 30 },
+        { block: "minecraft:mud", weight: 25 },
+      ],
+    },
+    fence_outdoor: { family: "spruce" },
+    light_outdoor: { family: "iron" },
+    // Bäume: Stamm je Art, Krone mit Beimischung (Eiche mit etwas dunkler Eiche)
+    log_oak: { family: "oak" },
+    log_birch: { family: "birch" },
+    log_spruce: { family: "spruce" },
+    leaves_oak: {
+      mix: [
+        { family: "oak", weight: 85 },
+        { family: "dark_oak", weight: 15 },
+      ],
+    },
+    leaves_birch: { family: "birch" },
+    leaves_spruce: { family: "spruce" },
+    // Büsche (research/12 §6.3), materialize setzt Blätter persistent
+    leaves_bush: {
+      mix: [
+        { block: "minecraft:flowering_azalea_leaves", weight: 20 },
+        { block: "minecraft:azalea_leaves", weight: 45 },
+        { block: "minecraft:oak_leaves", weight: 25 },
+        { block: "minecraft:spruce_leaves", weight: 10 },
+      ],
+    },
+    // Wiesenblumen, bunt gemischt
+    flower_wild: {
+      mix: [
+        { block: "minecraft:oxeye_daisy", weight: 15 },
+        { block: "minecraft:azure_bluet", weight: 15 },
+        { block: "minecraft:dandelion", weight: 20 },
+        { block: "minecraft:lily_of_the_valley", weight: 8 },
+        { block: "minecraft:poppy", weight: 15 },
+        { block: "minecraft:cornflower", weight: 12 },
+        { block: "minecraft:allium", weight: 8 },
+        { block: "minecraft:red_tulip", weight: 7 },
+      ],
+    },
+    // Gartenbeete in zwei Farbfamilien (warm/kühl im Wechsel)
+    flower_warm: {
+      mix: [
+        { block: "minecraft:dandelion", weight: 20 },
+        { block: "minecraft:orange_tulip", weight: 20 },
+        { block: "minecraft:torchflower", weight: 10 },
+        { block: "minecraft:poppy", weight: 30 },
+        { block: "minecraft:red_tulip", weight: 20 },
+      ],
+    },
+    flower_cool: {
+      mix: [
+        { block: "minecraft:white_tulip", weight: 15 },
+        { block: "minecraft:lily_of_the_valley", weight: 15 },
+        { block: "minecraft:azure_bluet", weight: 20 },
+        { block: "minecraft:allium", weight: 20 },
+        { block: "minecraft:cornflower", weight: 30 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:short_grass", weight: 60 },
+        { block: "minecraft:fern", weight: 25 },
+        { block: "minecraft:bush", weight: 15 },
+      ],
+    },
+    // Nur Blöcke mit Ausrichtung (der Generator setzt facing)
+    ground_cover: {
+      mix: [
+        { block: "minecraft:pink_petals", weight: 35 },
+        { block: "minecraft:wildflowers", weight: 35 },
+        { block: "minecraft:leaf_litter", weight: 30 },
+      ],
+    },
+    pond_plant: {
+      mix: [
+        { block: "minecraft:sugar_cane", weight: 60 },
+        { block: "minecraft:fern", weight: 25 },
+        { block: "minecraft:short_grass", weight: 15 },
+      ],
+    },
+    crop_wheat: { family: "moss", blocks: { block: "minecraft:wheat" } },
+    crop_carrot: { family: "moss", blocks: { block: "minecraft:carrots" } },
+    crop_potato: { family: "moss", blocks: { block: "minecraft:potatoes" } },
+    crop_beetroot: { family: "moss", blocks: { block: "minecraft:beetroots" } },
+
+    // ---------------------------------------------------------------- Gelände-Feinschliff (T2, research/18 §9–§13)
+    // Hauptweg „Dorfweg“ (G1): Kies und grobe Erde, einzelne Pflastersteine – nach außen rauer
+    path_main: {
+      mix: [
+        { block: "minecraft:gravel", weight: 35 },
+        { block: "minecraft:coarse_dirt", weight: 30 },
+        { family: "cobblestone", weight: 20 },
+        { family: "andesite", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    // Weicher Wegrand und Traufstreifen (research/16 U5)
+    path_edge: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 40 },
+        { block: "minecraft:rooted_dirt", weight: 15 },
+        { block: "minecraft:podzol", weight: 20 },
+        { block: "minecraft:gravel", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    // Trittsteine (G4)
+    path_stone: {
+      mix: [
+        { family: "cobblestone", weight: 40 },
+        { family: "mossy_cobblestone", weight: 35 },
+        { family: "andesite", weight: 25 },
+      ],
+    },
+    // Rinne: abgesenkte Stufe in der Straßenmitte
+    path_gutter: {
+      mix: [
+        { family: "cobblestone", weight: 60 },
+        { family: "mossy_cobblestone", weight: 40 },
+      ],
+    },
+    // Platz (G2): Ringe aus Steinziegeln im Kopfsteinpflaster
+    plaza_accent: {
+      mix: [
+        { family: "stone_bricks", weight: 70 },
+        { family: "mossy_stone_bricks", weight: 30 },
+      ],
+    },
+    // Koppel (A3): grobe Erde und Gras (alles Erde-artig)
+    paddock_ground: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 45 },
+        { block: "minecraft:grass_block", weight: 30 },
+        { block: "minecraft:podzol", weight: 15 },
+        { block: "minecraft:rooted_dirt", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Beetkante (research/16 V4), bündig
+    bed_edge: {
+      mix: [
+        { family: "mossy_cobblestone", weight: 50 },
+        { family: "cobblestone", weight: 50 },
+      ],
+    },
+    // Z1 Stammpfosten im Zaun
+    fence_post: { family: "spruce" },
+    // Z3 Hecke: Azalee 45 / blühende Azalee 20 / Eiche 35
+    hedge: {
+      mix: [
+        { block: "minecraft:azalea_leaves", weight: 45 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 20 },
+        { block: "minecraft:oak_leaves", weight: 35 },
+      ],
+    },
+    // V4 Obstbaum: blühende Azalee als „Obst“
+    leaves_fruit: {
+      mix: [
+        { block: "minecraft:flowering_azalea_leaves", weight: 60 },
+        { block: "minecraft:azalea_leaves", weight: 25 },
+        { block: "minecraft:oak_leaves", weight: 15 },
+      ],
+    },
+    // research/16 L3: Leuchtkern im Busch
+    light_hidden: { family: "packed_mud", blocks: { block: "minecraft:shroomlight" } },
+    // A4 Brunnen: Bruchstein-Einfassung mit Mauerkranz, Schindeldach aus Fichtenstufen
+    well_stone: {
+      mix: [
+        { family: "cobblestone", weight: 60 },
+        { family: "mossy_cobblestone", weight: 40 },
+      ],
+    },
+    well_roof: { family: "spruce" },
+    // A6 Hof-Ausstattung
+    woodpile: {
+      mix: [
+        { family: "oak", weight: 50 },
+        { family: "spruce", weight: 30 },
+        { family: "birch", weight: 20 },
+      ],
+    },
+    barrel_outdoor: { family: "spruce", blocks: { block: "minecraft:barrel" } },
+    beehive: { family: "oak", blocks: { block: "minecraft:beehive" } },
+    hay: { family: "moss", blocks: { block: "minecraft:hay_block" } },
+    scarecrow_head: { family: "moss", blocks: { block: "minecraft:carved_pumpkin" } },
+    planter: { family: "spruce", blocks: { block: "minecraft:composter" } },
+    trough: { family: "iron", blocks: { block: "minecraft:water_cauldron" } },
+  },
+
+  // Flächen-Muster (research/12 §3–§5). Erste passende Zeile gewinnt; nur Standardzellen der Hülle.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  // W2 (Baustandard F1): Feldbreite des Fassadenrasters – Stein 3 (research/18 §2, research/12 §3.5), vererbt
+  facade: { bay: 3 },
+  paletteRoleMap: {
+    // W7-B (Review W4-R N5, W5-B §6): Zinnen und Wehrgang behalten den Stein des Themes – mit einer Farbwelt aus Holz
+    // (winterhort, bauernhof_erdig …) war die Burg sonst bis in die Krone einfarbig; Stein auf Stein bleibt ruhig
+    // W9-G5: das Sockelgeschoss der Mauertürme (eigene Rolle seit dem Materialspiel) färbt die Palette wie die Mauer –
+    // vorher fiel es auf `wall_primary` zurück und bekam so dieselbe Farbe
+    wall_primary: ["wall_primary", "foundation", "fort_base"],
+    wall_secondary: ["wall_secondary", "wall_plaster", "wall_wainscot", "tower_floor", "floor_tile_light", "floor_tile_dark", "floor_secondary"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth", "bell", "finial"],
+    roof: ["roof_main", "roof_tower"],
+    roof_accent: ["roof_trim"],
+    wood_frame: ["beam", "pillar", "fence_outdoor", "fence_post", "ladder", "woodpile", "barrel_outdoor", "scarecrow_head", "arrow_slit", "hoarding", "crown_cap"],
+    floor: ["floor_primary", "floor_stone", "floor_earth", "garden_soil", "farmland", "paddock_ground", "path_main", "path_edge", "path_stone", "path_gutter", "plaza_accent", "bed_edge", "ground_grass", "ground_dirt", "ground_stone", "ground_path", "ground_yard", "water", "pond_bed", "well_stone", "well_roof", "trough"],
+    accent: ["textile_primary", "textile_accent", "textile_neutral", "hearth", "hearth_alt", "counter_top", "sail", "hay", "beehive"],
+    glass: ["window", "window_frame", "shutter"],
+    light: ["light_hanging", "light_outdoor", "light_hidden"],
+    foliage: ["plant", "leaves_oak", "leaves_birch", "leaves_spruce", "leaves_bush", "leaves_fruit", "flower_wild", "flower_warm", "flower_cool", "grass_tuft", "ground_cover", "pond_plant", "hedge", "crop_wheat", "crop_carrot", "crop_potato", "crop_beetroot"],
+  },
+
+  surfaces: {
+    // Böden je Raumtyp (research/12 §4 „Standard je Raumtyp“); Türschwellen bekommen die Bordüre.
+    // W2 (Baustandard I3): Ein Boden über einem Raum ist dessen Decke – Stein, Lehm, Fliesen und der Wollläufer nur
+    // dort, wo darunter kein Raum liegt (`bottomStorey`); sonst Dielen.
+    floor: [
+      { when: { roomTypes: ["kitchen", "smithy", "forge", "bakery", "alchemy", "brewery"], bottomStorey: true }, role: "floor_stone" },
+      // FN-Dense (28.09.2026): Werkstätten und Nutzräume bekommen den Boden ihrer Arbeit – Schmiede/Bäckerei/Alchemie
+      // (Feuer, Funken) hatten Stein schon, dazu Brauhaus und Waschraum (Nässe: Fliesen/Pflaster), Waffenkammer
+      // (Steinplatten), Töpferei (gestampfter Lehm), Kerker und Weinkeller (Kellerstein-Pflaster). Nur wo darunter kein
+      // Raum liegt (I3: ein Boden über einem Raum ist dessen Decke).
+      { when: { roomTypes: ["brewhouse", "washroom", "armory", "dungeon", "wine_cellar"], bottomStorey: true }, role: "floor_stone" },
+      { when: { roomTypes: ["pottery"], bottomStorey: true }, role: "floor_earth" },
+      {
+        when: { roomTypes: ["hall", "tavern", "throne_room"], bottomStorey: true },
+        role: "floor_stone",
+        border: { role: "floor_border", inner: { role: "floor_strip" } },
+        pattern: { type: "runner", role: "textile_primary", shape: "block", edge: { role: "textile_accent", shape: "block" } },
+      },
+      { when: { roomTypes: ["hall", "tavern", "throne_room"] }, border: { role: "floor_border", inner: { role: "floor_strip" } } },
+      // W4 (27.09.2026, Review M7): Erdboden nur in Stall, Scheune und Keller – ein Lager im Keller (Geschoss < 0) behält
+      // den Lehm, ein Lager im Erdgeschoss bekommt Dielen wie die Wohnräume
+      { when: { roomTypes: ["stable", "cellar", "barn"], bottomStorey: true }, role: "floor_earth" },
+      { when: { roomTypes: ["storage"], storey: [-16, -1], bottomStorey: true }, role: "floor_earth" },
+      { when: { roomTypes: ["chapel"], bottomStorey: true }, role: "floor_tile_light", pattern: { type: "checker", size: 1, role: "floor_tile_dark" } },
+      // FN-dense-grand (28.09.2026): Prunk- und Sonderräume im Erdgeschoss bekommen Stein statt Dielen – Galerie mit
+      // Läufer, Bad im Schachbrett, Turm-/Sternwarten-/Portal-/Schatzraum mit konzentrischen Ringen um die Raummitte
+      // (spiegelsymmetrisch; Vorbild: Kachelmedaillons der Community-Thronsäle und Sternwarten)
+      {
+        when: { roomTypes: ["gallery"], bottomStorey: true },
+        role: "floor_stone",
+        border: { role: "floor_border" },
+        pattern: { type: "runner", role: "textile_primary", shape: "block", edge: { role: "textile_accent", shape: "block" } },
+      },
+      { when: { roomTypes: ["bathhouse"], bottomStorey: true }, role: "floor_tile_light", pattern: { type: "checker", size: 1, role: "floor_tile_dark" } },
+      {
+        when: { roomTypes: ["observatory", "portal_room", "tower_room", "enchanting_tower", "treasury"], bottomStorey: true },
+        role: "floor_stone",
+        border: { role: "floor_border" },
+        pattern: { type: "rings", period: 2, role: "floor_tile_dark" },
+      },
+      {
+        when: { roomTypes: ["library", "study"] },
+        border: { role: "floor_border" },
+        pattern: { type: "herringbone", length: 2, role: "floor_strip", shape: "log" },
+      },
+      // Wohn- und Schlafräume, Flure, alles andere: Dielen + Bordüre
+      { border: { role: "floor_border" } },
+    ],
+    // Außenwände bleiben wall_primary (Steinverlauf); ab lichter Höhe 5 Fachwerk-Putz über 2 Steinreihen.
+    // Innenwände: Vertäfelung unten, darüber Putz.
+    // W13-E (28.09.2026, Nutzerbefund „oben noch nicht gut“): Wohnbauten mit eigenem Wandkleid der Obergeschosse
+    // (`FacadeStyle.upperFrame` aus dem Bautyp; Burg und Wachturm nicht) bekommen über dem Steingeschoss Fachwerk mit
+    // Putz – Obergeschosse, Giebel und Kniestock. Vorbilder: die mehrgeschossigen Wohnbauten der Referenzen wechseln oben
+    // fast immer das Material (reddit 1mqe6ho, YT 1XXpmsOBWpE, YT sK2TL4NM7aI, YT 2pJ3bz4_8Dk, reddit 1uy0tw3;
+    // plan/spikes/W13E_obergeschoss_fassade.md).
+    // Keine Streben im 3 hohen Gefach (W4 S5; W13-E-Versuch mit 45°-Streben las sich im blinden A/B als Karo-/Z-Muster):
+    // die Gliederung tragen Ständer, Riegel und Fenster; fensterlose Felder im Obergeschoss bekommen einen Brustriegel
+    // (`rail`, W13-E Runde 2) statt leerem Putz.
+    wall: [
+      { when: { exterior: true, upperFrame: true, storey: [1, 16] }, role: "wall_plaster", timber: { bay: 3, motifs: ["rail"] } },
+      { when: { exterior: true, upperFrame: true, fromTop: [-64, -1] }, role: "wall_plaster", timber: { bay: 3 } },
+      { when: { exterior: true, minHeight: 5, hRel: [2, 64] }, role: "wall_secondary" },
+      // FN-Dense: Kerker, Weinkeller und Lagerkeller sind durchgehend gemauert (kein Holz an der Wand)
+      { when: { exterior: false, roomTypes: ["dungeon", "wine_cellar"] }, role: "cellar_stone" },
+      { when: { exterior: false, roomTypes: ["storage", "brewhouse", "alchemy"], storey: [-16, -1] }, role: "cellar_stone" },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Bodenplatte unter den Wänden. Erdgeschoss und Keller: sichtbarer Sockel. Obergeschosse (W2 Regeln W6/I3): außen
+    // ein Geschossband als liegender Stamm entlang der Wand (Ecken rundum Rinde), innen dieselbe Schwelle in der Decke
+    // darunter – nie Fundamentstein mitten in der Fassade oder an der Decke.
+    footing: [
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      // I3: auch der Wandfuß innen über einem Keller ist dessen Decke – Schwelle statt Fundamentstein
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+    // Balkendecke quer zur kürzeren Spannweite, Rähm über den Wänden – nur innen. Außen (W2 Regel W6, X1 B3) läuft die
+    // Außenhaut bis unter das Dach durch: kein dunkler Holzring am Giebelfuß oder unter den Zinnen.
+    // W13-E: über dem Fachwerk-Obergeschoss ist der Rähm Holz (wie beim Fachwerk-Theme), sonst läge ein Steinring darauf
+    ceiling: [
+      { when: { exterior: true, upperFrame: true, storey: [1, 16] }, plate: { role: "beam" } },
+      { when: { exterior: true }, plate: { role: "wall_primary", shape: "block", corner: "block" } },
+      // FN-Dense: gemauertes Kreuzgratgewölbe-Raster im Keller – Gurtbögen (Rippen) alle 3 Reihen über hellen Feldern
+      { when: { roomTypes: ["dungeon", "wine_cellar"] }, role: "cellar_vault", beams: { role: "cellar_rib", shape: "block", crossing: "block", period: 3 }, plate: { role: "cellar_rib", shape: "block", corner: "block" } },
+      { when: { roomTypes: ["storage", "brewhouse", "alchemy"], storey: [-16, -1] }, role: "cellar_vault", beams: { role: "cellar_rib", shape: "block", crossing: "block", period: 3 }, plate: { role: "cellar_rib", shape: "block", corner: "block" } },
+      { beams: { role: "beam", period: 3 }, plate: { role: "beam" } },
+    ],
+  },
+
+  // Verwitterung als Variantenwechsel (bemoost/rissig), Preset „bewohnt“ (research/12 §6.4)
+  // `fade` 1,5 (research/30 K2): Moos- und Rissfelder enden ausgefranst statt an einer geraden Linie;
+  // der Erwartungswert des Anteils bleibt dabei p (die Randzone ist symmetrisch um p).
+  // W2 (Baustandard I1): `interiorFaces: false` – Wände mit Raum dahinter bleiben ohne Moos und Risse (die Innenseite
+  // ist im Raum zu sehen); verwittert wird am Sockel (Bodenplatte außen), an Bauwerken und im Keller.
+  decor: {
+    weathering: { age: 0.3, fade: 1.5, interiorFaces: false, roles: ["wall_primary", "foundation", "floor_stone", "fort_base"] },
+  },
+
+  // Innenhaut (W2-FD, Baustandard I1/I4, Prüfbericht X4 §7): ein Wandsystem je Raum – Sockelleiste, Paneele bis
+  // unter die Deckenleiste, Eckständer in freien Innenecken, Türrahmen im Leisten-Holz. Erste passende Regel gewinnt.
+  // Repräsentative Räume bekommen die dunkle Täfelung (Paneel und Leiste getauscht), alle anderen die helle.
+  lining: [
+    {
+      when: { roomTypes: ["library", "study", "tavern", "dining_hall", "throne_room", "mead_hall", "trophy_room", "map_room", "gallery", "music_room", "game_room", "treasury"] },
+      panel: { role: "lining_trim" },
+      trim: { role: "lining_panel" },
+    },
+    // FN-Dense: Kerker und Weinkeller sind gemauert – keine Holzvertäfelung (nur die Wand aus `cellar_stone`)
+    { when: { roomTypes: ["dungeon", "wine_cellar"] }, off: true },
+    { when: { roomTypes: ["storage", "brewhouse", "alchemy"], storey: [-16, -1] }, off: true },
+    // FN-dense-grand: Stein- und Turmräume zeigen ihre Wand (Putz über Sockel) mit dunklem Gebälk statt Holzpaneel
+    {
+      when: { roomTypes: ["chapel", "portal_room", "observatory", "bathhouse", "enchanting_tower", "tower_room"] },
+      panel: false,
+    },
+    {},
+  ],
+
+  items: {
+    "food.baked": ["minecraft:bread", "minecraft:pumpkin_pie", "minecraft:cookie"],
+    "food.any": ["minecraft:bread", "minecraft:apple", "minecraft:baked_potato", "minecraft:carrot"],
+    "book.any": ["minecraft:book", "minecraft:writable_book"],
+    "tool.smithing": ["minecraft:iron_ingot", "minecraft:coal", "minecraft:flint"],
+    "deco.small": ["minecraft:glass_bottle", "minecraft:paper", "minecraft:feather"],
+    // K3c (research/17 Y5): Ausstellungsregal, Truhen- und Rahmen-Inhalte der neuen Räume (in 1.21.11 und 26.3 geprüft)
+    "trophy.any": ["minecraft:skeleton_skull", "minecraft:zombie_head", "minecraft:goat_horn", "minecraft:iron_sword", "minecraft:bow", "minecraft:shield"],
+    "bakery.any": ["minecraft:bread", "minecraft:cookie", "minecraft:pumpkin_pie", "minecraft:cake", "minecraft:wheat"],
+    "pottery.any": ["minecraft:decorated_pot", "minecraft:flower_pot", "minecraft:brick", "minecraft:clay_ball", "minecraft:terracotta"],
+    "textile.any": ["minecraft:white_wool", "minecraft:red_wool", "minecraft:string", "minecraft:leather", "minecraft:white_carpet"],
+    "treasure.any": ["minecraft:gold_ingot", "minecraft:gold_nugget", "minecraft:emerald", "minecraft:diamond", "minecraft:amethyst_shard"],
+  },
+  // Familien, die es in älteren Zielversionen nicht gibt
+  versionFallbacks: {
+    poplar: ["oak"],
+    pale_oak: ["birch"],
+    // Wolle und Beton bekommen erst in 26.3 Treppen und Stufen (research/24 §0.2). Rollen, die diese Formen nutzen,
+    // brauchen deshalb einen Rueckfall der FAMILIE; die Form bleibt (Treppe bleibt Treppe).
+    "color:gray": ["oak"],
+    "color:white": ["oak"],
+    "color:black": ["dark_oak"],
+  },
+}

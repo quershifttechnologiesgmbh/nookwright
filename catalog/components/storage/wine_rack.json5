@@ -1,0 +1,117 @@
+// K3b · Weinregal (research/17 §4.20, V6/V7): Stamm-Pfosten, unten rote Kerzen als Flaschen auf dem Boden, obere
+// Stufen als Brett, darauf grüne Kerzen (Kerze auf oberer Stufe ✓, T5 #4; Kerzen brauchen keine Stütze, T3).
+// Unbeleuchtet = Flaschen; „lit“ mit brennenden Kerzen für dunkle Keller. Mehr in die Höhe (V3): bei lichter
+// Höhe 4 ein zweites Brett direkt unter der Decke, ab 5 darüber liegende Fässer (Deckel vorn, öffnen immer,
+// Faktencheck #2), die bis unter die Decke wachsen (`stretch`, `ceiling`) – „Weinregal bis unter die Decke“.
+// Schmal (3 breit) für kurze Wandstücke; bei lichter Höhe 2 ist die niedrige Truhen-/Fasswand (Tag
+// `storage_wall`) die Kompaktform der Keller-Signatur.
+{
+  id: "storage/wine_rack",
+  kind: "static",
+  name: "Weinregal",
+  category: "storage",
+  tags: ["wine_rack", "bottle_rack"],
+  functionTags: ["store", "villager_workstation", "work:fisherman"], // Fässer der hohen Formen (Fischer)
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "bottles",
+      weight: 3,
+      maxRoomHeight: 3,
+      layers: [["PrrrP"], ["PsssP"], ["PgggP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+      },
+    },
+    {
+      id: "lit",
+      weight: 1,
+      maxRoomHeight: 3,
+      layers: [["PrrrP"], ["PsssP"], ["PgRgP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "true" } },
+        R: { block: "minecraft:red_candle", state: { candles: "2", lit: "true" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+      },
+    },
+    {
+      // lichte Höhe 4: zwei Bretter, das obere direkt unter der Decke
+      id: "tall4",
+      weight: 3,
+      minRoomHeight: 4,
+      maxRoomHeight: 4,
+      layers: [["PrrrP"], ["PsssP"], ["PgRgP"], ["PsssP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        R: { block: "minecraft:red_candle", state: { candles: "2", lit: "true" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+      },
+    },
+    {
+      // ab lichter Höhe 5: darüber liegende Fässer bis zur Decke (gedehnt)
+      id: "tall",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [["PrrrP"], ["PsssP"], ["PgRgP"], ["PsssP"], ["PBBBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        R: { block: "minecraft:red_candle", state: { candles: "2", lit: "true" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+      stretch: { layer: 4, max: 10, fill: "ceiling" },
+    },
+    {
+      id: "narrow",
+      weight: 2,
+      maxRoomHeight: 3,
+      layers: [["PrP"], ["PsP"], ["PgP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+      },
+    },
+    {
+      id: "narrow4",
+      weight: 2,
+      minRoomHeight: 4,
+      maxRoomHeight: 4,
+      layers: [["PrP"], ["PsP"], ["PRP"], ["PsP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        R: { block: "minecraft:red_candle", state: { candles: "2", lit: "true" } },
+      },
+    },
+    {
+      id: "narrow_tall",
+      weight: 2,
+      minRoomHeight: 5,
+      layers: [["PrP"], ["PsP"], ["PRP"], ["PsP"], ["PBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        R: { block: "minecraft:red_candle", state: { candles: "2", lit: "true" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+      stretch: { layer: 4, max: 10, fill: "ceiling" },
+    },
+  ],
+  light: "auto",
+}

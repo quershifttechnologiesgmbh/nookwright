@@ -1,0 +1,63 @@
+// FN-dense · Schaupodest: freistehender Glaskasten auf 3 × 3 Stufenpodest, vier Schaustücke ringsum im Rahmen. Die
+// Museums- und Schatzräume der Community-Vorbilder setzen ein Stück in die Raummitte (Blick von allen Seiten, Raum
+// bekommt eine Mitte statt lauter Wandregalen). Stein (Rolle wall_cornice), vier Seiten identisch aufgebaut
+// (spiegelsymmetrisch, kein Windrad), Kerzen auf den Ecken. Tag `fn_plinth`.
+{
+  id: "fn/trophy_plinth",
+  kind: "static",
+  name: "Schaupodest",
+  category: "decor",
+  tags: ["fn_plinth"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "arms",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["SSS", "SCS", "SSS"], // y0: Stufenring (Platten), Kern
+        ["k_k", "_G_", "k_k"], // y1: Kerzen auf den Ecken, Glas in der Mitte, Rahmenzellen bleiben frei
+        ["...", ".G.", "..."], // y2: Glas
+      ],
+      legend: {
+        S: { role: "wall_cornice", shape: "slab", orient: { upsideDown: false } },
+        C: { block: "minecraft:chiseled_stone_bricks" },
+        G: { block: "minecraft:glass" },
+        k: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "back", item: { item: "minecraft:diamond_sword" } },
+        { type: "item_frame", at: [1, 1, 2], face: "front", item: { item: "minecraft:diamond_sword" } },
+        { type: "item_frame", at: [0, 1, 1], face: "right", item: { item: "minecraft:shield" } },
+        { type: "item_frame", at: [2, 1, 1], face: "left", item: { item: "minecraft:shield" } },
+      ],
+      masks: { clearance: [{ side: "front", depth: 1, hard: false }, { side: "back", depth: 1, hard: false }, { side: "left", depth: 1, hard: false }, { side: "right", depth: 1, hard: false }] },
+    },
+    {
+      id: "crown",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["SSS", "SCS", "SSS"],
+        ["k_k", "_G_", "k_k"],
+        ["...", ".G.", "..."],
+      ],
+      legend: {
+        S: { role: "wall_cornice", shape: "slab", orient: { upsideDown: false } },
+        C: { block: "minecraft:chiseled_stone_bricks" },
+        G: { block: "minecraft:glass" },
+        k: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "back", item: { item: "minecraft:golden_helmet" } },
+        { type: "item_frame", at: [1, 1, 2], face: "front", item: { item: "minecraft:golden_helmet" } },
+        { type: "item_frame", at: [0, 1, 1], face: "right", item: { item: "minecraft:totem_of_undying" } },
+        { type: "item_frame", at: [2, 1, 1], face: "left", item: { item: "minecraft:totem_of_undying" } },
+      ],
+      masks: { clearance: [{ side: "front", depth: 1, hard: false }, { side: "back", depth: 1, hard: false }, { side: "left", depth: 1, hard: false }, { side: "right", depth: 1, hard: false }] },
+    },
+  ],
+}

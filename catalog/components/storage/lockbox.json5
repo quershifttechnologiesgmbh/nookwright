@@ -1,0 +1,50 @@
+// research/57 · Handelshalle: Kassentruhe mit Zaun-Tresen (Nebenobjekt). Tag `trade_chest` steht in
+// trading_hall.json5 im optionalen Eintrag `{ tags: ["chest", "trade_chest"] }`. Anders als storage/chest
+// (freistehende Einzeltruhe) hat diese Form eine Zaun-Theke davor (Handels-Gefühl an der Kasse), passend zu
+// Ständen ohne eigenen Tresen.
+// Q1a: kein allgemeines Tag `chest` mehr. Die Kassentruhe ist 2 Zellen tief und hat keinen Stapel-Socket; im
+// Lager hat sie als `chest`-Kandidat die Pflicht-Truhen (min. 2, perArea 8) verdraengt und den Raum so voll
+// gestellt, dass eine Pflicht-Truhe nicht mehr passte (catalog-fuzz/k2). Als Marktmoebel bleibt sie ueber
+// `trade_chest` in der Handelshalle erreichbar.
+{
+  id: "storage/lockbox",
+  kind: "static",
+  name: "Kassentruhe",
+  category: "storage",
+  tags: ["trade_chest", "storage", "stack_on_chest"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "counter",
+      weight: 2,
+      layers: [["C", "F"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        F: { role: "beam", shape: "fence" },
+      },
+    },
+    {
+      id: "double",
+      weight: 1,
+      layers: [["CC", "FF"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        F: { role: "beam", shape: "fence" },
+      },
+    },
+    {
+      id: "barred",
+      weight: 1,
+      layers: [["C", "I"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        I: { block: "minecraft:iron_bars" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

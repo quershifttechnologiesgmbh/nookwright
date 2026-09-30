@@ -1,0 +1,24 @@
+// research/56 · Fässergruppe im Freien (Bing „minecraft courtyard barrel cluster“): zwei stehende Fässer plus
+// ein liegendes, unregelmäßig gruppiert, Moosteppich auf einem Fass als Wetterspur. Anders als
+// `storage/barrel_stack` (Lager, sauber) für Hof, Markt, Anlegestelle gedacht.
+{
+  id: "outdoor/barrel_cluster",
+  kind: "static",
+  name: "Fässergruppe",
+  category: "storage",
+  tags: ["barrel_cluster", "outdoor", "yard", "market"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["UUL", "U.."], // y0: zwei stehende, ein liegendes Fass
+    ["m..", "..."], // y1: Moos auf einem Fass
+  ],
+  legend: {
+    U: { block: "minecraft:barrel", orient: { front: "up" } },
+    L: { block: "minecraft:barrel", orient: { front: "right" } },
+    m: { block: "minecraft:moss_carpet" },
+  },
+}

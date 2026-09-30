@@ -1,0 +1,83 @@
+// K3b · Rüstungsnische (research/17 §4.22, A2/A4: „Rüstungsständer in Buchten zwischen Dunkeleichen-Pfosten“):
+// Stamm-Pfosten links und rechts, unten ein Sockel (untere Stufe), darüber Brustpanzer und Helm in Rahmen an der
+// Raumwand (Rahmen über der Stufe: ragt nicht in die Zelle darüber, Vanilla `ItemFrame#survives`). Ersatz für den
+// Rüstungsständer, bis die Materialisierung Rüstungsständer-Entities kann (research/17 Y6). Mehr in die Höhe
+// (V3): ab lichter Höhe 4 ein Sturz aus umgedrehten Treppen, die Nische wächst bis unter die Decke (`stretch`).
+// Tag `wall_weapons`: Teil der Waffen-/Rüstungswand im Buchten-Takt (Waffenkammer, Kaserne, Methalle, Schmiede).
+{
+  id: "decor/armor_bay",
+  kind: "static",
+  name: "Rüstungsnische",
+  category: "decor",
+  tags: ["armor_bay", "wall_weapons"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "iron",
+      weight: 3,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [["PsP"], ["P_P"], ["P_P"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:iron_chestplate" } },
+        { type: "item_frame", at: [1, 2, 0], face: "front", item: { item: "minecraft:iron_helmet" } },
+      ],
+    },
+    {
+      id: "leather",
+      weight: 2,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [["PsP"], ["P_P"], ["P_P"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:leather_chestplate" } },
+        { type: "item_frame", at: [1, 2, 0], face: "front", item: { item: "minecraft:leather_helmet" } },
+      ],
+    },
+    {
+      // ab lichter Höhe 4: Sturz, Nische bis zur Decke
+      id: "iron_high",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["PsP"], ["P_P"], ["P_P"], ["PUP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:iron_chestplate" } },
+        { type: "item_frame", at: [1, 2, 0], face: "front", item: { item: "minecraft:iron_helmet" } },
+      ],
+      stretch: { layer: 3, max: 10, fill: "ceiling", rows: ["PPP"] },
+    },
+    {
+      id: "chain_high",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["PsP"], ["P_P"], ["P_P"], ["PUP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:chainmail_chestplate" } },
+        { type: "item_frame", at: [1, 2, 0], face: "front", item: { item: "minecraft:chainmail_helmet" } },
+      ],
+      stretch: { layer: 3, max: 10, fill: "ceiling", rows: ["PPP"] },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

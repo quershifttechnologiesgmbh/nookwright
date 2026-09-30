@@ -1,0 +1,162 @@
+// W3-EN · Eingangsmodul „Cottage“ (plan/spikes/W3EN_eingang.md, Vorbild-Archetyp B „Vordach auf Pfosten“): Vordach aus
+// Stufen, 5 breit und 2 tief, auf zwei Zaunpfosten vor der Tür; das Laternenpaar hängt unter dem Vordach links und rechts
+// der Tür (untere Stufe = tragende Unterseite, Faktencheck #3), Kübelpaar neben der Tür, Holzstufe 3 breit. Kein Portal:
+// die Tür sitzt ohne Gewände in der Wand, die Tiefe gibt das Vordach.
+//
+//   Ansicht (5 breit)         Schnitt           Stück            Lage (j ab Türachse, y ab Bodenplatte, z = Tiefe)
+//     _ _ _ _ _   y4          _ _   y4          canopy           Stufen y = 4 (z 0–1), Zaunpfosten z = 1, j = ±2, y = 0 … 3
+//     f L . L f   y3          L f   y3          canopy_low       Rückfall bei niedriger Traufe: Stufenleiste über der Tür
+//     f . D . f   y2          . f               lanterns         y = 3, j = ±1, z = 0 (hängt unter dem Vordach bzw. der Traufe)
+//     f o D o f   y1          o f               lanterns_post    Rückfall: Laterne auf einem Stammstumpf, j = ±2
+//     f s s s f   y0          s f               step/block       Vortreppe (Holz) bzw. Podest/Unterbau
+//
+// Vorbilder (URLs im Bericht): YouTube FI2sRo-IJhU, BoyC6uII6Xg „Porch & Awning“, llPN6HtSoLU, KEoS506IBhk, EkR0ak2tHlc.
+//
+// W4-C (plan/spikes/W4C_tueren.md) Doppeltür: Stücke `double_*` sind eine Spalte breiter (gerade Breite, spiegelsymmetrisch
+// um die Mitte zwischen den beiden Flügeln); der Planer setzt ihre zwei Mittelspalten auf die Flügel. Vordach 6 × 2 auf
+// Zaunpfosten, Laternen unter dem Vordach neben den Flügeln.
+{
+  id: "exterior/entrance_module_cottage",
+  kind: "static",
+  name: "Eingangsmodul Cottage",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_entrance", "exterior_entrance_module", "outdoor", "walls_wood"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["rustic", "farmstead", "tropical"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        [".SSS.", "F...F"],
+        ["....." , "F...F"],
+        ["....." , "F...F"],
+        [".L.L.", "F...F"],
+        ["CCCCC", "CCCCC"],
+      ],
+      legend: {
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        F: { role: "beam", shape: "fence" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        C: { role: "roof_main", shape: "slab" },
+      },
+    },
+    {
+      id: "canopy",
+      layers: [
+        [".....", "F...F"],
+        [".....", "F...F"],
+        [".....", "F...F"],
+        [".....", "F...F"],
+        ["CCCCC", "CCCCC"],
+      ],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { role: "roof_main", shape: "slab" },
+      },
+    },
+    {
+      id: "canopy_narrow",
+      // Rückfall, wenn neben der Tür Traufkonsolen oder Fensterstücke die äußeren Spalten belegen: 3 breit, Pfosten j = ±1
+      layers: [
+        ["...", "F.F"],
+        ["...", "F.F"],
+        ["...", "F.F"],
+        ["...", "F.F"],
+        ["CCC", "CCC"],
+      ],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { role: "roof_main", shape: "slab" },
+      },
+    },
+    {
+      id: "canopy_low",
+      // niedrige Traufe: Stufenleiste direkt über der Tür, 3 breit, 2 tief, ohne Träger (Vorbild W2 vtISwAMncDY)
+      layers: [["...", "..."], ["...", "..."], ["...", "..."], ["CCC", "CCC"]],
+      legend: { C: { role: "roof_main", shape: "slab" } },
+    },
+    {
+      id: "lanterns",
+      // hängt unter dem Vordach (bzw. unter der Traufe) – der Planer prüft die tragende Unterseite darüber
+      layers: [["..."], ["..."], ["..."], ["L.L"]],
+      legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } } },
+    },
+    {
+      id: "lanterns_post",
+      layers: [["....."], ["P...P"], ["L...L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+    },
+    {
+      id: "double_canopy",
+      // W4-C: Vordach 6 × 2 auf zwei Zaunpfosten (Tür + 4 wie beim einfachen Eingang)
+      layers: [
+        ["......", "F....F"],
+        ["......", "F....F"],
+        ["......", "F....F"],
+        ["......", "F....F"],
+        ["CCCCCC", "CCCCCC"],
+      ],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { role: "roof_main", shape: "slab" },
+      },
+    },
+    {
+      id: "double_canopy_narrow",
+      layers: [
+        ["....", "F..F"],
+        ["....", "F..F"],
+        ["....", "F..F"],
+        ["....", "F..F"],
+        ["CCCC", "CCCC"],
+      ],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { role: "roof_main", shape: "slab" },
+      },
+    },
+    {
+      id: "double_canopy_low",
+      layers: [["....", "...."], ["....", "...."], ["....", "...."], ["CCCC", "CCCC"]],
+      legend: { C: { role: "roof_main", shape: "slab" } },
+    },
+    {
+      id: "double_lanterns",
+      layers: [["...."], ["...."], ["...."], ["L..L"]],
+      legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } } },
+    },
+    {
+      id: "double_lanterns_post",
+      layers: [["......"], ["P....P"], ["L....L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+    },
+    {
+      id: "double_blind",
+      // W4-C Rückfall der Doppeltür (wie `door_canopy#trapdoor`): Blende aus Falltüren über beiden Flügeln
+      layers: [["...."], [".__."], [".__."], ["TTTT"]],
+      legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", upsideDown: true, open: false } } },
+    },
+    {
+      id: "step",
+      layers: [["S"]],
+      legend: { S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "block",
+      layers: [["B"]],
+      legend: { B: { role: "wall_cornice", shape: "block" } },
+    },
+  ],
+  light: "auto",
+}

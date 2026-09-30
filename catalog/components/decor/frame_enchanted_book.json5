@@ -1,0 +1,20 @@
+// K3d · Leuchtrahmen mit Zauberbuch (research/11 E-5, E1/E7): Leuchtrahmen an der Raumwand auf der Achse über der
+// Station, darüber ein kleines Bord (obere Stufe) – wie decor/frame_food: die Rahmen-Zelle bleibt frei ('_'), das
+// Bord hält die Spalte für die Wandprüfung (kein Fenster dahinter). Tag `frame_enchanted_book`.
+{
+  id: "decor/frame_enchanted_book",
+  kind: "static",
+  name: "Leuchtrahmen mit Zauberbuch",
+  category: "attachment",
+  tags: ["frame_enchanted_book", "wall_decor"],
+  styleTags: ["arcane", "scholarly"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  layers: [["_"], ["S"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  entities: [{ type: "glow_item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:enchanted_book" } }],
+  sockets: [{ id: "shelf", type: "surface", at: [0, 2, 0], accepts: ["candles"], prob: 0.5 }],
+}

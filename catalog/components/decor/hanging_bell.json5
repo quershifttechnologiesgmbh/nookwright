@@ -1,0 +1,16 @@
+// K2 · Glocke (DA Utility: Timepieces / Decoration: Religious): Glocke an der Decke (attachment ceiling,
+// stabile Mitte darüber). Glocken gibt es nur in Dörfern oder beim Handel → survival_rare.
+{
+  id: "decor/hanging_bell",
+  kind: "static",
+  name: "Glocke",
+  category: "decor",
+  tags: ["bell", "decor_ceiling"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival_rare",
+  mount: "ceiling",
+  rotations: [0, 1],
+  layers: [["G"]],
+  legend: { G: { block: "minecraft:bell", orient: { front: "front" }, state: { attachment: "ceiling" } } },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+}

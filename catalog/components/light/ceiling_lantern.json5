@@ -1,0 +1,18 @@
+// Laterne direkt unter der Decke – für niedrige Räume (Kopffreiheit), wo die Kettenlaterne zu tief hinge.
+// V3: nur bis lichte Höhe 5 (darüber hängt die Kettenlaterne mit passender Kettenlänge); `light_pendant`.
+{
+  id: "light/ceiling_lantern",
+  kind: "static",
+  name: "Deckenlaterne",
+  category: "light",
+  tags: ["light", "light_ceiling", "light_pendant"],
+  functionTags: ["light"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  maxRoomHeight: 5,
+  layers: [["L"]],
+  legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } } },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

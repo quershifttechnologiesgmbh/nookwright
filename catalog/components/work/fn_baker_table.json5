@@ -1,0 +1,31 @@
+// FN-Dense · Backtisch (Raummitte der Bäckerei): Teigtisch mit zwei Räucheröfen (Metzger-Arbeitsblock, Faktencheck #7)
+// und Kuchen in der Mitte, darunter Heuballen als Mehlsäcke. 5 breit, 2 tief, 3 hoch. Kuchen braucht feste Unterlage
+// (Halbstufe oben = voller Boden). Symmetrisch in der Breite. Insel-Eintrag von `bakery` (Tag `fn_bakery_island`).
+{
+  id: "work/fn_baker_table",
+  kind: "static",
+  name: "Backtisch",
+  category: "work",
+  tags: ["fn_bakery_island"],
+  functionTags: ["craft", "cook"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["PhhhP", "P...P"], // y0: Beine, hinten Mehl-/Heuballen
+    ["sssss", "sssss"], // y1: Platte
+    ["S.k.S", ".l.l."], // y2: Räucherofen | Kuchen | Räucherofen; Laternen
+  ],
+  legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        h: { block: "minecraft:hay_block", orient: { axis: "along" } },
+        S: { block: "minecraft:smoker", orient: { front: "front" } },
+        k: { block: "minecraft:cake" },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

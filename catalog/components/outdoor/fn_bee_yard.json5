@@ -1,0 +1,54 @@
+// FN Tierfarmen: Bienengarten (Nest-Anordnung im Freien). Zwei bzw. drei Bienenstöcke stehen auf Lagerfeuern (Rauch bis 5
+// Blöcke unter dem Stock beruhigt die Bienen beim Ernten von Hand, Wiki: Campfire/Beehive), Eingang nach vorn. Davor zwei
+// Blumenreihen auf Gartenerde: Bienen brauchen Blumen (Wiki: Bee – suchen bis ~22 Blöcke, 3 Bienen je Stock). Kein
+// Redstone: die automatische Wabenernte steckt in `functional/fn_animal_apiary` (Innenraum-Variante). Nur statisch geprüft.
+{
+  id: "outdoor/fn_bee_yard",
+  kind: "static",
+  name: "Bienengarten",
+  category: "work",
+  // Bewusst nur der eigene Tag (Integration 29.09.2026): mit den Pool-Tags `garden`/`orchard`/`beehive` lief der Bienengarten in die
+  // Gelände-Zonen der Bestandsstile und änderte die Prüfsummen von forest, hills, farmland und bare (`packages/terrain/test/compat.test.ts`).
+  // Aufnahme in den Garten-Pool = Welle 2 (Gebäude-/Grundstücks-Integration, mit neu gemessenem Pin).
+  tags: ["fn_bee_yard"],
+  functionTags: ["farm:honey", "animal:bee"],
+  styleTags: ["rustic", "farm", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "small",
+      weight: 2,
+      layers: [
+        ["sssss", "sssss", "sssss"], // y0: Gartenerde
+        [".C.C.", "wcwcw", "cwcwc"], // y1: Lagerfeuer | Blumen
+        [".B.B.", ".....", "....."], // y2: Bienenstöcke
+      ],
+      legend: {
+        s: { role: "garden_soil", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+      },
+    },
+    {
+      id: "large",
+      weight: 3,
+      layers: [
+        ["sssssss", "sssssss", "sssssss"],
+        [".C.C.C.", "wcwcwcw", "cwcwcwc"],
+        [".B.B.B.", ".......", "......."],
+      ],
+      legend: {
+        s: { role: "garden_soil", shape: "block" },
+        C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+        B: { block: "minecraft:beehive", state: { honey_level: "0" }, orient: { front: "front" } },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

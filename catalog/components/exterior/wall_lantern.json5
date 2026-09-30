@@ -1,0 +1,22 @@
+// X1 · E4 Wandlaterne am Zaun-Arm (research/16 W6, research/18 E4): Zaun 1 vor der Wand in Höhe der Türoberkante + 1
+// (verbindet sich mit der Wand), darunter die hängende Laterne (Zaun-Unterseite = stabile Mitte, Faktencheck #3).
+// Paarweise links und rechts der Haustür.
+{
+  id: "exterior/wall_lantern",
+  kind: "static",
+  name: "Wandlaterne (außen)",
+  category: "light",
+  tags: ["exterior", "exterior_light", "outdoor"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["L"], ["F"]],
+  legend: {
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+    F: { role: "beam", shape: "fence" },
+  },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

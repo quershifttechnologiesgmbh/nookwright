@@ -1,0 +1,60 @@
+// research/57 · Krankenstube: Isolierliege ohne Sichtschutzbanner (Nebenform neben bed/sickbed_screen –
+// bislang die einzige Bettform des Raumtyps). Tag `sickbed` steht in infirmary.json5 im Pflicht-Eintrag
+// `{ tags: ["sickbed"], pattern: { kind: "row", gap: 1 } }`. Statt Zaun-Vorhang eine niedrige Bretterwand
+// (Sichtschutz aus Planken) und eine Truhe am Fußende für Verbandszeug.
+{
+  id: "bed/quarantine_cot",
+  kind: "static",
+  name: "Isolierliege",
+  category: "furniture",
+  tags: ["sickbed"],
+  functionTags: ["sleep", "store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "screen_r",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["Hb", "FC"], // y0: Kopf + Bretterwand | Fuß + Truhe
+        ["_b", "__"], // y1: Luft über dem Bett, Bretterwand
+      ],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+        b: { role: "beam", shape: "planks" },
+        C: { block: "minecraft:chest", orient: { front: "right" } },
+      },
+      masks: { use: [{ side: "right" }, { side: "front" }] },
+    },
+    {
+      id: "screen_l",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["bH", "CF"],
+        ["b_", "__"],
+      ],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+        b: { role: "beam", shape: "planks" },
+        C: { block: "minecraft:chest", orient: { front: "left" } },
+      },
+      masks: { use: [{ side: "left" }, { side: "front" }] },
+    },
+    {
+      id: "plain",
+      weight: 1,
+      layers: [["H", "F"], ["_", "_"]],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+      },
+      masks: { use: [{ side: "left" }, { side: "right" }] },
+    },
+  ],
+}

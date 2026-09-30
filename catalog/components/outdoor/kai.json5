@@ -1,0 +1,53 @@
+// Welle D · D3 (research/24 §7.0, T3 `harbor`): Kai – die Kaikante mit Pollern, Festmacherkette und der Leiter
+// ins Wasser (research/24 §7.3 Kernthema (a) „Pfahlkai“; die dort genannte Rolle `curb` gibt es nicht, deshalb
+// trägt die Landseite die bestehende Rolle `wall_plinth`, die Wasserseite `foundation`). Die Leiter hängt an der
+// Kante (volle Fläche dahinter, Faktencheck #15), die Laterne steht auf dem Poller. Alles steht auf dem Boden.
+{
+  id: "outdoor/kai",
+  kind: "static",
+  name: "Kai",
+  category: "architecture",
+  tags: ["kai", "quay", "dock", "mooring", "outdoor"],
+  styleTags: ["harbor", "nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "stone",
+      weight: 3,
+      layers: [
+        ["PPPP", "FFFl"], // y0: Kante | Pflaster | Leiter ins Wasser
+        ["B.B.", "...."], // y1: zwei Poller
+        ["L.C.", "...."], // y2: Laterne auf dem Poller, Festmacherkette
+      ],
+      legend: {
+        P: { role: "wall_plinth", shape: "block" },
+        F: { role: "foundation", shape: "block" },
+        l: { block: "minecraft:ladder", orient: { front: "front" } },
+        B: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+    },
+    {
+      id: "timber",
+      weight: 2,
+      layers: [
+        ["PPPP", "FFFl"], // y0: hölzerne Kante | Pflaster | Leiter
+        ["B.B.", "...."], // y1
+        ["L.C.", "...."], // y2
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        F: { role: "foundation", shape: "block" },
+        l: { block: "minecraft:ladder", orient: { front: "front" } },
+        B: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "back" }] },
+  light: "auto",
+}

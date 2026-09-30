@@ -1,0 +1,33 @@
+// Metzgerei (K3b, research/17 §4.18). Signatur: Räucherofen (Metzger-Arbeitsblock, passt immer, 1×1) an der
+// Rückwand; Hackklotz ist Pflicht. Laden-Front mit Theke, Fleisch in Rahmen an der Wand.
+// Mehr in die Höhe (V3): Fleisch am Haken hängt von der Decke über dem hinteren Bereich (Kette wächst mit der
+// Raumhöhe, nie unter Boden + 2 → ab lichter Höhe 4), Fleischrahmen auch eine Reihe höher, Ketten.
+{
+  id: "butchery",
+  name: "Metzgerei",
+  minArea: 9,
+  coverage: { target: 0.45 },
+  zones: [{ id: "shop", doorAffinity: "near" }, { id: "work", doorAffinity: "far" }],
+  required: [
+    { tags: ["smoker"], count: [1, 2], signature: true, zone: "work", placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["chopping_block"], count: [1, 1], zone: "work", placement: { zones: ["edge", "center"] } },
+  ],
+  optional: [
+    { tags: ["counter"], count: [1, 2], weight: 4, zone: "shop", placement: { zones: ["center", "edge"] } },
+    { tags: ["wall_meat"], count: [1, 3], weight: 4 },
+    { tags: ["hanging_meat"], count: [1, 3], weight: 3, zone: "work" },
+    { tags: ["water_cauldron"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["barrel"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["firewood"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+    // V3 (Raumhöhe nutzen): Gewürzstange, Ketten, Fässer gestapelt, Oberschrank
+    { tags: ["herb_rack"], count: [1, 1], weight: 2 },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+    { tags: ["barrel_stack"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["upper_cabinet"], count: [1, 1], weight: 1 },
+    // Q1a: Messer und Gerät hängen sichtbar an der Wand (Metzger-Handwerk). Ohne diesen Eintrag blieb die
+    // Metzgerei mit 24 wählbaren Komponenten unter dem Q1a-Ziel von 25 (research/57 §1).
+    { tags: ["wall_tools", "utensil_rail"], count: [0, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

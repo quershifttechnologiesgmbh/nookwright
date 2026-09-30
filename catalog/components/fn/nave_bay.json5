@@ -1,0 +1,118 @@
+// FN-dense · Schiffsbucht (Blendarkade): Pfeilerpaar mit Spitz-/Kragbogen unter der Decke, dazwischen eine Nische
+// mit genau einer Funktion (Banner, Hängelaterne, Kerzenbank; Rahmen entfallen: hinter dem Wandsockel liegt Wandverkleidung, die nicht als fester Träger zählt). Gothische Seitenschiffe und Thronsäle der
+// Community-Vorbilder gliedern lange Wände im Pfeilertakt mit Bögen (Bogenreihe/Arkade), damit die Wand nicht als
+// glatte Fläche steht; die Nischentiefe wirft Schatten. Anders als `arch/pilaster_bay` (Stammpfosten, Tag
+// `gallery_bay`) sind die Pfeiler hier Stein mit Kapitell, und der Bogen schließt oben ab: Die Pfeiler wachsen mit
+// `stretch` (fill ceiling) bis unter die Decke, der Bogen sitzt immer direkt unter der Decke (hohe Halle = hohe
+// Nische). Breite 5, Tiefe 1 (Rücken an der Wand). Spiegelsymmetrisch (Bogen links/rechts gespiegelt) – kein Windrad.
+// Tag `fn_nave_bay` (nur in FN-Raumtypen; kein bestehender Solver-Pool).
+{
+  id: "fn/nave_bay",
+  kind: "static",
+  name: "Schiffsbucht",
+  category: "architecture",
+  tags: ["fn_nave_bay"],
+  styleTags: ["medieval", "noble", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // Steinpfeiler, Banner in der Nische
+      id: "stone_banner",
+      weight: 4,
+      minRoomHeight: 4,
+      layers: [
+        ["P___P"],
+        ["P___P"],
+        ["P_V_P"],
+        ["PabcP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        a: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        b: { role: "wall_cornice", shape: "block" },
+        c: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+      stretch: { layer: 2, max: 10, fill: "ceiling", rows: ["P___P"] },
+    },
+    {
+      // Hängelaterne unter dem Schlussstein (Träger: Schlussstein darüber)
+      id: "stone_lantern",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["P___P"],
+        ["P___P"],
+        ["P_L_P"],
+        ["PabcP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        a: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        b: { role: "wall_cornice", shape: "block" },
+        c: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+      stretch: { layer: 1, max: 10, fill: "ceiling", rows: ["P___P"] },
+    },
+    {
+      // Kerzen auf der Sockelbank (Blickpunkt am Boden)
+      id: "stone_candles",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["PSKSP"],
+        ["P___P"],
+        ["P___P"],
+        ["PabcP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        S: { role: "wall_cornice", shape: "slab", orient: { upsideDown: false } },
+        K: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+        a: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        b: { role: "wall_cornice", shape: "block" },
+        c: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+      stretch: { layer: 2, max: 10, fill: "ceiling", rows: ["P___P"] },
+    },
+    {
+      // niedriger Raum (Höhe 3): Banner, Bogen direkt darüber
+      id: "low_banner",
+      weight: 4,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["P___P"],
+        ["P_V_P"],
+        ["PabcP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+        a: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        b: { role: "wall_cornice", shape: "block" },
+        c: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+    },
+    {
+      // sehr niedriger Raum (Höhe 2): Pfeiler und Bogen
+      id: "low_plain",
+      weight: 4,
+      maxRoomHeight: 2,
+      layers: [
+        ["P___P"],
+        ["PabcP"],
+      ],
+      legend: {
+        P: { role: "wall_cornice", shape: "block" },
+        a: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        b: { role: "wall_cornice", shape: "block" },
+        c: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: false }] },
+}

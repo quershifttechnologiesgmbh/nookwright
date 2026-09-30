@@ -1,0 +1,81 @@
+// Vulkanfestung Schwarz – duester, Biome: nether, mountains, Stile: fantasy.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "vulkanfestung_schwarz",
+  name: "Vulkanfestung Schwarz",
+  mood: "duester",
+  biomes: ["nether", "mountains"],
+  styles: ["fantasy"],
+  values: ["minecraft:blackstone", "minecraft:basalt", "minecraft:polished_basalt", "minecraft:magma_block", "minecraft:netherrack"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "blackstone", weight: 45 },
+        { family: "basalt", weight: 35 },
+        { family: "polished_basalt", weight: 20 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "polished_blackstone_bricks", weight: 60 },
+        { family: "gilded_blackstone", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "gold", weight: 40 },
+      ],
+    },
+    roof: {
+      // roof_fixed: schwarze Wand, zu nah an Schwarzstein -> hellerer Tuff als Dachflaeche (Q4, research/54 §1.2)
+      blocks: [
+        { family: "tuff", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:magma_block", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "crimson", shape: "log", weight: 70 },
+        { family: "crimson", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "polished_blackstone_bricks", weight: 55 },
+        { block: "minecraft:magma_block", weight: 20 },
+        { family: "netherrack", weight: 25 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:red", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:red", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 50 },
+        { block: "minecraft:campfire", weight: 50 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "crimson", shape: "sapling", weight: 60 },
+        { family: "crimson", shape: "leaves", weight: 40 },
+      ],
+    },
+  },
+}

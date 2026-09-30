@@ -1,0 +1,60 @@
+// research/57 · Innenfarm: Beerenspalier, zweite Bauform neben functional/crop_plot (mehr Auswahl für die
+// Signatur `crop_plot`, bisher nur Getreide/Karotten/Kartoffeln/Rüben auf derselben Grundform). Tag `crop_plot`
+// steht in farm_room.json5 im Pflicht-Eintrag und im optionalen Eintrag `{ tags: ["crop_plot"] }`. Kompaktes
+// 3×3-Beet mit Süßen Beeren statt Reihenkultur, gleiche Bewässerungs-Laterne in der Mitte (Licht ≥ 9, T5 §3.4).
+{
+  id: "functional/berry_trellis",
+  kind: "static",
+  name: "Beerenspalier",
+  category: "work",
+  tags: ["crop_plot", "farm_bed"],
+  functionTags: ["farm:crops", "light"],
+  styleTags: ["rustic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "berries_ripe",
+      weight: 3,
+      layers: [
+        ["FFF", "FFF", "FFF"],
+        ["BBB", "BLB", "BBB"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        B: { block: "minecraft:sweet_berry_bush", state: { age: "3" } },
+      },
+    },
+    {
+      id: "berries_growing",
+      weight: 2,
+      layers: [
+        ["FFF", "FFF", "FFF"],
+        ["BBB", "BLB", "BBB"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        B: { block: "minecraft:sweet_berry_bush", state: { age: "1" } },
+      },
+    },
+    {
+      // Eckpfosten aus Zaun statt Felderrand: die vier Ecken sind Pfosten (kein Ackerland), der Rest
+      // trägt die Beeren wie gehabt.
+      id: "with_fence",
+      weight: 2,
+      layers: [
+        ["fFf", "FFF", "fFf"], // y0: Zaun-Ecken | Ackerland
+        ["_B_", "BLB", "_B_"], // y1: Luft über den Pfosten, Beeren + Laterne über dem Ackerland
+      ],
+      legend: {
+        f: { role: "beam", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        B: { block: "minecraft:sweet_berry_bush", state: { age: "3" } },
+      },
+    },
+  ],
+}

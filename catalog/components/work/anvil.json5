@@ -1,0 +1,6 @@
+// Amboss: fällt ohne Block darunter (Schwerkraft) – auf dem Boden unkritisch.
+{ id: "work/anvil", kind: "static", name: "Amboss", category: "work",
+  tags: ["anvil", "work"], functionTags: ["repair"], obtainability: "survival",
+  mount: "floor", rotations: "all",
+  layers: [["A"]], legend: { A: { block: "minecraft:anvil", orient: { front: "front" } } },
+  masks: { use: [{ side: "front" }, { side: "back" }] } }

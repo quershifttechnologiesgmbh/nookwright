@@ -1,0 +1,35 @@
+// research/57 · Redstone-Werkstatt: Schaltplan-Tafel (Nebenobjekt, ergänzt decor/tool_wall um eine Papier- statt
+// Werkzeugwand). Tag `wall_tools` steht in workshop_redstone.json5 im optionalen Eintrag
+// `{ tags: ["wall_tools"] }`. Karte mit Redstone-Kritzeleien (Kartenrahmen) und einem Kompass als „Messgerät“.
+{
+  id: "decor/schematic_board",
+  kind: "static",
+  name: "Schaltplan-Tafel",
+  category: "attachment",
+  tags: ["wall_decor", "schematic_board"],
+  styleTags: ["workshop", "medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [["_"], ["S"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  variants: [
+    {
+      id: "blueprint",
+      weight: 2,
+      entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:paper" } }],
+    },
+    {
+      id: "redstone_dust",
+      weight: 2,
+      entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:redstone" } }],
+    },
+    {
+      id: "compass_gauge",
+      weight: 1,
+      entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:compass" } }],
+    },
+  ],
+}

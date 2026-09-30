@@ -1,0 +1,5 @@
+import {readFileSync,readdirSync,lstatSync} from 'node:fs';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';import {join} from 'node:path';
+const root=fileURLToPath(new URL('../',import.meta.url));const m=JSON.parse(readFileSync(join(root,'release-manifest.json'),'utf8'));const expected=new Set(m.files.map(f=>f.path));
+function walk(dir=''){return readdirSync(join(root,dir)).flatMap(n=>{const p=dir?dir+'/'+n:n;if(p==='.git'||p==='node_modules'||p==='website/dist'||p==='packages/app/dist')return [];const s=lstatSync(join(root,p));if(s.isSymbolicLink())throw Error('Symlink: '+p);return s.isDirectory()?walk(p):[p]})}
+for(const p of walk()){if(p==='release-manifest.json'||p.startsWith('node_modules/')||p.startsWith('website/dist/')||p==='.env')continue;if(!expected.has(p))throw Error('Unerwartete Datei: '+p)}
+for(const f of m.files){const h=createHash('sha256').update(readFileSync(join(root,f.path))).digest('hex');if(h!==f.sha256)throw Error('SHA-256 verändert: '+f.path)}console.log(m.files.length+' Dateien: SHA-256/Inventar korrekt');

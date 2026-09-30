@@ -1,0 +1,47 @@
+// V3 · Aufsatzregal („Regal auf Kommode“, research/10 §2.3 Kommode + Aufsatz B2/B11): steht über den
+// Stapel-Socket `above` auf Kommode oder Anrichte (3 breit, gleiche Ausrichtung). Zaunpfosten tragen ein Brett
+// aus oberen Stufen; dazwischen ein Topf bzw. ein kleines Bücherregal. 2 hoch → auf einer 1 hohen Kommode
+// schon bei lichter Höhe 3 (das Brett liegt dann unter der Decke). Wird nur über Sockets gewählt (Tag
+// `dresser_top`), nie frei im Raum.
+{
+  id: "storage/shelf_hutch",
+  kind: "static",
+  name: "Aufsatzregal",
+  category: "storage",
+  tags: ["dresser_top", "shelf_hutch"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pot",
+      weight: 2,
+      layers: [["FPF"], ["SSS"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        P: { block: "minecraft:potted_fern" },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "books",
+      weight: 2,
+      layers: [["PBP"], ["SSS"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:bookshelf" },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "open",
+      weight: 1,
+      layers: [["F_F"], ["KKK"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+}

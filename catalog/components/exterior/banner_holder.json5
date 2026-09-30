@@ -1,0 +1,27 @@
+// research/53 E4/D13 · Wappen-/Banner-Halter: Banner flach an der Fassade (Rolle textile_primary, braucht einen
+// festen Block dahinter). „double“ hängt zwei Banner übereinander für einen großen Wappenschild am Torhaus.
+{
+  id: "exterior/banner_holder",
+  kind: "static",
+  name: "Banner-Halter",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval", "noble", "village"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "flush",
+      weight: 2,
+      layers: [["B"]],
+      legend: { B: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } } },
+    },
+    {
+      id: "double",
+      weight: 1,
+      layers: [["B"], ["B"]],
+      legend: { B: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } } },
+    },
+  ],
+}

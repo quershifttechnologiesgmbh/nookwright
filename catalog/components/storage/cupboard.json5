@@ -1,0 +1,45 @@
+// K2 · Schrank mit Türen (DA Furniture: Cupboards): Fässer mit offenen Falltüren davor. Spike T5 #7: Der
+// erste Klick klappt die Tür zu, der zweite öffnet das Fass – ein echter Schrank. Falltüren aus `beam`
+// (dunkler Kontrast, Rollen-Schnappschuss erlaubt für `furniture_wood` keine Falltür). Variante „tall“ mit
+// Gesims braucht lichte Höhe ≥ 3.
+{
+  id: "storage/cupboard",
+  kind: "static",
+  name: "Schrank mit Türen",
+  category: "storage",
+  tags: ["cupboard", "cabinet", "wardrobe"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "double",
+      weight: 2,
+      layers: [
+        ["BB", "TT"], // y0: Fässer hinten, Türen vorn
+        ["BB", "TT"], // y1
+      ],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      id: "tall",
+      weight: 1,
+      layers: [
+        ["BB", "TT"],
+        ["BB", "TT"],
+        ["KK", ".."], // y2: Gesims
+      ],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,14 @@
+{
+  id: "work/crafting_table",
+  kind: "static",
+  name: "Werkbank",
+  category: "work",
+  tags: ["crafting", "work"],
+  functionTags: ["craft"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  layers: [["W"]],
+  legend: { W: { block: "minecraft:crafting_table" } },
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,30 @@
+// FN-Geheimnisse · Tresorkammer (plan/spikes/FN_secrets.md): kleine Schatzkammer mit Wand-Tresor (ein Fass hinter einer
+// Kolbenwand, drei Hebel, nur einer ist verdrahtet: Tag `fn_secret_safe`). Optional eine entschärfte Pfeilfalle (Werfer
+// LEER, Pfeile in der Truhe: Tag `fn_secret_trap`), Kisten, Schaustücke. Ruhezustand: Tresor ZU, Falle entschärft.
+{
+  id: "vault_room",
+  name: "Tresorkammer",
+  minArea: 30,
+  coverage: { target: 0.35 },
+  required: [
+    { tags: ["chest", "barrel"], count: [1, 2], placement: { zones: ["edge", "corner"] } },
+  ],
+  optional: [
+    // Tresor und Falle sind groß (6×3 bzw. 5×3, dreilagig, Vollblöcke): als Pflicht scheitern sie in engen Fuzz-Räumen
+    // (Fenster, Türzone, Hauptweg). Darum Wunsch (Mindestmenge 1 ohne Pflicht-Warnung): in großen Räumen (ab etwa 12×9) wird sie gesetzt, in engen entfällt sie still.
+    { tags: ["fn_secret_safe"], count: [1, 1], weight: 10, signature: true, placement: { zones: ["edge"] } },
+    { tags: ["fn_secret_trap"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["chest", "barrel"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["pedestal", "tall_clock"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["candle_stand"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_banner", "wall_shelf"], count: [0, 2], weight: 1 },
+    { tags: ["light_pendant", "light_ceiling"], count: [0, 2], weight: 3 },
+    { tags: ["treasure_pile"], count: [0, 2], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["storage_wall"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["tapestry", "ceiling_banner"], count: [0, 2], weight: 2 },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 1 },
+  ],
+  lighting: { minLevel: 5, prefer: ["light_wall", "light_pendant", "candles"], budget: { cellsPer: 12, min: 2 } },
+}

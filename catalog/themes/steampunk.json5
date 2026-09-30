@@ -1,0 +1,177 @@
+// Steampunk (FN, plan/spikes/FN_inspiration_gebaeude.md §3.7): dunkle Ziegel- und Tiefenschieferwände, Kupferdach vom
+// frischen Orange an der Traufe bis zum Grünspan am First, dunkle Eiche und Eisen, warmes Laternenlicht, Messing-/Kupfer-
+// Metall. Erbt Böden, Möbel, Außenwelt von medieval. Kupfer nur gewachst (bleibt im Spiel stabil, in 1.21.11 und 26.3 vorhanden).
+// Vorbilder: blockblend.app/palettes/steampunk, minecraftgradient.blog (bricks → exposed/weathered copper → spruce trapdoor);
+// Kupferdächer mit Patina (en.wikipedia.org/wiki/Copper_roof).
+{
+  id: "steampunk",
+  mood: { formality: 0, richness: 0.25, wear: 0.5 },
+  name: "Steampunk",
+  description: "Rote Ziegel auf Tiefenschiefersockel, Kupferdach mit Patina-Verlauf, dunkle Eiche, Eisen, Messinglaternen",
+  base: "medieval",
+  roles: {
+    // Ziegel tragen, Netherziegel als dunklere Sprengsel in Zellen (Ziegelbrand), unten Tiefenschiefer
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.1,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "bricks", weight: 60 },
+            { family: "nether_bricks", weight: 20 },
+            { family: "deepslate_bricks", weight: 20 },
+          ] },
+          { at: 0.4, mix: [
+            { family: "bricks", weight: 80 },
+            { family: "nether_bricks", weight: 20 },
+          ] },
+          { at: 1, mix: [
+            { family: "bricks", weight: 88 },
+            { family: "nether_bricks", weight: 12 },
+          ] },
+        ],
+      },
+      noise: { type: "cells", cell: 3 },
+    },
+    // Innen: dunkles Holzpaneel und heller Putz wie medieval, hier grauer Kalkputz
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "calcite", weight: 40 },
+            { family: "light_gray_terracotta", weight: 60 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 70 },
+            { family: "light_gray_terracotta", weight: 30 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+      fallback: ["quartz"],
+    },
+    foundation: {
+      mix: [
+        { family: "deepslate_bricks", weight: 55 },
+        { family: "cobbled_deepslate", weight: 45 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Eckquader und Gesims in Tiefenschieferziegeln (dunkle Fassung der Ziegelwand); Sockelprofil ebenso
+    wall_quoin: { family: "deepslate_bricks" },
+    wall_cornice: { family: "deepslate_bricks" },
+    wall_plinth: { family: "deepslate_bricks" },
+    portal_stone: { family: "deepslate_bricks" },
+    wall_gable: { family: "bricks" },
+    // Kupferdach: Traufe frisch (orange), darüber Patina bis Grünspan am First – ganze Ringe
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "waxed_copper", weight: 1 }] },
+          { at: 0.4, mix: [{ family: "waxed_weathered_copper", weight: 1 }] },
+          { at: 0.8, mix: [{ family: "waxed_oxidized_copper", weight: 1 }] },
+          { at: 1, mix: [{ family: "waxed_oxidized_copper", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "dark_oak" },
+    roof_tower: { family: "waxed_weathered_copper" },
+    roof_barn: { family: "waxed_weathered_copper" },
+    crown_cap: { family: "dark_oak" },
+    hoarding: { family: "dark_oak" },
+    // Holz: dunkle Eiche überall (Rahmen, Türen, Läden, Möbel)
+    beam: { family: "dark_oak" },
+    pillar: { family: "dark_oak" },
+    door: { family: "dark_oak" },
+    window_frame: { family: "dark_oak" },
+    shutter: { family: "dark_oak" },
+    ceiling: { family: "dark_oak" },
+    furniture_wood: { family: "dark_oak" },
+    floor_primary: {
+      mix: [
+        { family: "spruce", weight: 85 },
+        { family: "dark_oak", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_border: { family: "dark_oak" },
+    floor_stone: {
+      mix: [
+        { family: "polished_andesite", weight: 30 },
+        { family: "stone_bricks", weight: 40 },
+        { family: "polished_deepslate", weight: 30 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Scheiben mit Grünstich (Messglas), Kupfer als Metall, Eisenlaterne für warmes Licht
+    window: { color: "cyan", shapes: { pane: "stained_glass_pane" } },
+    metal: { family: "waxed_copper" },
+    light_hanging: { family: "iron" },
+    light_outdoor: { family: "iron" },
+    textile_primary: { color: "brown" },
+    textile_accent: { color: "orange" },
+    textile_neutral: { color: "gray" },
+    hearth_alt: { family: "bricks" },
+    lining_panel: { family: "dark_oak" },
+    lining_trim: { family: "spruce" },
+
+    // ---------------------------------------------------------------- Außen: Werkhof statt Wiese
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 72 },
+        { block: "minecraft:coarse_dirt", weight: 18 },
+        { block: "minecraft:podzol", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:gravel", weight: 40 },
+        { block: "minecraft:coarse_dirt", weight: 30 },
+        { block: "minecraft:dirt_path", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { family: "cobblestone", weight: 40 },
+        { family: "stone_bricks", weight: 25 },
+        { block: "minecraft:gravel", weight: 20 },
+        { family: "andesite", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+  },
+
+  facade: { bay: 3 },
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation", "fort_base"],
+    wall_secondary: ["wall_secondary", "wall_gable"],
+  },
+
+  surfaces: {
+    // Ziegelbau in allen Geschossen (keine Fachwerk-Obergeschosse); innen Vertäfelung unten, darüber Putz
+    wall: [
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Geschossband als dunkles Tiefenschiefer-Gesims, innen Schwelle aus Eiche
+    footing: [
+      { when: { exterior: true, storey: [1, 16] }, role: "wall_cornice", shape: "block" },
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+    ceiling: [
+      { when: { exterior: true }, plate: { role: "wall_primary", shape: "block", corner: "block" } },
+      { beams: { role: "beam", period: 3 }, plate: { role: "beam" } },
+    ],
+  },
+}

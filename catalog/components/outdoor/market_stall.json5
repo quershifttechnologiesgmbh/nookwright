@@ -1,0 +1,29 @@
+// K2 · Marktstand (DA Structural: Tents / Village; Bing „medieval market stall“): Theke aus umgedrehten
+// Treppen vorn, Zaunpfosten an den Ecken, gestreiftes Wolldach (rot/weiß fest – das Streifenmuster ist das
+// Erkennungszeichen). Händlerplatz hinter der Theke bleibt frei. Ware auf der Theke über einen Socket.
+// 4 hoch → außen oder in hohen Hallen.
+{
+  id: "outdoor/market_stall",
+  kind: "static",
+  name: "Marktstand",
+  category: "architecture",
+  tags: ["market_stall", "outdoor", "shop"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["F_F", "KKK"], // y0: hintere Pfosten, Händlerplatz, Theke
+    ["F_F", "F.F"], // y1: Pfosten (vorn auf der Theke)
+    ["F.F", "F.F"], // y2
+    ["RWR", "RWR"], // y3: Streifendach
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    R: { block: "minecraft:red_wool" },
+    W: { block: "minecraft:white_wool" },
+  },
+  sockets: [{ id: "ware", type: "surface", at: [1, 1, 1], accepts: ["food", "vase", "tabletop_small"], prob: 0.9 }],
+  masks: { use: [{ side: "front" }] },
+}

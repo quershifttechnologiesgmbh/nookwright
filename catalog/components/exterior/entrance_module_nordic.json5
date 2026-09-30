@@ -1,0 +1,141 @@
+// W3-EN · Eingangsmodul „Nordisch“ (plan/spikes/W3EN_eingang.md, Vorbild-Archetypen C „Giebel-Vordach“ und D
+// „Laternenpfosten“): kleines Satteldach, 5 breit und 2 tief, auf zwei Zaunpfosten vor der Tür; das Laternenpaar hängt
+// unter den oberen Dachstufen des Giebels links und rechts der Tür (untere Treppe = tragende Unterseite, Faktencheck #3).
+// Bei niedriger Traufe entfällt der Giebel: dann eine Stufenleiste über der Tür und das Laternenpaar auf zwei
+// Stammstümpfen neben der Tür (Archetyp D). Holzstufe 3 breit.
+//
+//   Ansicht (5 breit)       Stück            Lage (j ab Türachse, y ab Bodenplatte, z = Tiefe)
+//     . G K H .   y4        canopy           Giebel z = 0–1: Dachstufen y = 3 (j = ±2) und y = 4 (j = ±1), First-Block
+//     G L . L H   y3                         y = 4 (j = 0); Zaunpfosten z = 1, j = ±2, y = 0 … 2
+//     f . D . f   y2        canopy_low       Rückfall: Stufenleiste über der Tür (y = 3, 3 breit, 2 tief)
+//     f . D . f   y1        lanterns         y = 3, j = ±1, z = 0 (hängt unter der oberen Dachstufe bzw. der Traufe)
+//     f s s s f   y0        lanterns_post    Rückfall: Laterne auf einem Stammstumpf, j = ±2
+//                           step/block       Vortreppe (Holz) bzw. Podest/Unterbau
+//
+// Vorbilder (URLs im Bericht): YouTube xvVvtsHAwKs, BoyC6uII6Xg „tiny gable“, 2oZVyEAUeOg, vtISwAMncDY, hoCjDCq2NuI;
+// Reddit k0yjq3.
+//
+// W4-C (plan/spikes/W4C_tueren.md) Doppeltür: Stücke `double_*` sind eine Spalte breiter (gerade Breite, spiegelsymmetrisch
+// um die Mitte zwischen den beiden Flügeln); der Planer setzt ihre zwei Mittelspalten auf die Flügel. Giebel-Vordach 6 × 2
+// mit doppeltem Firstblock.
+{
+  id: "exterior/entrance_module_nordic",
+  kind: "static",
+  name: "Eingangsmodul Nordisch",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_entrance", "exterior_entrance_module", "outdoor", "walls_wood"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["nordic", "nordic_falu", "winter", "harbor"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        [".SSS.", "P...P"],
+        [".....", "P...P"],
+        [".....", "P...P"],
+        ["GL.LH", "G...H"],
+        [".GKH.", ".GKH."],
+      ],
+      legend: {
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        P: { role: "beam", shape: "fence" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        G: { role: "roof_main", shape: "stairs", orient: { back: "right" } },
+        H: { role: "roof_main", shape: "stairs", orient: { back: "left" } },
+        K: { role: "roof_trim", shape: "block" },
+      },
+    },
+    {
+      id: "canopy",
+      layers: [
+        [".....", "P...P"],
+        [".....", "P...P"],
+        [".....", "P...P"],
+        ["G...H", "G...H"],
+        [".GKH.", ".GKH."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "fence" },
+        G: { role: "roof_main", shape: "stairs", orient: { back: "right" } },
+        H: { role: "roof_main", shape: "stairs", orient: { back: "left" } },
+        K: { role: "roof_trim", shape: "block" },
+      },
+    },
+    {
+      id: "canopy_low",
+      layers: [["...", "..."], ["...", "..."], ["...", "..."], ["CCC", "CCC"]],
+      legend: { C: { role: "roof_main", shape: "slab" } },
+    },
+    {
+      id: "lanterns",
+      // hängt unter der oberen Dachstufe des Giebels (bzw. unter der Traufe); der Planer prüft den Träger darüber
+      layers: [["....."], ["....."], ["....."], [".L.L."]],
+      legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } } },
+    },
+    {
+      id: "lanterns_post",
+      layers: [["....."], ["P...P"], ["L...L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+    },
+    {
+      id: "double_canopy",
+      // W4-C: Giebel-Vordach 6 × 2 mit doppeltem Firstblock auf zwei Zaunpfosten
+      layers: [
+        ["......", "P....P"],
+        ["......", "P....P"],
+        ["......", "P....P"],
+        ["G....H", "G....H"],
+        [".GKKH.", ".GKKH."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "fence" },
+        G: { role: "roof_main", shape: "stairs", orient: { back: "right" } },
+        H: { role: "roof_main", shape: "stairs", orient: { back: "left" } },
+        K: { role: "roof_trim", shape: "block" },
+      },
+    },
+    {
+      id: "double_canopy_low",
+      layers: [["....", "...."], ["....", "...."], ["....", "...."], ["CCCC", "CCCC"]],
+      legend: { C: { role: "roof_main", shape: "slab" } },
+    },
+    {
+      id: "double_lanterns",
+      layers: [["......"], ["......"], ["......"], [".L..L."]],
+      legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } } },
+    },
+    {
+      id: "double_lanterns_post",
+      layers: [["......"], ["P....P"], ["L....L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+    },
+    {
+      id: "double_blind",
+      // W4-C Rückfall der Doppeltür (wie `door_canopy#trapdoor`): Blende aus Falltüren über beiden Flügeln
+      layers: [["...."], [".__."], [".__."], ["TTTT"]],
+      legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", upsideDown: true, open: false } } },
+    },
+    {
+      id: "step",
+      layers: [["S"]],
+      legend: { S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "block",
+      layers: [["B"]],
+      legend: { B: { role: "wall_cornice", shape: "block" } },
+    },
+  ],
+  light: "auto",
+}

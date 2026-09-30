@@ -1,0 +1,18 @@
+// K2 · Buch-Rahmen (DA Utility: Library): Rahmen mit Buch (Item-Rolle `book.any` des Themes) in Augenhöhe,
+// darüber ein kleines Bord. 1 breit, an der Raumwand.
+{
+  id: "decor/frame_books",
+  kind: "static",
+  name: "Buch-Rahmen",
+  category: "attachment",
+  tags: ["wall_decor", "wall_books"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["S"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { role: "book.any" } }],
+}

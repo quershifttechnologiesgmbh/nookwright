@@ -1,0 +1,64 @@
+// K3d · Bodenkarte als Teppich-Mosaik (research/11 C-3, M1/M2/M4/M6-Ersatz): begehbar (Teppich), Survival, ohne
+// Kartendaten. Rand in `textile_neutral` (braun) statt Falltür-Rahmen: geschlossene Falltüren sind für die
+// Materialisierung nicht begehbar (Physik-Klasse „halb“), der Solver würde sonst einen Laufweg annehmen, den es
+// nicht gibt. Die Grube mit Geländer (`floor_inset` + `carve`, research/11 C3) trägt das Schema noch nicht.
+// Tag `floor_map` (NICHT `rug`: Schlafzimmer und Bibliothek sollen keine Landkarte als Teppich bekommen).
+{
+  id: "decor/floor_map",
+  kind: "static",
+  name: "Bodenkarte",
+  category: "overlay",
+  tags: ["floor_map"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "grand",
+      weight: 2,
+      layers: [["nnnnnnn", "nbbglgn", "nbgllyn", "nggbbbn", "nnnnnnn"]],
+      legend: {
+        n: { role: "textile_neutral", shape: "carpet" },
+        b: { block: "minecraft:blue_carpet" },
+        g: { block: "minecraft:green_carpet" },
+        l: { block: "minecraft:lime_carpet" },
+        y: { block: "minecraft:yellow_carpet" },
+      },
+    },
+    {
+      id: "medium",
+      weight: 3,
+      layers: [["nnnnn", "nbbgn", "nbgyn", "nnnnn"]],
+      legend: {
+        n: { role: "textile_neutral", shape: "carpet" },
+        b: { block: "minecraft:blue_carpet" },
+        g: { block: "minecraft:green_carpet" },
+        y: { block: "minecraft:yellow_carpet" },
+      },
+    },
+    {
+      id: "small",
+      weight: 2,
+      layers: [["nnnn", "nbgn", "nnnn"]],
+      legend: {
+        n: { role: "textile_neutral", shape: "carpet" },
+        b: { block: "minecraft:blue_carpet" },
+        g: { block: "minecraft:green_carpet" },
+      },
+    },
+    {
+      // Kompaktform ohne Rand (kleine Räume: die Türzone bleibt frei)
+      id: "tiny",
+      weight: 1,
+      layers: [["bgl", "gby"]],
+      legend: {
+        b: { block: "minecraft:blue_carpet" },
+        g: { block: "minecraft:green_carpet" },
+        l: { block: "minecraft:lime_carpet" },
+        y: { block: "minecraft:yellow_carpet" },
+      },
+    },
+  ],
+}

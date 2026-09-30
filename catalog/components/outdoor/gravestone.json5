@@ -1,0 +1,44 @@
+// research/56 · Grabstein (DA Structural: Cemetery; Bing „minecraft gravestone build“): drei Varianten – Kreuz
+// (Wandschild-Arme), Kopfstein (Mauer + Treppenkappe), Steinhaufen (Cairn). Für Friedhof, Ruinen, Wegrand.
+{
+  id: "outdoor/gravestone",
+  kind: "static",
+  name: "Grabstein",
+  category: "decor",
+  tags: ["gravestone", "outdoor", "cemetery"],
+  styleTags: ["ruin", "overgrown", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: false,
+  variants: [
+    {
+      id: "headstone",
+      weight: 3,
+      layers: [["W"], ["S"]],
+      legend: {
+        W: { block: "minecraft:cobblestone_wall" },
+        S: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "cross",
+      weight: 2,
+      layers: [[".W.", "..."], [".W.", "..."], ["AWB", "..."]],
+      legend: {
+        W: { block: "minecraft:cobblestone_wall" },
+        A: { role: "beam", shape: "wall_sign", orient: { attachTo: "left" } },
+        B: { role: "beam", shape: "wall_sign", orient: { attachTo: "right" } },
+      },
+    },
+    {
+      id: "cairn",
+      weight: 2,
+      layers: [["s"], ["a"]],
+      legend: {
+        s: { block: "minecraft:stone" },
+        a: { block: "minecraft:andesite" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,64 @@
+// Esse für niedrige Räume (lichte Höhe 2): Glut hinter Gitter im Rußrand, die Haube sitzt direkt darauf.
+// Sonst wie work/forge (Feuer-Regeln, kein Lava-Kessel, Mauerwerk fest).
+{
+  id: "work/forge_low",
+  kind: "static",
+  name: "Esse (niedrig)",
+  category: "work",
+  tags: ["forge", "fire_feature", "smithing"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "campfire_stone",
+      weight: 3,
+      layers: [
+        ["MGM", "RIR"], // y0: Glut, Rußrand + Gitter
+        ["MMM", "UUU"], // y1: Sturz + Haubenkante
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        R: { block: "minecraft:blackstone" },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "campfire_brick",
+      weight: 2,
+      layers: [
+        ["MGM", "RIR"],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { block: "minecraft:bricks" },
+        U: { block: "minecraft:brick_stairs", orient: { upsideDown: true, back: "back" } },
+        R: { block: "minecraft:blackstone" },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "ember_deepslate",
+      weight: 1,
+      layers: [
+        ["MGM", "RIR"],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { block: "minecraft:deepslate_bricks" },
+        U: { block: "minecraft:deepslate_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        R: { block: "minecraft:coal_block" },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:magma_block" },
+      },
+    },
+  ],
+  sockets: [{ id: "anvil", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["anvil"], prob: 0.4, facing: "same" }],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

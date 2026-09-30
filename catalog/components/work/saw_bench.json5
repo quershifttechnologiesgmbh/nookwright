@@ -1,0 +1,27 @@
+// K3b · Sägetisch (research/17 §4.15, Z1/Z3): zwei liegende Stämme längs, dazwischen eine Steinsäge als Blatt.
+// Die Steinsäge ist der Steinmetz-Arbeitsblock (Faktencheck #7) → `villager_workstation`. Das Blatt läuft wie
+// die Stämme (facing Ost/West = längs, im Spiel prüfen: research/17 T17). Auf dem linken Stamm liegt eine Axt im
+// Rahmen (flach auf dem Stamm = voller Block, wie work/chopping_block), über dem rechten bleibt die Ablage frei.
+// Frei stehend (Mitte oder längs an der Wand), Arbeitsseite vorn.
+{
+  id: "work/saw_bench",
+  kind: "static",
+  name: "Sägetisch",
+  category: "work",
+  tags: ["saw_bench", "woodwork", "stonecutter"],
+  functionTags: ["craft", "villager_workstation", "work:mason"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["LSL"], // y0: Stamm | Steinsäge | Stamm
+    ["_._"], // y1: frei über den Stämmen (Axt im Rahmen links)
+  ],
+  legend: {
+    L: { role: "beam", shape: "log", orient: { axis: "along" } },
+    S: { block: "minecraft:stonecutter", orient: { front: "left" } },
+  },
+  entities: [{ type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:iron_axe" } }],
+  masks: { use: [{ side: "front" }] },
+}

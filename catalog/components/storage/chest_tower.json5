@@ -1,0 +1,71 @@
+// V3 · Hohe Truhenwand (Nutzer-Wunsch „2 Truhen übereinander, mehr in die Höhe“; research/10 §4.3: Truhen
+// 2–3 hoch gestapelt in 12/18 Lager-Referenzen). Zwischen Stamm-Pfosten 3 Reihen Truhen bzw. Fässer unten
+// und Truhen darüber, oben ein Gesims. Regel containerOpen (Faktencheck #2, In-Game T5 #6/T4): Truhe über
+// Truhe öffnet, Fass über Truhe NICHT – deshalb stehen Fässer nur UNTER Truhen; die oberste Truhe hat das
+// Gesims (Stufe/umgedrehte Treppe, leitet nicht) über sich, nie die Decke. 4 hoch → lichte Höhe ≥ 4.
+{
+  id: "storage/chest_tower",
+  kind: "static",
+  name: "Hohe Truhenwand",
+  category: "storage",
+  tags: ["storage_wall", "chest_wall", "chest_tower"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "three_rows",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["PCCP"], // y0
+        ["PCCP"], // y1: Truhe auf Truhe
+        ["PCCP"], // y2
+        ["PSSP"], // y3: Gesims aus oberen Stufen
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      // Fass-Sockel: liegende Fässer unten (öffnen immer), zwei Reihen Truhen darüber
+      id: "barrel_base",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["PBBP"],
+        ["PCCP"],
+        ["PCCP"],
+        ["PKKP"], // Gesims aus umgedrehten Treppen
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      // 3 hoch für lichte Höhe 3: Fässer unten, Truhen darüber, Gesims unter der Decke
+      id: "barrel_chest",
+      weight: 2,
+      maxRoomHeight: 3,
+      layers: [
+        ["PBBP"],
+        ["PCCP"],
+        ["PSSP"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

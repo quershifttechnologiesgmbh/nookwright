@@ -1,0 +1,114 @@
+// Pilzbeet (Welle FN): kleiner Baustein für Keller und Höhlenräume, 3 oder 5 breit, 3 tief, Höhe 2.
+// Wiki Mushroom: Pilze stehen auf Myzel (und Podsol) bei jedem Lichtpegel; kein Wasser nötig, sie breiten sich auf freie Nachbarzellen aus (hier keine,
+// Beet gefüllt). Ruhezustand: Pilze gesetzt, keine Mechanik. Pflichtform des Raumtyps mushroom_cellar; die Spülbeete (fn_crop_flush_shroom) sind optional.
+{
+  id: "functional/fn_shroom_bed",
+  kind: "static",
+  name: "Pilzbeet",
+  category: "work",
+  tags: ["fn_shroom_bed", "fn_shroom", "fn_crop"],
+  functionTags: ["farm:mushroom"],
+  styleTags: ["rustic", "cellar", "fantasy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_brown",
+      weight: 3,
+      layers: [
+        [ // y0: Rückwand + Myzel
+          "BBB", // z0 Rückwand
+          "MMM", // z1 Reihe 1
+          "MMM", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pilze (braun/rot im Wechsel)
+          "qwq", // z0 Rückwand
+          "brb", // z1 Reihe 1
+          "rbr", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        q: { block: "minecraft:potted_red_mushroom" },
+        w: { block: "minecraft:potted_brown_mushroom" },
+        M: { block: "minecraft:mycelium", state: { snowy: "false" } },
+        r: { block: "minecraft:red_mushroom" },
+        b: { block: "minecraft:brown_mushroom" },
+      },
+    },
+    {
+      id: "s_red",
+      weight: 3,
+      layers: [
+        [ // y0: Rückwand + Myzel
+          "BBB", // z0 Rückwand
+          "MMM", // z1 Reihe 1
+          "MMM", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pilze (braun/rot im Wechsel)
+          "wqw", // z0 Rückwand
+          "rbr", // z1 Reihe 1
+          "brb", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        q: { block: "minecraft:potted_red_mushroom" },
+        w: { block: "minecraft:potted_brown_mushroom" },
+        M: { block: "minecraft:mycelium", state: { snowy: "false" } },
+        r: { block: "minecraft:red_mushroom" },
+        b: { block: "minecraft:brown_mushroom" },
+      },
+    },
+    {
+      id: "m_brown",
+      weight: 2,
+      layers: [
+        [ // y0: Rückwand + Myzel
+          "BBBBB", // z0 Rückwand
+          "MMMMM", // z1 Reihe 1
+          "MMMMM", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pilze (braun/rot im Wechsel)
+          "qwqwq", // z0 Rückwand
+          "brbrb", // z1 Reihe 1
+          "rbrbr", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        q: { block: "minecraft:potted_red_mushroom" },
+        w: { block: "minecraft:potted_brown_mushroom" },
+        M: { block: "minecraft:mycelium", state: { snowy: "false" } },
+        r: { block: "minecraft:red_mushroom" },
+        b: { block: "minecraft:brown_mushroom" },
+      },
+    },
+    {
+      id: "m_red",
+      weight: 2,
+      layers: [
+        [ // y0: Rückwand + Myzel
+          "BBBBB", // z0 Rückwand
+          "MMMMM", // z1 Reihe 1
+          "MMMMM", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pilze (braun/rot im Wechsel)
+          "wqwqw", // z0 Rückwand
+          "rbrbr", // z1 Reihe 1
+          "brbrb", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        q: { block: "minecraft:potted_red_mushroom" },
+        w: { block: "minecraft:potted_brown_mushroom" },
+        M: { block: "minecraft:mycelium", state: { snowy: "false" } },
+        r: { block: "minecraft:red_mushroom" },
+        b: { block: "minecraft:brown_mushroom" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,56 @@
+// FN-Lager · Entnahme-Theke: Vorrats-Truhe -> Trichter -> Entnahme-Fass in der Theke. Der Spieler legt oben in die Truhe (Vorrat),
+// die Ware rutscht selbstständig in das Fass, das mit der Öffnung nach oben bündig in der Thekenplatte sitzt: griffbereit,
+// KEIN Redstone (reiner Trichter-Fluss, kein Kabel, keine Sperre). Zwei Varianten: `one` (3 breit) und `two` (7 breit, zwei
+// Entnahmestellen). Ruhezustand: Truhe und Fass leer (Trichter ohne Inhalt, `enabled=true`).
+// Mechanik (Wiki Trichter): der Trichter zieht aus dem Behälter über ihm (Truhe, y1) und gibt in den Behälter vor sich (Fass, z1)
+// ab; er zeigt nach vorn (attachTo front). Die Truhe steht unter einer umgedrehten Halbstufe (leitet nicht: Truhe öffnet).
+// Im Spiel NICHT geprüft (nur statisch); die Bausteine (Trichter -> Behälter) sind es in R1 (Gruppe F, egg_collector, auto_furnace).
+{
+  id: "functional/fn_store_counter",
+  kind: "static",
+  name: "Entnahme-Theke",
+  category: "storage",
+  tags: ["fn_counter", "fn_store"],
+  functionTags: ["store", "automation"],
+  styleTags: ["medieval", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "one",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PHP", "PtP"],
+        ["PCP", "___"],
+        ["ZZZ", "..."],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        t: { block: "minecraft:barrel", orient: { front: "up" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        Z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "two",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PHPPPHP", "PtPPPtP"],
+        ["PCPPPCP", "_______"],
+        ["ZZZZZZZ", "......."],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        H: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        t: { block: "minecraft:barrel", orient: { front: "up" } },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        Z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

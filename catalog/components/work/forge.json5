@@ -1,0 +1,73 @@
+// Esse mit sichtbarer Glut (Schmiede-Signatur, research/10 §5.3/§7.8: 16/16 Referenzen).
+// Glut in einer gemauerten Nische, davor Funkenschutz aus Eisengittern (Rolle metal) zwischen einem Rußrand
+// aus Schwarzstein/Kohleblöcken; darüber Luft (die Glut bleibt sichtbar), oben Sturz + Haubenkante.
+// Lichte Höhe ≥ 3; für lichte Höhe 2 gibt es work/forge_low. Schlot bis zur Decke = Folgeaufgabe (adaptiv).
+// Feuer-Regeln (plan/01 §4.8 fireSafe): Lagerfeuer entzündet nichts; Magma entzündet nichts und steht
+// hinter dem Gitter (niemand betritt es). Lava-Kessel bewusst NICHT, solange research/10 §11 #5 offen ist.
+// Mauerwerk fest, bis das Theme die Rolle `hearth` kennt. Amboss-Socket vor dem Gitter (Station, plan/01 §7.2).
+{
+  id: "work/forge",
+  kind: "static",
+  name: "Esse",
+  category: "work",
+  tags: ["forge", "fire_feature", "smithing"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "campfire_stone",
+      weight: 3,
+      layers: [
+        ["MGM", "RIR"], // y0: Glut in der Nische, vorn Rußrand + Gitter
+        ["M_M", "M_M"], // y1: Hauben-Wangen, über Glut und Gitter Luft
+        ["MMM", "UUU"], // y2: Sturz + Haubenkante
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        R: { block: "minecraft:blackstone" },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "campfire_brick",
+      weight: 2,
+      layers: [
+        ["MGM", "RIR"],
+        ["M_M", "M_M"],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { block: "minecraft:bricks" },
+        U: { block: "minecraft:brick_stairs", orient: { upsideDown: true, back: "back" } },
+        R: { block: "minecraft:blackstone" },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      // Glutbett (F1/F12): Magma im Kohle-Rand, Haube aus Tiefenschiefer-Ziegeln (Ruß-Optik)
+      id: "ember_deepslate",
+      weight: 2,
+      layers: [
+        ["MGM", "RIR"],
+        ["M_M", "M_M"],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { block: "minecraft:deepslate_bricks" },
+        U: { block: "minecraft:deepslate_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        R: { block: "minecraft:coal_block" },
+        I: { role: "metal", shape: "bars" },
+        G: { block: "minecraft:magma_block" },
+      },
+    },
+  ],
+  sockets: [{ id: "anvil", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["anvil"], prob: 0.4, facing: "same" }],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

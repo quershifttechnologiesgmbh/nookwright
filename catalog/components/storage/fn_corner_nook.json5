@@ -1,0 +1,62 @@
+// FN · Eckenbild (Innenraum-Offensive): kleine 1×1-Vignetten für Raumecken, damit Ecken nicht leer bleiben
+// (Community-Innenräume füllen Ecken mit Fass + Kerze, Kübelpflanze auf Hocker, Fassstapel). Nur eine Bodenzelle;
+// das Fass öffnet nach oben, die Kerze steht auf der vollen Oberseite. Tag `fn_corner`.
+{
+  id: "storage/fn_corner_nook",
+  kind: "static",
+  name: "Eckenbild",
+  category: "decor",
+  tags: ["fn_corner"],
+  styleTags: ["medieval", "rustic", "nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "barrel_candle",
+      weight: 3,
+      layers: [["B"], ["K"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        K: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+    {
+      id: "fern_stool",
+      weight: 3,
+      layers: [["T"], ["F"]],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        F: { block: "minecraft:potted_fern" },
+      },
+    },
+    {
+      id: "barrel_tower",
+      weight: 2,
+      layers: [["B"], ["B"], ["K"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        K: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+      },
+    },
+    // hoher Laternenpfosten (3 Blöcke): nutzt die Raumhöhe und leuchtet die Ecke aus
+    {
+      id: "post_lantern",
+      weight: 7,
+      layers: [["P"], ["P"], ["L"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false } },
+      },
+    },
+    {
+      id: "flower_stool",
+      weight: 2,
+      layers: [["T"], ["F"]],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        F: { block: "minecraft:potted_red_tulip" },
+      },
+    },
+  ],
+}

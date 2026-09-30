@@ -1,0 +1,17 @@
+// K2 · Zielscheibe (DA Utility: Weapons; Übungsplatz, Kaserne): Zielblock auf einem Heuballen.
+{
+  id: "decor/archery_target",
+  kind: "static",
+  name: "Zielscheibe",
+  category: "decor",
+  tags: ["archery_target", "training"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["H"], ["T"]],
+  legend: {
+    H: { block: "minecraft:hay_block", orient: { axis: "y" } },
+    T: { block: "minecraft:target" },
+  },
+}

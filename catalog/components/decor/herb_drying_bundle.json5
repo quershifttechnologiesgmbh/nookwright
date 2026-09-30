@@ -1,0 +1,26 @@
+// I52 · Kräuterbund (research/52 §Decke, Küche/Alchemie): kurze Kette von der Decke, am unteren Ende ein
+// unsichtbarer Rahmen mit Weizen als hängendes Kräuterbündel (Bildmotiv „Kräuter trocknen an der Decke“,
+// ergänzt decor/hanging_herbs, das nur Ranken/Sporenblüte kennt).
+{
+  id: "decor/herb_drying_bundle",
+  kind: "static",
+  name: "Kräuterbund",
+  category: "decor",
+  tags: ["decor_ceiling", "herb_drying_bundle"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  minRoomHeight: 3,
+  // y0: Luft-Zelle für den unsichtbaren Rahmen, y1: kleiner Knoten-Vollblock als Träger (eine Kette ist zwar
+  // `isSolid`, aber physikalisch nicht „voll“ — der stärkere Welt-Test verlangt für Rahmen einen echten
+  // Vollblock dahinter, research/52 §Nachprüfung), y2: Kette zur Decke.
+  // Q1a: `walkable` entfernt – der Trägerknoten ist ein voller Block, das Bündel ist kein durchlaufbarer Belag.
+  layers: [["_"], ["K"], ["C"]],
+  legend: {
+    K: { role: "beam", shape: "planks" },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+  },
+  entities: [{ type: "item_frame", at: [0, 0, 0], face: "down", invisible: true, item: { item: "minecraft:wheat" } }],
+  masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }] },
+}

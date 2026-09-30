@@ -1,0 +1,35 @@
+// Kübelbäumchen (research/10 §7.5, B11/S5): Topf-Block + Zaun-Stamm + Krone. Braucht lichte Höhe ≥ 3.
+// Auf dem Zaun nur Blätter ohne Stützpflicht (Azalee/Eiche), persistent=true (Faktencheck #17).
+{
+  id: "decor/potted_tree",
+  kind: "static",
+  name: "Kübelbäumchen",
+  category: "decor",
+  tags: ["plant_large", "plant_tree"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "azalea",
+      weight: 2,
+      layers: [["T"], ["G"], ["L"]],
+      legend: {
+        T: { block: "minecraft:terracotta" },
+        G: { role: "furniture_wood", shape: "fence" },
+        L: { block: "minecraft:azalea_leaves", state: { persistent: "true" } },
+      },
+    },
+    {
+      id: "oak",
+      weight: 1,
+      layers: [["T"], ["G"], ["L"]],
+      legend: {
+        T: { block: "minecraft:barrel", orient: { front: "up" } },
+        G: { role: "furniture_wood", shape: "fence" },
+        L: { block: "minecraft:oak_leaves", state: { persistent: "true" } },
+      },
+    },
+  ],
+}

@@ -1,0 +1,95 @@
+// X1 · D12 Schornstein mit Rauch (research/18 D12, research/16 D6): nur über einer Feuerstelle (Herd, Esse, Kamin).
+// Schaft auf der Dachfläche, Kopf ≥ 2 über der Dachfläche am Austritt (Dehnung `~n` = zusätzliche Schaftblöcke), oben
+// ein brennendes Lagerfeuer OHNE Deckel darüber (Faktencheck #13: eine Falltür sperrt den Rauch).
+// W2 (Baustandard D7, Prüfbericht X3 K5): jeder Schornstein hat einen Kopf; Formen 1 × 1 und 2 × 1 (zwei Züge
+// nebeneinander, je ein Lagerfeuer); gestuft siehe `chimney_corbelled`. „brick“ = Ziegel (hearth_alt), „stone“ =
+// Herd-Mauerwerk (hearth).
+// W3 (27.09.2026, plan/spikes/W3RD_dachdetails.md): ruhige Silhouette statt Kragkrone. Der Ring aus umgedrehten
+// Treppen und Stufen (3 breit auf 1 breitem Schaft) wirkte frontal kopflastig („breite Krone auf schmalem Schaft“).
+// In 13 von 18 Vorbildern ist der Kopf nicht breiter als der Schaft; die häufigste Kappe ist ein Mantel aus offenen
+// Falltüren um das Lagerfeuer (Mini Builds, Smoking Chimney, Simple Chimney Design). Der Kopf ist jetzt dieser Mantel:
+// vier offene Falltüren (`beam`, dunkles Holz) liegen flach an den Seiten des Lagerfeuers – nichts darüber
+// (Faktencheck #13), Falltüren brauchen keine Stütze, das Lagerfeuer entzündet keine Nachbarn. Keine Lage ist breiter
+// als die darunter.
+{
+  id: "exterior/chimney",
+  kind: "static",
+  name: "Schornstein",
+  category: "architecture",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "roof",
+  rotations: "all",
+  variants: [
+    {
+      id: "brick",
+      weight: 2,
+      layers: [
+        ["...", ".S.", "..."],
+        [".N.", "WCE", ".F."],
+      ],
+      legend: {
+        S: { role: "hearth_alt", shape: "block" },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        F: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+      stretch: { layer: 0, max: 8, fill: "ceiling" },
+    },
+    {
+      id: "stone",
+      weight: 1,
+      layers: [
+        ["...", ".S.", "..."],
+        [".N.", "WCE", ".F."],
+      ],
+      legend: {
+        S: { role: "hearth", shape: "block" },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        F: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+      stretch: { layer: 0, max: 8, fill: "ceiling" },
+    },
+    {
+      id: "brick_wide",
+      weight: 1,
+      layers: [
+        ["....", ".SS.", "...."],
+        [".NN.", "WCCE", ".FF."],
+      ],
+      legend: {
+        S: { role: "hearth_alt", shape: "block" },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        F: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+      stretch: { layer: 0, max: 8, fill: "ceiling" },
+    },
+    {
+      id: "stone_wide",
+      weight: 1,
+      layers: [
+        ["....", ".SS.", "...."],
+        [".NN.", "WCCE", ".FF."],
+      ],
+      legend: {
+        S: { role: "hearth", shape: "block" },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        F: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true" } },
+      },
+      stretch: { layer: 0, max: 8, fill: "ceiling" },
+    },
+  ],
+  light: "auto",
+}

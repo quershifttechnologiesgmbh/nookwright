@@ -1,0 +1,32 @@
+// V3 · Ketten von der Decke (research/10 §5: „Ketten von der Decke“ in 6/16 Schmieden, F1): zwei bzw. drei
+// Ketten unterschiedlicher Länge. Die Länge wächst mit der lichten Höhe (`stretch`, `drop`): das untere Ende
+// hängt etwa auf halber Raumhöhe, nie tiefer als Boden + 2 (Kopffreiheit). Kette über die Rolle `metal`
+// (ab 1.21.9 `iron_chain`, T5 T9). Ab lichter Höhe 4.
+{
+  id: "decor/hanging_chains",
+  kind: "static",
+  name: "Hängende Ketten",
+  category: "decor",
+  tags: ["decor_ceiling", "hanging_chains"],
+  styleTags: ["medieval", "grim", "martial"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 4,
+  variants: [
+    {
+      id: "pair",
+      weight: 2,
+      layers: [["C."], ["CC"]],
+      legend: { C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+      stretch: { layer: 1, max: 10, fill: "drop" },
+    },
+    {
+      id: "triple",
+      weight: 1,
+      layers: [[".C."], ["CCC"]],
+      legend: { C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+      stretch: { layer: 1, max: 10, fill: "drop" },
+    },
+  ],
+}

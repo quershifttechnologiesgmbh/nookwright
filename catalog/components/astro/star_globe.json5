@@ -1,0 +1,49 @@
+// research/57 · Observatorium: Himmelsglobus auf Ständer (Nebenobjekt, ergänzt astro/star_cluster um ein
+// freistehendes Stück statt Deckenmontage). Tag `star_cluster` steht in observatory.json5 im optionalen Eintrag
+// `{ tags: ["star_cluster"], count: [2, 4] }`. Amethyst-Kugel auf Zaunpfosten, dreht sich zwar nicht, wirkt
+// aber als eigenständiges Ausstellungsstück neben Teleskop und Armillarsphäre.
+{
+  id: "astro/star_globe",
+  kind: "static",
+  name: "Himmelsglobus",
+  category: "decor",
+  tags: ["star_cluster", "astronomy"],
+  functionTags: ["light"],
+  styleTags: ["fantasy", "noble", "scholarly"],
+  obtainability: "survival_rare",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "amethyst",
+      weight: 2,
+      layers: [["F"], ["B"], ["A"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        B: { block: "minecraft:amethyst_block" },
+        A: { block: "minecraft:amethyst_cluster", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "budding",
+      weight: 1,
+      layers: [["F"], ["B"], ["A"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        B: { block: "minecraft:budding_amethyst" },
+        A: { block: "minecraft:large_amethyst_bud", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "end_rod_finial",
+      weight: 1,
+      layers: [["F"], ["B"], ["E"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        B: { block: "minecraft:amethyst_block" },
+        E: { block: "minecraft:end_rod", orient: { front: "up" } },
+      },
+    },
+  ],
+  light: "auto",
+}

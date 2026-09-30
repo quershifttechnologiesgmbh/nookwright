@@ -1,0 +1,38 @@
+// K2 · Töpferware (DA Storage: Pottery): verzierte Krüge am Boden, gestapelt oder auf einem Fass.
+// Verzierte Krüge brauchen keine Stütze (Physik-Daten), stehen auch auf einem Krug.
+{
+  id: "storage/pottery",
+  kind: "static",
+  name: "Töpferware",
+  category: "storage",
+  tags: ["pottery", "goods"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  // W4 (27.09.2026, Review M7): Ware steht mit dem Rücken an der Wand (Vorbilder W3-IN §1.5: Stapel an den Wänden,
+  // Mitte frei) – vorher frei drehbar und oft als Insel mitten im Lager
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pair",
+      weight: 2,
+      layers: [["VV"]],
+      legend: { V: { block: "minecraft:decorated_pot", orient: { front: "front" } } },
+    },
+    {
+      id: "stack",
+      weight: 2,
+      layers: [["VV"], ["V."]],
+      legend: { V: { block: "minecraft:decorated_pot", orient: { front: "front" } } },
+    },
+    {
+      id: "on_barrel",
+      weight: 1,
+      layers: [["BV"], ["V."]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+      },
+    },
+  ],
+}

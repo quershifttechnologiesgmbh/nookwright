@@ -1,0 +1,40 @@
+// research/57 · Kerker: Seelenwandarm, zweite Bauform neben light/grim_lantern (mehr Auswahl für `light_grim`,
+// aktuell nur 1 Variante im Katalog). Tag `light_grim` steht in dungeon.json5 im optionalen Eintrag
+// `{ tags: ["light_grim"] }`. Wie light/grim_lantern hängt die Laterne unter einem Metallarm, hier aus Ketten
+// statt Gitterstab (`support`-Maske: der Arm über der Laterne trägt sie, Faktencheck #3).
+{
+  id: "light/soul_sconce",
+  kind: "static",
+  name: "Seelenlaterne am Kettenarm",
+  category: "light",
+  tags: ["light", "light_grim"],
+  functionTags: ["light"],
+  styleTags: ["grim", "medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "chain_arm",
+      weight: 2,
+      layers: [["L"], ["C"]],
+      legend: {
+        L: { block: "minecraft:soul_lantern", orient: { hanging: true } },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "barred",
+      weight: 1,
+      layers: [["L"], ["I"]],
+      legend: {
+        L: { block: "minecraft:soul_lantern", orient: { hanging: true } },
+        I: { block: "minecraft:iron_bars" },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

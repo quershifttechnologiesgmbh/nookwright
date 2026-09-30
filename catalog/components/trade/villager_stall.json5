@@ -1,0 +1,213 @@
+// K3b · Villager-Stand (research/17 §4.24, Th1–Th7; Mechanik research/17 §3.3/§3.4, Faktencheck #7): 3 breit
+// (Pfosten | Zelle | Pfosten), 2 tief, Rücken zur Wand. Hinten der Villager-Platz, vorn der Arbeitsblock seines
+// Berufs; darüber eine Decke aus UNTEREN Stufen auf Höhe 2 (y 2,0–2,5) über Platz und Arbeitsblock:
+//  - Der Villager (1,95 hoch) steht genau darunter, kann aber nicht auf den Arbeitsblock steigen (dort ≤ 1,0
+//    frei) und nicht seitlich hinaus (Pfosten; die Diagonale ist durch die Ecken versperrt) → keine Flucht.
+//  - Arbeitsblock im Nachbarfeld auf Fußhöhe → Nachschub bis 2× täglich, auch ohne Bett (Wiki Trading).
+//  - Der Spieler handelt von vorn über den Arbeitsblock (Luft darüber, Abstand 2).
+//  - Vorn neben dem Arbeitsblock Stufen-Kappen auf den Pfosten als Thekenkante.
+//  - Auf dem Villager-Platz steht eine Fackel: kollisionsfrei (der Villager hat volle 2,0), Licht 14 im Stand,
+//    und der Solver zählt die Zelle als belegt – eine reine Luftzelle wäre für ihn eine abgeschlossene Tasche.
+// Bei lichter Höhe 2 übernimmt die Raumdecke die Stufen-Decke (gleiche Maße); ab 3 kommt die Stufen-Decke als
+// Dehnung dazu (`stretch`, `ceiling`, genau 1 Schicht). Je Beruf eine Variante (13 Arbeitsblöcke, Faktencheck
+// #7); ein Arbeitsblock-Slot „verschieden je Raum“ ist Wunsch X4/distinct an den Solver (research/17 §7.3).
+// Im Spiel prüfen: research/17 T15 (steigt nicht auf den Block, beansprucht den Block vor sich).
+{
+  id: "trade/villager_stall",
+  kind: "static",
+  name: "Villager-Stand",
+  category: "work",
+  tags: ["villager_stall", "trade_stall"],
+  functionTags: ["trade", "villager_workstation"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "armorer", // Rüstungsschmied: Hochofen
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "butcher", // Metzger: Räucherofen
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:smoker", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "cartographer", // Kartograf: Kartentisch
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:cartography_table" },
+      },
+    },
+    {
+      id: "cleric", // Geistlicher: Braustand
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:brewing_stand" },
+      },
+    },
+    {
+      id: "farmer", // Bauer: Komposter
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:composter", state: { level: "0" } },
+      },
+    },
+    {
+      id: "fisherman", // Fischer: Fass
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "fletcher", // Pfeilmacher: Bognertisch
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:fletching_table" },
+      },
+    },
+    {
+      id: "leatherworker", // Gerber: Kessel
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:water_cauldron", state: { level: "3" } },
+      },
+    },
+    {
+      id: "librarian", // Bibliothekar: Lesepult
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:lectern", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "mason", // Steinmetz: Steinsäge
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:stonecutter", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "shepherd", // Schäfer: Webstuhl
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:loom", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "toolsmith", // Werkzeugschmied: Schmiedetisch
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:smithing_table" },
+      },
+    },
+    {
+      id: "weaponsmith", // Waffenschmied: Schleifstein
+      weight: 1,
+      layers: [
+        ["PTP", "PJP"], // y0: Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["P_P", "s_s"], // y1: Kopfraum; Luft über dem Arbeitsblock (Handel), Thekenkanten
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        T: { block: "minecraft:torch" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:grindstone", orient: { front: "front" } },
+      },
+    },
+  ],
+  // y2 (ab lichter Höhe 3): Pfosten hinten, Decke aus unteren Stufen über Platz und Arbeitsblock
+  stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["PsP", ".s."] },
+  masks: { clearance: [{ side: "front", depth: 2, hard: true }], use: [{ side: "front" }] },
+}

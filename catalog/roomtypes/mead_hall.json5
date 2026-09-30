@@ -1,0 +1,35 @@
+// Methalle / Langhaus (K3b, research/17 §6.1, Nordic-Stilbeispiel; Theme `nordic` empfohlen). Signatur: Langfeuer
+// auf der Hallenachse (NR2/NR3). Fellpritschen an den Längswänden (row gap 0 = durchgehende Wandbank), Tafeln,
+// Schilde, Fässer/Stückfass, Holz-„Rad“-Leuchter (Kerzenkreuz/Kronleuchter). Vereint Taverne, Speisesaal und
+// Schlafsaal. Feuer in der Mitte + Mittelgang = Y1 `aisle`; Rauchabzug = Hüllen-Wunsch `roofOpening` (Y11).
+// Mehr in die Höhe (V3): Bratspieß über dem Feuer, Schilde über den Pritschen, Deckenbanner, Hängepflanzen.
+{
+  id: "mead_hall",
+  name: "Methalle",
+  minArea: 36,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["fire_pit"], count: [1, 1], signature: true, placement: { zones: ["center"] } },
+    { tags: ["fur_platform", "wall_bench"], count: [1, 1], placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    { tags: ["fur_platform"], count: { perArea: 14, min: 1, max: 5 }, weight: 4, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["fire_pit"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    // FN: Festtafel eigener Eintrag (im gemischten Pool gewann der Bestand fast immer); Fellpritschen dienen als Sitz
+    { tags: ["fn_hall_table"], count: [1, 1], weight: 8, placement: { zones: ["center", "edge"] } },
+    { tags: ["dining_table"], count: [0, 1], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["wall_weapons", "drinking_horn_rack"], count: [2, 6], weight: 4 },
+    { tags: ["barrel", "cask_big"], count: [1, 3], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["fur_rug"], count: [0, 2], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["fn_tapestry", "tapestry"], count: [2, 4], weight: 4 },
+    // FN (Innenraum-Offensive): Ecken belegen (Fass + Kerze, Kübel), Teppichinsel vor dem Feuer
+    { tags: ["fn_corner"], count: [1, 3], weight: 4, placement: { zones: ["corner"] } },
+    { tags: ["fn_rug"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["plant_hanging"], count: [1, 3], weight: 2 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 2 },
+    { tags: ["chandelier"], count: { perArea: 25, min: 1, max: 4 }, weight: 4 },
+    // V3 (Raumhöhe nutzen): Banner unter der Decke
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 7, prefer: ["chandelier", "light_wall", "candles"] },
+}

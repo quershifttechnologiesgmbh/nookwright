@@ -1,0 +1,28 @@
+// K2 · Läufer (DA Decoration: Rugs): langer Teppich in der Raummitte, schlicht oder mit Rand (Rahmen
+// `textile_primary`, Füllung grau wie decor/rug). Durchlaufbar; Teppich braucht nur einen Block darunter.
+{
+  id: "decor/carpet_runner",
+  kind: "static",
+  name: "Läufer",
+  category: "decor",
+  tags: ["rug", "runner_rug"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "narrow",
+      weight: 2,
+      layers: [["RRRRR"]],
+      legend: { R: { role: "textile_primary", shape: "carpet" } },
+    },
+    {
+      id: "bordered",
+      weight: 2,
+      layers: [["RRRRR", "RGGGR", "RRRRR"]],
+      legend: { R: { role: "textile_primary", shape: "carpet" }, G: { block: "minecraft:gray_carpet" } },
+    },
+  ],
+}

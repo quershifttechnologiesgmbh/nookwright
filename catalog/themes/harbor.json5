@@ -1,0 +1,187 @@
+// Küste / Hafen (research/24 §7.3, T3): salzig und funktional, nasse Pfähle, Prismarin-Sockel, Kupferdach.
+// Erbt von nordic (Holz, Schindelhandwerk) und überschreibt Sockel, Dach, Böden und die Außenwelt.
+// Kernthemes: (a) Pfahlkai, (b) Leuchtturm, (c) Lagerhaus, (d) Werft.
+// Falle (research/24 §7.3): warme Blöcke als Fläche unter Wasser werden oliv – Kupfer nur am Dach.
+{
+  id: "harbor",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { wear: 0.5, formality: -0.25 },
+  name: "Küste",
+  description: "Kaimauer-Erdgeschoss aus Steinziegeln, helle Blasseichen-Bretter, dunkles Eichendach mit Kupferfirst, blaue Textilien",
+  base: "nordic",
+  roles: {
+    // Bohlenwand von nordic (W2 Regeln W4/W5: Fichte, dunkle Eiche am nassen Fuß, über die ganze Fassade) – die
+    // eigene Mischung mit salzgebleichter Eiche wirkte im Bild als helle Flecken im Giebel und entfällt.
+    // W12-D (28.09.2026): nordic ist jetzt ein Blockbau mit Steinsockel und Schiefer-Schindeldach; die Küste behält die
+    // Bohlenwand, den hellen Giebel und die Wandregeln (keine) von vorher – ihr Kupferdach (L 0,65) läge sonst so hell wie
+    // die neue Blockwand (P1 0,21 → 0,11). Werte wörtlich aus nordic vor W12-D, Hafen-Summen bleiben bitgleich.
+    // W13-F (28.09.2026): Kai-Haus – Erdgeschoss aus Steinziegeln (Kaimauer), darüber helle Blasseichen-Bretter
+    // (gestrichene Schindel/Stülpschalung der Küstenhäuser) mit dunklen Eichenständern und dunklem Dach. Vorbilder:
+    // „coastal: stripped oak, pale oak, calcite, weathered copper“ (minecraftgradient.blog/minecraft-barn-design),
+    // „warehouse: spruce planks, dark oak stairs, stone bricks“ (exitlag.com/blog/minecraft-dock). A/B gegen Fichte und
+    // entrindete Eiche: Blasseiche liest sich klar als Küste. Vorher Fichte über einer Reihe dunkler Eiche auf Prismarin
+    // (Holz in Holz, türkiser Sockel, mintgrünes Kupferdach). Ältere Zielversionen: Blasseiche → Birke (versionFallbacks).
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "stone_bricks", weight: 1 }] },
+          { at: 0.4, mix: [{ family: "pale_oak", weight: 1 }] },
+          { at: 1, mix: [{ family: "pale_oak", weight: 1 }] },
+        ],
+      },
+    },
+    wall_gable: { family: "oak", shapes: { block: "stripped_log" } },
+    // Sockel im Wasser (W7, zwei Steine): dunkles Prismarin unten (Algen) → Prismarinziegel oben
+    // W13-F: Sockel wie eine Kaimauer (Steinziegel, bemoost am Wasser); vorher Prismarin
+    wall_plinth: {
+      mix: [
+        { family: "stone_bricks", weight: 70 },
+        { family: "stone_bricks", variant: "mossy", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // W13-F: Geschossband dunkle Eiche; vorher Prismarinziegel
+    wall_cornice: { family: "dark_oak" },
+    // W13-F: Eckständer dunkle Eiche (Rahmen)
+    wall_quoin: { family: "dark_oak", shapes: { block: "log" } },
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "oak", weight: 10 },
+        { family: "spruce", weight: 90 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    // W13-F: Steinboden grau (Kai-Pflaster) statt Prismarin
+    floor_stone: {
+      mix: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "polished_andesite", weight: 40 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Pfahlgründung: Stämme im Boden, Bruchstein dazwischen
+    // W13-F: Fundament Steinziegel/Bruchstein (vorher Fichtenstämme gemischt – Flecken)
+    foundation: {
+      mix: [
+        { family: "stone_bricks", weight: 70 },
+        { family: "cobblestone", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    // Kupferdach als Deckungsrezept (W2 Regel D1): Grünspan trägt die Fläche, an der Traufe ganz oxidiert (Wasser
+    // läuft ab), am First frischer – ganze Ringe statt Flecken
+    // W13-F: dunkles Eichendach mit Kupferfirst (gewachst, grünspanig) – Kupfer nur noch als Akzent („weathered copper“ als
+    // Küsten-Akzent, minecraftgradient.blog/minecraft-barn-design „coastal“; „all-blue sea palettes look flat“). Vorher die
+    // ganze Fläche Kupfer (mintgrün, lauter als die Wand).
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "dark_oak", weight: 1 }] },
+          { at: 0.85, mix: [{ family: "waxed_weathered_copper", weight: 1 }] },
+          { at: 1, mix: [{ family: "waxed_weathered_copper", weight: 1 }] },
+        ],
+      },
+    },
+    // W5-B (27.09.2026): Eichenkante wie bisher (von nordic geerbt) – nordic wechselt auf Mangrove unter dem dunklen
+    // Schindeldach, am hellen Kupferdach bleibt die helle Eiche
+    roof_trim: { family: "spruce" },
+    window: { color: "light_blue", shapes: { pane: "stained_glass_pane" } },
+    window_frame: { family: "dark_oak" },
+    shutter: { family: "spruce" },
+    // W13-F: Rahmen dunkle Eiche mit Rinde
+    beam: { family: "dark_oak" },
+    pillar: { family: "dark_oak" },
+    door: { family: "spruce" },
+    metal: { family: "iron" },
+    textile_primary: { color: "blue" },
+    textile_accent: { color: "white" },
+
+    // ---------------------------------------------------------------- Außen: Kies, Salz, karger Bewuchs
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 55 },
+        { block: "minecraft:coarse_dirt", weight: 25 },
+        { block: "minecraft:podzol", weight: 10 },
+        { block: "minecraft:moss_block", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:gravel", weight: 45 },
+        { block: "minecraft:dirt_path", weight: 30 },
+        { block: "minecraft:sand", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:stone_bricks", weight: 40 },
+        { block: "minecraft:cobblestone", weight: 30 },
+        { block: "minecraft:gravel", weight: 20 },
+        { block: "minecraft:mossy_cobblestone", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    pond_bed: {
+      mix: [
+        { block: "minecraft:sand", weight: 55 },
+        { block: "minecraft:gravel", weight: 30 },
+        { block: "minecraft:clay", weight: 15 },
+      ],
+    },
+    leaves_oak: { family: "oak" },
+    // W13-F (28.09.2026): Innen helle Paneele (Blasseiche) wie die Fassade, Leisten in Fichte – vorher die dunkle Täfelung von medieval
+    lining_panel: { family: "pale_oak" },
+    lining_trim: { family: "spruce" },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld aus Brettern/Stämmen färbt die Palette wie das Holz
+    wood_frame: ["beam", "pillar", "wall_gable"],
+    floor: ["floor_primary", "floor_stone", "ground_grass", "ground_path", "ground_yard", "pond_bed"],
+    accent: ["textile_primary", "textile_accent"],
+    glass: ["window", "window_frame", "shutter"],
+    foliage: ["leaves_oak"],
+  },
+
+  // W12-D (28.09.2026): keine Wandregeln – nordic legt seit W12-D Steinsockel und liegende Stämme über `surfaces.wall`;
+  // die Küste bleibt bei ihrer Bohlenwand (Decke und Rähm erbt sie weiter von nordic)
+  surfaces: { wall: [] },
+  items: {
+    "food.any": ["minecraft:cooked_cod", "minecraft:cooked_salmon", "minecraft:dried_kelp", "minecraft:bread"],
+    "deco.small": ["minecraft:string", "minecraft:leather", "minecraft:nautilus_shell"],
+  },
+  decor: {
+    // W13-B: kein Torfdach (nordic legt es an; hier bleibt das eigene Dach unverändert)
+    turfRoof: { roles: ["roof_main"], share: 0 },
+    // Salzwasser und Gischt: stärkere Verwitterung, aber nur an Sockel und Steinboden
+    weathering: { age: 0.45, fade: 1.5, roles: ["foundation", "wall_plinth", "floor_stone"] },
+  },
+}

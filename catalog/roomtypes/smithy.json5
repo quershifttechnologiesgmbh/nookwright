@@ -1,0 +1,42 @@
+// Schmiede (research/10 §5, §8.4). Signatur: Esse mit sichtbarer Glut hinter Gittern (16/16) ist Pflicht
+// (Tag `forge`; eine niedrige Form für lichte Höhe 2). Amboss + Ofen bleiben Pflicht; Löschwasser (9/16)
+// wird immer versucht; Werkzeugrahmen an der Wand (8/16), Rohstoffe, Schleifstein, Schmiedetisch.
+// Arbeitsblöcke machen die Schmiede für Dorfbewohner nutzbar (Station-Validierung folgt in Stufe 7).
+// K2: dichter (0.45); Waffen und Rüstung (Waffenständer, Rüstungswand, Wappenschild), Holzstapel/Hackklotz.
+// I2: Signatur explizit (`signature: true`, Solver v2) statt Konvention „erster Pflicht-Eintrag“.
+{
+  id: "smithy",
+  name: "Schmiede",
+  minArea: 9,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["forge"], count: [1, 1], signature: true, placement: { zones: ["edge", "corner"] } },
+    // W3-IN: Arbeitsdreieck – Amboss vor bzw. neben der Esse, Öfen an der Esse (Zeile), Löschwasser in Reichweite
+    { tags: ["anvil"], count: [1, 1], placement: { zones: ["center", "edge"] }, near: { tags: ["forge"], maxGap: 1 } },
+    { tags: ["blast_furnace", "furnace"], count: [1, 2], placement: { zones: ["edge", "corner"] }, near: { tags: ["forge", "blast_furnace", "furnace"], sameWall: true } },
+  ],
+  optional: [
+    // FN-Dense: Schmiedebank (Amboss zwischen Kesseln) in der Raummitte (Insel)
+    { tags: ["fn_smithy_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["water_cauldron"], count: [1, 1], weight: 5, placement: { zones: ["edge", "corner"] }, near: { tags: ["forge", "anvil"], maxGap: 1 } },
+    { tags: ["wall_tools", "tool_wall_corner"], count: [2, 3], weight: 4 },
+    { tags: ["grindstone"], count: [0, 1], weight: 3, near: { tags: ["anvil", "forge"], maxGap: 1 } },
+    { tags: ["smithing_table"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["raw_materials", "barrel"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    // FN-Dense: Kohlenkasten neben der Esse
+    { tags: ["fn_coal_bin"], count: [0, 1], weight: 4, placement: { zones: ["edge", "corner"] }, near: { tags: ["forge", "furnace", "blast_furnace"], maxGap: 3 } },
+    { tags: ["chest"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["wall_weapons"], count: [0, 2], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["firewood", "chopping_block"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["hanging_chains"], count: [0, 2], weight: 3 },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    // W3-IN (I7): Laternen an den Balken statt Kerzenkreuz/Kronleuchter (Vorbilder: 2–3 Lampen plus Esse)
+    { tags: ["light_pendant"], count: { perArea: 20, min: 1, max: 3 }, weight: 3 },
+  ],
+  // Licht-Pass (W3-IN, I7): die Glut der Esse ist das Hauptlicht und zählt mit; dazu Laternen an den Balken und an der
+  // Wand (Vorbilder: Hängelaternen 7/11, Wandlaternen 5/11), keine
+  // Kerzenständer mitten in der Werkstatt; Abstell-Lichter nur auf Tischen
+  lighting: { minLevel: 7, prefer: ["light_pendant", "light_wall"], budget: { cellsPer: 14, min: 1 }, anchors: ["table"] },
+}

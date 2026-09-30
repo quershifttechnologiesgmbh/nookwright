@@ -1,0 +1,20 @@
+// research/53 W4 · Bogenfenster-Rahmenset: Bogenfenster 3 breit x 3 hoch (EXT2: Blindfenster, Füllung = geöffnete Klappe an der Wand), Rahmen (window_frame) mit Zwickeln aus
+// umgedrehten Treppen in den oberen Ecken. Setzt der Planer (detail-relief.ts, Muster blindArch) nur auf fensterlosen Wandfeldern.
+{
+  id: "exterior/window_frame_arch",
+  kind: "static",
+  name: "Bogenfenster-Rahmen",
+  category: "architecture",
+  tags: ["exterior", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "noble", "gothic", "dwarven", "steampunk", "rustic", "farmstead", "nordic", "harbor"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["FFF"], ["FgF"], ["LgR"]],
+  legend: {
+    F: { role: "window_frame", shape: "block" },
+    g: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+    L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+    R: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+  },
+}

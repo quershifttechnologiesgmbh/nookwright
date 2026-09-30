@@ -1,0 +1,38 @@
+// K2 · Sitzgruppe (DA Furniture: Tables + Chairs): zwei Stühle blicken auf einen kleinen Tisch. Die Stühle
+// gehören zur Komponente (Blickregel `toParent` fehlt im Solver v1). Variante „slab“ mit Abstellfläche.
+{
+  id: "table/tea_table",
+  kind: "static",
+  name: "Sitzgruppe",
+  category: "furniture",
+  tags: ["seating_group", "table"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "slab",
+      weight: 2,
+      layers: [["LTR"]],
+      legend: {
+        L: { role: "furniture_wood", shape: "stairs", orient: { back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { role: "furniture_wood", shape: "stairs", orient: { back: "left" } },
+      },
+      sockets: [{ id: "top", type: "surface", at: [1, 1, 0], accepts: ["mug", "candles", "light_small", "tabletop_small"], prob: 0.8 }],
+    },
+    {
+      id: "plate",
+      weight: 1,
+      layers: [["LFR"], [".P."]],
+      legend: {
+        L: { role: "furniture_wood", shape: "stairs", orient: { back: "right" } },
+        F: { role: "furniture_wood", shape: "fence" },
+        R: { role: "furniture_wood", shape: "stairs", orient: { back: "left" } },
+        P: { role: "furniture_wood", shape: "pressure_plate" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,22 @@
+// Wandbehang (research/10 §2.2: Banner/Wolle als Vorhang 5/13). Wandbanner in der Textilfarbe unter der
+// Decke (y = Boden + 2); die Zelle darunter bleibt frei ('_'), weil das Banner optisch einen Block tief hängt.
+// Banner haben keine Kollision → durchlaufbar. Haftet an der Wand dahinter (Physik-Regel „fester Block“).
+// Nur 1 breit: der Solver prüft die Wand hinter mehrbreiten Wand-Komponenten nur für Zellen der untersten
+// Lage – bei '_' unten wäre das nur die Ankerzelle (siehe plan/spikes/K1_katalog_medieval.md).
+{
+  id: "decor/wall_banner",
+  kind: "static",
+  name: "Wandbehang",
+  category: "attachment",
+  tags: ["wall_decor", "wall_banner"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [-1, 1], // V3: Banner oben – das Tuch direkt unter der Decke
+  rotations: "backToWall",
+  walkable: true,
+  layers: [["_"], ["V"]],
+  legend: { V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } } },
+  masks: { support: [{ at: [0, 1, 0], side: "back", kind: "full" }] },
+}

@@ -1,0 +1,30 @@
+// I52 · Kerzenecke (research/52 §Ecke, Kapelle/Grim): drei unterschiedlich hohe Kerzenstapel (1/2/3 Kerzen
+// je Block) in einer Bodenecke, mittig ein Totenkopf — das dichte „Kerzencluster“-Motiv aus Grim-/
+// Kapellen-Interiors, kompakter als light/candle_post.
+{
+  id: "decor/candle_altar_corner",
+  kind: "static",
+  name: "Kerzenecke",
+  category: "decor",
+  tags: ["light_grim", "candle_altar_corner"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "grim", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  // Totenkopf als echter Block statt Rahmen-Item (ein Rahmen bräuchte eine feste Trägerfläche darunter — eine
+  // einzelne Kerze ist zu klein/nicht `isSolid`, siehe research/52 §Nachprüfung): eigene Sockel-Spalte (p) aus
+  // einer Stufe, der Kopf sitzt in der Zelle darüber.
+  layers: [
+    ["abcp"], // y0: 1 Kerze | 2 Kerzen | 3 Kerzen | Sockel
+    ["...H"], // y1: Totenkopf über dem Sockel
+  ],
+  legend: {
+    a: { block: "minecraft:black_candle", state: { candles: "1", lit: "true" } },
+    b: { block: "minecraft:black_candle", state: { candles: "2", lit: "true" } },
+    c: { block: "minecraft:black_candle", state: { candles: "3", lit: "true" } },
+    p: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+    H: { block: "minecraft:skeleton_skull", orient: { front: "front" } },
+  },
+  light: "auto",
+}

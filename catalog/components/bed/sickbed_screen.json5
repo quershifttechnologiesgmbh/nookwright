@@ -1,0 +1,100 @@
+// K3a · Krankenbett mit Sichtschutz (research/17 §4.11, I1): weißes Bett, am Kopfende ein Zaunpfosten (2 hoch),
+// vorn daran ein weißes Wandbanner als Vorhang (Banner halten an Zäunen, T5 #9); es hängt optisch einen Block tief
+// → darunter Luft. Über dem Bett bleibt Luft (FC #8), die freie Bettseite und das Fußende sind Aufwachplätze.
+// Links und rechts als eigene Varianten (der Solver spiegelt nicht). V3: ab lichter Höhe 3 steht eine Laterne auf
+// dem Pfosten (stehende Laterne hält auf dem Zaun, T5 #3) – Leselicht am Krankenbett.
+// Kompaktform „plain“ (1 × 2): nur das weiße Bett. Bewusst ohne `bed`/`bed_single` (research/17 §7.2).
+{
+  id: "bed/sickbed_screen",
+  kind: "static",
+  name: "Krankenbett mit Sichtschutz",
+  category: "furniture",
+  tags: ["sickbed"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "screen_r",
+      weight: 2,
+      maxRoomHeight: 2,
+      layers: [
+        ["Hf", "F_"], // y0: Kopf + Pfosten | Fuß + Luft (der Vorhang hängt hinein)
+        ["_f", "_V"], // y1: Luft über dem Bett | Pfosten | Vorhang am Pfosten
+      ],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:white_wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { use: [{ side: "right" }, { side: "front" }] },
+    },
+    {
+      id: "screen_l",
+      weight: 2,
+      maxRoomHeight: 2,
+      layers: [
+        ["fH", "_F"],
+        ["f_", "V_"],
+      ],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:white_wall_banner", orient: { attachTo: "back" } },
+      },
+      masks: { use: [{ side: "left" }, { side: "front" }] },
+    },
+    {
+      id: "lamp_r",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["Hf", "F_"],
+        ["_f", "_V"],
+        [".L", ".."], // y2: Laterne auf dem Pfosten
+      ],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:white_wall_banner", orient: { attachTo: "back" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      masks: { use: [{ side: "right" }, { side: "front" }] },
+    },
+    {
+      id: "lamp_l",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["fH", "_F"],
+        ["f_", "V_"],
+        ["L.", ".."],
+      ],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:white_wall_banner", orient: { attachTo: "back" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      masks: { use: [{ side: "left" }, { side: "front" }] },
+    },
+    {
+      // Kompaktform: nur das Bett
+      id: "plain",
+      weight: 1,
+      layers: [["H", "F"], ["_", "_"]],
+      legend: {
+        H: { block: "minecraft:white_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:white_bed", orient: { part: "foot", back: "back" } },
+      },
+      masks: { use: [{ side: "left" }, { side: "right" }] },
+    },
+  ],
+  light: "auto",
+}

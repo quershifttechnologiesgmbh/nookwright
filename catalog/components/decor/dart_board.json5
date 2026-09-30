@@ -1,0 +1,37 @@
+// K3a · Dartscheibe (research/17 §4.27, Ableitung aus Ga-/A-Refs): Zielblock an der Wand in Kopfhöhe (Blöcke
+// brauchen keine Stütze), darüber Pfeile bzw. ein Bogen im Rahmen an der Raumwand. Treffer → Redstone-Signal
+// (Zielblock). Nur 1 breit: Der Solver prüft die Wand (kein Fenster, keine Tür) je Spalte der untersten Lage – die
+// Pfeil-Rahmen links und rechts des Entwurfs in research/17 hätten vor einem Fenster landen können.
+// Die Wurfbahn (4 Zellen) ist eine weiche Freiraum-Maske; erzwingen kann der Solver sie noch nicht.
+{
+  id: "decor/dart_board",
+  kind: "static",
+  name: "Dartscheibe",
+  category: "attachment",
+  tags: ["dart_board"],
+  functionTags: ["play"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1],
+  minRoomHeight: 3,
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "arrows",
+      weight: 2,
+      layers: [["T"], ["_"]],
+      legend: { T: { block: "minecraft:target" } },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:arrow" } }],
+    },
+    {
+      id: "bow",
+      weight: 1,
+      layers: [["T"], ["_"]],
+      legend: { T: { block: "minecraft:target" } },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:bow" } }],
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 4, hard: false }] },
+}

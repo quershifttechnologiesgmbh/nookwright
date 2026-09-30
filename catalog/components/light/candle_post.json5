@@ -1,0 +1,20 @@
+// Kerzenständer (research/11 L-5): Zaun + drei Kerzen. Kerzen brauchen keine Stütze (Spike T3).
+// Licht 9. Zaun hat Kollision in Laufhöhe → nicht durchlaufbar.
+{
+  id: "light/candle_post",
+  kind: "static",
+  name: "Kerzenständer",
+  category: "light",
+  tags: ["light", "light_floor", "candle_stand"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  layers: [["F"], ["K"]],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    K: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+  },
+  light: "auto",
+}

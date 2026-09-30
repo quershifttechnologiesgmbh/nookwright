@@ -1,0 +1,18 @@
+// K2 · Weihwasserbecken (DA Furniture: Fonts): Wasserkessel auf einem Steinziegel-Mauerpfosten. Kessel und
+// Mauer ohne Stützregel; kein offenes Wasser.
+{
+  id: "decor/holy_font",
+  kind: "static",
+  name: "Weihwasserbecken",
+  category: "decor",
+  tags: ["font", "religious", "water_feature"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  layers: [["W"], ["C"]],
+  legend: {
+    W: { block: "minecraft:stone_brick_wall" },
+    C: { block: "minecraft:water_cauldron", state: { level: "3" } },
+  },
+}

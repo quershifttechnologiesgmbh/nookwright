@@ -1,0 +1,28 @@
+// FN · Villager-Schlafhalle / Zuchtkammer (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Bettreihen (`fn_villager_bed`:
+// 1–3 Betten je Stück, Kopf an der Wand, Fußende frei, Laternen zwischen den Betten) an den Längswänden mit Mittelgang, dazu
+// ein Futterspender (Dropper + Knopf) zum Füttern. Villager brauchen zur Zucht ein unbeanspruchtes Bett und 12 Nahrungspunkte
+// (Wiki Villager, Abschnitt Breeding); Beruf und Handel brauchen es nicht. Gedacht als FREI LAUFENDE Kammer (die Villager
+// gehen zu Bett und wieder heraus): die Räume dahinter brauchen Holztüren, kein Zauntor/Falltür (Villager öffnen nur
+// Holz- und Kupfertüren, Wiki Villager) – Türart legt die Gebäude-Ebene fest. Licht ≥ 8 (kein Spawn).
+// Wachsen mit der Fläche: 2 → 8 Betten; Bettabstand ≥ 1 durch die Zwischenpfosten.
+{
+  id: "fn_villager_quarters",
+  name: "Villager-Schlafhalle",
+  minArea: 36,
+  coverage: { target: 0.4 },
+  aisle: { width: 2, minWidth: 1 },
+  required: [
+    { tags: ["fn_villager_bed"], count: { perArea: 10, min: 1, max: 6 }, signature: true, placement: { zones: ["edge"] } },
+    { tags: ["fn_feed_trough"], count: [1, 1], placement: { zones: ["edge"], doorAffinity: "near" } },
+  ],
+  optional: [
+    { tags: ["chest", "barrel"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 3, placement: { zones: ["center", "corridor"] } },
+    { tags: ["bench"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["plant_large"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["wall_banner"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling", "light_wall"], count: { perArea: 12, min: 1, max: 5 }, weight: 4 },
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 1 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_wall", "light_ceiling"] },
+}

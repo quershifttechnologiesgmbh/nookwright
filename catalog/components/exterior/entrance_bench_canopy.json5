@@ -1,0 +1,22 @@
+// research/53 E2/E4 · Eingangsbank mit Vordach: Sitzbank (wie exterior/bench) unter einem kleinen Pultvordach auf
+// Konsolen, 3 breit. Schützt die Sitzenden vor Regen, markiert den Eingang zusätzlich zum Portal.
+{
+  id: "exterior/entrance_bench_canopy",
+  kind: "static",
+  name: "Eingangsbank mit Vordach",
+  category: "furniture",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["ASB"], ["..."], ["KKK"], ["RRR"]],
+  legend: {
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+    A: { role: "furniture_wood", shape: "trapdoor", orient: { front: "right", open: true } },
+    B: { role: "furniture_wood", shape: "trapdoor", orient: { front: "left", open: true } },
+    K: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    R: { role: "roof_main", shape: "stairs", orient: { back: "back" } },
+  },
+}

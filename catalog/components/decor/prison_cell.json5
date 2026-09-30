@@ -1,0 +1,101 @@
+// K3d · Kerkerzelle (research/11 K-1, D1/D2/D5/D7; research/17 §5 Delta Kerker): gemauerte Zelle an der Wand
+// (Rolle `foundation`: Bruchstein, bemoost, Tiefenschiefer – Kerker-Grau ohne eigenes Theme), Gitterfront aus
+// Eisenstangen, Eisentür (öffnet nur per Redstone, Faktencheck/T5: Knopf an einem Block, der an eine Türhälfte
+// grenzt, öffnet beide Hälften). Der Knopf sitzt NUR AUSSEN am Pfeiler neben der Tür (K1), innen kein Öffner.
+// Innen: Holzpritsche aus unteren Stufen und ein Abflussgitter (geschlossene Eisenfalltür) – die Zelle hat so
+// keine leere Bodenzelle, die der Solver als abgeschnittene Tasche werten müsste; an der Rückwand eine Kette
+// (Fessel). Bewusst KEIN Bett: ein Bett ohne freies Nachbarfeld (Aufwachplatz, Faktencheck #8, Solver-Regel
+// `bedObstructed`) wäre ungültig, und das 26.3-Strohbett (kein Spawnpunkt, research/11 K4) fehlt in 1.21.11.
+// V3: ab lichter Höhe 4 laufen Wände und Gitter per `stretch` bis unter die Decke (hohe Käfigzelle).
+// „wide“ = Zelle 3 × 1 innen mit Pritsche quer, „single“ = Zelle 1 × 2 innen mit Pritsche längs (kompakt);
+// „*_low“ für lichte Höhe 2 (Tür 2 hoch direkt unter der Decke).
+{
+  id: "decor/prison_cell",
+  kind: "static",
+  name: "Kerkerzelle",
+  category: "architecture",
+  tags: ["prison_cell"],
+  functionTags: ["confine"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "wide",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PHHGP", "PIIDP", "....."], // y0: Pritsche | Abflussgitter; Gitter | Gitter | Tür unten
+        ["P___P", "PIIdP", "....b"], // y1: Luft in der Zelle; Tür oben; Knopf außen am Pfeiler
+        ["P_c_P", "PIIIP", "....."], // y2: Kette an der Rückwand; Gitter über der Tür
+      ],
+      legend: {
+        P: { role: "foundation", shape: "block" },
+        H: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        G: { block: "minecraft:iron_trapdoor", orient: { front: "front", open: false, upsideDown: false } },
+        I: { block: "minecraft:iron_bars" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+        c: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling", rows: ["P___P", "PIIIP", "....."] },
+    },
+    {
+      id: "single",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PHP", "PHP", "PDP", "..."], // y0: Pritsche längs, Tür vorn
+        ["P_P", "P_P", "PdP", "..b"], // y1: Luft, Tür oben, Knopf außen
+        ["PcP", "P_P", "PIP", "..."], // y2: Kette an der Rückwand, Gitter über der Tür
+      ],
+      legend: {
+        P: { role: "foundation", shape: "block" },
+        H: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        I: { block: "minecraft:iron_bars" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+        c: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling", rows: ["P_P", "P_P", "PIP", "..."] },
+    },
+    {
+      id: "wide_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["PHHGP", "PIIDP", "....."],
+        ["P___P", "PIIdP", "....b"],
+      ],
+      legend: {
+        P: { role: "foundation", shape: "block" },
+        H: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        G: { block: "minecraft:iron_trapdoor", orient: { front: "front", open: false, upsideDown: false } },
+        I: { block: "minecraft:iron_bars" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+      },
+    },
+    {
+      id: "single_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["PHP", "PHP", "PDP", "..."],
+        ["P_P", "P_P", "PdP", "..b"],
+      ],
+      legend: {
+        P: { role: "foundation", shape: "block" },
+        H: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,29 @@
+// FN · Händlerhalle mit Buden (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Bestandsraum `trading_hall` bleibt
+// unangetastet; dieser Raumtyp ist die dichte Variante mit Handelsbuden (`fn_trade_booth`: 2 bzw. 3 Villager-Stände in
+// einem Baukörper, je Stand ein anderer Beruf, Gruppen Schmiede/Markt/Handwerk/Gelehrte, alle 13 Berufe in den Varianten) an
+// beiden Längswänden mit Mittelgang. Die Villager bringt der Spieler; sie sind in der Bude eingeschlossen (Decke auf Höhe 2,
+// Pfosten seitlich) und handeln über den Arbeitsblock. Eine Heilzelle (Eisentür) türfern für Zombie-Dorfbewohner (Rabatte).
+// Licht ≥ 8 überall (Zombies gefährden Villager; Monster spawnen erst bei Blocklicht 0). Weitere Buden im Takt (row gap 0).
+// Wachsen mit der Fläche: 1 Bude bei kleinen Räumen, bis 6 Buden (12–18 Stände) in großen Hallen.
+{
+  id: "fn_villager_hall",
+  name: "Händlerhalle (Buden)",
+  minArea: 42,
+  coverage: { target: 0.42 },
+  aisle: { width: 2, minWidth: 1 },
+  required: [
+    { tags: ["fn_trade_booth"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["fn_trade_booth"], count: { perArea: 16, min: 1, max: 6 }, weight: 5, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["fn_cure_cell"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"], doorAffinity: "far" } },
+    { tags: ["runner_rug"], count: [0, 1], weight: 3, placement: { zones: ["center", "corridor"] } },
+    { tags: ["bench"], count: [0, 2], weight: 1, placement: { zones: ["center"] } },
+    { tags: ["chest", "trade_chest"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["goods"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_banner", "guild_banner"], count: [0, 4], weight: 2 },
+    { tags: ["light_ceiling"], count: { perArea: 12, min: 2, max: 8 }, weight: 4 },
+    { tags: ["ceiling_banner"], count: [0, 3], weight: 2 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

@@ -1,0 +1,32 @@
+// K3d · Knochenhaufen (research/11 K-5, D-Stimmung): Knochenblock liegend, daneben ein Skelettschädel
+// (`rotation` immer explizit über die Ausrichtung, Faktencheck #16: Standard seit 26.1 = 8). Schädel =
+// `survival_rare` (Drop nur bei Kills durch geladene Creeper, plan/01 §4.7) – die Einstufung gilt für die ganze
+// Komponente, auch für die Variante „bones“ ohne Schädel. Tag `bone_pile` (Kerker, Gruft).
+{
+  id: "decor/bone_pile",
+  kind: "static",
+  name: "Knochenhaufen",
+  category: "decor",
+  tags: ["bone_pile", "grim_decor"],
+  styleTags: ["grim"],
+  obtainability: "survival_rare",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "skull",
+      weight: 2,
+      layers: [["Sb"]],
+      legend: {
+        S: { block: "minecraft:skeleton_skull", orient: { front: "front" } },
+        b: { block: "minecraft:bone_block", orient: { axis: "along" } },
+      },
+    },
+    {
+      id: "bones",
+      weight: 1,
+      layers: [["bb"]],
+      legend: { b: { block: "minecraft:bone_block", orient: { axis: "along" } } },
+    },
+  ],
+}

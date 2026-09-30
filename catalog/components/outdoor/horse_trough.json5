@@ -1,0 +1,21 @@
+// research/56 · Pferdetränke mit Futterraufe (größer als `outdoor/stone_trough`, mit Heu-Feld daneben): Wasser
+// zum Trinken, Heuballen zum Fressen, in einer Reihe. Für Koppel, Stall, Reiterhof.
+// Q1a: das Wasser ist rundum eingefasst (Regel `noHazardOnPath`) – Mauern vorn/hinten, der Heuballen bildet die
+// vierte Seite.
+{
+  id: "outdoor/horse_trough",
+  kind: "static",
+  name: "Pferdetränke",
+  category: "work",
+  tags: ["trough", "outdoor", "water_feature", "paddock"],
+  styleTags: ["rustic", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [["WWWWW", "WwwHW", "WWWWW"]],
+  legend: {
+    W: { block: "minecraft:cobblestone_wall" },
+    w: { block: "minecraft:water", state: { level: "0" } },
+    H: { block: "minecraft:hay_block", orient: { axis: "along" } },
+  },
+}

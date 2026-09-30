@@ -1,0 +1,35 @@
+// K3d · Hochbett über Schreibtisch und Schublade (research/16 I6, P2; S9 „Bunk Bed“, S17 Etagenbett mit
+// Stauraum). „Mehr in die Höhe“: unten Arbeitsplatz (umgedrehte Treppe als Tischplatte) und Fass als
+// Schublade, darauf eine Plattform aus oberen Stufen, oben das Bett quer zur Wand, daneben eine Leiter an der
+// Raumwand (Leiter braucht volle Fläche dahinter, Physik-Regel `ladder`). Über dem Bett bleibt Luft
+// (Faktencheck #8). Ab lichter Höhe 4. Stuhl vor dem Schreibtisch über einen `adjacent`-Socket (Blick zum Tisch).
+// Tag `loft_bed` – Wohn-, Kinder- und Wachräume ziehen es bewusst (nicht `bed_single`).
+{
+  id: "bed/loft",
+  kind: "static",
+  name: "Hochbett",
+  category: "furniture",
+  tags: ["bed", "loft_bed"],
+  functionTags: ["sleep", "store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  minRoomHeight: 4,
+  layers: [
+    ["DBL"], // y0: Schreibtisch | Fass-Schublade | Leiter
+    ["zzL"], // y1: Plattform (obere Stufen) | Leiter
+    ["HFL"], // y2: Bett (Kopf links) | Leiter
+    ["__."], // y3: Luft über dem Bett
+  ],
+  legend: {
+    D: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    B: { block: "minecraft:barrel", orient: { front: "front" } },
+    L: { block: "minecraft:ladder", orient: { front: "front" } },
+    z: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "right" } },
+    F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "right" } },
+  },
+  sockets: [{ id: "chair", type: "adjacent", at: [0, 0, 1], side: "front", accepts: ["chair"], facing: "toParent", prob: 0.7 }],
+  masks: { use: [{ side: "front" }] },
+}

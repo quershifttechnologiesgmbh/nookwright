@@ -1,0 +1,26 @@
+// research/56 · Wegweiser an der Kreuzung (erweitert `outdoor/signpost` um vier statt zwei Arme): Pfosten mit
+// Wandschildern nach allen vier Seiten (links/rechts wie beim Original, zusätzlich vorn/hinten). Für echte
+// Wegkreuzungen und Platzeingänge.
+{
+  id: "outdoor/signpost_crossroads",
+  kind: "static",
+  name: "Wegweiser (Kreuzung)",
+  category: "decor",
+  tags: ["signpost", "outdoor", "path", "plaza"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["...", ".F.", "..."], // y0
+    ["...", ".F.", "..."], // y1
+    [".D.", "AFB", ".C."], // y2: Schilder nach hinten, links, rechts, vorn
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    A: { role: "beam", shape: "wall_sign", orient: { attachTo: "left" } },
+    B: { role: "beam", shape: "wall_sign", orient: { attachTo: "right" } },
+    C: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" } },
+    D: { role: "beam", shape: "wall_sign", orient: { attachTo: "front" } },
+  },
+}

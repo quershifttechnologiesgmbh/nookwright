@@ -1,0 +1,39 @@
+// research/57 · Handelshalle: Zunftbanner über den Ständen (Nebenobjekt). Tag `wall_banner` steht in
+// trading_hall.json5 im optionalen Eintrag `{ tags: ["wall_banner"] }`. Zwei Banner nebeneinander mit
+// Zunftzeichen-Farbe (Rolle `textile_accent`), höher als decor/wall_banner (Fries über Kopfhöhe), damit beide
+// Formen nebeneinander in derselben Halle nicht wie Duplikate wirken.
+{
+  id: "decor/guild_banner",
+  kind: "static",
+  name: "Zunftbanner",
+  category: "attachment",
+  tags: ["wall_decor", "guild_banner"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [2, -1],
+  variants: [
+    {
+      id: "pair_accent",
+      weight: 2,
+      layers: [["VV"]],
+      legend: { V: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } } },
+    },
+    {
+      id: "single_primary",
+      weight: 2,
+      layers: [["V"]],
+      legend: { V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } } },
+    },
+    {
+      id: "pair_mixed",
+      weight: 1,
+      layers: [["VW"]],
+      legend: {
+        V: { role: "textile_accent", shape: "wall_banner", orient: { attachTo: "back" } },
+        W: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+}

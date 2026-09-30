@@ -1,0 +1,21 @@
+// SD Grundstücks-Deko: Weidegatter bzw. Pferch (5 × 5): Zaun rundum, offener Eingang in der Mitte der Front (Süden), innen Heu zwischen zwei
+// Tröge an der Rückwand. Für Stall, Hühnerhaus, Bauernhof. Spiegelsymmetrisch (Eingang mittig).
+{
+  id: "outdoor/sd_pen",
+  kind: "static",
+  name: "Pferch",
+  category: "work",
+  tags: ["outdoor", "sd_decor", "sd_pen"],
+  styleTags: ["rustic", "farm", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["FFFFF", "FThTF", "F...F", "F...F", "FF.FF"], // y0: Zaun, Tröge, Heu, offener Eingang vorn
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    T: { role: "trough", shape: "block" },
+    h: { role: "hay", shape: "block" },
+  },
+}

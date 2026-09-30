@@ -1,0 +1,23 @@
+// Laterne am Wandarm (research/10 §2.3 „Laternen-Galgen“ B11, §7.11 `hanging_arm`): Zaun als Arm unter
+// der Decke (verbindet sich mit der Wand), darunter die hängende Laterne (Zaun-Unterseite = stabile Mitte,
+// Faktencheck #3). Braucht lichte Höhe ≥ 3. Laterne in Kopfhöhe → nicht durchlaufbar.
+{
+  id: "light/wall_arm_lantern",
+  kind: "static",
+  name: "Wandarm-Laterne",
+  category: "light",
+  tags: ["light", "light_wall"],
+  functionTags: ["light"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  layers: [["L"], ["F"]],
+  legend: {
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+    F: { role: "furniture_wood", shape: "fence" },
+  },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

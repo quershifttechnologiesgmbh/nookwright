@@ -1,0 +1,16 @@
+// EXT2 (Hebel 3/5, plan/spikes/LV_tiefe_detail.md T6): Sockelabsatz – eine untere Stufe in der Rolle `foundation` eine Zelle
+// vor dem Sockelprofil der Hülle. Aus Wand, Sockeltreppe und Absatz wird ein dreistufiger Fuß (Vorbild: Steinsockel bekannter
+// Bauten, der sich zum Boden hin verbreitert). Rückseite am Sockelprofil; nur Stufe `grand`, kein Tag `detail_subtle`.
+{
+  id: "exterior/detail_plinth_ledge",
+  kind: "static",
+  name: "Sockelabsatz",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "harbor", "nordic", "nordic_falu", "winter", "elven", "dwarven", "gothic", "asian", "steampunk", "noble"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["S"]],
+  legend: { S: { role: "foundation", shape: "slab", orient: { upsideDown: false } } },
+}

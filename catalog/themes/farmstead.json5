@@ -1,0 +1,247 @@
+// Bauernhof / Rustikal (research/24 §7.8, T8): warm, praktisch, heller Putz über Holzfachwerk, Strohdach.
+// Erbt von rustic und überschreibt Wände, Böden, Dach, Sockel und Außenwelt.
+// Kernthemes: (a) Wohnhaus mit Scheune, (b) Silo, (c) Hofladen, (d) Gesindehaus.
+// Falle (research/24 §7.8): Heu gibt es nicht als Treppenform. W2 (X3 „Hofgut ohne Stroh“): das Stroh ist deshalb
+// Bambusmosaik (gelb, geflochten, mit Treppe und Stufe) – als ganzes Deckungsrezept statt Lehmziegel-Flecken.
+{
+  id: "farmstead",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { formality: -0.5, wear: 0.25, richness: -0.25 },
+  name: "Bauernhof",
+  description: "Helle Birkenbretter, Eichenständer, Steinsockel, Fichtenschindeln, Kalkputzgiebel, rote Scheune",
+  base: "rustic",
+  roles: {
+    // P4 Dielenwand über die ganze Fassade (W2 Regeln W4/W5): Eichenbohlen tragen, am Fuß des Gebäudes dunkle Eiche –
+    // keine Zufallsstämme im Bretterfeld (Stämme stehen als Eckständer und liegen als Geschossband)
+    // W13-F (28.09.2026): „Meadow“-Hof – helle Birkenbretter, Eichenständer mit Rinde, Steinsockel, dunkles Dach
+    // (minecraftgradient.blog/minecraft-barn-design: oak logs, stripped oak, birch planks, stone bricks; eine Holzfarbe, eine
+    // Füllung, ein Sockel). Vorher dunkle Eichenwand mit hellen Ständern unter gelbem Bambus-„Stroh“: drei laute Töne.
+    wall_primary: {
+      // W4 (27.09.2026, Review M4): dunkler Fuß nur als durchgehende Reihe – `quantize: "ring"` wählt je Wandreihe
+      // (gleiche Höhe über dem Sockel, `facade_h`) genau einen Block, ohne Rauschen und ohne Jitter. Vorher lagen
+      // Cluster-Flecken aus dem dunklen Ton im Bretterfeld und lasen sich wie zugemauerte Türöffnungen. Unteres
+      // Siebtel der Fassade (zweigeschossig: die erste Reihe) dunkel, darüber nur das Hauptbrett (W4/W5).
+      gradient: {
+        along: "facade_h",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "cobblestone", weight: 1 }] },
+          { at: 0.15, mix: [{ family: "birch", weight: 1 }] },
+          { at: 1, mix: [{ family: "birch", weight: 1 }] },
+        ],
+      },
+    },
+    // Heller Putz, unten ein Saum aus Bruchstein
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        stops: [
+          { at: 0, mix: [
+            { family: "cobblestone", weight: 30 },
+            { family: "calcite", weight: 40 },
+            { family: "white_terracotta", weight: 30 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 60 },
+            { family: "white_terracotta", weight: 25 },
+            { family: "light_gray_terracotta", weight: 15 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "oak", weight: 88 },
+        { family: "spruce", weight: 12 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    // Tenne: gestampfter Lehm, Dielen und Stein in kleinen Zellen
+    floor_stone: {
+      mix: [
+        { family: "stone_bricks", weight: 35 },
+        { family: "cobblestone", weight: 30 },
+        { family: "smooth_stone", weight: 20 },
+        { family: "andesite", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    floor_earth: {
+      mix: [
+        { block: "minecraft:packed_mud", weight: 45 },
+        { block: "minecraft:coarse_dirt", weight: 35 },
+        { block: "minecraft:rooted_dirt", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    floor_border: { family: "oak" },
+    floor_strip: { family: "dark_oak" },
+    // Kopfstein-Sockel (W7): ein Stein, bemoost
+    foundation: {
+      mix: [
+        { family: "cobblestone", weight: 70 },
+        { family: "mossy_cobblestone", weight: 30 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    beam: { family: "oak" },
+    pillar: { family: "oak" },
+    door: { family: "oak" },
+    window_frame: { family: "spruce" },
+    // W13-F: eine Holzart in den Deckenfeldern (vorher drei gemischt)
+    ceiling: { family: "oak" },
+    // Strohdach als Deckungsrezept (W2 Regel D1, X3 „Hofgut ohne Stroh“): Bambusmosaik ist das Stroh mit Treppenform
+    // (Heu hat keine Treppe und fiel auf dem geneigten Dach ganz heraus – vorher Lehmziegel/Ziegel/Eiche). Der
+    // Traufring in Eiche (vergrautes, nasses Stroh), ganze Ringe; Kante in dunkler Eiche (D3).
+    // W13-F: Schindeldach Fichte mit Kante in dunkler Eiche (D3) (Scheunen-Vorbilder: dark oak or spruce stairs); vorher Bambusmosaik
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "spruce", weight: 1 }] },
+          { at: 1, mix: [{ family: "spruce", weight: 1 }] },
+        ],
+      },
+    },
+    // W9-G3 (Baustandard D9 Bauwerk): Krone der Holzburg in Eiche (Stamm und Brett, L ≈ 0,55) statt der geerbten
+    // Fichte – sie läge sonst im Wert genau auf der dunklen Eichenwand
+    parapet: {
+      mix: [
+        { family: "oak", variant: "log", weight: 65 },
+        { family: "oak", weight: 35 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    // W9-G3: Kante in Fichte. W13-F (28.09.2026): dunkle Eiche – dunkle Kante über der hellen Birkenwand
+    roof_trim: { family: "dark_oak" },
+    // W12-C (Review R6-4): kein eigenes Giebelfeld – die Giebelzellen laufen wie bei rustic durch die Wandregeln
+    // (am Wohnhaus `wall_plaster`, an der Scheune Scheunenrot bis in die Spitze).
+    // W13-F (28.09.2026): `wall_plaster` erbt den Kalkputz von rustic (vorher Lehmputz aus drei Terrakotten, gefleckt;
+    // weiße Terrakotta las sich im Bild rosa). Heller Putzgiebel über der Birkenwand, dunkles Dach darüber.
+    wall_plinth: {
+      mix: [
+        { family: "stone_bricks", weight: 70 },
+        { family: "stone_bricks", variant: "mossy", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // W2 (Regel W6): Gesims/Geschossband am Holzhaus aus Holz im Kontrastton, nicht der geerbte Steinziegel
+    // W9-G3: Geschossband in entrindeter Eiche (heller Balken vor der dunklen Bohlenwand, W6 Kontrastton)
+    wall_cornice: { family: "oak" },
+    wall_quoin: { family: "stone_bricks" },
+    shutter: { family: "spruce" },
+    furniture_wood: { family: "oak" },
+    metal: { family: "iron" },
+    light_hanging: { family: "iron" },
+    textile_primary: { color: "white" },
+    textile_accent: { color: "red" },
+    textile_neutral: { color: "brown" },
+
+    // ---------------------------------------------------------------- Außen: Wiese, Feld, Hof
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 60 },
+        { block: "minecraft:coarse_dirt", weight: 20 },
+        { block: "minecraft:podzol", weight: 10 },
+        { block: "minecraft:moss_block", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:dirt_path", weight: 45 },
+        { block: "minecraft:coarse_dirt", weight: 25 },
+        { block: "minecraft:gravel", weight: 15 },
+        { block: "minecraft:cobblestone", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:cobblestone", weight: 40 },
+        { block: "minecraft:mossy_cobblestone", weight: 25 },
+        { block: "minecraft:stone_bricks", weight: 20 },
+        { block: "minecraft:coarse_dirt", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    leaves_oak: { family: "oak" },
+    leaves_bush: {
+      mix: [
+        { block: "minecraft:oak_leaves", weight: 40 },
+        { block: "minecraft:azalea_leaves", weight: 30 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 30 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:poppy", weight: 30 },
+        { block: "minecraft:dandelion", weight: 30 },
+        { block: "minecraft:cornflower", weight: 25 },
+        { block: "minecraft:oxeye_daisy", weight: 15 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:short_grass", weight: 50 },
+        { block: "minecraft:fern", weight: 25 },
+        { block: "minecraft:bush", weight: 25 },
+      ],
+    },
+    ground_cover: {
+      mix: [
+        { block: "minecraft:leaf_litter", weight: 40 },
+        { block: "minecraft:pink_petals", weight: 35 },
+        { block: "minecraft:wildflowers", weight: 25 },
+      ],
+    },
+    hedge: { family: "oak" },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld (Putz/glatter Stein, Kontrast zur Wand) färbt die Palette wie die Zweitwand
+    // W12-C: Giebelfeld als Lehmputz über die Wandregeln (`wall_plaster`)
+    wall_secondary: ["wall_secondary", "wall_plaster"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    wood_frame: ["beam", "pillar"],
+    floor: ["floor_primary", "floor_stone", "floor_earth", "ground_grass", "ground_path", "ground_yard"],
+    accent: ["textile_primary", "textile_accent", "textile_neutral"],
+    glass: ["window_frame", "shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "grass_tuft", "ground_cover", "hedge"],
+  },
+
+  decor: {
+    // Bewohnt und gepflegt: wenig Alter, aber sichtbare Spuren am Sockel
+    weathering: { age: 0.3, fade: 1.5, roles: ["foundation", "wall_plinth", "floor_stone"] },
+  },
+  items: {
+    "food.any": ["minecraft:bread", "minecraft:cookie", "minecraft:pumpkin_pie", "minecraft:cooked_chicken"],
+    "deco.small": ["minecraft:wheat_seeds", "minecraft:string", "minecraft:feather"],
+  },
+}

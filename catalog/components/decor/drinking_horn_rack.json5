@@ -1,0 +1,23 @@
+// research/57 · Methalle: Trinkhorn-Gestell (Nebenobjekt, ergänzt decor/weapon_rack/shield_display/armor_display
+// um Trinkgeschirr statt Waffen). Tag `wall_weapons` steht in mead_hall.json5 im optionalen Eintrag
+// `{ tags: ["wall_weapons"], count: [2, 6] }` – Trinkhörner zählen hier als Wandschmuck der Halle mit.
+{
+  id: "decor/drinking_horn_rack",
+  kind: "static",
+  name: "Trinkhorn-Gestell",
+  category: "attachment",
+  tags: ["wall_decor", "drinking_horn_rack"],
+  styleTags: ["nordic", "medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  layers: [["_"], ["F"]],
+  legend: { F: { role: "beam", shape: "fence" } },
+  variants: [
+    { id: "mug", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:mushroom_stew" } }] },
+    { id: "sword_wall", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_axe" } }] },
+    { id: "horn", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:goat_horn" } }] },
+  ],
+}

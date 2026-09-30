@@ -1,0 +1,31 @@
+// Krankenstube (research/17 §4.11, I1–I3). K3a. Signatur: Bettenreihe mit Sichtschutz (bed/sickbed_screen) an den
+// Längswänden, Kopf zur Wand (Solver v2 `row`, gap 1; mit `aisle` (Y1, K3c) wird daraus die Doppelreihe mit freiem
+// Mittelgang). Apotheken-Theke mit Braustand türnah (Zone `dispensary` in großen Räumen), Wasserkessel/Becken,
+// Waschtisch, Truhen. Hell (≥ 8). V3 „mehr in die Höhe“: Laterne auf dem Bettpfosten, Heilkräuter an der Decke,
+// Trankbord und Oberschrank über Kopfhöhe.
+{
+  id: "infirmary",
+  name: "Krankenstube",
+  minArea: 16,
+  coverage: { target: 0.45 },
+  // K3c (Y1): Mittelgang, die Bettenreihe wird zur gespiegelten Doppelreihe an beiden Längswänden
+  aisle: { width: 2, minWidth: 1 },
+  zones: [{ id: "ward", doorAffinity: "far" }, { id: "dispensary", doorAffinity: "near" }],
+  required: [
+    { tags: ["sickbed"], count: { perArea: 10, min: 2, max: 8 }, signature: true, zone: "ward", placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 1 } },
+  ],
+  optional: [
+    { tags: ["brewing_counter"], count: [0, 1], weight: 4, zone: "dispensary", placement: { zones: ["edge"] } },
+    { tags: ["potion_shelf", "bandage_rack"], count: [0, 2], weight: 3, zone: "dispensary" },
+    { tags: ["water_cauldron", "font"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["washstand"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["chest"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    // V3 (Raumhöhe nutzen)
+    { tags: ["plant_hanging", "herb_drying_bundle"], count: [0, 2], weight: 2 },
+    // W2 (I6): Wäscheschrank (Leinen) – Q1a-Entwurf, jetzt auf Bad/Krankenstube begrenzt
+    { tags: ["linen_closet"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling"], count: { perArea: 15, min: 1, max: 4 }, weight: 4 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall", "candles", "light_floor"] },
+}

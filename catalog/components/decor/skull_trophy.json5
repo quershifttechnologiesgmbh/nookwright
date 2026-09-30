@@ -1,0 +1,21 @@
+// K2 · Schädel-Trophäe (DA Decoration: Trophies): Konsole aus oberer Stufe in Augenhöhe, darauf ein
+// Skelettschädel (Köpfe brauchen keine Stütze). Lichte Höhe ≥ 3. Skelettschädel gibt es nur über geladene
+// Creeper → survival_rare.
+{
+  id: "decor/skull_trophy",
+  kind: "static",
+  name: "Schädel-Trophäe",
+  category: "attachment",
+  tags: ["wall_decor", "trophy"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival_rare",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [2, 1], // V3: Köpfe bevorzugt über Kopfhöhe
+  rotations: "backToWall",
+  layers: [["S"], ["H"]],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    H: { block: "minecraft:skeleton_skull", orient: { front: "front" } },
+  },
+}

@@ -1,0 +1,19 @@
+// I52 · Kassettendecke (research/52 §Decke): Balkenraster aus zwei sich kreuzenden Stämmen unter der Decke
+// (ohne Kettenlicht) — die reine Struktur-Variante zu decor/ceiling_coffer, als eigenständiges Deckenbauteil
+// für Räume ohne Kronleuchter-Bedarf. Q1a: `walkable` entfernt – ein Balkenraster unter der Decke besteht aus
+// vollen Stämmen und ist kein durchlaufbarer Bodenbelag (der Test prüft `walkable` gegen die Physik).
+{
+  id: "architecture/ceiling_coffer_beam_grid",
+  kind: "static",
+  name: "Kassettendecke",
+  category: "architecture",
+  tags: ["decor_ceiling", "column"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  layers: [
+    ["BBB", "B_B", "BBB"], // y0: Balkenraster mit offener Mitte
+  ],
+  legend: { B: { role: "beam", shape: "log", orient: { axis: "along" } } },
+}

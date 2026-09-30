@@ -1,0 +1,27 @@
+// research/56 · Marktstand mit Markise (DA Structural: Tents; ergänzt `outdoor/market_stall`): freistehender
+// Mittelpfosten trägt ein rundum überstehendes Stoffdach in Streifenfarben, darunter ein Warentisch aus zwei
+// offenen Fässern. Anders als der wandnahe Marktstand passt dieser mitten auf einen Platz (allseitig offen).
+{
+  id: "outdoor/market_awning",
+  kind: "static",
+  name: "Marktstand mit Markise",
+  category: "architecture",
+  tags: ["market_stall", "outdoor", "market", "plaza", "shop"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["...", ".P.", "B.B"], // y0: Mittelpfosten, Warenfässer
+    ["...", ".P.", "..."], // y1
+    ["...", ".P.", "..."], // y2
+    ["www", "rrr", "www"], // y3: Streifendach, allseitig überstehend
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    B: { block: "minecraft:barrel", orient: { front: "up" } },
+    w: { block: "minecraft:white_wool" },
+    r: { block: "minecraft:red_wool" },
+  },
+  sockets: [{ id: "ware", type: "surface", at: [0, 1, 0], accepts: ["food", "vase", "tabletop_small"], prob: 0.7 }],
+}

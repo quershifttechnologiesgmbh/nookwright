@@ -1,0 +1,62 @@
+// Lagersortierer (R1, eigene Umsetzung), zwei Filter gespiegelt um einen gemeinsamen Kessel.
+// Ablauf: Einwurf-Trichter (links außen, y2) → Trichterkette nach links → Überlauf-Fass. Unter jedem Filter-
+// Trichter F sitzt ein Sperr-Trichter L (→ Fass vorn). F zeigt nach hinten in seinen Komparator (kein Behälter →
+// schiebt nie), L zieht nur aus F.
+// Sperre OHNE Redstone-Fackel (eine Fackel brennt bei voller Trichtergeschwindigkeit durch, im Spiel gemessen):
+// ein Sperr-Komparator im Vergleichsmodus liest hinten den Wasserkessel (Stufe 1 = Signal 1) und seitlich den
+// Staub hinter dem Filter-Komparator (Signal s − 1). Seite ≤ 1 → Ausgang 1 → Block hinter L stark versorgt → L
+// gesperrt; Seite 2 (s = 3, Überlauf) → Ausgang 0 → L zieht genau ein Stück. Vergleichsmodus aktualisiert immer,
+// darum stimmt es auch nach `/place … strict` (Block-Entity ohne OutputSignal).
+// Filter einrichten (Spieler): F Slot 1 = 41× Sortiergut, Slots 2–5 = je 1 Füllitem (stapelbar, wird nie sortiert)
+// → Komparator 2; ab dem 42. Stück → 3 → Staub 2 > Kessel 1 → frei.
+// Ruhezustand im Export: Filter leer, Staub 0, Sperr-Komparatoren an (Ausgang 1), L gesperrt (enabled=false).
+// Richtungen relativ: left = +x, right = −x, back = −z (Norden), front = +z. Im Spiel geprüft: spikes/ingame Gruppe F.
+{
+  id: "functional/item_sorter",
+  kind: "static",
+  name: "Lagersortierer (2 Filter)",
+  category: "storage",
+  tags: ["item_sorter", "storage_automation"],
+  functionTags: ["store", "sort", "automation", "redstone"],
+  styleTags: ["workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    [
+      ".QdBdQ.", // y0 z0: Träger (leitet) | Staub am Boden → Seite des Sperr-Komparators | Trenner
+      "PScKeSP", // y0 z1: Block hinter L (leitet) | Sperr-Komparatoren (→ S) | Wasserkessel Stufe 1
+      "PLPPPLP", // y0 z2: Sperr-Trichter (→ Fass vorn)
+      "PAPPPAP", // y0 z3: Fässer vorn
+    ],
+    [
+      ".d_._d.", // y1 z0: Staub hinter dem Filter-Komparator | Luft über dem Bodenstaub
+      ".C...C.", // y1 z1: Filter-Komparatoren (lesen F)
+      "PF...FP", // y1 z2: Filter-Trichter (→ Komparator)
+      ".......",
+    ],
+    [
+      ".......",
+      ".......",
+      "TTTTTTO", // y2 z2: Einwurf + Transport-Kette → Überlauf-Fass
+      ".......",
+    ],
+  ],
+  legend: {
+    Q: { block: "minecraft:stone_bricks" },
+    B: { block: "minecraft:stone_bricks" },
+    S: { block: "minecraft:stone_bricks" },
+    P: { role: "furniture_wood", shape: "planks" },
+    d: { block: "minecraft:redstone_wire" },
+    c: { block: "minecraft:comparator", orient: { front: "right" }, state: { powered: "true" } },
+    e: { block: "minecraft:comparator", orient: { front: "left" }, state: { powered: "true" } },
+    K: { block: "minecraft:water_cauldron", state: { level: "1" } },
+    L: { block: "minecraft:hopper", orient: { attachTo: "front" }, state: { enabled: "false" } },
+    A: { block: "minecraft:barrel", orient: { front: "front" } },
+    C: { block: "minecraft:comparator", orient: { front: "back" } },
+    F: { block: "minecraft:hopper", orient: { attachTo: "back" } },
+    T: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+    O: { block: "minecraft:barrel", orient: { front: "front" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,106 @@
+// FN · Kartograf-und-Bogner-Ecke (Produktionslinien, plan/spikes/FN_produktionslinien.md): Bognertisch (Pfeilmacher-
+// Arbeitsblock), Fass mit Pfeilen (öffnet immer), Kartentisch (Kartograf), Schreibplatte und Lesepult (Bibliothekar) in einer
+// Wandreihe, darüber Bogen, Armbrust und Kompass in Rahmen. Wächst mit der Größe: `small` 3×2, `medium` 5×2 (mit Platte
+// und Lesepult), `large` 7×2 (zwei Bogner-, zwei Kartentische). Das Lesepult bleibt ohne Buch (Inhalt setzt der Export nur für Fässer/
+// Truhen/Schilder), der Stuhl ist ein Kind (`toParent`). Ruhezustand: Fass mit Pfeilen (16–64), sonst nichts zu befüllen.
+// Richtungen relativ: left = +x. Kein Windrad (Wandreihe).
+{
+  id: "work/fn_scribe_fletch_corner",
+  kind: "static",
+  name: "Kartograf- und Bogner-Ecke",
+  category: "work",
+  tags: ["fn_scribe_fletch_corner", "fn_corner"],
+  functionTags: ["craft", "villager_workstation", "work:fletcher", "work:cartographer", "work:librarian"],
+  styleTags: ["medieval", "scholarly", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "small",
+      weight: 3,
+      layers: [
+        ["FBC", "___"], // y0: Arbeitsblöcke an der Wand; davor Platz für Stühle
+        ["___", "___"], // y1: Rahmen an der Wand
+      ],
+      legend: {
+        F: { block: "minecraft:fletching_table" },
+        B: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:arrow", count: [16, 64] }] } },
+        C: { block: "minecraft:cartography_table" },
+      },
+      entities: [
+      { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:bow" } },
+      { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:crossbow" } },
+      { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:compass" } },
+      ],
+      sockets: [
+        { id: "chair", type: "adjacent", at: [1, 0, 1], side: "front", accepts: ["chair"], prob: 0.6, facing: "toParent" },
+        { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "medium",
+      weight: 3,
+      layers: [
+        ["FBUCL", "_____"], // y0: Arbeitsblöcke an der Wand; davor Platz für Stühle
+        ["_____", "_____"], // y1: Rahmen an der Wand
+      ],
+      legend: {
+        F: { block: "minecraft:fletching_table" },
+        B: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:arrow", count: [16, 64] }] } },
+        C: { block: "minecraft:cartography_table" },
+        L: { block: "minecraft:lectern", orient: { front: "front" } },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+      { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:bow" } },
+      { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:crossbow" } },
+      { type: "item_frame", at: [3, 1, 0], face: "front", item: { item: "minecraft:compass" } },
+      ],
+      sockets: [
+        { id: "chair", type: "adjacent", at: [2, 0, 1], side: "front", accepts: ["chair"], prob: 0.6, facing: "toParent" },
+        { id: "lamp", type: "hang", at: [2, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "large",
+      weight: 2,
+      layers: [
+        ["FBFUCLC", "_______"], // y0: Arbeitsblöcke an der Wand; davor Platz für Stühle
+        ["_______", "_______"], // y1: Rahmen an der Wand
+      ],
+      legend: {
+        F: { block: "minecraft:fletching_table" },
+        B: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:arrow", count: [16, 64] }] } },
+        C: { block: "minecraft:cartography_table" },
+        L: { block: "minecraft:lectern", orient: { front: "front" } },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      entities: [
+      { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:bow" } },
+      { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:crossbow" } },
+      { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:bow" } },
+      { type: "item_frame", at: [4, 1, 0], face: "front", item: { item: "minecraft:compass" } },
+      { type: "item_frame", at: [6, 1, 0], face: "front", item: { item: "minecraft:compass" } },
+      ],
+      sockets: [
+        { id: "chair", type: "adjacent", at: [3, 0, 1], side: "front", accepts: ["chair"], prob: 0.6, facing: "toParent" },
+        { id: "lamp", type: "hang", at: [3, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "nook",
+      weight: 1,
+      // Kompaktform (Tiefe 1): Bognertisch neben dem Pfeil-Fass
+      layers: [
+        ["FB"],
+      ],
+      legend: {
+        F: { block: "minecraft:fletching_table" },
+        B: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:arrow", count: [16, 64] }] } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

@@ -1,0 +1,21 @@
+// Braukessel über Feuer (research/11 §5.6 A-4, B5): Lagerfeuer (brennt dauerhaft, entzündet nichts) unter
+// einem Wasserkessel. Das Feuer steht unter dem Kessel → niemand kann darauf treten (Kopf stößt an).
+{
+  id: "work/brew_kettle",
+  kind: "static",
+  name: "Braukessel über Feuer",
+  category: "work",
+  tags: ["brew_kettle", "fire_feature"],
+  functionTags: ["cook", "light", "work:leatherworker"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["F"], ["K"]],
+  legend: {
+    F: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+    K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+  },
+  masks: { clearance: [{ side: "all", depth: 1, hard: true }] },
+  light: "auto",
+}

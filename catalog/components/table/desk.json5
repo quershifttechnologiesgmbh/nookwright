@@ -1,0 +1,29 @@
+// Schreibtisch (research/10 §2.3, Schlafzimmer 6/13): Bücherregal als Unterschrank, umgedrehte Treppe als
+// Platte, der Stuhl gehört zur Komponente (Blick zum Tisch – Socket-Blickregel `toParent` kann der Solver
+// noch nicht). Oben Kerze, Laterne oder Topf.
+{
+  id: "table/desk",
+  kind: "static",
+  name: "Schreibtisch",
+  category: "furniture",
+  tags: ["desk", "table"],
+  functionTags: ["sit"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BU", ".C"], // y0: Regal + Tischplatte hinten, Stuhl vor der Platte (Lehne vorn → Blick zum Tisch)
+  ],
+  legend: {
+    B: { block: "minecraft:bookshelf" },
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    C: { role: "furniture_wood", shape: "stairs", orient: { back: "front" } },
+  },
+  sockets: [
+    { id: "top_desk", type: "surface", at: [1, 1, 0], accepts: ["candles", "light_small", "tabletop_small"], prob: 0.8 },
+    { id: "top_shelf", type: "surface", at: [0, 1, 0], accepts: ["plant", "tabletop_small"], prob: 0.5 },
+    { id: "lamp", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.35 }, // V3
+  ],
+  masks: { use: [{ side: "front" }] },
+}

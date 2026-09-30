@@ -1,0 +1,25 @@
+// research/53 D4 · Blindgaube (Dachfenster ohne begehbaren Dachraum): Giebelwand mit vorgeblendetem Fenster,
+// kleines eigenes Satteldach. 3 breit, z0 an der Wand hinter dem Glas (solide), z1 die Scheibe.
+{
+  id: "exterior/roof_dormer_blind",
+  kind: "static",
+  name: "Blindgaube",
+  category: "architecture",
+  tags: ["exterior", "exterior_roof", "outdoor"],
+  styleTags: ["medieval", "cottage"],
+  obtainability: "survival",
+  mount: "roof",
+  rotations: "all",
+  layers: [
+    ["WWW", "..."],
+    ["WWW", ".g."],
+    ["LPR", "..."],
+  ],
+  legend: {
+    W: { role: "wall_secondary", shape: "block" },
+    g: { block: "minecraft:glass_pane" },
+    L: { role: "roof_main", shape: "stairs", orient: { back: "left" } },
+    P: { role: "roof_trim", shape: "slab" },
+    R: { role: "roof_main", shape: "stairs", orient: { back: "right" } },
+  },
+}

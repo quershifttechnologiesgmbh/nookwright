@@ -1,0 +1,19 @@
+// X1 · D10 Laterne unter der Traufe (research/16 D10, research/18 L2): hängt direkt unter dem Dachüberstand an
+// Hausecken, Eingängen und im Takt entlang der Traufe. Die Unterseite einer unteren Dachtreppe/-stufe ist voll und
+// trägt (T5); unter oberer Stufe/Falltür setzt der Solver keine Laterne.
+{
+  id: "exterior/eave_lantern",
+  kind: "static",
+  name: "Traufenlaterne",
+  category: "light",
+  tags: ["exterior", "exterior_light", "outdoor"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "eave",
+  rotations: "backToWall",
+  layers: [["L"]],
+  legend: { L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } } },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

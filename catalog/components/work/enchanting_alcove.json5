@@ -1,0 +1,51 @@
+// Verzauberungs-Alkoven (research/11 §3.6 E-1): U-förmige Bücherregale 2 hoch um den Zaubertisch.
+// Faktencheck #1: Regale im 5×5-Ring (|dx| = 2 oder |dz| = 2) auf dy 0/+1 zählen, höchstens 15 → hier
+// 22 (plain) bzw. 18 (posts) ≥ 15. Der innere Ring zwischen Tisch und Regalen MUSS Luft bleiben ('_' auf
+// dy 0 und +1): kein Teppich, keine Kerze, keine Fackel – das reserviert die Luft-Maske, der Solver setzt dort
+// nichts hin. Ab dy +2 ist alles frei (Kerzen auf den Regalen, Laterne darüber). Nur `bookshelf` zählt.
+// Eingang vorn offen (Reihe dz +2 gehört nicht zur Komponente).
+{
+  id: "work/enchanting_alcove",
+  kind: "static",
+  name: "Verzauberungs-Alkoven",
+  category: "work",
+  tags: ["enchanting_station", "enchanting_alcove"],
+  functionTags: ["enchant", "light"],
+  styleTags: ["medieval", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "plain",
+      weight: 1,
+      layers: [
+        ["BBBBB", "B___B", "B_E_B", "B___B"], // y0: z0 Rückwand (dz −2) … z3 (dz +1)
+        ["BBBBB", "B___B", "B___B", "B___B"], // y1
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        E: { block: "minecraft:enchanting_table" },
+      },
+    },
+    {
+      id: "posts",
+      weight: 3,
+      layers: [
+        ["PBBBP", "B___B", "B_E_B", "B___B"],
+        ["PBBBP", "B___B", "B___B", "B___B"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:bookshelf" },
+        E: { block: "minecraft:enchanting_table" },
+      },
+    },
+  ],
+  sockets: [
+    { id: "candle_l", type: "surface", at: [0, 2, 2], accepts: ["candles"], prob: 0.7, pairWith: "candle_r" },
+    { id: "candle_r", type: "surface", at: [4, 2, 2], accepts: ["candles"], prob: 0.7 },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: false }] },
+  light: "auto",
+}

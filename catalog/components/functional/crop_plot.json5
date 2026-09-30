@@ -1,0 +1,87 @@
+// Minifeld (R1, research/11 F-1, im Spiel belegt durch T5): Ackerland mit einer waterlogged Laterne in der
+// Mitte auf Ackerland-Höhe = Wasser (bewässert 9×9, Faktencheck #6) + Licht 15. Licht an der Pflanze =
+// 14 − Manhattan-Abstand (T5) → 5×5-Ecke 10, 3×3-Ecke 12: alles ≥ 9 (Wachstum). Nie auf Pflanzenhöhe (läuft aus).
+// Über der Laterne bleibt Luft. Export-Hinweis (T5 §3.4): in geschlossenen Räumen `/place … strict` oder
+// Pflanzen nach dem Licht senden, sonst verschwinden sie beim Platzieren.
+// Im Spiel geprüft: spikes/ingame Gruppe F (Wachstum per Zufallsticks, Ackerland bleibt nass).
+{
+  id: "functional/crop_plot",
+  kind: "static",
+  name: "Minifeld mit Bewässerungs-Laterne",
+  category: "work",
+  tags: ["crop_plot", "farm_bed"],
+  functionTags: ["farm:crops", "light"],
+  styleTags: ["rustic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "wheat",
+      weight: 3,
+      layers: [
+        ["FFFFF", "FFFFF", "FFLFF", "FFFFF", "FFFFF"],
+        ["CCCCC", "CCCCC", "CC_CC", "CCCCC", "CCCCC"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:wheat", state: { age: "7" } },
+      },
+    },
+    {
+      id: "carrots",
+      weight: 2,
+      layers: [
+        ["FFFFF", "FFFFF", "FFLFF", "FFFFF", "FFFFF"],
+        ["CCCCC", "CCCCC", "CC_CC", "CCCCC", "CCCCC"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:carrots", state: { age: "7" } },
+      },
+    },
+    {
+      id: "potatoes",
+      weight: 2,
+      layers: [
+        ["FFFFF", "FFFFF", "FFLFF", "FFFFF", "FFFFF"],
+        ["CCCCC", "CCCCC", "CC_CC", "CCCCC", "CCCCC"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+    {
+      id: "beetroots",
+      weight: 1,
+      layers: [
+        ["FFFFF", "FFFFF", "FFLFF", "FFFFF", "FFFFF"],
+        ["CCCCC", "CCCCC", "CC_CC", "CCCCC", "CCCCC"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:beetroots", state: { age: "3" } },
+      },
+    },
+    {
+      id: "wheat_small",
+      weight: 1,
+      layers: [
+        ["FFF", "FLF", "FFF"],
+        ["CCC", "C_C", "CCC"],
+      ],
+      legend: {
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:wheat", state: { age: "7" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+  light: "auto",
+}

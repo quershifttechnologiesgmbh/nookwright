@@ -1,0 +1,27 @@
+// research/56 · Vogelscheuche (DA Structural: Farm props; Bing „minecraft scarecrow build“): Zaunpfosten als
+// Beine, Heuballen als Torso, Wandschilder als ausgestreckte Arme, Kürbiskopf mit Gesicht (`carved_pumpkin`).
+// Für Acker, Gemüsebeet, Feldrand.
+{
+  id: "outdoor/scarecrow",
+  kind: "static",
+  name: "Vogelscheuche",
+  category: "decor",
+  tags: ["scarecrow", "outdoor", "field", "farm"],
+  styleTags: ["rustic", "farm", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    [".F."], // y0: Bein
+    [".F."], // y1: Bein
+    ["AHB"], // y2: Arme (Wandschilder), Torso (Heu)
+    [".P."], // y3: Kürbiskopf
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    H: { block: "minecraft:hay_block" },
+    A: { role: "beam", shape: "wall_sign", orient: { attachTo: "left" } },
+    B: { role: "beam", shape: "wall_sign", orient: { attachTo: "right" } },
+    P: { block: "minecraft:carved_pumpkin", orient: { front: "front" } },
+  },
+}

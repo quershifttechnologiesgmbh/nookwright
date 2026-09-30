@@ -1,0 +1,247 @@
+// Rustikal / Cottage: Eichenbohlen auf Bruchstein-Fuß, Putzgiebel, Fichten-Ständer, Putz innen (von medieval),
+// Fichten-Bordüre auf Eichendielen, Schindeln in dunkler Eiche (W9-G3), grün-gelbe Textilien, gewachste Kupferlaternen.
+// Möbel aus Pappel (26.3); in älteren Zielversionen greift der Versions-Fallback poplar → oak.
+{
+  id: "rustic",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { formality: -0.5, organic: 0.25 },
+  name: "Rustikal",
+  description: "Eichenbohlen, Putzgiebel, dunkle Eichenschindeln, Pappel-Möbel, Kupferlaternen",
+  base: "medieval",
+  roles: {
+    // Eichendielen, Birke hell und Fichte dunkel als einzelne Bretter
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "birch", weight: 5 },
+        { family: "oak", weight: 87 },
+        { family: "spruce", weight: 8 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_secondary: { family: "spruce" },
+    floor_border: { family: "spruce" },
+    // Eichen-Bohlenwand (W2 Regeln W4/W5): nur Bretter, keine Zufallsstämme – Stämme stehen als Eckständer (W3) und
+    // liegen als Geschossband/Rähm. Fichte dunkelt den Fuß des Gebäudes (Verlauf über die ganze Fassade, `facade_h`).
+    wall_primary: {
+      // W4 (27.09.2026, Review M4): dunkler Fuß nur als durchgehende Reihe – `quantize: "ring"` wählt je Wandreihe
+      // (gleiche Höhe über dem Sockel, `facade_h`) genau einen Block, ohne Rauschen und ohne Jitter. Vorher lagen
+      // Cluster-Flecken aus dem dunklen Ton im Bretterfeld und lasen sich wie zugemauerte Türöffnungen. Unteres
+      // Siebtel der Fassade (zweigeschossig: die erste Reihe) dunkel, darüber nur das Hauptbrett (W4/W5).
+      gradient: {
+        along: "facade_h",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "spruce", weight: 1 }] },
+          { at: 0.15, mix: [{ family: "oak", weight: 1 }] },
+          { at: 1, mix: [{ family: "oak", weight: 1 }] },
+        ],
+      },
+    },
+    // W2 (Baustandard D4): Themes ohne `wall_gable` nehmen die Wand (`wall_primary`) samt Wandregeln/Fachwerk.
+    // W9-G3 (27.09.2026, Review R5 G3 „Wand und Dach aus derselben Eiche“, ≥ 3 Materialfamilien): kein eigenes
+    // Giebelfeld mehr (vorher Fichte, senkrecht) – die Giebelzellen laufen damit durch die Wandregeln (`surfaces.wall`):
+    // am Wohnhaus heller Putz (`wall_plaster`, englischer/süddeutscher Hof: Putzgiebel über Holz, Vorbild D der
+    // Community-A/B), an der Scheune Scheunenrot bis in die Spitze. Drei Familien an der Fassade (Bruchstein-Fuß,
+    // Eichenbohlen, Putz) und ein heller Keil unter dem dunklen Dach.
+    // W9-G3 (27.09.2026, Review R5 G3 „keine Scheune, kein Rot“): Scheunenwand – Bohlen in Mangrove (Falun-Rot: Eisenoxid-Anstrich, die billigste Farbe der Höfe; farmersalmanac.com/barns-painted-red).
+    // Nur die hohe Tenne (Stall/Lager ab lichter Höhe 5, `surfaces.wall`) trägt sie, das Wohnhaus bleibt Eiche.
+    wall_barn: { family: "mangrove" },
+    // W9-G3: Putz des Giebelfelds – Kalk und Pilzstiel wie der Giebel von farmstead, ohne die rosa Terrakotta-Flecken
+    // des Innenputzes (`wall_secondary`)
+    wall_plaster: {
+      mix: [
+        { family: "calcite", weight: 80 },
+        { block: "minecraft:mushroom_stem", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    // W9-G3: Eckquader als Fichtenständer (senkrechter Stamm) bis unter die Traufe – vorher der geerbte
+    // Tiefenschieferziegel, der am Putz-Kniestock und in der Sockelreihe als schwarzer Block stand
+    wall_quoin: { family: "spruce", shapes: { block: "log" } },
+    // W9-G3: Rahmenholz ≠ Wandholz – Ständer und Balken in dunkler Fichte vor der hellen Eichenbohle
+    beam: { family: "spruce" },
+    pillar: { family: "spruce" },
+    door: { family: "oak" },
+    window_frame: { family: "oak" },
+    // W13-C (28.09.2026, plan/spikes/W13C_erdhaus_huegel.md): Bogenring, Laibung und Pfeiler des Erdhauses in dunkler
+    // Eiche statt Steinziegel (geerbt von medieval) – Zwei-Ton-Holz vor der hellen Eichenwand wie die Vorbilder; im
+    // Blindvergleich lasen sich heller Stein und Ziegel als Fremdkörper („clash“). Nur Lage buried nutzt die Rolle.
+    portal_stone: { family: "dark_oak" },
+    ceiling: { family: "oak" },
+    // P10 Holzschindeldach als Deckungsrezept (W2 Regel D1): eine Familie in ganzen Ringen.
+    // W9-G3 (27.09.2026, Review R5 G3): dunkel verwitterte Schindeln (Schwarzwald: Holzschindeln dunkelgrau-braun)
+    // in dunkler Eiche statt Fichte – Wand/Dach-Abstand (D9) 0,16 → 0,32 (medieval 0,24). Die Kante (D3) läuft
+    // in Fichte: weder Dach- noch Wandfamilie, im Wert zwischen beiden.
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "dark_oak", weight: 1 }] },
+          { at: 1, mix: [{ family: "dark_oak", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "spruce" },
+    // W2 (Regel W6): Gesims/Geschossband am Holzhaus aus Holz im Kontrastton, nicht der geerbte Steinziegel
+    wall_cornice: { family: "spruce" },
+    furniture_wood: { family: "poplar" },
+    textile_primary: { color: "green" },
+    textile_accent: { color: "yellow" },
+    // gewachst: oxidiert nicht (research/04 §10.2)
+    light_hanging: { family: "waxed_copper" },
+    metal: { family: "waxed_copper" },
+    // Befestigung aus Eichenbohlen: entrindete Stämme in der Brüstung, Fichten-Wehrgang, Eichenböden im Turm
+    // (Leiter und Schießscharten erbt rustic von medieval)
+    // W5-B (27.09.2026, Baustandard D9 Bauwerk, Review W4-R N5): Krone aus Fichtenstämmen mit Rinde und Fichtenbrettern
+    // (L 0,35) statt Eiche wie die Mauer (Abstand vorher 0,04) – dunkle Krone im Ton des Fichtendachs
+    parapet: {
+      mix: [
+        { family: "spruce", variant: "log", weight: 65 },
+        { family: "spruce", weight: 35 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    walkway: { family: "spruce" },
+    tower_floor: { family: "oak" },
+    // W7-B (plan/spikes/W7B_burg.md, Review W4-R „Holzburg überwiegend braun“): Sockelgeschoss der Mauertürme bis zum
+    // Wehrgang aus Bruchstein (Steintürme mit Holzmauern: 5 von 22 Holzburg-Vorbildern), darüber Eiche wie die Mauer
+    fort_base: {
+      mix: [
+        { family: "cobblestone", weight: 80 },
+        { family: "mossy_cobblestone", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+
+    // ---------------------------------------------------------------- Außen (erbt die übrigen Rollen von medieval)
+    // Cottage: Eichenzaun, Kupferlaternen, üppige warme Blumen, Kiesweg, Lehmhof
+    fence_outdoor: { family: "oak" },
+    light_outdoor: { family: "waxed_copper", fallback: ["iron"] },
+    ground_path: {
+      mix: [
+        { block: "minecraft:dirt_path", weight: 45 },
+        { block: "minecraft:gravel", weight: 35 },
+        { block: "minecraft:coarse_dirt", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:gravel", weight: 25 },
+        { family: "packed_mud", weight: 30 },
+        { family: "mud_bricks", weight: 30 },
+        { block: "minecraft:coarse_dirt", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    leaves_oak: { family: "oak" },
+    leaves_bush: {
+      mix: [
+        { block: "minecraft:flowering_azalea_leaves", weight: 35 },
+        { block: "minecraft:azalea_leaves", weight: 35 },
+        { block: "minecraft:oak_leaves", weight: 30 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:oxeye_daisy", weight: 15 },
+        { block: "minecraft:dandelion", weight: 20 },
+        { block: "minecraft:pink_tulip", weight: 10 },
+        { block: "minecraft:poppy", weight: 20 },
+        { block: "minecraft:orange_tulip", weight: 10 },
+        { block: "minecraft:cornflower", weight: 15 },
+        { block: "minecraft:allium", weight: 10 },
+      ],
+    },
+    flower_warm: {
+      mix: [
+        { block: "minecraft:dandelion", weight: 15 },
+        { block: "minecraft:pink_tulip", weight: 25 },
+        { block: "minecraft:orange_tulip", weight: 20 },
+        { block: "minecraft:poppy", weight: 25 },
+        { block: "minecraft:red_tulip", weight: 15 },
+      ],
+    },
+    ground_cover: {
+      mix: [
+        { block: "minecraft:pink_petals", weight: 60 },
+        { block: "minecraft:wildflowers", weight: 40 },
+      ],
+    },
+    // Innenhaut (W2-FD, W3-IN): Fichtenpaneele (ruhige Längsbretter) vor den hellen Eichenwänden – die Birken-Falltür
+    // wirkte mit ihrem Fenstermuster wie eine Reihe kleiner Rahmen (Eiche hat Löcher); Sockel dunkle Eiche, Deckenleiste
+    // und Ständer Fichte. Repräsentative Räume tauschen (Paneel = Leistenrolle): dunkle Eichenpaneele, Fichtenleisten.
+    lining_panel: { family: "spruce" },
+    lining_trim: { family: "spruce", blocks: { trapdoor: "minecraft:dark_oak_trapdoor" } },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    // W7-B (Review W4-R N5, W5-B §6): Krone und Wehrgang nicht mehr in der Wandfarbe der Palette – sie behalten Fichte
+    // des Themes (dunkle Stammkrone, Fichtenbelag; D9 Bauwerk auch mit Farbwelt)
+    wall_primary: ["wall_primary"],
+    wall_secondary: ["tower_floor", "floor_secondary", "wall_plaster"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld aus Brettern/Stämmen färbt die Palette wie das Holz
+    // W9-G3: ohne `wall_gable` (das Giebelfeld ist Putz über die Wandregeln, `wall_plaster`)
+    wood_frame: ["beam", "pillar", "fence_outdoor"],
+    floor: ["floor_primary", "ground_path", "ground_yard"],
+    accent: ["textile_primary", "textile_accent"],
+    glass: ["window_frame"],
+    light: ["light_hanging", "light_outdoor"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "flower_warm", "ground_cover"],
+  },
+
+  surfaces: {
+    // W9-G3 (27.09.2026): die hohe Tenne der Scheune (Stall/Lager ab lichter Höhe 5) in Scheunenrot; sonst die Regeln
+    // von medieval (Fachwerk-Putz ab Höhe 5 über 2 Reihen, innen Vertäfelung unter Putz) unverändert
+    wall: [
+      // Steinsockel: die unterste Außenwandreihe im Erdgeschoss aus Bruchstein wie die Bodenplatte darunter – Holz
+      // steht auf Stein (Schwarzwaldhaus, Dreschscheune, Pennsylvania Barn). Der Fassadenverlauf erreichte die Reihe
+      // nicht (sie liegt bei `facade_h` ≈ 0,2, der Fuß-Stopp bei 0,15 traf nur die Bodenplatte).
+      { when: { exterior: true, storey: 0, bottomStorey: true, hRel: 0 }, role: "foundation" },
+      { when: { exterior: true, roomTypes: ["stable", "storage"], minHeight: 5 }, role: "wall_barn" },
+      // W13-E (28.09.2026): Wohnbauten mit eigenem Wandkleid der Obergeschosse (`upperFrame` aus dem Bautyp) – Putz im
+      // Holzrahmen über dem Bretter-Erdgeschoss, auch im Giebel (Vorbilder: YT lkJ8zbYotGQ Putz mit Fichtenrahmen,
+      // YT sK2TL4NM7aI; plan/spikes/W13E_obergeschoss_fassade.md); nach der Scheunenregel, die rote Tenne bleibt
+      { when: { exterior: true, upperFrame: true, storey: [1, 16] }, role: "wall_plaster", timber: { bay: 3, motifs: ["rail"] } },
+      { when: { exterior: true, upperFrame: true, fromTop: [-64, -1] }, role: "wall_plaster", timber: { bay: 3 } },
+      // Giebelfeld und Kniestock (Zellen über der Decke des Raums: `fromTop` < 0) in Putz
+      { when: { exterior: true, fromTop: [-64, -1] }, role: "wall_plaster" },
+      { when: { exterior: true, minHeight: 5, hRel: [2, 64] }, role: "wall_secondary" },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Holzhaus: der Rähm über den Außenwänden ist ein liegender Stamm (Sohlbalken am Giebelfuß, Band unter der Traufe) –
+    // anders als beim Steinhaus (medieval), dessen Außenhaut bis unter das Dach durchläuft
+    ceiling: [{ beams: { role: "beam", period: 3 }, plate: { role: "beam" } }],
+  },
+
+  items: {
+    "food.baked": ["minecraft:bread", "minecraft:pumpkin_pie"],
+    "food.any": ["minecraft:apple", "minecraft:carrot", "minecraft:sweet_berries", "minecraft:honey_bottle"],
+  },
+  versionFallbacks: {
+    poplar: ["oak"],
+  },
+}

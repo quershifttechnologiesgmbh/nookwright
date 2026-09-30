@@ -1,0 +1,12 @@
+// Eigene Typprüfung der Web-App (DOM + JSX). Die Wurzel-tsconfig schließt packages/app aus,
+// weil sie ohne DOM-Lib und JSX prüft. Aufruf: `npm run typecheck:app` (Wurzel) bzw. `npx tsc -p packages/app`.
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "vite.config.ts"]
+}

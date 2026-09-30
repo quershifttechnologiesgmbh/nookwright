@@ -1,0 +1,49 @@
+// V3 · Kistenstapel (research/10 §4.3/§6.1 „Kisten, gestapelt“; S15 Truhenstapel): Fässer und Truhen
+// übereinander, oben ein Krug. Regel containerOpen (Faktencheck #2, In-Game T5 #6/T4): Truhe auf Fass und
+// Truhe auf Truhe öffnen, Krug über Truhe stört nicht; nie ein Fass über einer Truhe. Komposter-„Lattenkisten“
+// bewusst nicht (Bauern-Arbeitsblock, research/10 §11 #10). „tall“ (Truhe ganz oben) passt erst ab lichter
+// Höhe 4 – bei 3 läge die Decke direkt über der Truhe; das prüft der Solver (containerOpen).
+{
+  id: "storage/crate_stack",
+  kind: "static",
+  name: "Kistenstapel",
+  category: "storage",
+  tags: ["goods", "crate_stack"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "mixed",
+      weight: 3,
+      layers: [["BC"], ["CV"]], // y0: Fass, Truhe · y1: Truhe auf dem Fass, Krug auf der Truhe
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "chests",
+      weight: 2,
+      layers: [["CC"], ["C."]], // Doppeltruhe unten, einzelne Truhe darauf
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+      },
+    },
+    {
+      id: "tall",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["BB"], ["CB"], ["VC"]], // Truhe auf Fass, Truhe auf Fass, Krug auf der unteren Truhe
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

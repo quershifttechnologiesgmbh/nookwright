@@ -1,0 +1,55 @@
+// V3 · Fässer gestapelt / liegend (research/10 §4.3 S1/S8: liegende Fässer mit Deckel nach vorn, gestapelt;
+// research/10 §6.1 Ware). Fässer öffnen immer, auch gestapelt und unter der Decke (Faktencheck #2). Teppich
+// als „Ware“ auf einem stehenden Fass (Teppich braucht nur einen Block darunter, Faktencheck #4).
+// Keine Truhen → keine Öffnungsregel. „tall“ und „tower“ nutzen die Höhe erst ab lichter Höhe 4.
+{
+  id: "storage/barrel_stack",
+  kind: "static",
+  name: "Fässer gestapelt",
+  category: "storage",
+  tags: ["goods", "barrel_stack"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // liegend, Deckel nach vorn: 3 unten, 1 oben in der Mitte
+      id: "lying",
+      weight: 3,
+      layers: [["BBB"], [".B."]],
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+    },
+    {
+      // liegend als Treppe 3-2-1
+      id: "lying_tall",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["BBB"], ["BB."], ["B.."]],
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+    },
+    {
+      // quer liegend (Deckel zur Seite) mit stehendem Fass und Ware obendrauf
+      id: "side_mixed",
+      weight: 2,
+      layers: [["LU"], ["Lr"]],
+      legend: {
+        L: { block: "minecraft:barrel", orient: { front: "left" } },
+        U: { block: "minecraft:barrel", orient: { front: "up" } },
+        r: { block: "minecraft:red_carpet" },
+      },
+    },
+    {
+      // stehender Turm: drei Fässer übereinander, daneben zwei, Ware obendrauf
+      id: "tower",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["UU"], ["UU"], ["Ug"]],
+      legend: {
+        U: { block: "minecraft:barrel", orient: { front: "up" } },
+        g: { block: "minecraft:lime_carpet" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,46 @@
+// research/56 · Gemüsebeet (dekorativ, keine echte Feldfrucht – DA Nature: Farm/Garden, research/11 F-1 Analogie):
+// Zaun-Einfassung um Gartenerde mit sichtbarem „Ernte“-Block (Kürbis/Melone/Beerenstrauch) statt wachsender
+// Feldfrucht, damit es dauerhaft dekorativ bleibt. Für Küchengarten, Gehöft, Dorfrand.
+{
+  id: "outdoor/vegetable_bed",
+  kind: "static",
+  name: "Gemüsebeet",
+  category: "decor",
+  tags: ["vegetable_bed", "garden_bed", "outdoor", "garden", "farm"],
+  styleTags: ["rustic", "farm", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "pumpkin",
+      weight: 2,
+      layers: [["FFF", "SPS", "FFF"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        S: { role: "garden_soil", shape: "block" },
+        P: { block: "minecraft:pumpkin" },
+      },
+    },
+    {
+      id: "melon",
+      weight: 2,
+      layers: [["FFF", "SPS", "FFF"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        S: { role: "garden_soil", shape: "block" },
+        P: { block: "minecraft:melon" },
+      },
+    },
+    {
+      id: "berries",
+      weight: 2,
+      layers: [["FFF", "SPS", "FFF"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        S: { role: "garden_soil", shape: "block" },
+        P: { block: "minecraft:sweet_berry_bush", state: { age: "3" } },
+      },
+    },
+  ],
+}

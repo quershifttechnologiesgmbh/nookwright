@@ -1,0 +1,29 @@
+// FN · Backstube mit Linie (plan/spikes/FN_produktionslinien.md): Räucherofen-Reihe mit Trichter-Zufuhr (Pflicht:
+// `fn_bakery_line`, 2/3/4 Öfen), davor Brottheke und Mehlvorrat. Sie erweitert die Bäckerei um eine Produktionslinie, ersetzt sie
+// nicht (`bakery` bleibt unverändert). Räucherofen = Metzger-Arbeitsblock, garen doppelt so schnell.
+{
+  id: "bakery_line",
+  name: "Backstube",
+  minArea: 24,
+  coverage: { target: 0.5 },
+  zones: [{ id: "shop", doorAffinity: "near" }, { id: "work", doorAffinity: "far" }],
+  required: [
+    { tags: ["fn_bakery_line"], count: [1, 1], signature: true, zone: "work", placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["bread_counter", "shop_counter"], count: [1, 1], zone: "shop", placement: { zones: ["center", "edge"] } },
+  ],
+  optional: [
+    { tags: ["wall_food"], count: [1, 3], weight: 4 },
+    { tags: ["harvest", "goods"], count: [1, 2], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["pantry"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["firewood"], count: [0, 1], weight: 2, zone: "work", placement: { zones: ["corner", "edge"] } },
+    { tags: ["hay_stack"], count: [0, 2], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["herb_rack"], count: [0, 1], weight: 1 },
+    { tags: ["counter"], count: [0, 2], weight: 2, zone: "work", placement: { zones: ["edge"] } },
+    { tags: ["water_cauldron"], count: [0, 1], weight: 1, zone: "work", placement: { zones: ["edge"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, zone: "shop", placement: { zones: ["corner"] } },
+    { tags: ["crate_stack", "barrel_stack"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["upper_cabinet", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 3 },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_ceiling", "light_wall"] },
+}

@@ -1,0 +1,110 @@
+// FN Tierfarmen: Hühnerfarm mit Eier-Sammler und (in der hohen Form) Lava-Garer. Neue Datei, `egg_collector` bleibt.
+// Quellen: minecraft.wiki Tutorials/Animal_farming (Hühner-Garer), Fence (Kollision 1,5), Hopper (Sammelraum),
+// Chicken (Eier alle 5–10 Min., Küken 0,4 hoch, Erwachsene 0,7), Dispenser (Eier werden geworfen).
+// Aufbau: 3×3-Pferch, dessen ganzer Boden aus Trichtern besteht (Randreihen → Mittelreihe → nach Osten). Zaun 1,5 hoch,
+// alle Ecken sind Pfosten (R1: offene Diagonale lässt Hühner durch), Tor vorn. Tiere bringt der Spieler.
+// Variante `cooker` (Höhe 4, ohne Zugang zum Pferch): Spender wirft Eier in eine 1×1-Zelle mit Halbplatte über einem
+// Trichter und Lava-Quelle direkt darüber. Küken (0,4) überleben, Erwachsene (0,7) ragen in die Lava, brennen und lassen
+// gegartes Hähnchen fallen; der Trichter sammelt durch die Halbplatte und schickt es ins Fass. Ruhezustand: stromlos,
+// Spender mit 16 Eiern vorgeladen, Knopf am Spender (Handbetrieb). Lava nur von Stein umgeben, Decke Stein: nichts
+// Brennbares im Umkreis (Lava zündet Luft oberhalb mit brennbaren Nachbarn, LavaFluid#randomTick).
+// Drehungen `all`: der Pferch steht frei (kein Rücken an der Wand nötig; Fensterwände blockieren sonst die Zaunreihe).
+// NICHT im Spiel geprüft (nur statisch, siehe plan/spikes/FN_tierfarmen.md).
+{
+  id: "functional/fn_animal_chicken_farm",
+  kind: "static",
+  name: "Hühnerfarm mit Sammler",
+  category: "work",
+  tags: ["fn_animal_chicken_farm", "fn_chicken_farm", "livestock"],
+  functionTags: ["farm:eggs", "animal:chicken", "store", "automation"],
+  styleTags: ["rustic", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "coop",
+      weight: 3,
+      layers: [
+        [
+          "BBBBB.", // y0 z0: Sockel (Heu)
+          "BvvvB.", // y0 z1: Trichter → Mittelreihe
+          "BHHHHb", // y0 z2: Mittelreihe → Fass
+          "B^^^B.", // y0 z3
+          "BBBBB.", // y0 z4
+        ],
+        [
+          "fffff.",
+          "f...f.",
+          "f...f.",
+          "f...f.",
+          "ffgff.",
+        ],
+      ],
+      legend: {
+        B: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        v: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        "^": { block: "minecraft:hopper", orient: { attachTo: "back" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "cooker",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        [
+          "BBBBB..", // y0 z0
+          "BvvvSSS", // y0 z1: Trichter | Fundament
+          "BHHHHHb", // y0 z2: Mittelreihe → Garer-Trichter (unter der Halbplatte) → Fass
+          "B^^^SSS", // y0 z3
+          "BBBBB..", // y0 z4
+        ],
+        [
+          "fffff..",
+          "f...WDa", // y1 z1: Stein | Spender (wirft nach vorn in die Zelle) | Knopf am Spender
+          "f...WsW", // y1 z2: Stein | Halbplatte (Garer-Zelle) | Stein über dem Fass
+          "f...WWW",
+          "ffgff..",
+        ],
+        [
+          ".......",
+          "....WWW",
+          "....WLW", // y2 z2: Lava-Quelle direkt über der Halbplatte
+          "....WWW",
+          ".......",
+        ],
+        [
+          ".......",
+          "....WWW", // y3: Stein-Decke (Lava zündet nur bei Luft mit brennbaren Nachbarn)
+          "....WWW",
+          "....WWW",
+          ".......",
+        ],
+      ],
+      legend: {
+        B: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        v: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        "^": { block: "minecraft:hopper", orient: { attachTo: "back" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        S: { role: "foundation", shape: "block" },
+        W: { role: "foundation", shape: "block" },
+        s: { role: "foundation", shape: "slab", orient: { upsideDown: false } },
+        D: {
+          block: "minecraft:dispenser",
+          orient: { front: "front" },
+          contents: { items: [{ item: "minecraft:egg", count: 16 }] },
+        },
+        a: { block: "minecraft:stone_button", orient: { attachTo: "right" } },
+        L: { block: "minecraft:lava", state: { level: "0" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "left" }] },
+}

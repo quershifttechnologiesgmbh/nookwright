@@ -1,0 +1,29 @@
+// W7-D · Fantasy-Modul „Giebelzier“ (plan/spikes/W7D_fantasy.md): ein Stück vor der obersten Giebelwandzelle, direkt
+// unter dem Firstüberstand, in der Mittelachse jedes Giebels (spiegelsymmetrisch, eins je Giebel).
+//  - `elven` Kristall: Amethyst-Kristall an der Giebelspitze (Vorbilder E9/E10: Kristall als einzelner Akzent, Licht 5).
+//  - `dwarven` Runenstein: gemeißelte Tuffziegel als Schlussstein (Vorbilder D4–D6: gemeißelte Friese und Steine) – heller
+//    als der Tiefenschiefer des Giebels (gemeißelter Tiefenschiefer verschwand im Bild).
+// Nie flächig: genau ein Block je Giebel.
+{
+  id: "exterior/fantasy_crest",
+  kind: "static",
+  name: "Giebelzier (Kristall bzw. Runenstein)",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "exterior_fantasy", "outdoor"],
+  styleTags: ["elven", "dwarven"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "elven",
+      layers: [["C"]],
+      legend: { C: { block: "minecraft:amethyst_cluster", orient: { front: "front" } } },
+    },
+    {
+      id: "dwarven",
+      layers: [["R"]],
+      legend: { R: { block: "minecraft:chiseled_tuff_bricks" } },
+    },
+  ],
+}

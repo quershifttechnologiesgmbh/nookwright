@@ -1,0 +1,296 @@
+// Zwergisch / Untergrund (research/24 §7.5, T5): monumental, dunkel, glühende Kanten, Metall und Stein.
+// Erbt Möbel und Außenprofil von medieval und überschreibt Wände, Böden, Gründung, Licht und Außenwelt.
+// Kernthemes: (a) Bergkönigshalle, (b) Schmiede, (c) Schatzkammer, (d) Minensiedlung.
+// Fallen (research/24 §7.5): zu viel Schwarz wirkt wie ein Bunker (Tuff und Kalzit als Aufheller), Gold nur als
+// Linie (10-%-Regel), Kupfer ungewachst nicht als tragende Struktur.
+// W7-D (plan/spikes/W7D_fantasy.md): Fantasy-Vibe über Module, nicht über Rauschen – die Fantasy-Module
+// `exterior/fantasy_*` nennen dieses Theme in ihren `styleTags` (Fantasy-Stufe `full`, Kit `dwarven`): Kupferlaternen an
+// Stein-Konsolen, gestufte Giebelhörner, rotes Banner je Seite, Runenstein in der Giebelspitze, Feuerschalen am Eingang.
+{
+  id: "dwarven",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { organic: -0.5, formality: 0.5, wear: -0.25 },
+  name: "Zwergisch",
+  description: "Dunkler Tiefenschiefer-Fuß, helle Steinziegel, Schieferdach mit Bronzekante, Steinhallen mit Eichendielen",
+  base: "medieval",
+  roles: {
+    // P1 Monumentalwand über die ganze Fassade (W2 Regeln W4/W5): Tiefenschieferziegel tragen, am Fuß des Gebäudes
+    // polierte Schwarzsteinziegel (Sockelzone), nach oben hellt Tuffziegel auf. Kalzit leuchtet gezielt an den Ecken
+    // (Eckquader) statt als Zufallsblock in der Fläche. Tonordnung in allen Stopps gleich (hell → dunkel).
+    // W13-F (28.09.2026): Zwergenhalle – dunkler Fuß aus Tiefenschiefer- und Schwarzsteinziegeln, darüber hellere Steinziegel
+    // mit poliertem Andesit (Vorbild myminepilot.com/builds/dwarven-mine-hall: polierter Andesit, Steinziegel, polierter
+    // Tiefenschiefer; „dark on dark gets muddy – keep a lighter band“). Vorher durchgehend Tiefenschiefer/Tuff (grau in grau,
+    // Dach und Wand gleich dunkel).
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "deepslate_bricks", weight: 60 },
+            { family: "polished_blackstone_bricks", weight: 40 },
+          ] },
+          { at: 0.35, mix: [
+            { family: "stone_bricks", weight: 25 },
+            { family: "deepslate_bricks", weight: 75 },
+          ] },
+          { at: 0.65, mix: [
+            { family: "polished_andesite", weight: 25 },
+            { family: "stone_bricks", weight: 75 },
+          ] },
+          { at: 1, mix: [
+            { family: "polished_andesite", weight: 30 },
+            { family: "stone_bricks", weight: 70 },
+          ] },
+        ],
+      },
+      noise: { type: "cells", cell: 3 },
+    },
+    // Innen: geglätteter Tiefenschiefer mit Kalzit als Lichtkante (W4: drei Grundblöcke)
+    // W13-F: Innenwand der Halle in poliertem Andesit (ein Stein, ruhig); vorher Tiefenschiefer mit Kalzit-Flecken
+    wall_secondary: { family: "polished_andesite" },
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "spruce", weight: 10 },
+        { family: "dark_oak", weight: 90 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    // Kassettierter Steinboden: große Zellen, harte Kanten
+    // W13-F: ohne Kalzit-Sprenkel (weiße Einzelblöcke im dunklen Boden)
+    floor_stone: {
+      mix: [
+        { family: "deepslate_tiles", weight: 50 },
+        { family: "polished_blackstone_bricks", weight: 30 },
+        { family: "deepslate_bricks", weight: 20 },
+      ],
+      noise: { type: "cells", cell: 4 },
+    },
+    floor_earth: {
+      mix: [
+        { block: "minecraft:packed_mud", weight: 45 },
+        { block: "minecraft:coarse_dirt", weight: 30 },
+        { block: "minecraft:rooted_dirt", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Bordüre/Streifen als Holz (Form log/wood)
+    floor_border: { family: "dark_oak" },
+    floor_strip: { family: "spruce" },
+    floor_tile_light: { family: "calcite" },
+    floor_tile_dark: { family: "polished_blackstone_bricks" },
+    // Bergfest: die Gründung sitzt im Fels (W7, zwei Steine)
+    foundation: {
+      mix: [
+        { family: "deepslate", weight: 45 },
+        { family: "cobbled_deepslate", weight: 55 },
+      ],
+      noise: { type: "cells", cell: 4 },
+    },
+    // W13-F: Balken in dunkler Eiche mit Rinde (dunkler Rahmen gegen die hellen Steinziegel)
+    beam: { family: "dark_oak" },
+    pillar: { family: "deepslate_tiles" },
+    door: { family: "dark_oak" },
+    window_frame: { family: "dark_oak" },
+    // W13-F: Deckenfelder in Fichte zwischen dunklen Eichenbalken; vorher Eiche/Tiefenschiefer gemischt (Flecken)
+    ceiling: { family: "spruce" },
+    // Auch unter Tage braucht die Hülle ein Dach (Bergspitzen), W4 (27.09.2026, Baustandard D9, Review M5): Tuffziegel
+    // als Deckungsrezept – vorher Tiefenschieferfliesen über Tiefenschieferziegeln (Helligkeitsabstand 0,06). Der
+    // hellere Tuff hebt das Dach vom dunklen Mauerwerk ab, die Kante (D3) bleibt Schwarzsteinziegel.
+    // W13-F: dunkles Dach aus Tiefenschieferfliesen über Schwarzstein-Traufe („Dark luxury“: deepslate tiles + polished
+    // blackstone + gold, blockblend.app/guides/best-block-combinations). Vorher Tuff – heller als die Wand, das Dach verschwand.
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        patch: 0.06,
+        stops: [
+          { at: 0, mix: [{ family: "polished_blackstone_bricks", weight: 1 }] },
+          { at: 0.25, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 1, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+        ],
+      },
+    },
+    // W13-F: Kupferkante als Metall-Akzent der Schmiedezunft (angelaufenes Kupfer, gewachst: gedecktes Bronzebraun); vorher Schwarzstein (dunkel auf dunkel)
+    roof_trim: { family: "waxed_exposed_copper" },
+    // W2 (Baustandard D4, Giebel-Rezept): geglätteter Tiefenschiefer (ruhig, dunkler als die Ziegelwand)
+    // W13-F: Giebel hell wie die obere Wand, setzt das dunkle Dach ab
+    wall_gable: { family: "polished_andesite" },
+    // Sockel (W7, zwei Steine) in Schwarzstein
+    wall_plinth: {
+      mix: [
+        { family: "polished_blackstone_bricks", weight: 60 },
+        { family: "blackstone", weight: 40 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Gesims und Geschossband als helle Linie (polierter Tuff) gegen den dunklen Schiefer
+    // W13-F: Geschossband dunkel (polierter Tiefenschiefer), gliedert die Fassade waagerecht
+    wall_cornice: { family: "polished_deepslate" },
+    // Eckquader (W3) als Lichtkante in Kalzit – deutlicher Helligkeitsabstand zu den Tiefenschieferziegeln
+    // W13-F: Eckquader in gemeißeltem Tiefenschiefer – vorher Kalzit (weiße Streifen an jeder Ecke)
+    wall_quoin: { family: "deepslate", shapes: { block: "chiseled" } },
+    shutter: { family: "dark_oak" },
+    furniture_wood: { family: "dark_oak" },
+    // Metall bleibt Eisen (Ketten, Gitter), Gold nur als Linie/Akzent
+    metal: { family: "iron" },
+    // W13-F: Eisenlaterne (warmes Licht) statt Kupferlaterne (grüne Flamme)
+    light_hanging: { family: "iron" },
+    // W13-F: Rot und Gold als Zunftfarben
+    textile_primary: { color: "red" },
+    textile_accent: { color: "yellow" },
+    textile_neutral: { color: "gray" },
+
+    // ---------------------------------------------------------------- Außen: Fels, Geröll, wenig Grün
+    // Der tragende Boden muss erdartig sein (Pflanzen) und darf nicht fallen
+    ground_grass: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 35 },
+        { block: "minecraft:rooted_dirt", weight: 25 },
+        { block: "minecraft:moss_block", weight: 20 },
+        { block: "minecraft:grass_block", weight: 20 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_dirt: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 45 },
+        { block: "minecraft:packed_mud", weight: 30 },
+        { block: "minecraft:rooted_dirt", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:cobbled_deepslate", weight: 35 },
+        { block: "minecraft:deepslate_tiles", weight: 25 },
+        { block: "minecraft:stone", weight: 25 },
+        { block: "minecraft:dirt_path", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:polished_blackstone_bricks", weight: 35 },
+        { block: "minecraft:deepslate_tiles", weight: 25 },
+        { block: "minecraft:cobbled_deepslate", weight: 25 },
+        { block: "minecraft:stone", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 4 },
+    },
+    ground_stone: {
+      mix: [
+        { block: "minecraft:deepslate", weight: 45 },
+        { block: "minecraft:tuff", weight: 30 },
+        { block: "minecraft:basalt", weight: 25 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    pond_bed: {
+      mix: [
+        { block: "minecraft:basalt", weight: 50 },
+        { block: "minecraft:deepslate", weight: 30 },
+        { block: "minecraft:packed_mud", weight: 20 },
+      ],
+    },
+    leaves_oak: { family: "spruce" },
+    leaves_bush: {
+      mix: [
+        { family: "spruce", variant: "leaves", weight: 60 },
+        { block: "minecraft:azalea_leaves", weight: 40 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:poppy", weight: 35 },
+        { block: "minecraft:dandelion", weight: 35 },
+        { block: "minecraft:azure_bluet", weight: 30 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:short_grass", weight: 45 },
+        { block: "minecraft:fern", weight: 35 },
+        { block: "minecraft:bush", weight: 20 },
+      ],
+    },
+    // Geröll statt Laub: Moosteppich trägt keine Richtung, wird also nicht ausgerichtet
+    ground_cover: {
+      mix: [
+        { block: "minecraft:moss_carpet", weight: 45 },
+        { block: "minecraft:leaf_litter", weight: 30 },
+        { block: "minecraft:pink_petals", weight: 25 },
+      ],
+    },
+    hedge: { family: "spruce" },
+    // W13-F: Sockelreihe innen in poliertem Tiefenschiefer (dunkler Fuß wie außen)
+    wall_wainscot: { family: "polished_deepslate" },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  // W13-F (28.09.2026): Halle aus Stein – keine Holz-Innenhaut, die Innenwand zeigt den Stein
+  lining: [{ off: true }],
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld (Putz/glatter Stein, Kontrast zur Wand) färbt die Palette wie die Zweitwand
+    wall_secondary: ["wall_secondary", "floor_tile_light", "floor_tile_dark", "wall_gable"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    wood_frame: ["beam", "pillar"],
+    floor: ["floor_primary", "floor_stone", "floor_earth", "ground_grass", "ground_dirt", "ground_stone", "ground_path", "ground_yard", "pond_bed"],
+    accent: ["textile_primary", "textile_accent", "textile_neutral"],
+    glass: ["window_frame", "shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "grass_tuft", "ground_cover", "hedge"],
+  },
+
+  surfaces: {
+    // W13-E (28.09.2026): Wand- und Deckenregeln von medieval ohne das Fachwerk-Obergeschoss (`when.upperFrame`) – der
+    // Tuffbau bleibt auch bei Wohnbauten in allen Geschossen Stein (bitgleich zu vorher)
+    wall: [
+      { when: { exterior: true, minHeight: 5, hRel: [2, 64] }, role: "wall_secondary" },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    ceiling: [
+      { when: { exterior: true }, plate: { role: "wall_primary", shape: "block", corner: "block" } },
+      { beams: { role: "beam", period: 3 }, plate: { role: "beam" } },
+    ],
+    // Geschossband (W2 Regel W6) beim Steinhaus als Gesims (polierter Tuff) außen; innen die Schwelle (entrindete
+    // dunkle Eiche) in der Decke darunter (I3); im Erdgeschoss der Sockel
+    footing: [
+      { when: { exterior: true, storey: [1, 16] }, role: "wall_cornice", shape: "block" },
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      // I3: auch der Wandfuß innen über einem Keller ist dessen Decke – Schwelle statt Fundamentstein
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+  },
+  decor: {
+    // Im Fels altert wenig: Verwitterung nur an Sockel und Fundament
+    weathering: { age: 0.3, fade: 1.5, roles: ["foundation", "wall_plinth", "floor_stone"] },
+  },
+  items: {
+    "food.any": ["minecraft:cooked_porkchop", "minecraft:bread", "minecraft:cooked_beef", "minecraft:mushroom_stew"],
+    "deco.small": ["minecraft:gold_nugget", "minecraft:iron_nugget", "minecraft:flint"],
+  },
+}

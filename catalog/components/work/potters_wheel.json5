@@ -1,0 +1,27 @@
+// K3b · Töpferscheibe (research/17 §4.16, Ableitung aus P1): Sitz (Treppe mit Lehne rechts = Westen → Blick
+// nach links zur Scheibe; left = +x, R1-Konvention), daneben ein Zaun mit Stein-Druckplatte als Drehscheibe
+// (Druckplatte auf Zaun ✓, Faktencheck #4; im Spiel prüfen: research/17 T16). Tonvorrat/Töpferware als
+// Andock-Kind rechts neben der Scheibe.
+{
+  id: "work/potters_wheel",
+  kind: "static",
+  name: "Töpferscheibe",
+  category: "work",
+  tags: ["potters_wheel", "pottery_work"],
+  functionTags: ["sit", "craft"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["Sf"], // y0: Sitz | Scheibenfuß
+    [".P"], // y1: Scheibe
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "right" } },
+    f: { role: "furniture_wood", shape: "fence" },
+    P: { block: "minecraft:stone_pressure_plate" },
+  },
+  sockets: [{ id: "clay", type: "adjacent", at: [2, 0, 0], side: "left", accepts: ["pottery"], prob: 0.5 }],
+  masks: { use: [{ side: "front" }] },
+}

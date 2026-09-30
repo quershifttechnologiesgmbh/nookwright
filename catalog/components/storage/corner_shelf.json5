@@ -1,0 +1,100 @@
+// K3a · Eckregal (research/17 §4.13, Tw1): L-förmig in eine Raumecke (Rücken an der Wand, ein Arm an der
+// Seitenwand), unten Fässer als Schrank (Fass öffnet immer, FC #2), darüber Bücherregale, oben Kerzen und eine
+// stehende Laterne (Laterne auf Bücherregal hält, T5 #3). Der Solver spiegelt nicht → Arm rechts („corner_r“) und
+// links („corner_l“) als eigene Varianten. V3 „mehr in die Höhe“: die Regale wachsen bis unter die Decke
+// (`stretch`, `ceiling`), die Kerzen stehen dann auf dem obersten Regal. Kompaktform „straight“ (2 × 1) für kurze
+// Wandstücke. Bewusst ohne `bookshelf_wall` (research/17 §7.2): Bibliotheken ziehen es nicht.
+{
+  id: "storage/corner_shelf",
+  kind: "static",
+  name: "Eckregal",
+  category: "storage",
+  tags: ["corner_shelf"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "fantasy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "corner_r",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["BK", "K."], // y0: Regal in der Ecke, Fässer an beiden Enden
+        ["BB", "B."], // y1: Regale (werden bis zur Decke gedehnt)
+        ["cL", "c."], // oben: Kerzen und Laterne
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        K: { block: "minecraft:barrel", orient: { front: "front" } },
+        c: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+    {
+      id: "corner_l",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["KB", ".K"],
+        ["BB", ".B"],
+        ["Lc", ".c"],
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        K: { block: "minecraft:barrel", orient: { front: "front" } },
+        c: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+    {
+      id: "corner_r_low",
+      weight: 2,
+      maxRoomHeight: 2,
+      layers: [["BK", "K."], ["BB", "B."]],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        K: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "corner_l_low",
+      weight: 2,
+      maxRoomHeight: 2,
+      layers: [["KB", ".K"], ["BB", ".B"]],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        K: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+    {
+      // Kompaktform: gerades Regal an der Wand
+      id: "straight",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["BK"], ["BB"], ["cL"]],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        K: { block: "minecraft:barrel", orient: { front: "front" } },
+        c: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+    {
+      id: "straight_low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [["BK"], ["BB"]],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        K: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

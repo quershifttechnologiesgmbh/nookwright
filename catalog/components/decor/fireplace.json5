@@ -1,0 +1,99 @@
+// K3d · Wohnzimmer-Kamin mit Sims und verjüngtem Rauchfang (research/16 I5, P1; S13 Kamin, research/15 §2.1
+// „Deko auf dem Sims“, research/11 T-6) und Glut hinter Kupferfalltür (research/16 L5, P2; S5 Ziegelofen mit
+// Kupferfalltüren). Ergänzt arch/fireplace_wall (K3a: Kamin zwischen Regalen, Funkenschutz-Gitter, Feuerbank)
+// um die Formen, die dort fehlen – gleicher Tag `fireplace`, keine doppelten Varianten:
+//  - grand: 5 breit, erhöhter Herd, Sims über die ganze Breite, Rauchfang 3 → 1 breit (Skizze research/16 I5),
+//  - brick: 3 breit in Ziegel (`hearth_alt`), Rauchfang 1 breit,
+//  - ember_copper: Ofenloch mit offener, gewachster Kupferfalltür vor der Glut (L5; bleibt orange, research/16 O4).
+// Der Schlot läuft per `stretch` (fill `ceiling`) bis unter die Decke – „mehr in die Höhe“ (V3). Das Lagerfeuer
+// entzündet nichts (T5 #13) und liegt auf einem erhöhten Herd (Boden + 1) bzw. hinter der Kupferfalltür: kein
+// offenes Feuer auf Laufhöhe neben freiem Boden (Solver-Regel Gefahr/`T_HAZARD`); über dem Feuer keine Falltür
+// (Rauch, Faktencheck #13). Einbau in die Wand (`wall_inset` + `carve`) trägt Schema/Solver noch nicht →
+// der Kamin steht VOR der Wand (backToWall); Wunsch an K3c im Bericht K3d.
+{
+  id: "decor/fireplace",
+  kind: "static",
+  name: "Kamin mit Sims",
+  category: "architecture",
+  tags: ["fireplace", "fire_feature"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "rustic", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "grand",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [
+        ["MMMMM", ".W_W."], // y0: erhöhter Herd, Wangen vorn
+        ["MMCMM", ".W_W."], // y1: Feuer auf dem Herd (über Laufhöhe, niemand tritt hinein)
+        ["MMMMM", "UUUUU"], // y2: Sturz + Sims (umgedrehte Treppen, Lehne zur Wand)
+        [".MMM.", "....."], // y3: Rauchfang, davor Abstellfläche auf dem Sims
+        ["..M..", "....."], // y4: Schlot (wird bis zur Decke gedehnt)
+      ],
+      legend: {
+        M: { role: "hearth", shape: "block" },
+        W: { role: "hearth", shape: "wall" },
+        U: { role: "hearth", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+      stretch: { layer: 4, max: 10, fill: "ceiling" },
+      sockets: [
+        { id: "mantel_l", type: "surface", at: [1, 3, 1], accepts: ["candles", "light_small"], prob: 0.8, pairWith: "mantel_r" },
+        { id: "mantel_r", type: "surface", at: [3, 3, 1], accepts: ["candles", "light_small"], prob: 0.8 },
+        { id: "mantel_m", type: "surface", at: [2, 3, 1], accepts: ["tabletop_small", "plant"], prob: 0.5 },
+        { id: "mantel_el", type: "surface", at: [0, 3, 1], accepts: ["plant", "tabletop_small"], prob: 0.4, pairWith: "mantel_er" },
+        { id: "mantel_er", type: "surface", at: [4, 3, 1], accepts: ["plant", "tabletop_small"], prob: 0.4 },
+      ],
+    },
+    {
+      id: "brick",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["MMM", "W_W"], // y0: erhöhter Herd
+        ["MCM", "W_W"], // y1: Feuer auf dem Herd
+        ["MMM", "UUU"],
+        [".M.", "..."], // y3: Rauchfang 1 breit (gedehnt)
+      ],
+      legend: {
+        M: { role: "hearth_alt", shape: "block" },
+        W: { role: "hearth_alt", shape: "wall" },
+        U: { role: "hearth_alt", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+      stretch: { layer: 3, max: 10, fill: "ceiling" },
+      sockets: [
+        { id: "mantel_l", type: "surface", at: [0, 3, 1], accepts: ["candles", "light_small"], prob: 0.8, pairWith: "mantel_r" },
+        { id: "mantel_r", type: "surface", at: [2, 3, 1], accepts: ["candles", "light_small"], prob: 0.8 },
+      ],
+    },
+    {
+      // L5: Glut hinter offener Kupferfalltür; die Falltür liegt am Feuerraum an (Licht geht durch, T5)
+      id: "ember_copper",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["MCM", "WTW"],
+        ["MMM", "UUU"],
+        [".M.", "..."], // y2: Rauchfang (gedehnt)
+      ],
+      legend: {
+        M: { role: "hearth_alt", shape: "block" },
+        W: { role: "hearth_alt", shape: "wall" },
+        U: { role: "hearth_alt", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        T: { block: "minecraft:waxed_copper_trapdoor", orient: { front: "front", open: true } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+      sockets: [
+        { id: "mantel_l", type: "surface", at: [0, 2, 1], accepts: ["candles", "light_small"], prob: 0.8, pairWith: "mantel_r" },
+        { id: "mantel_r", type: "surface", at: [2, 2, 1], accepts: ["candles", "light_small"], prob: 0.8 },
+      ],
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 2, hard: false }] },
+  light: "auto",
+}

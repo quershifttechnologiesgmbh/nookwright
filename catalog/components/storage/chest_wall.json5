@@ -1,0 +1,50 @@
+// Truhenwand zwischen Stamm-Pfosten (Lager-Signatur, research/10 §4.3/§7.7: Truhen 12/18, Pfosten 9/18).
+// Zwei Doppeltruhen übereinander (der Nachbarn-Pass koppelt x1+x2), darüber ein Gesims. Lichte Höhe ≥ 3;
+// für lichte Höhe 2 gibt es storage/chest_wall_low.
+// Öffnen: über einer Truhe darf kein redstone-leitender Block sein (Faktencheck #2). Truhe und obere
+// Stufe/umgedrehte Treppe leiten nicht → alle Truhen öffnen (Truhe über Truhe: research/10 §11 #6 im Spiel
+// bestätigen, Spike T5). Keine Rahmen an den Truhen (research/10 §11 #1 offen) → Etiketten an der Raumwand.
+// Pfosten = Rolle `beam` (wie die Eckpfeiler der Hülle).
+{
+  id: "storage/chest_wall",
+  kind: "static",
+  name: "Truhenwand",
+  category: "storage",
+  tags: ["storage_wall", "chest_wall"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "slab_cornice",
+      weight: 3,
+      layers: [
+        ["PCCP"], // y0
+        ["PCCP"], // y1
+        ["PSSP"], // y2: Gesims (obere Stufen)
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      id: "stair_cornice",
+      weight: 2,
+      layers: [
+        ["PCCP"],
+        ["PCCP"],
+        ["PKKP"], // Gesims aus umgedrehten Treppen
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

@@ -1,0 +1,30 @@
+// research/56 · Schrein am Wegrand (DA Structural: Shrines; Bing „minecraft wayside shrine build“): steinerner
+// Sockel, Opfergefäß (`decorated_pot`) zwischen zwei kühlen Blumen, dahinter ein Pfosten mit stehender Laterne.
+// Für Wegkreuzungen, Waldrand, Friedhofseingang. Q1a: die Blumen brauchen Erde unter sich – der Steinsockel ist
+// deshalb in der Mitte, links und rechts liegt `garden_soil` unter den Blumen.
+{
+  id: "outdoor/wayside_shrine",
+  kind: "static",
+  name: "Wegrand-Schrein",
+  category: "architecture",
+  tags: ["shrine", "outdoor", "path", "cemetery"],
+  styleTags: ["medieval", "ruin", "overgrown"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["SWS"], // y0: Erde unterm Blumenpaar, Steinsockel unter dem Gefäß
+    ["fDf"], // y1: Blumen, Opfergefäß
+    [".F."], // y2: Pfosten
+    [".L."], // y3: Laterne
+  ],
+  legend: {
+    S: { role: "garden_soil", shape: "block" },
+    W: { role: "wall_cornice", shape: "block" },
+    f: { role: "flower_cool", shape: "block" },
+    D: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+    F: { role: "beam", shape: "fence" },
+    L: { role: "light_hanging", shape: "lantern" },
+  },
+  masks: { use: [{ side: "front" }] },
+}

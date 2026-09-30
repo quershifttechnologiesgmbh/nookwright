@@ -1,0 +1,121 @@
+// FN Tierfarmen: Schweine-Zuchtgehege in drei Größen (Skalierung mit dem Raum: 5×5 / 7×6 / 9×7 samt Sammel-Kiste).
+// Belege (minecraft.wiki): Fence (Kollisionshöhe 1,5 – Ring aus Zaun, Tor vorn, alle Ecken Pfosten; Heu, Kessel, Fass
+// und Sammel-Trichter im Ring bekommen Zaun darüber, sonst springt ein Tier über den 1 Block hohen Teil), Breeding
+// (Kühe/Schafe: Weizen, Schweine: Karotten/Kartoffeln/Rüben), Lantern (Licht 15 gegen Monster-Spawns am Zaun).
+// Futterstation: Fass mit Futter im Ring vorn links, Heu hinten, Wasser-Trog vorn rechts. Sammelpunkt: Trichter-Pad in
+// der östlichen Innenmitte → Ring-Trichter → Truhe außen (Drops, die der Spieler dort fallen lässt; Eier/Milch gibt es
+// hier nicht). Tiere bringt der Spieler (kein Spawn im Export). Nur statisch geprüft (plan/spikes/FN_tierfarmen.md).
+{
+  id: "functional/fn_animal_pig_pen",
+  kind: "static",
+  name: "Schweine-Zuchtgehege",
+  category: "work",
+  tags: ["fn_animal_pig_pen", "fn_breeding_pen", "livestock"],
+  functionTags: ["animal:pig", "farm:breeding", "store"],
+  styleTags: ["rustic", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "small",
+      weight: 2,
+      layers: [
+        [
+          "ffhff.",
+          "fmmmf.",
+          "fmmHHc",
+          "fmmmf.",
+          "fbgkf.",
+        ],
+        [
+          "l.f.l.",
+          "......",
+          "....f.",
+          "......",
+          ".f.f..",
+        ],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        m: { block: "minecraft:moss_carpet" },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:carrot", count: [16, 32] }, { item: "minecraft:potato", count: [16, 32] }] } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        c: { block: "minecraft:chest", orient: { front: "left" } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+      },
+    },
+    {
+      id: "medium",
+      weight: 3,
+      layers: [
+        [
+          "fffhfff.",
+          "fmmmmmf.",
+          "fmmmmmf.",
+          "fmmmmHHc",
+          "fmmmmmf.",
+          "fbfgfkf.",
+        ],
+        [
+          "l..f..l.",
+          "........",
+          "........",
+          "......f.",
+          "........",
+          ".f...f..",
+        ],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        m: { block: "minecraft:moss_carpet" },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:carrot", count: [16, 32] }, { item: "minecraft:potato", count: [16, 32] }] } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        c: { block: "minecraft:chest", orient: { front: "left" } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+      },
+    },
+    {
+      id: "large",
+      weight: 2,
+      layers: [
+        [
+          "ffffhffff.",
+          "fmmmmmmmf.",
+          "fmmmmmmmf.",
+          "fmmmmmmHHc",
+          "fmmmmmmmf.",
+          "fmmmmmmmf.",
+          "fbffgffkf.",
+        ],
+        [
+          "l...f...l.",
+          "..........",
+          "..........",
+          "........f.",
+          "..........",
+          "..........",
+          ".f.....f..",
+        ],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        m: { block: "minecraft:moss_carpet" },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:carrot", count: [16, 32] }, { item: "minecraft:potato", count: [16, 32] }] } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        c: { block: "minecraft:chest", orient: { front: "left" } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "left" }] },
+}

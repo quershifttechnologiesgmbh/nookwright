@@ -1,0 +1,98 @@
+// K3d · Thronpodest mit Thron (research/11 R-1/R-2, TH1/TH6; research/17 §5 Delta Thronsaal): Podest aus
+// sauberen Steinziegeln (Rolle `wall_cornice`, Thronsaal ohne Moos-Anteil, research/11 §2.5), vorn eine
+// Stufenreihe, darauf der Thron (Treppe, Falltür-Armlehnen, hohe Lehne aus Planken, Goldkrone) und ein
+// Teppich-Läufer (Rolle `textile_primary`). Teppich nur auf der Plattform, nie auf Stufen (schwebt, R2).
+// L2 „Licht unter Teppich“ (research/16, S14/S22): in der großen Form liegen zwei Glowstone-Blöcke IM Podest
+// unter dem Läufer – allseitig von Podest und Stufen verdeckt, Licht geht nur durch den Teppich (T5).
+// Nur die Lehne reicht bis an die Wand (1 Zelle), das Podest steht eine Zelle davor – so passt es auch neben ein
+// Fenster in der Stirnwand (die Hülle setzt dort meist eines in die Mitte). Hinter den Flügeln freie Zellen für
+// Kerzenständer bzw. Rüstung (`adjacent`-Paar), auf den Flügelenden Feuerbecken (`above`-Paar).
+// Ein Podest im Hallenboden (`floor_inset`/`carve`, research/11 E-3) trägt das Schema noch nicht.
+// Höhen: grand/podium ab 4, low = 3; lichte Höhe 2 → seat/throne.
+{
+  id: "arch/throne_dais",
+  kind: "static",
+  name: "Thronpodest",
+  category: "architecture",
+  tags: ["throne", "dais"],
+  functionTags: ["sit", "light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "grand",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["...B...", "BBBBBBB", "BGBBBGB", "SSSSSSS"], // y0: Podest (Glowstone unter dem Läufer), Stufen vorn
+        ["...L...", ".CaSAC.", "CCCCCCC", "......."], // y1: Lehne an der Wand, Thron, Läufer; Flügelenden: Feuerbecken
+        ["...L...", "..._...", ".......", "......."], // y2: hohe Lehne, Luft über dem Sitz
+        ["...g...", ".......", ".......", "......."], // y3: Goldkrone
+      ],
+      legend: {
+        B: { role: "wall_cornice", shape: "block" },
+        G: { block: "minecraft:glowstone" },
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        C: { role: "textile_primary", shape: "carpet" },
+        L: { role: "beam", shape: "planks" },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+      },
+      sockets: [
+        { id: "fire_l", type: "above", at: [0, 1, 1], accepts: ["brazier", "candle_stand"], prob: 0.8, pairWith: "fire_r" },
+        { id: "fire_r", type: "above", at: [6, 1, 1], accepts: ["brazier", "candle_stand"], prob: 0.8 },
+        { id: "guard_l", type: "adjacent", at: [1, 0, 0], side: "back", accepts: ["candle_stand", "armor_display"], prob: 0.6, pairWith: "guard_r" },
+        { id: "guard_r", type: "adjacent", at: [5, 0, 0], side: "back", accepts: ["candle_stand", "armor_display"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "podium",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["..B..", "BBBBB", "SSSSS"],
+        ["..L..", "CaSAC", "....."],
+        ["..L..", ".._..", "....."],
+        ["..g..", ".....", "....."],
+      ],
+      legend: {
+        B: { role: "wall_cornice", shape: "block" },
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        C: { role: "textile_primary", shape: "carpet" },
+        L: { role: "beam", shape: "planks" },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+      },
+      sockets: [
+        { id: "guard_l", type: "adjacent", at: [0, 0, 0], side: "back", accepts: ["candle_stand", "armor_display"], prob: 0.6, pairWith: "guard_r" },
+        { id: "guard_r", type: "adjacent", at: [4, 0, 0], side: "back", accepts: ["candle_stand", "armor_display"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "low",
+      weight: 2,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["..B..", "BBBBB", "SSSSS"],
+        ["..L..", "CaSAC", "....."],
+        ["..g..", ".._..", "....."],
+      ],
+      legend: {
+        B: { role: "wall_cornice", shape: "block" },
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        C: { role: "textile_primary", shape: "carpet" },
+        L: { role: "beam", shape: "planks" },
+        a: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        A: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        g: { block: "minecraft:gold_block" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 2, hard: false }] },
+  light: "auto",
+}

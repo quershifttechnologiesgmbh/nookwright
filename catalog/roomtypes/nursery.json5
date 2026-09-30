@@ -1,0 +1,33 @@
+// Kinderzimmer (research/17 §4.7, N1–N5). K3a. Signatur: Gitterbett (bed/crib, Kompaktform Wiege) an der türfernen
+// Wand; bunt: Flickenteppich als Spielfläche in der Mitte, Bauklötze in den Ecken, Ammensessel, Spielzeugtruhe.
+// V3 „mehr in die Höhe“: Bauklötze als Turm, Hochbett über Schreibtisch (bed/loft, K3d, ab lichter Höhe 4),
+// Hängegrün (Mobile-Ersatz), Borde und Wandbehang über Kopfhöhe.
+// Keine Spinnweben (die tragen bewusst nicht `decor_ceiling`). ERW X7 roleOverrides (Pastell, Birke) steht aus –
+// die Bettfarben sind bis dahin fest.
+{
+  id: "nursery",
+  name: "Kinderzimmer",
+  minArea: 9,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["crib"], count: [1, 1], signature: true, placement: { zones: ["edge", "corner"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["bed_single"], count: [0, 1], weight: 2, placement: { zones: ["edge"], doorAffinity: "far" } },
+    // K3d-Hochbett (bed/loft, ab lichter Höhe 4): Geschwisterbett über Schreibtisch und Schublade
+    { tags: ["loft_bed"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["patchwork_rug", "fn_rug"], count: [1, 1], weight: 4, placement: { zones: ["center"] } },
+    { tags: ["toys"], count: [1, 2], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["wing_chair"], count: [0, 1], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["wardrobe"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    // V3 (Raumhöhe nutzen): Borde und Behang über Kopfhöhe, Oberschrank, Hängegrün als Mobile-Ersatz
+    { tags: ["wall_banner", "wall_shelf"], count: [2, 3], weight: 2 },
+    // FN (Innenraum-Offensive): Ecken belegen
+    { tags: ["fn_corner"], count: [1, 2], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["upper_cabinet"], count: [0, 1], weight: 1 },
+    { tags: ["plant_hanging"], count: [1, 2], weight: 2 },
+    { tags: ["light_ceiling"], count: [1, 1], weight: 3 },
+  ],
+  lighting: { minLevel: 7, prefer: ["light_ceiling", "candles", "light_wall", "light_floor"] },
+}

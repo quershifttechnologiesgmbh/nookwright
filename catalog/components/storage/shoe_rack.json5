@@ -1,0 +1,24 @@
+// I52 · Schuhregal (research/52 §Eingang): niedriges Brett am Boden, darauf drei Paar Stiefel als
+// Rahmen-Items (Blickrichtung „up“, liegen auf dem Brett). Für den Eingangsbereich neben coat_stand.
+{
+  id: "storage/shoe_rack",
+  kind: "static",
+  name: "Schuhregal",
+  category: "storage",
+  tags: ["entryway", "shoe_rack"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  // y0: Brett (Träger), y1: Rahmen liegend „up“ darüber (wie work/chopping_block) — nie dieselbe Zelle wie das
+  // Brett. Träger als VOLLBLOCK (Planken statt Stufe): eine Stufe ist zwar `isSolid`, aber physikalisch nur
+  // „halb“ — der stärkere Welt-Test verlangt für Rahmen einen echten Vollblock dahinter (research/52 §Nachprüfung).
+  layers: [["PPP"], ["___"]],
+  legend: { P: { role: "beam", shape: "planks" } },
+  entities: [
+    { type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:leather_boots" } },
+    { type: "item_frame", at: [1, 1, 0], face: "up", item: { item: "minecraft:leather_boots" } },
+    { type: "item_frame", at: [2, 1, 0], face: "up", item: { item: "minecraft:leather_boots" } },
+  ],
+}

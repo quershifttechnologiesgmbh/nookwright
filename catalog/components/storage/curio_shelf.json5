@@ -1,0 +1,34 @@
+// research/57 · Trophäenraum: Kuriositätenbord, zweite Bauform neben storage/display_shelf (bislang die einzige
+// Regal-Form für `display_shelf`, 1.21.9+). Tag `display_shelf` steht in trophy_room.json5 im optionalen
+// Eintrag `{ tags: ["display_shelf"], count: [0, 2] }`. Nur eine Reihe Regal auf einer schmalen Konsole
+// statt Unterschrank – passt auch zwischen Fenster.
+{
+  id: "storage/curio_shelf",
+  kind: "static",
+  name: "Kuriositätenbord",
+  category: "storage",
+  tags: ["display_shelf", "shelf_display"],
+  functionTags: ["display", "store"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  minVersion: 4554,
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "single",
+      weight: 3,
+      layers: [["___"], ["SSS"]],
+      legend: { S: { role: "furniture_wood", shape: "shelf", orient: { front: "front" } } },
+    },
+    {
+      id: "double",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["___"], ["SSS"], ["SSS"]],
+      legend: { S: { role: "furniture_wood", shape: "shelf", orient: { front: "front" } } },
+    },
+  ],
+}

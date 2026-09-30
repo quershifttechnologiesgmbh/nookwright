@@ -1,0 +1,40 @@
+// SD Grundstücks-Deko: Kräuterbeet (Gartenerde mit Kräutern bzw. Blumen in zwei Reihen).
+{
+  id: "outdoor/sd_herb_bed",
+  kind: "static",
+  name: "Kräuterbeet",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_herb_bed"],
+  styleTags: ["cottage", "rustic", "village", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "herbs",
+      weight: 3,
+      layers: [
+        ["ssss", "ssss"], // y0: Gartenerde
+        ["fgfg", "gfgf"], // y1: Kräuter
+      ],
+      legend: {
+        s: { role: "garden_soil", shape: "block" },
+        f: { block: "minecraft:fern" },
+        g: { block: "minecraft:short_grass" },
+      },
+    },
+    {
+      id: "flowers",
+      weight: 3,
+      layers: [
+        ["ssss", "ssss"],
+        ["wcwc", "cwcw"],
+      ],
+      legend: {
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+      },
+    },
+  ],
+}

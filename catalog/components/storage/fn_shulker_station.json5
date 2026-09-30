@@ -1,0 +1,66 @@
+// FN-Lager · Shulker-Station: Farbspalten aus Shulkerkisten (zwei übereinander je Farbe) zwischen Stamm-Pfosten, darüber ein
+// Etikett-Band mit einem Farbstoff-Rahmen je Spalte (der Spieler ordnet Farbe -> Warengruppe). Shulkerkisten öffnen nur, wenn die
+// Zelle in ihrer Blickrichtung frei ist (Faktencheck #2): die Front (z1) bleibt deshalb Luft (`_`), die Öffnung zeigt zum Spieler.
+// Sie bleiben leer (Ruhezustand des Lagers). Breite wächst mit der Farbenzahl: s3 (7 breit, 3 Farben), s4 (9 breit, 4 Farben).
+// Lichte Höhe >= 3 (zwei Shulker + Band). Rahmen sitzen auf vollem Vollholz-Band, nicht auf den Shulkern.
+{
+  id: "storage/fn_shulker_station",
+  kind: "static",
+  name: "Shulker-Station",
+  category: "storage",
+  tags: ["fn_shulker", "fn_store"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "workshop", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "s3",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PRPGPUP", "_______"],
+        ["PRPGPUP", "_______"],
+        ["PLPLPLP", "_._._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "furniture_wood", shape: "planks" },
+        R: { block: "minecraft:red_shulker_box", orient: { front: "front" } },
+        G: { block: "minecraft:lime_shulker_box", orient: { front: "front" } },
+        U: { block: "minecraft:blue_shulker_box", orient: { front: "front" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 1], face: "front", item: { item: "minecraft:red_dye" } },
+        { type: "item_frame", at: [3, 2, 1], face: "front", item: { item: "minecraft:lime_dye" } },
+        { type: "item_frame", at: [5, 2, 1], face: "front", item: { item: "minecraft:blue_dye" } },
+      ],
+    },
+    {
+      id: "s4",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PRPYPGPUP", "_________"],
+        ["PRPYPGPUP", "_________"],
+        ["PLPLPLPLP", "_._._._._"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "furniture_wood", shape: "planks" },
+        R: { block: "minecraft:red_shulker_box", orient: { front: "front" } },
+        Y: { block: "minecraft:yellow_shulker_box", orient: { front: "front" } },
+        G: { block: "minecraft:lime_shulker_box", orient: { front: "front" } },
+        U: { block: "minecraft:blue_shulker_box", orient: { front: "front" } },
+      },
+      entities: [
+        { type: "item_frame", at: [1, 2, 1], face: "front", item: { item: "minecraft:red_dye" } },
+        { type: "item_frame", at: [3, 2, 1], face: "front", item: { item: "minecraft:yellow_dye" } },
+        { type: "item_frame", at: [5, 2, 1], face: "front", item: { item: "minecraft:lime_dye" } },
+        { type: "item_frame", at: [7, 2, 1], face: "front", item: { item: "minecraft:blue_dye" } },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

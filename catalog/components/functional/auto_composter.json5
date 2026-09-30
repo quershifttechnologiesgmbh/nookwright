@@ -1,0 +1,48 @@
+// Kompost-Automat (R1): Trichter von oben füllt den Komposter (Pflanzenreste), der Trichter darunter zieht das
+// fertige Knochenmehl und schiebt es ins Fass daneben. Komposter = Arbeitsblock des Bauern (T5 #10): in
+// Dorfnähe wird ein arbeitsloser Dorfbewohner zum Bauern. Kompaktform (lichte Höhe 2): Knochenmehl von Hand.
+// Richtungen relativ: left = +x. Im Spiel geprüft: spikes/ingame Gruppe F (Samen → Knochenmehl im Fass).
+{
+  id: "functional/auto_composter",
+  kind: "static",
+  name: "Kompost-Automat",
+  category: "work",
+  tags: ["auto_composter", "composter"],
+  functionTags: ["farm:compost", "work:farmer", "store", "automation"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "full",
+      weight: 3,
+      layers: [
+        ["HB"], // y0: Trichter (→ Fass) | Knochenmehl-Fass
+        ["KR"], // y1: Komposter | Vorrats-Fass
+        ["I."], // y2: Einfüll-Trichter (↓ Komposter)
+      ],
+      legend: {
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        K: { block: "minecraft:composter" },
+        R: { block: "minecraft:barrel", orient: { front: "front" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+      },
+    },
+    {
+      id: "compact",
+      weight: 1,
+      layers: [
+        ["KB"], // y0: Komposter | Fass
+        ["I."], // y1: Einfüll-Trichter
+      ],
+      legend: {
+        K: { block: "minecraft:composter" },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

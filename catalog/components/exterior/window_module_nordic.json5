@@ -1,0 +1,69 @@
+// W2-FW · Fenstermodul „Nordisch“ (plan/spikes/W2FW_fenster.md, X2 §6.4): Rahmen aus stehenden (entrindeten)
+// Stämmen links und rechts der Scheibe, 1 Block vor der Wand, Sturz aus umgedrehten Treppen, Bank aus Stufen – ein
+// geschlossener Holzrahmen, das Glas liegt 1 Block zurück. Laterne am Zaun-Arm auf dem Rasterpfosten.
+// Varianten wie `window_module_townhouse`.
+//
+//   Ansicht (1 × 2)
+//     L L L      L Sturz
+//     I . I      I Stamm (Rolle `beam`, Achse y)
+//     I . I
+//     S S S      S Bank
+//
+// Vorbilder (URLs im Bericht): Wikinger-/Langhaus-Fenster mit Stammrahmen und Laternen an Ketten/Zäunen.
+{
+  id: "exterior/window_module_nordic",
+  kind: "static",
+  name: "Fenstermodul Nordisch",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_window", "exterior_window_module", "outdoor", "walls_wood"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["nordic", "nordic_falu", "winter", "harbor"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        ["SSS"],
+        ["I_I"],
+        ["I_I"],
+        ["LLL"],
+      ],
+      legend: {
+        S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } },
+        I: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "lintel",
+      layers: [["L"]],
+      legend: { L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    {
+      id: "sill",
+      layers: [["S"]],
+      legend: { S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "jamb",
+      layers: [["J"]],
+      legend: { J: { role: "beam", shape: "log", orient: { axis: "y" } } },
+      stretch: { layer: 0, max: 3, fill: "ceiling" },
+    },
+    {
+      id: "lantern",
+      // Laterne hängt unter dem Zaun (Zaun-Unterseite = stabile Mitte, Faktencheck #3); der Zaun verbindet sich mit der Wand
+      layers: [["L"], ["F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

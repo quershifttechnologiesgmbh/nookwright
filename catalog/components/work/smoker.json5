@@ -1,0 +1,5 @@
+{ id: "work/smoker", kind: "static", name: "Räucherofen", category: "work",
+  tags: ["smoker", "cooking", "work"], functionTags: ["cook", "work:butcher"], obtainability: "survival",
+  mount: "floor", rotations: "backToWall",
+  layers: [["O"]], legend: { O: { block: "minecraft:smoker", orient: { front: "front" } } },
+  masks: { use: [{ side: "front" }] } }

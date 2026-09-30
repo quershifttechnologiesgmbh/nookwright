@@ -1,0 +1,5 @@
+{ id: "work/grindstone", kind: "static", name: "Schleifstein", category: "work",
+  tags: ["grindstone", "work"], functionTags: ["work:weaponsmith"], obtainability: "survival",
+  mount: "floor", rotations: "all",
+  layers: [["G"]], legend: { G: { block: "minecraft:grindstone", orient: { front: "front" } } },
+  masks: { use: [{ side: "front" }] } }

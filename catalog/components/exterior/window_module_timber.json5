@@ -1,0 +1,132 @@
+// W2-FW · Fenstermodul „Fachwerk“ (plan/spikes/W2FW_fenster.md, X2 §6.4, Baustandard F5/F6): das Fenster sitzt im
+// Gefach, der Rahmen ist das Fachwerk selbst – deshalb KEINE Läden (sie lägen vor den Ständern) und keine Wangen.
+// Blumenkasten unter dem Fenster, schlanker Sturz aus umgedrehten Treppen, Laterne am Zaun-Arm auf dem Rasterpfosten
+// (dort steht der Ständer, die Laterne hängt vor ihm). Varianten wie `window_module_townhouse`.
+//
+//   Ansicht (1 × 2)
+//     L L L      L Sturz (Ecken = Rahmen der Hülle)
+//     . . .      Gefach bleibt sichtbar
+//     . P .      P Blume vor der Scheibe
+//     S B S      B Kasten (Erde, Falltür davor), S Rahmen-Ecken
+//
+// Vorbilder (URLs im Bericht): Fachwerk-Stadthäuser mit Kästen unter den Fenstern und Laternen an den Ständern.
+{
+  id: "exterior/window_module_timber",
+  kind: "static",
+  name: "Fenstermodul Fachwerk",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_window", "exterior_window_module", "outdoor", "walls_stone"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  styleTags: ["timber", "terracotta_birch"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        ["SBS", ".T."],
+        [".P.", "..."],
+        ["._.", "..."],
+        ["LLL", "..."],
+      ],
+      legend: {
+        S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } },
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:red_tulip" },
+        L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "lintel",
+      layers: [["L"]],
+      legend: { L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    {
+      // W9-G2 (27.09.2026, plan/spikes/W9G2_fensterrahmen.md): Rahmenwange – flache, offene Falltür links und rechts der
+      // Scheibe, wo die Läden keine Luft haben (W7-A). Mit Sturz und Bank ein Rahmen aus einem Guss. Holz der Läden
+      // (`shutter`), nicht des Rahmens: im Blind-A/B las sich die Wange im Rahmenholz blass (verschmilzt mit Sturz und Bank
+      // zu einem Balken, vgl. `window_module_townhouse`), die dunkle Wange hebt das Fenster ab.
+      id: "frame_jamb",
+      layers: [["J"]],
+      legend: { J: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } } },
+      stretch: { layer: 0, max: 3, fill: "ceiling" },
+    },
+    {
+      id: "sill",
+      layers: [["S"]],
+      legend: { S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "box_red_tulip",
+      weight: 3,
+      // y0: Erde an der Wand (z0), Falltür davor (z1); y1: Blume vor der untersten Scheibe (durchsichtig, ohne Kollision)
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:red_tulip" },
+      },
+    },
+    {
+      id: "box_poppy",
+      weight: 3,
+      // y0: Erde an der Wand (z0), Falltür davor (z1); y1: Blume vor der untersten Scheibe (durchsichtig, ohne Kollision)
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:poppy" },
+      },
+    },
+    {
+      id: "box_allium",
+      weight: 2,
+      // y0: Erde an der Wand (z0), Falltür davor (z1); y1: Blume vor der untersten Scheibe (durchsichtig, ohne Kollision)
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:allium" },
+      },
+    },
+    {
+      id: "box_cornflower",
+      weight: 2,
+      // y0: Erde an der Wand (z0), Falltür davor (z1); y1: Blume vor der untersten Scheibe (durchsichtig, ohne Kollision)
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:moss_block" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:cornflower" },
+      },
+    },
+    {
+      id: "lantern",
+      // Laterne hängt unter dem Zaun (Zaun-Unterseite = stabile Mitte, Faktencheck #3); der Zaun verbindet sich mit der Wand
+      layers: [["L"], ["F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "chain_lantern",
+      // W4 (27.09.2026, plan/spikes/W4E_feinschliff.md): Akzent im Obergeschoss – je eine Laterne an einer Kette links
+      // und rechts des Mittelfensters, unter den Ecken des Sturzes (Vorbilder r12/r14/r02/r18/r22: Laternen neben dem
+      // Fenster, an Kette bzw. Zaun-Arm). Die Kette hält ohne Stütze, die Laterne hängt an ihr (Faktencheck #3; unter der
+      // umgedrehten Treppe des Sturzes allein bräche sie).
+      layers: [["L"], ["C"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

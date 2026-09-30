@@ -1,0 +1,26 @@
+// SD Grundstücks-Deko: offener Schuppen (Plattendach, Rückwand aus dem Wandmaterial des Hauses, Eckpfosten, darin Fässer
+// und Heu). Ein Nebengebäude, das zum Haus gehört. Die Front (Süden) bleibt offen. Spiegelsymmetrisch.
+{
+  id: "outdoor/sd_shed",
+  kind: "static",
+  name: "Schuppen",
+  category: "architecture",
+  tags: ["outdoor", "sd_decor", "sd_shed"],
+  styleTags: ["rustic", "village", "farm", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BWWWB", "B...B", "B...B"], // y0: Pfosten + Rückwand
+    ["BWWWB", "BbhbB", "B...B"], // y1: Pfosten, Fässer/Heu
+    ["SSSSS", "SSSSS", "SSSSS"], // y2: Dach (Platten)
+    [".SSS.", ".....", "....."], // y3: Dachfirst hinten
+  ],
+  legend: {
+    B: { role: "beam", shape: "log", orient: { axis: "y" } },
+    W: { role: "wall_primary", shape: "block" },
+    b: { block: "minecraft:barrel", orient: { front: "up" } },
+    h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+    S: { role: "roof_main", shape: "slab" },
+  },
+}

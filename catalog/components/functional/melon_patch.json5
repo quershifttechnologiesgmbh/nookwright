@@ -1,0 +1,49 @@
+// Kürbis-/Melonenbeet 3×3 (R1): vier ausgewachsene Stängel (age 7) auf Ackerland um eine waterlogged Laterne
+// (Wasser + Licht 13 an den Stängeln, ≥ 9 nötig). Die Früchte wachsen auf die vier Ecken (Grobe Erde darunter,
+// darüber Luft reserviert); jede Ecke teilt sich zwei Stängel (StemBlock: Frucht auf Erde/Ackerland daneben).
+// Ohne Kolben-Ernte: Früchte von Hand abbauen, die Stängel tragen weiter.
+// Im Spiel geprüft: spikes/ingame Gruppe F (Zufallsticks → Frucht auf einer Ecke, Stängel „attached“).
+{
+  id: "functional/melon_patch",
+  kind: "static",
+  name: "Kürbis-/Melonenbeet",
+  category: "work",
+  tags: ["melon_patch", "farm_bed"],
+  functionTags: ["farm:pumpkin", "farm:melon", "light"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "pumpkin",
+      weight: 1,
+      layers: [
+        ["DFD", "FLF", "DFD"],
+        ["_S_", "S_S", "_S_"],
+      ],
+      legend: {
+        D: { block: "minecraft:coarse_dirt" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        S: { block: "minecraft:pumpkin_stem", state: { age: "7" } },
+      },
+    },
+    {
+      id: "melon",
+      weight: 1,
+      layers: [
+        ["DFD", "FLF", "DFD"],
+        ["_S_", "S_S", "_S_"],
+      ],
+      legend: {
+        D: { block: "minecraft:coarse_dirt" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        S: { block: "minecraft:melon_stem", state: { age: "7" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+  light: "auto",
+}

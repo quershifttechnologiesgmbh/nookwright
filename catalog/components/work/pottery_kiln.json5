@@ -1,0 +1,31 @@
+// K3b · Brennofen (research/17 §4.16, P1/P2): Ziegelkuppel (Theme-Rolle `hearth_alt`, medieval = Ziegel), in der
+// Rückwand ein beleuchteter Ofen als Brennkammer (T5: `lit` bleibt ohne Brennstoff an, Licht 13), davor eine
+// freie Bedienzelle zwischen Stufen-Wangen, darüber umgedrehte Treppen als Bogen. Mehr in die Höhe (V3): der
+// Schlot wächst bis unter die Decke (`stretch`, `ceiling`; research/10 K1 §6 Nr. 5 „adaptiver Schlot“).
+// Lichte Höhe ≥ 3; darunter ist der einzelne Ofen (Tag `furnace`) die Kompaktform der Signatur.
+{
+  id: "work/pottery_kiln",
+  kind: "static",
+  name: "Brennofen",
+  category: "work",
+  tags: ["kiln", "smelting", "fire_feature"],
+  functionTags: ["smelt", "light"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BFB", "b_b"], // y0: Ziegel | Ofen | Ziegel; vorn Wangen, Mitte frei (Bedienzelle)
+    ["BBB", "t.t"], // y1: Kuppel; vorn umgedrehte Treppen als Bogen
+    [".B.", "..."], // y2: Schlot (wächst bis zur Decke)
+  ],
+  legend: {
+    B: { role: "hearth_alt", shape: "block" },
+    F: { block: "minecraft:furnace", orient: { front: "front" }, state: { lit: "true" } },
+    b: { role: "hearth_alt", shape: "slab", orient: { upsideDown: false } },
+    t: { role: "hearth_alt", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+  stretch: { layer: 2, max: 10, fill: "ceiling" },
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

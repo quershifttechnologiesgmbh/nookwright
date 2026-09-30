@@ -1,0 +1,30 @@
+// FN-Dense · Schmiedebank (Raummitte der Schmiede): Amboss zwischen zwei Löschwasser-Kesseln vor einer Werkbank aus
+// Baumstamm-Blöcken mit Laternen (Vorbild: Schmieden der Community mit Amboss und Kesseln als Arbeitsgruppe statt
+// einzeln an der Wand). 5 breit, 2 tief, 2 hoch. Amboss steht auf dem Boden (Gravitation unkritisch), Kessel
+// (Level 3) brauchen keine Stütze, Laternen stehen auf dem Stamm. Amboss = Reparatur (Faktencheck #7 gilt nur für
+// Dorfbewohner-Arbeitsblöcke, Amboss ist keiner). Symmetrisch in der Breite. Insel-Eintrag von `smithy`
+// (Tag `fn_smithy_island`).
+{
+  id: "work/fn_smith_bench",
+  kind: "static",
+  name: "Schmiedebank",
+  category: "work",
+  tags: ["fn_smithy_island"],
+  functionTags: ["repair"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["LLLLL", "K.A.K"], // y0: Stamm-Bank hinten | Kessel, Amboss, Kessel vorn
+    [".l.l.", "....."], // y1: Laternen auf der Bank
+  ],
+  legend: {
+    L: { role: "beam", shape: "log", orient: { axis: "along" } },
+    K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+    A: { block: "minecraft:anvil", orient: { front: "front" } },
+    l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

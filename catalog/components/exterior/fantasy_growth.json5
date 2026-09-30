@@ -1,0 +1,31 @@
+// W7-D · Fantasy-Modul „Laubranke an der Ecke“ (plan/spikes/W7D_fantasy.md): ein Laubbausch aus Azaleenlaub am Fuß der
+// beiden Außenecken der Eingangsseite, in der Eckzelle vor dem Eckpfosten (Anker `corner`), dazu Blühazalee obenauf –
+// „Ranken nur an 1–2 Gebäudeecken, nie flächig“ (Vorbilder: 18 von 34 mit Laub/Ranken, Ecken und Säulen 5-mal).
+// Laub braucht keine Stütze und bleibt (persistent); die Eckzelle ist Außenluft, kein Laufweg.
+//
+//   Ansicht (Ecke)    L Azaleenlaub, F Blühendes Azaleenlaub
+//     F
+//     L
+//
+// Nur Kit `elven` (zwergische Bauten haben praktisch kein Grün).
+{
+  id: "exterior/fantasy_growth",
+  kind: "static",
+  name: "Laubranke an der Ecke",
+  category: "decor",
+  tags: ["exterior", "exterior_corner", "exterior_fantasy", "outdoor"],
+  styleTags: ["elven"],
+  obtainability: "survival",
+  mount: "corner_out",
+  rotations: "all",
+  variants: [
+    {
+      id: "elven",
+      layers: [["L"], ["F"]],
+      legend: {
+        L: { block: "minecraft:azalea_leaves", state: { persistent: "true" } },
+        F: { block: "minecraft:flowering_azalea_leaves", state: { persistent: "true" } },
+      },
+    },
+  ],
+}

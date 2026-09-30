@@ -1,0 +1,76 @@
+// FN · Spawner-Käfig als Dekoration (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Dungeon-Kammer-Stück: ein
+// LEERER Monsterspawner hinter einem Eisengitterkäfig auf einem Sockel, obendrauf eine Fackel. Der Export trägt keine
+// Block-Entity-Daten, also keine gesetzte Entität: ein Spawner ohne Entität spawnt nichts (Wiki Monster Spawner). Dreifach gesichert:
+//  1. leer/inert (Ruhezustand des Exports), 2. Fackel auf dem Spawner (Licht 14 dort; Dunkel-Spawn-Arten scheitern am Licht,
+//  Wiki Monster Spawner/Spawn) plus Raumlicht ≥ 8, 3. Käfig aus Eisengittern: Spawn-Ziele sind die Luftzellen ringsum, nicht der Käfig.
+// Wer einen echten Spawner will, trägt die Entität selbst ein (`/data merge block <x y z> {SpawnData:{entity:{id:"minecraft:zombie"}}}`)
+// und prüft dann Licht und Abstand zu Wohnzonen selbst; der Raumtyp `fn_spawner_chamber` gehört nie neben Wohnräume (Gebäudeplanung Welle 2).
+// Symmetrisch (3 × 3, alle vier Ansichten gleich), Rotation frei. Ein Spawner ist im Überleben nicht beschaffbar → `creative`.
+// Nicht im Spiel geprüft: dass ein NBT-loser Spawner in 1.21.11 und 26.3 tatsächlich nichts spawnt (Wiki), Pfad-Verhalten.
+{
+  id: "decor/fn_mob_spawner_cage",
+  kind: "static",
+  name: "Spawner-Käfig (leer)",
+  category: "decor",
+  tags: ["fn_spawner_cage"],
+  functionTags: ["decor"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "creative",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "tall",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["BBB", "BBB", "BBB"], // y0: Sockel
+        ["PIP", "ISI", "PIP"], // y1: Pfosten an den Ecken, Gitter dazwischen, Spawner in der Mitte
+        ["PIP", "ITI", "PIP"], // y2: Gitter, Fackel auf dem Spawner
+        ["kkk", "kkk", "kkk"], // y3: Dach aus unteren Stufen
+      ],
+      legend: {
+        B: { role: "foundation", shape: "block" },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        I: { role: "metal", shape: "bars" },
+        S: { block: "minecraft:spawner" },
+        T: { block: "minecraft:torch" },
+        k: { role: "foundation", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+    {
+      id: "low",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [
+        ["kkk", "kkk", "kkk"], // y0: Sockelstufen
+        ["PIP", "ISI", "PIP"], // y1: wie oben
+        ["PIP", "ITI", "PIP"], // y2: Gitter, Fackel; Dach = Raumdecke
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        I: { role: "metal", shape: "bars" },
+        S: { block: "minecraft:spawner" },
+        T: { block: "minecraft:torch" },
+        k: { role: "foundation", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+    {
+      // Flachform für lichte Höhe 2: Spawner auf Bodenhöhe, Fackel darauf, die Raumdecke ist das Dach.
+      id: "flat",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["PIP", "ISI", "PIP"], // y0: Pfosten an den Ecken, Gitter dazwischen, Spawner in der Mitte
+        ["PIP", "ITI", "PIP"], // y1: Gitter, Fackel auf dem Spawner
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        I: { role: "metal", shape: "bars" },
+        S: { block: "minecraft:spawner" },
+        T: { block: "minecraft:torch" },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: false }] },
+}

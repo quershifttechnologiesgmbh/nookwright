@@ -1,0 +1,171 @@
+// Innen-Kräuterregal (Welle FN): Bank mit Blumentöpfen, darüber ein Regalbrett mit zweiter Topfreihe. Nur Dekoration/Grün für Wohnräume,
+// Küchen, Gewächshäuser (getopfte Pflanzen brauchen weder Licht noch Wasser). Spiegelsymmetrisch (Mitte + paarweise Außentöpfe).
+// Töpfe stehen auf vollen Oberseiten (Bank = Planke, Brett = untere Platte). Höhe 4, 1 tief, Größen 5 oder 7 breit.
+{
+  id: "functional/fn_herb_rack",
+  kind: "static",
+  name: "Kräuterregal",
+  category: "decor",
+  tags: ["fn_herb_rack", "fn_crop"],
+  functionTags: ["decor:plants"],
+  styleTags: ["rustic", "cottage", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "s_green",
+      weight: 9,
+      layers: [
+        [ // y0: Bank
+          "BBBBB", // z0 Front
+        ],
+        [ // y1: Töpfe + Pfosten
+          "fqpqf", // z0 Front
+        ],
+        [ // y2: Regalbrett
+          "fsssf", // z0 Front
+        ],
+        [ // y3: Töpfe oben
+          ".qpq.", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        p: { block: "minecraft:potted_bamboo" },
+        q: { block: "minecraft:potted_fern" },
+      },
+    },
+    {
+      id: "s_blossom",
+      weight: 9,
+      layers: [
+        [ // y0: Bank
+          "BBBBB", // z0 Front
+        ],
+        [ // y1: Töpfe + Pfosten
+          "fqpqf", // z0 Front
+        ],
+        [ // y2: Regalbrett
+          "fsssf", // z0 Front
+        ],
+        [ // y3: Töpfe oben
+          ".qpq.", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        p: { block: "minecraft:potted_azure_bluet" },
+        q: { block: "minecraft:potted_cornflower" },
+      },
+    },
+    {
+      id: "s_cactus",
+      weight: 3,
+      layers: [
+        [ // y0: Bank
+          "BBBBB", // z0 Front
+        ],
+        [ // y1: Töpfe + Pfosten
+          "fqpqf", // z0 Front
+        ],
+        [ // y2: Regalbrett
+          "fsssf", // z0 Front
+        ],
+        [ // y3: Töpfe oben
+          ".qpq.", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        p: { block: "minecraft:potted_dead_bush" },
+        q: { block: "minecraft:potted_cactus" },
+      },
+    },
+    {
+      id: "m_green",
+      weight: 6,
+      layers: [
+        [ // y0: Bank
+          "BBBBBBB", // z0 Front
+        ],
+        [ // y1: Töpfe + Pfosten
+          "frqpqrf", // z0 Front
+        ],
+        [ // y2: Regalbrett
+          "fsssssf", // z0 Front
+        ],
+        [ // y3: Töpfe oben
+          ".rqpqr.", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        p: { block: "minecraft:potted_bamboo" },
+        q: { block: "minecraft:potted_fern" },
+        r: { block: "minecraft:potted_fern" },
+      },
+    },
+    {
+      id: "m_blossom",
+      weight: 6,
+      layers: [
+        [ // y0: Bank
+          "BBBBBBB", // z0 Front
+        ],
+        [ // y1: Töpfe + Pfosten
+          "frqpqrf", // z0 Front
+        ],
+        [ // y2: Regalbrett
+          "fsssssf", // z0 Front
+        ],
+        [ // y3: Töpfe oben
+          ".rqpqr.", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        p: { block: "minecraft:potted_azure_bluet" },
+        q: { block: "minecraft:potted_cornflower" },
+        r: { block: "minecraft:potted_oxeye_daisy" },
+      },
+    },
+    {
+      id: "m_cactus",
+      weight: 2,
+      layers: [
+        [ // y0: Bank
+          "BBBBBBB", // z0 Front
+        ],
+        [ // y1: Töpfe + Pfosten
+          "frqpqrf", // z0 Front
+        ],
+        [ // y2: Regalbrett
+          "fsssssf", // z0 Front
+        ],
+        [ // y3: Töpfe oben
+          ".rqpqr.", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        p: { block: "minecraft:potted_dead_bush" },
+        q: { block: "minecraft:potted_cactus" },
+        r: { block: "minecraft:potted_cactus" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

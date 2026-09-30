@@ -1,0 +1,30 @@
+// K3b · Bogner-Bank (research/17 §4.22, A1/A4, Kaserne): Bognertisch (Pfeilmacher-Arbeitsblock, Faktencheck #7),
+// stehendes Fass mit Pfeilen (öffnet immer, Faktencheck #2), Zaunpfosten als Bogenhalter. Darüber Bogen und
+// Armbrust in Rahmen an der Raumwand – nur über Tisch und Fass (1 hoch), NIE über dem Zaun (ragt ½ Block in
+// die Zelle darüber, Vanilla `ItemFrame#survives`, V3-Regel Rahmen-Freiraum).
+{
+  id: "work/fletcher_bench",
+  kind: "static",
+  name: "Bogner-Bank",
+  category: "work",
+  tags: ["fletcher_bench", "fletching_table", "job_block"],
+  functionTags: ["craft", "store", "villager_workstation", "work:fletcher"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["TBf"], // y0: Bognertisch | Fass mit Pfeilen | Bogenhalter
+    ["__."], // y1: Rahmen an der Wand über Tisch und Fass
+  ],
+  legend: {
+    T: { block: "minecraft:fletching_table" },
+    B: { block: "minecraft:barrel", orient: { front: "up" }, contents: { items: [{ item: "minecraft:arrow", count: [16, 64] }] } },
+    f: { role: "furniture_wood", shape: "fence" },
+  },
+  entities: [
+    { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:bow" } },
+    { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:crossbow" } },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,31 @@
+// Kleiner Tisch. Die Variante bestimmt, ob es eine Abstellfläche gibt.
+{
+  id: "table/small",
+  kind: "static",
+  name: "Kleiner Tisch",
+  category: "furniture",
+  tags: ["table", "table_small"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "fence_plate",
+      weight: 2,
+      // y=0: Zaun, y=1: Druckplatte → keine Abstellfläche
+      layers: [["L"], ["P"]],
+      legend: {
+        L: { role: "furniture_wood", shape: "fence" },
+        P: { role: "furniture_wood", shape: "pressure_plate" },
+      },
+    },
+    {
+      id: "slab_top",
+      weight: 3,
+      layers: [["T"]],
+      legend: { T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+      sockets: [{ id: "top", type: "surface", at: [0, 1, 0], accepts: ["tabletop_small"], prob: 0.7 }],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

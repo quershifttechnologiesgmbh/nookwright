@@ -1,0 +1,79 @@
+// Industriehafen Kupfer – duester, Biome: ocean, hills, Stile: industrial.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "industriehafen_kupfer",
+  name: "Industriehafen Kupfer",
+  mood: "duester",
+  biomes: ["ocean", "hills"],
+  styles: ["industrial"],
+  values: ["minecraft:iron_block", "minecraft:andesite", "minecraft:polished_andesite", "minecraft:weathered_copper", "minecraft:oxidized_copper"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "andesite", weight: 45 },
+        { family: "polished_andesite", weight: 35 },
+        { family: "cobbled_deepslate", weight: 20 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "iron", weight: 60 },
+        { block: "minecraft:gray_concrete", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "copper", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "weathered_copper", weight: 55 },
+        { family: "oxidized_copper", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      // edge_fixed: eigene Wertstufe fuer den First (Q4, research/53 §1-3)
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "spruce", shape: "stripped_log", weight: 70 },
+        { family: "spruce", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "polished_andesite", weight: 55 },
+        { family: "iron", weight: 45 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:brown", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "copper", shape: "bulb", weight: 60 },
+        { family: "iron", shape: "lantern", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "moss", weight: 100 },
+      ],
+    },
+  },
+}

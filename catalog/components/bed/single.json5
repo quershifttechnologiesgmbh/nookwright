@@ -1,0 +1,53 @@
+// Einzelbett: Kopfende hinten (an der Wand), Fußende vorn. Tag `bed_single`: zweites Bett in größeren
+// Schlafzimmern (die Signatur ist das Himmelbett, Tag `canopy_bed`). K3d: Varianten mit Kopfteil (I6).
+{
+  id: "bed/single",
+  kind: "static",
+  name: "Einzelbett",
+  category: "furniture",
+  tags: ["bed", "bed_single"],
+  functionTags: ["sleep"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["H", "F"]],
+  legend: {
+    H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+    F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+  },
+  // K3d (research/16 I6): Kopfteil über dem Kopfende – offene Falltür flach an der Wand bzw. Zauntor. Beide
+  // ersticken nicht (Faktencheck #8, research/16 O6: nur volle Blöcke stören), über dem Fußteil bleibt Luft.
+  variants: [
+    { id: "plain", weight: 3 },
+    {
+      id: "headboard",
+      weight: 2,
+      layers: [["H", "F"], ["T", "_"]],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      id: "gate_headboard",
+      weight: 1,
+      layers: [["H", "F"], ["G", "_"]],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        G: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+      },
+    },
+  ],
+  sockets: [
+    { id: "nightstand_l", type: "adjacent", at: [1, 0, 0], side: "left", accepts: ["nightstand"], prob: 0.7, pairWith: "nightstand_r", facing: "same" },
+    { id: "nightstand_r", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["nightstand"], prob: 0.7, facing: "same" },
+    // W3-IN (I7): Hängelaterne über dem Bett (Vorbilder: 6 von 13 Schlafzimmern), hängt unter der Decke über dem Fußteil
+    { id: "lamp", type: "hang", at: [0, 99, 1], accepts: ["light_pendant"], prob: 0.6 },
+  ],
+  masks: {
+    clearance: [{ side: "left", depth: 1, hard: false }, { side: "right", depth: 1, hard: false }],
+    use: [{ side: "left" }, { side: "right" }],
+  },
+}

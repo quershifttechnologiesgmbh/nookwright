@@ -1,0 +1,31 @@
+// FN-Dense · Waffenmeister-Tisch (Raummitte): Instandsetzungs-Insel mit zwei Schleifsteinen, Schmiedetisch und
+// Laternen (Vorbild: Waffenkammern der Community mit zentralem Arbeitstisch). 5 breit, 2 tief, 3 hoch; Schleifstein = Waffenschmied-, Schmiedetisch =
+// Werkzeugschmied-Arbeitsblock (Faktencheck #7). Symmetrisch in der Breite. Insel-Eintrag von `armory`
+// (Tag `fn_armory_island`).
+{
+  id: "work/fn_armorer_table",
+  kind: "static",
+  name: "Waffenmeister-Tisch",
+  category: "work",
+  tags: ["fn_armory_island"],
+  functionTags: ["craft", "work:weaponsmith", "work:toolsmith"],
+  styleTags: ["medieval", "dwarven"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["P...P", "P...P"], // y0: Beine
+    ["sssss", "sssss"], // y1: Platte
+    ["G.S.G", ".l.l."], // y2: Schleifstein | Schmiedetisch | Schleifstein; Laternen
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    G: { block: "minecraft:grindstone", orient: { front: "front" } },
+    S: { block: "minecraft:smithing_table" },
+    l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

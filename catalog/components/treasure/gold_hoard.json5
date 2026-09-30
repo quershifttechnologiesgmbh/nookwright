@@ -1,0 +1,65 @@
+// K3b · Schatz-Haufen (research/17 §4.23, T1/T3): Gold- und Rohgoldblöcke als Hügel, vorn eine Truhe mit
+// Barren und Smaragden. Über der Truhe bleibt Luft: Gold ist leitfähig und würde eine Truhe darunter
+// blockieren (Faktencheck #2, research/17 §3.4). Kerzen auf dem Gold (Kerze auf vollem Block ✓). Mehr in die
+// Höhe (V3): „heap“ ist ein 3 hoher Hügel. Teuer → survival_rare; „copper“ als günstige Form (Rohkupfer
+// oxidiert nicht, Kupferblock gewachst).
+{
+  id: "treasure/gold_hoard",
+  kind: "static",
+  name: "Schatz-Haufen",
+  category: "decor",
+  tags: ["treasure_pile", "treasure"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival_rare",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "gold",
+      weight: 2,
+      layers: [
+        ["RGR", "GCG"], // y0: Hügel, vorn Truhe
+        [".G.", "c_c"], // y1: Spitze; Kerzen, Luft über der Truhe
+      ],
+      legend: {
+        G: { block: "minecraft:gold_block" },
+        R: { block: "minecraft:raw_gold_block" },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { items: [{ item: "minecraft:gold_ingot", count: [4, 16] }, { item: "minecraft:emerald", count: [1, 6] }] } },
+        c: { block: "minecraft:yellow_candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+    {
+      id: "heap",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["RGR", "GCG"], // y0
+        ["GRG", "c_c"], // y1: Hügel, Luft über der Truhe
+        [".G.", "..."], // y2: Spitze
+      ],
+      legend: {
+        G: { block: "minecraft:gold_block" },
+        R: { block: "minecraft:raw_gold_block" },
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { items: [{ item: "minecraft:gold_ingot", count: [4, 16] }, { item: "minecraft:gold_nugget", count: [8, 32] }] } },
+        c: { block: "minecraft:yellow_candle", state: { candles: "4", lit: "true" } },
+      },
+    },
+    {
+      id: "copper",
+      weight: 1,
+      layers: [
+        ["RGR", "GCG"],
+        [".G.", "c_c"],
+      ],
+      legend: {
+        G: { block: "minecraft:waxed_copper_block" },
+        R: { block: "minecraft:raw_copper_block" },
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        c: { block: "minecraft:orange_candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

@@ -1,0 +1,13 @@
+// Stehendes Fass. V3: Stapel-Socket `above` – Fass auf Fass (Fässer öffnen immer, Faktencheck #2), oben ein
+// Krug; sonst Abstellfläche für Kerzen oder Laterne (stehen auf dem Fass, T5 #3/Laterne). Keine Truhe auf dem
+// stehenden Fass: es hat keine Vorderseite, die Truhe könnte zur Wand schauen (Truhe auf Fass: storage/crate_stack).
+{ id: "storage/barrel_upright", kind: "static", name: "Stehendes Fass", category: "storage",
+  tags: ["barrel", "storage", "stack_on_barrel"], functionTags: ["store"], obtainability: "survival",
+  mount: "floor", rotations: [0],
+  layers: [["B"]], legend: { B: { block: "minecraft:barrel", orient: { front: "up" } } },
+  sockets: [
+    { id: "stack", type: "above", at: [0, 1, 0], accepts: ["stack_on_barrel"], prob: 0.5 },
+    { id: "pot", type: "above", at: [0, 1, 0], accepts: ["stack_top"], prob: 0.25 },
+    { id: "top", type: "surface", at: [0, 1, 0], accepts: ["candles", "light_small"], prob: 0.3 },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }, { side: "left" }, { side: "right" }] } }

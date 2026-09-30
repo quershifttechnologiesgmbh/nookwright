@@ -1,0 +1,26 @@
+// I52 · Spielesammlung (research/52 §Möbel, Spielzimmer): Regalbrett mit gestapelten „Spielschachteln“
+// (farbige Wollblöcke) und einem Schachbrett-Muster obenauf — ergänzt game_room/game_table um ein
+// Aufbewahrungsmöbel für die Sammlung.
+{
+  id: "storage/board_game_shelf",
+  kind: "static",
+  name: "Spielesammlung",
+  category: "storage",
+  tags: ["board_game_shelf"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["UUU"], // y0: Unterschrank
+    ["RgB"], // y1: Spielschachteln (rot, grün, blau)
+  ],
+  legend: {
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    R: { block: "minecraft:red_wool" },
+    g: { block: "minecraft:green_wool" },
+    B: { block: "minecraft:blue_wool" },
+  },
+  sockets: [{ id: "top", type: "surface", at: [1, 2, 0], accepts: ["tabletop_small", "candles"], prob: 0.3 }],
+}

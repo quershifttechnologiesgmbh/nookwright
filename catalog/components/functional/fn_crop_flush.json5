@@ -1,0 +1,444 @@
+// Halbautomatische Spülfeld-Farm (Welle FN): Bahnen à 3 Felder breit, 4 Reihen tief. Ein Hebel öffnet das Wassertor
+// (ausgefahrener Kolben = Tor zu): Wasser strömt über die Pflanzen (Wasser bricht Feldfrüchte), die Ernte treibt zur
+// Trichterreihe vorn und landet im Fass. Danach Hebel wieder AN, Tor fährt zu, Wasser läuft ab; neu säen.
+// Mechanik (minecraft.wiki: Water, Farmland, Piston, Hopper, Tutorial:Crop_farming):
+//  - Wasserquelle S (y1) liegt hinter dem Tor G; das Tor ist der Kopf eines ausgefahrenen Kolbens (Kolben senkrecht darüber) → ohne Öffnung kein Fluss.
+//  - Fließwasser trägt 7 Blöcke weit (Quelle = 0, Tor = 1, ...): letzte Zelle in der Trichterreihe = Stufe 6, seitlich 7. OK.
+//  - Ackerland: waterlogged Laterne auf Ackerland-Höhe in der Bahnmitte (Wasser Reichweite 4 + Licht), plus Quelle S (y1).
+//    Licht an der Pflanze = 14 − Manhattan-Abstand zur Laterne ≥ 11 (Wachstum ≥ 9). Quellen liegen nie auf Pflanzenhöhe im Feld.
+//  - Trichter liegen unter der Wasserzelle (y1): sie sammeln Items im Block darüber; die Kette läuft nach +x (links) ins Fass.
+//  - Halbe Platten am Rand halten das Wasser (Blockzelle ist nicht ersetzbar), die Fassspitze bleibt zugänglich.
+// Ruhezustand im Export: Hebel AN (powered), Kolben ausgefahren + Kolbenkopf (wie bookshelf_door), Ackerland moisture 7,
+// Pflanzen ausgewachsen. In geschlossenen Räumen strict platzieren (Pflanzen verschwinden sonst beim Platzieren).
+// Freistehend als Insel (Zugang vorn und hinten), Höhe 3. Größen: 1 Bahn (5 breit) oder 2 Bahnen (9 breit), je 9 tief; größere Hallen setzen mehrere Stücke.
+{
+  id: "functional/fn_crop_flush",
+  kind: "static",
+  name: "Spülfeld-Farm",
+  category: "work",
+  tags: ["fn_crop_flush", "fn_crop", "fn_farm_machine"],
+  functionTags: ["farm:crops", "automation", "hopper", "light"],
+  styleTags: ["rustic", "medieval", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_wheat",
+      weight: 9,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:wheat", state: { age: "7" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "s_carrots",
+      weight: 6,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:carrots", state: { age: "7" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "s_potatoes",
+      weight: 6,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:potatoes", state: { age: "7" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "s_beetroots",
+      weight: 3,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:beetroots", state: { age: "3" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_wheat",
+      weight: 6,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:wheat", state: { age: "7" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_carrots",
+      weight: 4,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:carrots", state: { age: "7" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_potatoes",
+      weight: 4,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:potatoes", state: { age: "7" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_beetroots",
+      weight: 2,
+      layers: [
+        [ // y0: Boden: Ackerland, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:beetroots", state: { age: "3" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

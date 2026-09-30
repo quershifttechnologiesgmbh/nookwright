@@ -1,0 +1,37 @@
+// W12-C · Heubalken (Review R6-4): Balken unter dem First, der 2 Blöcke aus dem Scheunengiebel ragt (Aufzugsbalken
+// unter der „hay hood“, en.wikipedia.org/wiki/Hay_hood: Vordach am First über der Heuluke, darin Balken und Rolle).
+// Am äußeren Ende hängt eine Kette mit Laterne (hängend unter dem Stamm: volle Unterseite, Faktencheck #3); ohne Platz
+// dafür nur der Balken. Achse quer zur Wand.
+//
+//   Schnitt (Wand links)   y2  B B     (B = Balken, Stamm quer)
+//                          y1  . C     (C = Kette)
+//                          y0  . L     (L = Laterne, hängend)
+{
+  id: "exterior/hay_hood",
+  kind: "static",
+  name: "Heubalken",
+  category: "architecture",
+  tags: ["exterior", "exterior_barn", "outdoor"],
+  styleTags: ["rustic", "farmstead", "medieval"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  light: "auto",
+  variants: [
+    {
+      id: "hood",
+      weight: 1,
+      layers: [[".", "L"], [".", "C"], ["B", "B"]],
+      legend: {
+        B: { role: "beam", shape: "log", orient: { axis: "across" } },
+        C: { role: "light_hanging", shape: "chain", orient: { axis: "y" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+      },
+    },
+    {
+      id: "beam",
+      layers: [["B", "B"]],
+      legend: { B: { role: "beam", shape: "log", orient: { axis: "across" } } },
+    },
+  ],
+}

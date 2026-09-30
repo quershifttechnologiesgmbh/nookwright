@@ -1,0 +1,51 @@
+// K3d · Feuerbecken (research/11 R-3; TH2/TH3/TH5 Thronsaal, D3 Kerker): Lagerfeuer auf einem Mauer-Pfosten
+// (brennt auch auf einer Mauer, keine Stützregel; entzündet keine Nachbarn – T5 #13). Das Feuer sitzt über
+// Laufhöhe (Pfosten davor ist nicht begehbar), also nie im Laufweg (research/11 R4). Mauer aus der Theme-Rolle
+// `hearth`. „soul“: Seelenfeuer (Licht 10, Kerker/Gruft). „column“: Feuerschale auf hoher Säule – das Feuer
+// brennt über Kopfhöhe (ab lichter Höhe 4, V3 „mehr in die Höhe“).
+// Tag `brazier` (bewusst NICHT `light_floor`: der Licht-Pass anderer Räume – z. B. Innenfarm – soll keine
+// offenen Feuer setzen); Thronsaal und Kerker nennen `brazier` in `lighting.prefer`.
+{
+  id: "light/brazier",
+  kind: "static",
+  name: "Feuerbecken",
+  category: "light",
+  tags: ["brazier", "fire_feature", "light"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble", "grim"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "fire",
+      weight: 3,
+      layers: [["W"], ["F"]],
+      legend: {
+        W: { role: "hearth", shape: "wall" },
+        F: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "soul",
+      weight: 1,
+      layers: [["W"], ["F"]],
+      legend: {
+        W: { role: "hearth", shape: "wall" },
+        F: { block: "minecraft:soul_campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "column",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["W"], ["W"], ["F"]],
+      legend: {
+        W: { role: "hearth", shape: "wall" },
+        F: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: false }] },
+  light: "auto",
+}

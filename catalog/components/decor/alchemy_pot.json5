@@ -1,0 +1,11 @@
+// Alchemie-Töpfe (research/11 A-5): Pilze und Pilzgewächse im Topf. Töpfe brauchen keine Stütze.
+// Eigener Tag `alchemy_small` statt `plant`, damit keine Pilze in Schlafzimmer-Sockets landen.
+{ id: "decor/alchemy_pot", kind: "static", name: "Alchemie-Topf", category: "decor",
+  tags: ["alchemy_small", "plant_alchemy"], styleTags: ["arcane"], obtainability: "survival",
+  mount: "surface", rotations: [0],
+  variants: [
+    { id: "red_mushroom", weight: 2, layers: [["P"]], legend: { P: { block: "minecraft:potted_red_mushroom" } } },
+    { id: "brown_mushroom", weight: 2, layers: [["P"]], legend: { P: { block: "minecraft:potted_brown_mushroom" } } },
+    { id: "crimson_fungus", weight: 1, layers: [["P"]], legend: { P: { block: "minecraft:potted_crimson_fungus" } } },
+    { id: "dead_bush", weight: 1, layers: [["P"]], legend: { P: { block: "minecraft:potted_dead_bush" } } },
+  ] }

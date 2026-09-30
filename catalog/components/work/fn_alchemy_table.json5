@@ -1,0 +1,33 @@
+// FN-Dense · Alchemietisch (Raummitte): frei stehender Labortisch mit zwei Braustäben, Wasserkessel, Kerzen und
+// Pilztopf (Vorbild: Alchemistenlabore der Community mit zentralem Arbeitstisch statt reiner Wandreihen).
+// 5 breit, 2 tief, 3 hoch. Tischplatte aus umgedrehten Halbstufen (obere Hälfte, Auflagefläche bündig), Beine aus
+// Stamm-Pfosten an den Ecken; Braustand/Kessel/Kerzen brauchen nur die Auflagefläche. Braustand = Geistlicher-
+// Arbeitsblock (Faktencheck #7). Symmetrisch in der Breite. Insel-Eintrag von `alchemy` (Tag `fn_alchemy_island`).
+{
+  id: "work/fn_alchemy_table",
+  kind: "static",
+  name: "Alchemietisch",
+  category: "work",
+  tags: ["fn_alchemy_island"],
+  functionTags: ["brew", "work:cleric"],
+  styleTags: ["medieval", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["P...P", "P...P"], // y0: Beine
+    ["sssss", "sssss"], // y1: Platte
+    ["B.K.B", ".c.m."], // y2: Braustand | Kessel | Braustand; Kerzen und Pilztopf
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    B: { block: "minecraft:brewing_stand" },
+    K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+    c: { block: "minecraft:red_candle", state: { candles: "2", lit: "false" } },
+    m: { block: "minecraft:potted_red_mushroom" },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

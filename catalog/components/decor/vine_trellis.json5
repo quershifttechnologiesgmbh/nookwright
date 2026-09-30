@@ -1,0 +1,47 @@
+// research/57 · Gewächshaus: Rankgitter (Nebenobjekt, ergänzt decor/leaf_planter/planter_trough um eine hohe,
+// wandnahe Form statt Kübel). Tag `plant_large` steht in greenhouse.json5 im optionalen Eintrag
+// `{ tags: ["plant_large"], count: [1, 3] }`. Zaun-Gitter mit Laub (persistent, volle Blöcke – echte
+// Wandranken wie `vine`/`glow_lichen` fehlen bewusst, ihre Wand-Stützregel kennt die Physik noch nicht,
+// siehe decor/wall_planter). Wächst mit der Raumhöhe.
+{
+  id: "decor/vine_trellis",
+  kind: "static",
+  name: "Rankgitter",
+  category: "decor",
+  tags: ["vine_trellis"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "leafy",
+      weight: 3,
+      layers: [["F"], ["L"], ["L"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        L: { block: "minecraft:flowering_azalea_leaves", state: { persistent: "true" } },
+      },
+    },
+    {
+      id: "tall",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["F"], ["L"], ["L"], ["L"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        L: { block: "minecraft:azalea_leaves", state: { persistent: "true" } },
+      },
+    },
+    {
+      id: "berry_climb",
+      weight: 1,
+      layers: [["F"], ["L"], ["B"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        L: { block: "minecraft:azalea_leaves", state: { persistent: "true" } },
+        B: { block: "minecraft:sweet_berry_bush", state: { age: "3" } },
+      },
+    },
+  ],
+}

@@ -1,0 +1,60 @@
+// Schmelz-Esse (FN, Welle 28.09.2026): gemauerte Haube mit sichtbarer Glut (Hochofen, lit) und Schlot bis unter die Decke.
+// Verkleidung der Schmelzhalle: gibt der Anlage einen Mittelpunkt und Wärmelicht (Glut = Licht 13), ist selbst nur Deko
+// (keine Trichter, keine Mechanik). Der Schlot wächst mit der Raumhöhe (`stretch`, `ceiling`); ab Höhe 4.
+// Mauerwerk über die Rollen `hearth` (Pfeiler) und `hearth_alt` (Bänder), Haubenkante über `wall_cornice`.
+// Kein Rauch: der Schlot ist Baukörper, kein Lagerfeuer (smokeFree bleibt unberührt).
+{
+  id: "functional/fn_smelt_stack",
+  kind: "static",
+  name: "Schmelz-Esse mit Schlot",
+  category: "work",
+  tags: ["fn_smelt", "fn_smelt_stack"],
+  functionTags: ["light"],
+  styleTags: ["workshop", "dwarven", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  light: "auto",
+  variants: [
+    {
+      // Hochofen unter der Haube, Gitter als Funkenschutz daneben
+      id: "blast_hood",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["PPP", "AFA"], // y0: Wangen und Hochofen (Glut sichtbar)
+        ["PPP", "PtP"], // y1: über der Glut ein Gitter, Wangen
+        ["PPP", "UUU"], // y2: Sturz + Haubenkante
+        [".P.", "..."], // y3: Schlot
+      ],
+      legend: {
+        P: { role: "hearth", shape: "block" },
+        A: { role: "hearth_alt", shape: "block" },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" }, state: { lit: "true" } },
+        t: { role: "metal", shape: "bars" },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      stretch: { layer: 3, max: 12, fill: "ceiling" },
+    },
+    {
+      // Räucherofen (Ziegel/Holz), offene Glut darunter: Nahrungsseite der Halle
+      id: "smoker_hood",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["PPP", "AFA"],
+        ["PPP", "P_P"],
+        ["PPP", "UUU"],
+        [".P.", "..."],
+      ],
+      legend: {
+        P: { role: "hearth_alt", shape: "block" },
+        A: { role: "hearth", shape: "block" },
+        F: { block: "minecraft:smoker", orient: { front: "front" }, state: { lit: "true" } },
+        U: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      stretch: { layer: 3, max: 12, fill: "ceiling" },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

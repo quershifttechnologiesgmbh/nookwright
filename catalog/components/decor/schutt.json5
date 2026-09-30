@@ -1,0 +1,54 @@
+// Welle D · D3 (research/24 §7.0, T7 `ruin`): Schutt – herabgefallenes Mauerwerk am Boden, wie es die Ruine
+// als `ground_cover`-Ersatz braucht (research/24 §7.7 „Schutt statt Ordnung“). Kies liegt nur in der Grundschicht
+// und trägt nichts (kein Schwerkraftblock als Stütze); die obere Lage steht auf einem Vollblock. Die Variante
+// „weeds“ legt eine eigene Erdezelle an – Bodenpflanzen brauchen Erde/Gras unter sich, nicht den Raumboden.
+{
+  id: "decor/schutt",
+  kind: "static",
+  name: "Schutt",
+  category: "decor",
+  tags: ["schutt", "rubble", "debris", "outdoor"],
+  styleTags: ["ruin", "abandoned"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "pile",
+      weight: 3,
+      layers: [
+        ["gFg", "FgF"], // y0: Kies und Bruchstein
+        ["...", "F.."], // y1: ein Brocken obenauf
+      ],
+      legend: {
+        g: { block: "minecraft:gravel" },
+        F: { role: "foundation", shape: "block" },
+      },
+    },
+    {
+      id: "spread",
+      weight: 2,
+      layers: [
+        ["gFgF", "FgFg"], // y0: flächig verteilt
+      ],
+      legend: {
+        g: { block: "minecraft:gravel" },
+        F: { role: "foundation", shape: "block" },
+      },
+    },
+    {
+      id: "weeds",
+      weight: 2,
+      layers: [
+        ["FgF", "gDg"], // y0: Erde zwischen dem Schutt
+        ["...", ".t."], // y1: Unkraut auf der Erde
+      ],
+      legend: {
+        F: { role: "foundation", shape: "block" },
+        g: { block: "minecraft:gravel" },
+        D: { block: "minecraft:coarse_dirt" },
+        t: { role: "grass_tuft", shape: "block" },
+      },
+    },
+  ],
+}

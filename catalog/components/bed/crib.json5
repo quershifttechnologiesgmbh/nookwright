@@ -1,0 +1,65 @@
+// K3a · Gitterbett (research/17 §4.7, N1/N2/N4): echtes Bett (Spawnpunkt), links und rechts offene Falltüren als
+// Gitter. Konvention (materialize/orient.ts, seat/settle): eine offene Falltür liegt an der Seite GEGENÜBER ihrer
+// Blickrichtung → links außen (x = 0) Blick nach „right“, rechts außen Blick nach „left“: beide Paneele liegen am
+// Bett an (der Entwurf in research/17 hatte die Seiten vertauscht). Kopf an der Wand, Fußende offen: dort liegt die
+// Aufwachposition (FC #8), über dem Bett bleibt Luft. Pastellfarben fest (ERW X7 roleOverrides stehen aus).
+// Kompaktform „cradle“ (1 × 3): Bett mit Falltür-Fußbrett – passt an jedes Wandstück von 1 Zelle.
+// Bewusst ohne die Tags `bed`/`bed_single` (research/17 §7.2): Schlafzimmer und Kaserne ziehen es nicht.
+{
+  id: "bed/crib",
+  kind: "static",
+  name: "Gitterbett",
+  category: "furniture",
+  tags: ["crib", "child_bed"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "rails_blue",
+      weight: 2,
+      layers: [
+        ["LHR", "LFR", "___"], // y0: Gitter | Bett (Kopf hinten, Fuß vorn) | Gitter; vorn frei
+        ["._.", "._.", "..."], // y1: Luft über dem Bett
+      ],
+      legend: {
+        L: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        R: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        H: { block: "minecraft:light_blue_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:light_blue_bed", orient: { part: "foot", back: "back" } },
+      },
+    },
+    {
+      id: "rails_pink",
+      weight: 2,
+      layers: [
+        ["LHR", "LFR", "___"],
+        ["._.", "._.", "..."],
+      ],
+      legend: {
+        L: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        R: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        H: { block: "minecraft:pink_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:pink_bed", orient: { part: "foot", back: "back" } },
+      },
+    },
+    {
+      // Kompaktform: Wiege mit Fußbrett (Paneel am Fußende)
+      id: "cradle",
+      weight: 1,
+      layers: [
+        ["H", "F", "T"],
+        ["_", "_", "."],
+      ],
+      legend: {
+        H: { block: "minecraft:yellow_bed", orient: { part: "head", back: "back" } },
+        F: { block: "minecraft:yellow_bed", orient: { part: "foot", back: "back" } },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+      masks: { use: [{ side: "left" }, { side: "right" }] },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

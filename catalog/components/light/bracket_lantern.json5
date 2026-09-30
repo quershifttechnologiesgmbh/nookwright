@@ -1,0 +1,23 @@
+// K2 · Konsolenlaterne (DA Lights: Wall Lights): geschlossene untere Falltür als Wandkonsole, darunter die
+// hängende Laterne. T5: Laternen halten unter unterer Falltür (nicht unter oberer Stufe/oberer Falltür).
+// Laterne in Kopfhöhe → nicht durchlaufbar. Lichte Höhe ≥ 3.
+{
+  id: "light/bracket_lantern",
+  kind: "static",
+  name: "Konsolenlaterne",
+  category: "light",
+  tags: ["light", "light_wall"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  layers: [["L"], ["T"]],
+  legend: {
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+    T: { role: "beam", shape: "trapdoor", orient: { front: "front", upsideDown: false, open: false } },
+  },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

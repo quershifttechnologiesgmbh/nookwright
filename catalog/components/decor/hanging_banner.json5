@@ -1,0 +1,26 @@
+// V3 · Deckenbanner (research/10 §2.2/§6: Banner als Behang; Nutzer-Wunsch „Decke nutzen“): Wandbanner an
+// einem Zaun-Stummel unter der Decke (Banner halten an Zäunen, In-Game T5 #2). Das Tuch hängt optisch einen
+// Block tiefer → darunter bleibt Luft ('_'). In hohen Räumen wächst die Fahne nach unten (`stretch`, `drop`):
+// Zaun-Säule mit Bannern übereinander, unteres Ende etwa auf halber Raumhöhe, nie unter Boden + 2. Ab
+// lichter Höhe 4.
+{
+  id: "decor/hanging_banner",
+  kind: "static",
+  name: "Deckenbanner",
+  category: "decor",
+  tags: ["decor_ceiling", "ceiling_banner"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: "all",
+  minRoomHeight: 4,
+  layers: [
+    [".", "_"], // y0: Luft unter dem Tuch
+    ["F", "V"], // y1: Zaun unter der Decke, Banner davor (Rücken am Zaun)
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+  },
+  stretch: { layer: 1, max: 6, fill: "drop" },
+}

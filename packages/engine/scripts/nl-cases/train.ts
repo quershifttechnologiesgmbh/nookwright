@@ -1,0 +1,53 @@
+/**
+ * Trainingsteil (44 Prompts, handgeschrieben am 2026-09-25): realistische Bitten DE/EN mit Umgangssprache, Tippfehlern,
+ * Widersprüchen, Nebensätzen, Negationen, Zahlwörtern und mehreren Stilangaben. Nicht aus den Wortlisten des lokalen
+ * Klassifikators erzeugt. An diesem Teil wird optimiert; die maßgebliche Zahl liefert der Holdout (`holdout.ts`).
+ */
+import type { NlCase } from './types.js';
+
+export const TRAIN: readonly NlCase[] = [
+  { prompt: 'hätte gern ne kleine taverne am see, eingang richtung süden', want: { buildingTypeId: 'tavern', size: 'S', front: 'south', setting: { kind: 'water' } } },
+  { prompt: 'Baue eine Burg im Wüstenstiel', want: { buildingTypeId: 'castle_compact', themeId: 'desert' } },
+  { prompt: 'zwergische festung, in den berg gehauen', want: { buildingTypeId: 'castle_compact', themeId: 'dwarven', setting: { kind: 'carved' } } },
+  { prompt: 'elven treehouse', want: { themeId: 'elven', setting: { kind: 'tree' } } },
+  { prompt: 'Ein Bauernhaus mit Krüppelwalmdach und drei Stockwerken', want: { buildingTypeId: 'farmhouse', shell: { roof: 'half_hip' }, floors: 3 } },
+  { prompt: 'tiny hobbit hole with a round door facing west, no decorations', want: { buildingTypeId: 'hobbit', size: 'S', front: 'west', exterior: { enabled: false } } },
+  { prompt: 'Stadthaus, Fachwerk, 4 Etagen, Mansarddach', want: { buildingTypeId: 'townhouse', themeId: 'timber', floors: 4, shell: { roof: 'mansard' } } },
+  { prompt: 'Wachturm am Hang, als Ruine', want: { buildingTypeId: 'watchtower', setting: { kind: 'cliff' }, themeId: 'ruin' } },
+  { prompt: 'a big viking longhouse covered in winter snow', want: { buildingTypeId: 'longhouse', size: 'L', themeId: 'winter' } },
+  { prompt: 'Haus auf Stelzen an der Küste', want: { buildingTypeId: 'house', setting: { kind: 'stilts' }, themeId: 'harbor' } },
+  { prompt: 'ich will ein haus ohne garten und ohne deko, einfach nur schlicht', want: { buildingTypeId: 'house', surroundings: false, exterior: { enabled: false } } },
+  { prompt: 'Gasthaus mit Walmdach, nicht zu groß', want: { buildingTypeId: 'tavern', shell: { roof: 'hip' } }, not: { size: 'L' } },
+  { prompt: 'mittelgroßes Bauernhaus, tropisch', want: { buildingTypeId: 'farmhouse', size: 'M', themeId: 'tropical' } },
+  { prompt: 'Burg, aber bitte nicht mittelalterlich sondern nordisch', want: { buildingTypeId: 'castle_compact', themeId: 'nordic' }, not: { themeId: 'medieval' } },
+  { prompt: 'zweistöckiges Haus mit Satteldach als litematic', want: { buildingTypeId: 'twostory', shell: { roof: 'gable' }, format: 'litematic' } },
+  { prompt: 'Fachwerkhaus mit steilem Dach, Eingang Norden', want: { buildingTypeId: 'timber', shell: { roofDetail: { pitch: 'steep' } }, front: 'north' } },
+  { prompt: 'hobbithöle (sorry tippfehler) mit garten', want: { buildingTypeId: 'hobbit' }, not: { surroundings: false } },
+  { prompt: 'eine tavrne mit fünf etagen', want: { buildingTypeId: 'tavern', floors: 5 } },
+  { prompt: 'Reihenhaus-Zeile in der Stadt', want: { buildingTypeId: 'townhouse' } }, // W7-L: Entwurf townhouse_row nicht angeboten
+  { prompt: 'große halle für feste', want: { buildingTypeId: 'hall' } },
+  { prompt: 'Wüstenhaus mit Flachdach, export als strukturblock', want: { buildingTypeId: 'house', themeId: 'desert', shell: { roof: 'flat' }, format: 'nbt' } },
+  { prompt: 'nordisches Langhaus, ohne Fenster', want: { buildingTypeId: 'longhouse', themeId: 'nordic', shell: { windows: { enabled: false } } } },
+  { prompt: 'Build a medium sized farmhouse with a gambrel roof', want: { buildingTypeId: 'farmhouse', size: 'M', shell: { roof: 'gambrel' } } },
+  { prompt: 'small watchtower, three floors, rustic look', want: { buildingTypeId: 'watchtower', size: 'S', floors: 3, themeId: 'rustic' } },
+  { prompt: 'Haus unter Wasser', want: { buildingTypeId: 'house', setting: { kind: 'underwater' } } },
+  { prompt: 'Stadthaus im elbischen Stil mit Pultdach', want: { buildingTypeId: 'townhouse', themeId: 'elven', shell: { roof: 'shed' } } },
+  { prompt: 'ich brauche was für meinen server: eine große mittelalterliche burg mit viel deko', want: { buildingTypeId: 'castle_compact', size: 'L', themeId: 'medieval', exterior: { density: 2 } } },
+  { prompt: 'ein kleines haus. zwei stockwerke. nach osten.', want: { floors: 2, front: 'east' } },
+  { prompt: 'Winterhütte im Schnee mit steilem Dach', want: { buildingTypeId: 'house', themeId: 'winter', shell: { roofDetail: { pitch: 'steep' } } } },
+  { prompt: 'Bauernhof im Tropenstil', want: { buildingTypeId: 'farmhouse', themeId: 'tropical' } },
+  { prompt: 'Hütte am Wasser, Küstenstil, Eingang zum Meer im Westen', want: { buildingTypeId: 'house', themeId: 'harbor', setting: { kind: 'water' }, front: 'west' } },
+  { prompt: 'castle facing south, schematic please', want: { buildingTypeId: 'castle_compact', front: 'south', format: 'schem' } },
+  { prompt: 'Wachturm, Mittelalter, für Version 26.3', want: { buildingTypeId: 'watchtower', themeId: 'medieval', targetVersion: '26.3' } },
+  { prompt: 'Taverne ohne Umgebung, üppig dekoriert', want: { buildingTypeId: 'tavern', surroundings: false, exterior: { density: 2 } } },
+  { prompt: 'kein Fachwerk, sondern ein rustikales Bauernhaus', want: { buildingTypeId: 'farmhouse', themeId: 'rustic' }, not: { themeId: 'timber' } },
+  { prompt: 'Langhaus, klein, Satteldach, Eingang Süden', want: { buildingTypeId: 'longhouse', size: 'S', shell: { roof: 'gable' }, front: 'south' } },
+  { prompt: 'dwarf house carved into the rock', want: { buildingTypeId: 'house', themeId: 'dwarven', setting: { kind: 'carved' } } },
+  { prompt: 'Erdhaus, Eingang nach Norden', want: { buildingTypeId: 'hobbit', front: 'north' } },
+  { prompt: 'zwei Etagen, Walmdach, rustikal – also ein ganz normales Haus', want: { floors: 2, shell: { roof: 'hip' }, themeId: 'rustic' } },
+  { prompt: 'Stadthaus mit Schleppgauben', want: { buildingTypeId: 'townhouse', shell: { dormers: { kind: 'shed' } } } },
+  { prompt: 'Ruine eines Wachturms', want: { buildingTypeId: 'watchtower', themeId: 'ruin' } },
+  { prompt: 'Burg, die ohne Mauer und Garten auskommt', want: { buildingTypeId: 'castle_compact', surroundings: false } },
+  { prompt: 'a spooky ruined castle', want: { buildingTypeId: 'castle_compact', themeId: 'ruin' } },
+  { prompt: 'Bauernhaus mit flachem Dach? nee, doch lieber Satteldach', want: { buildingTypeId: 'farmhouse', shell: { roof: 'gable' } }, not: { shell: { roof: 'flat' } } },
+];

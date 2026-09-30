@@ -1,0 +1,42 @@
+// K2 · Rüstungswand (Ersatz für den Rüstungsständer, DA Utility: Armour): Sockel aus unterer Stufe, darüber
+// Brustpanzer und Helm in Rahmen an der Raumwand. Boden-Montage mit Rücken zur Wand (Wand hinter der
+// Spalte geprüft). Lichte Höhe ≥ 3. Echte Rüstungsständer (Entity) sind ein Wunsch an materialize.
+{
+  id: "decor/armor_display",
+  kind: "static",
+  name: "Rüstungswand",
+  category: "decor",
+  tags: ["armor_display", "wall_weapons"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["P"], ["_"], ["_"]],
+  legend: { P: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } } },
+  variants: [
+    {
+      id: "iron",
+      weight: 3,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:iron_chestplate" } },
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:iron_helmet" } },
+      ],
+    },
+    {
+      id: "chain",
+      weight: 1,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:chainmail_chestplate" } },
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:chainmail_helmet" } },
+      ],
+    },
+    {
+      id: "leather",
+      weight: 2,
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:leather_chestplate" } },
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:leather_helmet" } },
+      ],
+    },
+  ],
+}

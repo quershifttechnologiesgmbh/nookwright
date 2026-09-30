@@ -1,0 +1,27 @@
+// Regal-Ring als Theke (research/11 §3.6 E-2): frei stehend, 1 Block hohe Regale im 5×5-Ring um den
+// Zaubertisch, eine Öffnung vorn → genau 15 Regale (Faktencheck #1: Höchstwert). Oben eine Ablage aus
+// unteren Stufen (zählt nicht, stört nicht). Der innere Ring bleibt auf dy 0 und +1 Luft ('_'): kein Teppich,
+// keine Kerze. Braucht keine Wand → auch in Räumen mit vielen Fenstern; ringsum hält der Solver den Weg frei.
+{
+  id: "work/enchanting_ring",
+  kind: "static",
+  name: "Regal-Ring mit Zaubertisch",
+  category: "work",
+  tags: ["enchanting_station", "enchanting_ring"],
+  functionTags: ["enchant", "light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["BBBBB", "B___B", "B_E_B", "B___B", "BB_BB"], // y0: Ring, Öffnung vorn Mitte
+    ["SSSSS", "S___S", "S___S", "S___S", "SS_SS"], // y1: Ablage (untere Stufen), innen Luft
+  ],
+  legend: {
+    B: { block: "minecraft:bookshelf" },
+    E: { block: "minecraft:enchanting_table" },
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+  },
+  masks: { clearance: [{ side: "all", depth: 1, hard: false }] },
+  light: "auto",
+}

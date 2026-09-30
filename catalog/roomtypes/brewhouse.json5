@@ -1,0 +1,28 @@
+// Brauhaus (K3b, research/17 §4.19). Signatur: Braubottich mit Würze (Honig liegt im Bottich, nie im Laufweg);
+// Kompaktform: Braukessel über Feuer (Tag `brew_kettle`). Nicht verwechseln mit `alchemy` (Tränke). Fasswand
+// gegenüber, Säcke an der Tür, optional ein kleiner Ausschank türnah. Fässer = Lager + Fischer-Arbeitsblock.
+// Mehr in die Höhe (V3): Stückfass mit gestapelten Fässchen, Fässer/Kisten gestapelt, Hopfen von der Decke.
+{
+  id: "brewhouse",
+  name: "Brauhaus",
+  minArea: 16,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["brew_vat", "brew_kettle"], count: [1, 2], signature: true, placement: { zones: ["center", "edge"] } },
+  ],
+  optional: [
+    // FN-Dense: Gärbock in der Raummitte (Insel)
+    { tags: ["fn_brew_island"], count: [1, 1], weight: 5, placement: { zones: ["center"] }, island: true },
+    { tags: ["brew_kettle"], count: [0, 1], weight: 4, placement: { zones: ["corner", "edge"] } },
+    { tags: ["cask_big"], count: [0, 2], weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["storage_wall", "barrel"], count: [1, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["goods"], count: [1, 2], weight: 3, placement: { zones: ["corner"], doorAffinity: "near" } },
+    { tags: ["plant_hanging"], count: [1, 3], weight: 3 },
+    { tags: ["bar_counter"], count: [0, 1], weight: 1, placement: { zones: ["edge"], doorAffinity: "near" } },
+    { tags: ["chest"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["light_ceiling"], count: [1, 3], weight: 3 },
+    // V3 (Raumhöhe nutzen): Fässer/Kisten gestapelt
+    { tags: ["barrel_stack", "crate_stack"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+  ],
+  lighting: { minLevel: 7, prefer: ["light_ceiling", "light_wall"] },
+}

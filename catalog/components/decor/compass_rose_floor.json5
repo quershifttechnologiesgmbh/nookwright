@@ -1,0 +1,32 @@
+// research/57 · Kartenraum: Kompassrose als Bodenmosaik (Nebenobjekt, ergänzt decor/floor_map um ein
+// kreisförmiges statt kontinent-förmiges Muster). Tag `floor_map` steht in map_room.json5 im Pflicht-Eintrag
+// `{ tags: ["floor_map", "wall_map"] }` und im optionalen Eintrag `{ tags: ["floor_map"] }`. Begehbar (Teppich).
+{
+  id: "decor/compass_rose_floor",
+  kind: "static",
+  name: "Kompassrose-Boden",
+  category: "overlay",
+  tags: ["floor_map"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "star",
+      weight: 3,
+      layers: [["n.y.n", ".nyn.", "yyyyy", ".nyn.", "n.y.n"]],
+      legend: {
+        n: { role: "textile_neutral", shape: "carpet" },
+        y: { block: "minecraft:yellow_carpet" },
+      },
+    },
+    {
+      id: "small",
+      weight: 2,
+      layers: [[".y.", "yyy", ".y."]],
+      legend: { y: { block: "minecraft:yellow_carpet" } },
+    },
+  ],
+}

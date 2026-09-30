@@ -1,0 +1,25 @@
+// Waldrand: dichter Nadelwald um die Lichtung, Farn und Laubstreu am Boden.
+{
+  id: "forest",
+  name: "Waldrand",
+  description: "Dichter Baumbestand mit Fichten, Farn und Laubstreu, wenige Blumen",
+  // Q3: freie Landschaft – Waldkante mit eigenen Bäumen (L3: Baumanteil hoch, Blumen fast keine)
+  // W2 (26.09.2026, Baustandard G1): Streu stark reduziert und ohne tote Bäume – vorher 0,70 mit tree_dead; der Wald
+  // wirkt über die dichte Baumkante (vegetation.trees), nicht über liegende Streu-Objekte
+  landscape: { density: 0.2, tags: ["meadow", "garden"], only: ["outdoor/shrub_wall"], prefer: ["shrub"] },
+  relief: { amplitude: 3, scale: 24, octaves: 3, gain: 0.55 },
+  soil: { depth: 3 },
+  // Wegbeleuchtung (research/37/38): Laterne am Hauptweg alle 8 Blöcke; vorher stand der Weg 29–43 Blöcke dunkel
+  lighting: { mode: "paths", every: { main: 8, side: 12 } },
+  foundation: { pad: 1, blend: 6 },
+  paths: { width: 1 },
+  vegetation: {
+    // Echte Waldkante: engere Stämme, kaum Lücken (threshold niedrig), Nadelholz führt
+    trees: { spacing: 4, density: 1, threshold: 0.05, species: { spruce: 65, oak: 20, birch: 15 } },
+    bushes: { spacing: 4, density: 0.6, threshold: 0.2, foundation: 0.6 },
+    ground: { spacing: 1, density: 0.6, threshold: 0.45, flowers: 0.05, carpet: 0.35,
+      // Q3: Moos-/Farnflecken mit dichtem Kern statt Zellkonfetti (research/51 §4)
+      clusters: { spacing: 5, radius: [1, 3], core: 0.85, edge: 0.2 } },
+    keepFree: [{ along: "path", distance: 1 }, { around: "door", distance: 2 }],
+  },
+}

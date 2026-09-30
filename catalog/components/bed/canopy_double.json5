@@ -1,0 +1,63 @@
+// Himmelbett für zwei (research/10 §7.1): zwei Betten nebeneinander zwischen vier Pfosten.
+// Luft über den Betten (Faktencheck #8), lichte Höhe ≥ 3, braucht 4 Zellen feste Wand hinter dem Kopfende.
+{
+  id: "bed/canopy_double",
+  kind: "static",
+  name: "Himmelbett (doppelt)",
+  category: "furniture",
+  tags: ["bed", "canopy_bed", "bed_double"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "log_slab",
+      weight: 3,
+      stretch: { layer: 1, max: 2, fill: "ceiling" }, // V3: Pfosten bis zur Decke (höchstens 5 hoch)
+      layers: [
+        ["PHHP", "PFFP"],
+        ["P__P", "P__P"],
+        ["TTTT", "TTTT"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      // Vorhänge an den Fußpfosten (B1/B2/B7), darunter Luft
+      id: "log_curtains",
+      weight: 2,
+      stretch: { layer: 1, max: 2, fill: "ceiling" },
+      layers: [
+        ["PHHP", "PFFP", "_.._"],
+        ["P__P", "P__P", "V..V"],
+        ["TTTT", "TTTT", "...."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+  sockets: [
+    { id: "nightstand_l", type: "adjacent", at: [4, 0, 0], side: "left", accepts: ["nightstand"], prob: 0.7, pairWith: "nightstand_r", facing: "same" },
+    { id: "nightstand_r", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["nightstand"], prob: 0.7, facing: "same" },
+    { id: "foot_chest", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["chest"], prob: 0.3, facing: "same" },
+    // W7-F (I7): Laterne neben dem Kopfende bzw. vor dem Fußende (wie bed/canopy; unter dem Baldachin hält keine)
+    { id: "lamp_l", type: "hang", at: [4, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "lamp_r", type: "hang", at: [-1, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "lamp_foot", type: "hang", at: [1, 99, 2], accepts: ["light_pendant"], prob: 0.8 },
+  ],
+  masks: {
+    use: [{ side: "front" }],
+    clearance: [{ side: "front", depth: 1, hard: true }],
+  },
+}

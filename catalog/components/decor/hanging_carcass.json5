@@ -1,0 +1,59 @@
+// K3b · Fleisch am Haken (research/17 §4.18, M5/M1): Kette von der Decke (Mittelstütze oben, Faktencheck #3),
+// unten ein roter Pilzblock (alle Seiten Hut = rot mit hellen Flecken, wirkt wie marmoriertes Fleisch).
+// „smoked“: Seetangblock (dunkel, faserig = Räucherware). „rail“: Hakenleiste aus Zäunen unter der Decke mit
+// zwei Stücken. Mehr in die Höhe (V3): die Kette wächst mit der lichten Höhe (`stretch`, `drop`), das Fleisch
+// hängt etwa auf halber Raumhöhe, nie unter Boden + 2 (Kopffreiheit) → ab lichter Höhe 4, die Leiste ab 5.
+{
+  id: "decor/hanging_carcass",
+  kind: "static",
+  name: "Fleisch am Haken",
+  category: "decor",
+  tags: ["hanging_meat", "decor_ceiling"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 4,
+  variants: [
+    {
+      id: "carcass",
+      weight: 3,
+      layers: [["M"], ["C"]],
+      legend: {
+        M: { block: "minecraft:red_mushroom_block", state: { north: "true", south: "true", east: "true", west: "true", up: "true", down: "true" } },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 1, 0], side: "up", kind: "center" }] },
+      stretch: { layer: 0, max: 10, fill: "drop", rows: ["C"] },
+    },
+    {
+      id: "smoked",
+      weight: 2,
+      layers: [["M"], ["C"]],
+      legend: {
+        M: { block: "minecraft:dried_kelp_block" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 1, 0], side: "up", kind: "center" }] },
+      stretch: { layer: 0, max: 10, fill: "drop", rows: ["C"] },
+    },
+    {
+      // Hakenleiste: Zaun-Stange unter der Decke, zwei Stücke an Ketten
+      id: "rail",
+      weight: 2,
+      minRoomHeight: 5,
+      layers: [
+        ["M.K"], // y0: Fleisch | – | Räucherware
+        ["C.C"], // y1: Ketten
+        ["FFF"], // y2: Zaun-Stange direkt unter der Decke
+      ],
+      legend: {
+        M: { block: "minecraft:red_mushroom_block", state: { north: "true", south: "true", east: "true", west: "true", up: "true", down: "true" } },
+        K: { block: "minecraft:dried_kelp_block" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+        F: { role: "furniture_wood", shape: "fence" },
+      },
+      stretch: { layer: 1, max: 10, fill: "drop", rows: ["C.C"] },
+    },
+  ],
+}

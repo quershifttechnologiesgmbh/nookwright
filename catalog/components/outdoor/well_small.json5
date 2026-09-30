@@ -1,0 +1,27 @@
+// research/56 · Brunnen klein (Wunschbrunnen, DA Structural: Constructions/Village): offener Brunnenkranz ohne
+// Dach, an den 4 Ecken kurze Pfosten mit stehender Laterne obendrauf (kein Hängezug wie beim großen Brunnen).
+// Für kleine Höfe und Gärten, wo das Dach-Brunnenhaus (`outdoor/well`) zu wuchtig wäre. 3 hoch.
+// W1-I (26.09.2026, W1E M1): nicht mehr in den Zonen-Pools `yard`/`garden` – der Hof hat seinen Brunnen aus dem
+// Geländestil (`decor.well`), ein zufälliger zweiter Brunnen daneben wirkte beliebig.
+{
+  id: "outdoor/well_small",
+  kind: "static",
+  name: "Brunnen (klein)",
+  category: "architecture",
+  tags: ["well", "outdoor", "water_feature"],
+  styleTags: ["medieval", "village", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["WWW", "WQW", "WWW"], // y0: Kranz + Wasser
+    ["F.F", "...", "F.F"], // y1: vier Eckpfosten
+    ["L.L", "...", "L.L"], // y2: stehende Laternen auf den Pfosten
+  ],
+  legend: {
+    W: { block: "minecraft:cobblestone_wall" },
+    Q: { block: "minecraft:water", state: { level: "0" } },
+    F: { role: "furniture_wood", shape: "fence" },
+    L: { role: "light_hanging", shape: "lantern" },
+  },
+}

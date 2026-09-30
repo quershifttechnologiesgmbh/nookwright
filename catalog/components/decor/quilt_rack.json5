@@ -1,0 +1,23 @@
+// I52 · Decken-Ständer (research/52 §Möbel, Schlafzimmer): Zaunpfosten mit zwei übereinander drapierten
+// Teppich-Lagen als gefaltete Decke — das WaxFraud-Motiv „Textil über einer Stange“ ohne Bett-Baustein zu sein.
+{
+  id: "decor/quilt_rack",
+  kind: "static",
+  name: "Decken-Ständer",
+  category: "decor",
+  tags: ["quilt_rack", "bed_accessory"],
+  styleTags: ["medieval", "cozy", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1, 2, 3],
+  layers: [
+    ["F"], // y0: Pfosten
+    ["C"], // y1: gefaltete Decke, obere Lage
+    ["D"], // y2: gefaltete Decke, untere Lage sichtbar unten (Überhang)
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    C: { block: "minecraft:red_carpet" },
+    D: { block: "minecraft:white_carpet" },
+  },
+}

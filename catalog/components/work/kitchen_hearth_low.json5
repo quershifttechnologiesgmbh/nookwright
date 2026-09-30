@@ -1,0 +1,59 @@
+// Kochstelle für niedrige Räume (lichte Höhe 2): wie work/kitchen_hearth, die Haube sitzt direkt auf der
+// Feuerzeile. Das Lagerfeuer bleibt durch die freie Zelle davor erreichbar und sichtbar.
+// Räucherofen nicht lit (research/10 §11 #4). Mauerwerk fest, bis die Rolle `hearth` existiert.
+{
+  id: "work/kitchen_hearth_low",
+  kind: "static",
+  name: "Kochstelle (niedrig)",
+  category: "work",
+  tags: ["hearth", "cooking", "fire_feature"],
+  functionTags: ["cook", "light"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "fire_stone",
+      weight: 3,
+      layers: [
+        ["MCM", "S_S"], // y0: Feuer, Herdwangen, Nische
+        ["MMM", "UUU"], // y1: Sturz + Haubenkante
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        S: { block: "minecraft:stone_brick_slab", orient: { upsideDown: false } },
+        U: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "fire_brick",
+      weight: 2,
+      layers: [
+        ["MCM", "S_S"],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { block: "minecraft:bricks" },
+        S: { block: "minecraft:brick_slab", orient: { upsideDown: false } },
+        U: { block: "minecraft:brick_stairs", orient: { upsideDown: true, back: "back" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "smoker_stone",
+      weight: 2,
+      layers: [
+        ["MOM", "._."], // y0: Räucherofen, davor frei
+        ["MMM", "..."], // y1: Haube direkt darüber (keine Kante nach vorn – die Zelle vor dem Ofen bleibt begehbar)
+      ],
+      legend: {
+        M: { block: "minecraft:stone_bricks" },
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

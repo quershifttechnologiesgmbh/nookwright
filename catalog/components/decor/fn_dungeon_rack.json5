@@ -1,0 +1,27 @@
+// FN-Dense · Streckbank (Raummitte des Kerkers): niedrige Pritsche aus dunklen Brettern zwischen zwei Rollenpaaren
+// (Zaunpfosten mit Kette darüber), frei begehbar von beiden Längsseiten (Vorbild: Kerker-Baupläne der Community mit
+// Folterbank statt leerer Halle). 2 breit, 4 lang, 2 hoch; niedrige Halbstufen als Liegefläche (man geht nicht darüber:
+// harter Freiraum an den Längsseiten). Ketten und Zaun brauchen keine Stütze. Symmetrisch. Insel-Eintrag von
+// `dungeon` (Tag `fn_dungeon_rack`).
+{
+  id: "decor/fn_dungeon_rack",
+  kind: "static",
+  name: "Streckbank",
+  category: "furniture",
+  tags: ["fn_dungeon_rack", "grim_decor"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["FF", "pp", "pp", "FF"], // y0: Rollen | Pritsche
+    ["CC", "..", "..", "CC"], // y1: Ketten über den Rollen
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    p: { role: "furniture_wood", shape: "slab" },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+  },
+  masks: { clearance: [{ side: "left", depth: 1, hard: true }, { side: "right", depth: 1, hard: true }] },
+}

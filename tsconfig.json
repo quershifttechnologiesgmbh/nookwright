@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { "types": ["node"] },
+  "include": ["packages/*/src/**/*.ts", "packages/*/test/**/*.ts"],
+  // Web-App (DOM + JSX) und Vorschau (DOM + WebGL) haben eigene tsconfigs (npm run typecheck:app / typecheck:viewer).
+  "exclude": ["packages/app/**", "packages/viewer/**"]
+}

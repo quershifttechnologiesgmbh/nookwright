@@ -1,0 +1,46 @@
+// research/57 · Kartenraum: Globus-Ständer, zweite Bauform neben work/map_desk (bislang die einzige Signatur-
+// form, immer als Tisch mit Pult). Tag `cartography_table` steht in map_room.json5 im Pflicht-Eintrag
+// `{ tags: ["map_desk", "cartography_table"], signature: true }` und im optionalen Eintrag
+// `{ tags: ["cartography_table"] }`. Frei stehender Kartentisch mit Globus obendrauf statt Wandpult –
+// passt auch in Raummitte statt an die Wand.
+{
+  id: "work/terrestrial_globe",
+  kind: "static",
+  name: "Globus-Ständer",
+  category: "work",
+  tags: ["map_desk", "cartography_table"],
+  functionTags: ["work:cartographer", "villager_workstation"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "tripod",
+      weight: 2,
+      layers: [
+        ["F.F", ".C.", "F.F"], // y0: Zaunbeine, Kartentisch in der Mitte
+        ["...", ".B.", "..."], // y1: Globus (Kugel) auf dem Tisch
+      ],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { block: "minecraft:cartography_table" },
+        B: { block: "minecraft:amethyst_block" },
+      },
+    },
+    {
+      id: "tripod_end",
+      weight: 1,
+      layers: [
+        ["F.F", ".C.", "F.F"],
+        ["...", ".E.", "..."],
+      ],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { block: "minecraft:cartography_table" },
+        E: { block: "minecraft:end_rod", orient: { front: "up" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "all", depth: 1, hard: false }] },
+}

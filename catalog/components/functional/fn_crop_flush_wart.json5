@@ -1,0 +1,125 @@
+// Halbautomatisches Netherwarzen-Beet (Welle FN): Seelensand statt Ackerland, gleiche Spültechnik wie fn_crop_flush.
+// Wiki Tutorial:Nether_wart_farming: Wasser bricht die Warzen und trägt sie zum Sammelpunkt; Pflanzen ist nur von Hand möglich
+// (vollautomatisch geht nicht), Warzen brauchen kein Licht (Licht nur gegen Creeper/Monster: Laterne in der Bahnmitte).
+// Seelensand liegt nie unter Wasserquelle (sonst Blasensäule): Quelle und Tor liegen auf Planken, die Laterne ersetzt ein Seelensand-Feld.
+// Ruhezustand: Warzen ausgewachsen (age 3), Hebel AN, Kolben ausgefahren. Nach dem Spülen (Hebel AUS/AN) neu pflanzen.
+// Größen 1 Bahn (5 breit) oder 2 Bahnen (9 breit), 9 tief, Höhe 3.
+{
+  id: "functional/fn_crop_flush_wart",
+  kind: "static",
+  name: "Spülbeet Netherwarzen",
+  category: "work",
+  tags: ["fn_crop_flush_wart", "fn_wart", "fn_farm_machine"],
+  functionTags: ["farm:nether_wart", "automation", "hopper", "light"],
+  styleTags: ["workshop", "alchemy", "cellar"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_wart",
+      weight: 3,
+      layers: [
+        [ // y0: Boden: Beet, Trichterreihe vorn, Zisterne hinten
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Quelle
+          "BBBBB", // z2 Tor
+          "BFFFB", // z3 Feld
+          "BFLFB", // z4 Feld
+          "BFFFB", // z5 Feld
+          "BFFFB", // z6 Feld
+          "BHHHb", // z7 Trichter
+          "BBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBB", // z0 Rückwand
+          "BBwBB", // z1 Quelle
+          "BBDBB", // z2 Tor
+          "sCCCs", // z3 Feld
+          "sC_Cs", // z4 Feld
+          "sCCCs", // z5 Feld
+          "sCCCs", // z6 Feld
+          "s___s", // z7 Trichter
+          "sssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".....", // z0 Rückwand
+          "...v.", // z1 Quelle
+          "..PB.", // z2 Tor
+          ".....", // z3 Feld
+          ".....", // z4 Feld
+          ".....", // z5 Feld
+          ".....", // z6 Feld
+          ".....", // z7 Trichter
+          ".....", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:soul_sand" },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:nether_wart", state: { age: "3" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+    {
+      id: "m_wart",
+      weight: 2,
+      layers: [
+        [ // y0: Boden: Beet, Trichterreihe vorn, Zisterne hinten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Quelle
+          "BBBBBBBBB", // z2 Tor
+          "BFFFBFFFB", // z3 Feld
+          "BFLFBFLFB", // z4 Feld
+          "BFFFBFFFB", // z5 Feld
+          "BFFFBFFFB", // z6 Feld
+          "BHHHHHHHb", // z7 Trichter
+          "BBBBBBBBB", // z8 Vorderkante
+        ],
+        [ // y1: Nutzebene: Pflanzen, Wasserwege, Kantenplatten
+          "BBBBBBBBB", // z0 Rückwand
+          "BBwBBBwBB", // z1 Quelle
+          "BBDBBBDBB", // z2 Tor
+          "sCCCsCCCs", // z3 Feld
+          "sC_CsC_Cs", // z4 Feld
+          "sCCCsCCCs", // z5 Feld
+          "sCCCsCCCs", // z6 Feld
+          "s___s___s", // z7 Trichter
+          "sssssssss", // z8 Vorderkante
+        ],
+        [ // y2: Kolben, Klotz, Hebel
+          ".........", // z0 Rückwand
+          "...v...v.", // z1 Quelle
+          "..PB..PB.", // z2 Tor
+          ".........", // z3 Feld
+          ".........", // z4 Feld
+          ".........", // z5 Feld
+          ".........", // z6 Feld
+          ".........", // z7 Trichter
+          ".........", // z8 Vorderkante
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        F: { block: "minecraft:soul_sand" },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        C: { block: "minecraft:nether_wart", state: { age: "3" } },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        D: { block: "minecraft:piston_head", orient: { front: "down" }, state: { type: "normal", short: "false" } },
+        P: { block: "minecraft:piston", orient: { front: "down" }, state: { extended: "true" } },
+        v: { block: "minecraft:lever", orient: { attachTo: "front" }, state: { powered: "true" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        b: { block: "minecraft:barrel", orient: { front: "left" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

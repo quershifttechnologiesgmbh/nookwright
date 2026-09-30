@@ -1,0 +1,49 @@
+// research/57 · Methalle: freistehender Bratspieß (Nebenobjekt, eigene Komponente statt nur die eingebaute
+// „spit“-Variante von nordic/fire_pit, damit zwei Feuerstellen im selben Raum nicht identisch aussehen). Tag
+// `fire_pit` steht in mead_hall.json5 im Pflicht-Eintrag `{ tags: ["fire_pit"], signature: true }` und im
+// optionalen Eintrag `{ tags: ["fire_pit"] }`.
+// Q1a: die Spießstange liegt über dem Feuer (eigene Zelle über dem Campfire) – offenes Feuer auf Bodenhöhe neben
+// freier Lauffläche verstößt sonst gegen die Regel `noHazardOnPath`.
+{
+  id: "nordic/roasting_spit",
+  kind: "static",
+  name: "Bratspieß-Feuerstelle",
+  category: "architecture",
+  tags: ["fire_pit", "fire_feature", "hearth_nordic"],
+  functionTags: ["light", "cook"],
+  styleTags: ["nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  minRoomHeight: 3,
+  variants: [
+    {
+      id: "single",
+      weight: 3,
+      layers: [
+        ["sCs"], // y0: Rinne | Feuer | Rinne
+        ["fff"], // y1: Spießstange über dem Feuer
+      ],
+      legend: {
+        s: { block: "minecraft:cobblestone_slab", orient: { upsideDown: false } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        f: { role: "beam", shape: "fence" },
+      },
+    },
+    {
+      id: "pair_posts",
+      weight: 2,
+      layers: [
+        ["fsCsf"], // y0: Pfosten | Rinne | Feuer | Rinne | Pfosten
+        [".sss."], // y1: durchgehende Spießstange über der Rinne und dem Feuer
+      ],
+      legend: {
+        f: { role: "beam", shape: "fence" },
+        s: { role: "beam", shape: "fence" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: true }] },
+  light: "auto",
+}

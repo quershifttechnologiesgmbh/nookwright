@@ -1,0 +1,9 @@
+{
+  "name": "@mcda/voxel",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Voxel-Welt: VoxelVolume mit Palette, Block-Entities, Herkunft (owner) und Schicht (layer) je Zelle, Entities; Übergabe an @mcda/export über toExportVolume.",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts"
+}

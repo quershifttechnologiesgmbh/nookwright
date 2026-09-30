@@ -1,0 +1,48 @@
+// Lager (research/10 §4, §8.3). Signatur: Truhen- oder Fasswand zwischen Stamm-Pfosten ist Pflicht
+// (Tag `storage_wall`; 2 hohe Formen passen auch bei lichter Höhe 2), dazu einzelne Truhen an den Wänden.
+// Sichtbare Ware (Heu, Säcke, Teppich-Ware), Etiketten an der Raumwand, Laternen.
+// K2: dichter (0.55); `goods` umfasst Töpferware, Holzstapel, Erntehaufen; dazu Feldgerät-Rahmen, Schrank/
+// Vorratsregal, Sägebock/Hackklotz, Pilzbeet/Moos (Keller-Anmutung), Hängemoos.
+// I2: Signatur explizit (`signature: true`, Solver v2) statt Konvention „erster Pflicht-Eintrag“.
+{
+  id: "storage",
+  name: "Lager",
+  minArea: 4,
+  coverage: { target: 0.55 },
+  // W4 (27.09.2026, Review M7): Hauptweg durch die Raummitte bleibt frei (Y1 `aisle`, wie Kaserne und Galerie) – die
+  // Ware steht an den Wänden, nicht als Insel im Weg
+  // W5 (27.09.2026, Review N6): dazu der Hauptweg von Tür zu Tür/Treppe (`doorPath`) – der Gang allein ließ den Zugang
+  // zur Treppe 1 breit, wenn Ware am Treppenloch stand
+  aisle: { width: 2, minWidth: 1, doorPath: true },
+  required: [
+    { tags: ["storage_wall", "root_cellar_shelf"], count: { perArea: 30, min: 1, max: 3 }, signature: true, placement: { zones: ["edge"] } },
+    { tags: ["chest"], count: { perArea: 8, min: 2, max: 8 }, placement: { zones: ["edge", "corner"] } },
+  ],
+  optional: [
+    // W4 (27.09.2026, Review M7): Ware an den Wänden und in den Ecken, die Mitte bleibt Hauptweg (Vorbilder W3-IN §1.5:
+    // „Stapel an den Wänden, Mitte frei“)
+    { tags: ["goods", "root_cellar_shelf"], count: [1, 4], weight: 4, placement: { zones: ["edge", "corner"] } },
+    { tags: ["barrel"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_labels", "wall_shelf"], count: [1, 3], weight: 2 },
+    // P06 (gemessen 25.09.2026): Der Lagerraum hatte **keinen** Sortierer – im kleinen Lager (9×8) gab es
+    // 0 Automatikstationen, im großen stand die einzige Station 11–13 Blöcke von den Lagermöbeln entfernt.
+    // Der Eintrag macht die Sortierfunktion auch klein verfügbar (vorhandene `functional/item_sorter`).
+    { tags: ["item_sorter"], count: [0, 1], weight: 6, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crafting"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["plant_hanging"], count: [0, 1], weight: 1 },
+    { tags: ["farm_tools"], count: [0, 2], weight: 2 },
+    { tags: ["pantry", "cupboard"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["sawhorse", "chopping_block"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["mushrooms", "moss_rug"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["hanging_moss"], count: [0, 1], weight: 1 },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["crate_stack", "barrel_stack", "hay_stack"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    // W3-IN: Sack- und Wollballen nur hier im Lager
+    { tags: ["sack_pile"], count: [0, 1], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["upper_cabinet", "hanging_chains"], count: [0, 2], weight: 2 },
+    { tags: ["light_pendant"], count: [1, 2], weight: 3 },
+  ],
+  // Licht-Pass (W3-IN, I7): zweckmäßig (≥ 5), Laternen unter der Decke und an der Wand, keine Lichter auf Kisten
+  lighting: { minLevel: 5, prefer: ["light_pendant", "light_wall"], budget: { cellsPer: 16, min: 1 }, anchors: ["table"] },
+}

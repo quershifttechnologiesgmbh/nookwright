@@ -1,0 +1,110 @@
+// Terrakotta und Birke (WS-Farbe, Schritt 3 „Farben“ des Bauprozess-Tutorials; Lieblingsstil des Nutzers, Screenshot
+// 29.09.2026): helle Sandstein-Arkade als Sockel, weißer Birken-/Kalkputz als Wandfläche, dunkles Holz für Rahmen,
+// Ständer, Läden und Dachkanten, orange-rotes „Terrakotta“-Dach. Vier Materialfamilien, je Bauteil ein kleiner
+// Verlauf; der Akzent (Dach) ist die kleinere Fläche neben der hellen Wand (etwa 80 zu 20, nie 50 zu 50).
+// Terrakotta selbst hat keine Treppen und Stufen; das Dach nimmt deshalb `red_sandstone` (orange) mit `bricks`
+// (rotbraun) an der Traufe – dasselbe Farbfeld, aber deckend als Dachform.
+// Konstruktion (Fachwerk-Joch, Steinsockel im Erdgeschoss, Grat in Dunkelholz) erbt von `timber`.
+{
+  id: "terracotta_birch",
+  mood: { formality: -0.25, richness: 0.2 },
+  name: "Terrakotta und Birke",
+  description: "Sandstein-Sockel, weißer Kalkputz mit dunklem Fachwerk, Läden aus Fichte, Terrakotta-orangefarbenes Dach",
+  base: "timber",
+  roles: {
+    // Sockel und Erdgeschoss: helle Sandstein-Arkade. Der Verlauf läuft vom rauen, warmen Fuß (rote Sandsteinbänder,
+    // Terrakotta-Ton) zum glatten Schnittstein nach oben und trägt die Farbe des Dachs nach unten.
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "sandstone", weight: 60 },
+            { family: "cut_sandstone", weight: 25 },
+            { family: "red_sandstone", weight: 15 },
+          ] },
+          { at: 1, mix: [
+            { family: "sandstone", weight: 40 },
+            { family: "cut_sandstone", weight: 60 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    foundation: {
+      mix: [
+        { family: "sandstone", weight: 65 },
+        { family: "cut_sandstone", weight: 35 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    wall_plinth: { family: "sandstone" },
+    wall_quoin: { family: "cut_sandstone" },
+    // Putzfläche der Obergeschosse: ein einziges helles Material (Kalkputz; mehrere weiße Töne lesen sich als Flecken)
+    wall_infill: { family: "calcite" },
+    // Dach: von der Traufe (rotbraune Ziegel) zu orangem Sandstein, in ganzen Reihen (Deckungsrezept)
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "bricks", weight: 1 }] },
+          { at: 0.25, mix: [{ family: "red_sandstone", weight: 1 }] },
+          { at: 1, mix: [{ family: "red_sandstone", weight: 1 }] },
+        ],
+      },
+    },
+    // Nebenbauten im selben Farbraum: Scheunendach wie das Wohndach, Silo und Wehrgänge aus Sandstein statt Grau
+    roof_barn: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "bricks", weight: 1 }] },
+          { at: 0.25, mix: [{ family: "red_sandstone", weight: 1 }] },
+          { at: 1, mix: [{ family: "red_sandstone", weight: 1 }] },
+        ],
+      },
+    },
+    silo: {
+      mix: [
+        { family: "sandstone", weight: 60 },
+        { family: "cut_sandstone", weight: 40 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    silo_band: { family: "dark_oak" },
+    parapet: {
+      mix: [
+        { family: "sandstone", weight: 70 },
+        { family: "cut_sandstone", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    fort_base: {
+      mix: [
+        { family: "sandstone", weight: 65 },
+        { family: "cut_sandstone", weight: 35 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    walkway: {
+      mix: [
+        { family: "sandstone", weight: 60 },
+        { family: "cut_sandstone", weight: 40 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Ständer, Rahmen, Grat und Traufband: dunkle Eiche (Kontrast zu Putz und orangem Dach); Läden in Fichte
+    beam: { family: "dark_oak" },
+    pillar: { family: "dark_oak" },
+    roof_trim: { family: "dark_oak" },
+    wall_cornice: { family: "dark_oak" },
+    window_frame: { family: "dark_oak" },
+    shutter: { family: "spruce" },
+  },
+}

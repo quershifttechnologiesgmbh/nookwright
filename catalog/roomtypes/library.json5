@@ -1,0 +1,39 @@
+// Bibliothek mit Verzauberungsecke (research/11 §3/§4). Pflicht: Regal-Buchten zwischen Pfosten und ein
+// Lesepult (Bibliothekar). Der Verzauberungs-Alkoven ist optional mit hohem Gewicht; seine Luft-Maske hält
+// den Zwischenring frei (Faktencheck #1: kein Teppich, keine Deko). Teppiche außerhalb des Alkovens sind
+// unschädlich (die Reihe dz +2 hat keine Regale). Lesetische in der Mitte, Kerzenständer, Laternen.
+// K2: Lesesessel/Sitzgruppen, Buch-Rahmen, Standuhr/Urne; `wall_banner` umfasst jetzt den Wandteppich.
+// I2: Signatur explizit (Regal-Buchten), Zone `study` für große Räume.
+{
+  id: "library",
+  name: "Bibliothek",
+  minArea: 16,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["bookshelf_wall"], count: { perArea: 30, min: 1, max: 3 }, signature: true, placement: { zones: ["edge"] } },
+    { tags: ["lectern"], count: [1, 1], zone: "study", placement: { zones: ["edge", "corner"], doorAffinity: "far" } },
+  ],
+  optional: [
+    { tags: ["enchanting_station"], count: [0, 1], weight: 4, zone: "study", placement: { zones: ["edge"], doorAffinity: "far" } },
+    { tags: ["bookshelf_wall"], count: [1, 3], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["reading_table"], count: [1, 2], weight: 4, placement: { zones: ["center"] } },
+    { tags: ["candle_stand"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["fn_rug", "rug"], count: [1, 1], weight: 4, placement: { zones: ["center"] } },
+    { tags: ["wall_banner", "wall_shelf", "fn_tapestry"], count: [1, 3], weight: 3 },
+    // FN (Innenraum-Offensive): Ecken belegen
+    { tags: ["fn_corner"], count: [0, 2], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["wing_chair", "seating_group"], count: [0, 2], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_books"], count: [0, 2], weight: 2 },
+    { tags: ["tall_clock", "pedestal"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] } },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["ceiling_banner"], count: [0, 2], weight: 2 },
+    { tags: ["head_trophy", "upper_cabinet"], count: [0, 1], weight: 1 },
+    { tags: ["light_pendant"], count: [0, 2], weight: 4 },
+  ],
+  // W3-IN (I7): Kerzen auf den Lesetischen, Laternen an den Balken und an der Wand; Budget je Fläche
+  lighting: { minLevel: 6, prefer: ["candles", "light_pendant", "light_wall"], budget: { cellsPer: 12, min: 2 }, anchors: ["reading_table", "desk", "table"] },
+  // Große Bibliotheken (ab ≈ 96 freien Zellen, Solver v2): Studierecke fern der Tür mit Lesepult und Verzauberung;
+  // Lesetische und Sessel verteilen sich auf die übrigen Teilflächen.
+  zones: [{ id: "study", doorAffinity: "far" }],
+}

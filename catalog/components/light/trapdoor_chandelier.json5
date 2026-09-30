@@ -1,0 +1,82 @@
+// K3d · Kronleuchter aus Falltüren (research/16 I14, P3; S13 Kronleuchter, S9 „Hanging Lights“): ein Block mit
+// vier offenen Falltüren an den Seiten als „Schirm“, darunter die hängende Laterne (Planken = volle Unterseite,
+// stabile Mitte, Faktencheck #3). Die Falltüren liegen flach am Block an (offen liegt eine Falltür an der Seite
+// gegenüber ihrer Blickrichtung). V3 adaptiv: in hohen Räumen hängt der Schirm an einer Kette (`stretch`, `drop`,
+// unterste Zelle etwa auf halber Raumhöhe, nie unter Boden + 2). „box“: Leuchtkasten – Pilzlicht im Falltür-
+// Schirm an der Kette (Licht 15, von unten sichtbar wie eine Lampe).
+// Eigene Komponente statt Variante von light/candle_chandelier (dessen Kette/Dehnung hängt an der Basis-Form).
+{
+  id: "light/trapdoor_chandelier",
+  kind: "static",
+  name: "Falltür-Kronleuchter",
+  category: "light",
+  tags: ["light", "light_ceiling", "chandelier"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  variants: [
+    {
+      // Schirm direkt unter der Decke, Laterne darunter (ab lichter Höhe 4)
+      id: "rose",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["...", ".L.", "..."], // y0: Laterne hängend
+        [".n.", "wPe", ".s."], // y1: Deckenblock mit Falltür-Schirm
+      ],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        P: { role: "beam", shape: "planks" },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      // Schirm an der Kette (ab lichter Höhe 5), Laterne darunter
+      id: "pendant",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [
+        ["...", ".L.", "..."], // y0: Laterne
+        [".n.", "wPe", ".s."], // y1: Schirm
+        ["...", ".C.", "..."], // y2: Kette zur Decke (gedehnt)
+      ],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        P: { role: "beam", shape: "planks" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+      masks: { support: [{ at: [1, 2, 1], side: "up", kind: "center" }] },
+      stretch: { layer: 1, max: 8, fill: "drop", rows: ["...", ".C.", "..."] },
+    },
+    {
+      // Leuchtkasten: Pilzlicht im Schirm an der Kette (ab lichter Höhe 4)
+      id: "box",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        [".n.", "wGe", ".s."], // y0: Pilzlicht mit Falltür-Schirm
+        ["...", ".C.", "..."], // y1: Kette (gedehnt)
+      ],
+      legend: {
+        G: { block: "minecraft:shroomlight" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+        n: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        s: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        w: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        e: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+      masks: { support: [{ at: [1, 1, 1], side: "up", kind: "center" }] },
+      stretch: { layer: 0, max: 8, fill: "drop", rows: ["...", ".C.", "..."] },
+    },
+  ],
+  light: "auto",
+}

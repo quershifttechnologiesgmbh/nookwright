@@ -1,0 +1,21 @@
+// research/56 · Steg (DA Structural: Docks; Bing „minecraft wooden dock build“): Bohlen auf Pfosten, die
+// abwechselnd ins Wasser reichen. Für Teich, Fluss, Hafen – ragt von der Uferzone hinaus.
+{
+  id: "outdoor/dock",
+  kind: "static",
+  name: "Steg",
+  category: "architecture",
+  tags: ["dock", "outdoor", "pond", "water_feature"],
+  styleTags: ["rustic", "harbor", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["LL", "..", "LL", ".."], // y0: Pfosten im Wasser (jedes zweite Feld)
+    ["DD", "DD", "DD", "DD"], // y1: Bohlendeck
+  ],
+  legend: {
+    L: { role: "beam", shape: "log", orient: { axis: "y" } },
+    D: { role: "furniture_wood", shape: "block" },
+  },
+}

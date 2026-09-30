@@ -1,0 +1,35 @@
+// Lagerhalle (FN-Lager, 28.09.2026): das Lager, das mit dem Raum wächst. Nicht das klassische `storage` (Signatur `storage_wall`,
+// bleibt unverändert), sondern eine geordnete Halle: beschriftete Fass-/Truhenwände, Shulker-Station, Vorratsregale, Entnahme-Theke
+// und – wo Platz und Höhe reichen – ein Sortier-Lager (2 bis 6 Kategorien, jede eine Fass-Spalte, Einwurf-Truhe, Überlauf-Fass).
+// Signatur (Pflicht): Fasswand mit Etiketten ODER Vorratsregale – beide haben eine kompakte Rückfall-Form (`fn_barrel_wall` mini,
+// `fn_cellar_shelf` low: 2 breit, 2 hoch, Halbstufe statt Vollblock, passt unter Fenster und in Höhe 2), damit der Solver in jeder Höhe eine Signatur findet. Wachstum: weitere Wände/Regale kommen als Zusatz (bis 3) dazu;
+// die Sortier-Bank (`fn_sorter_bank`, 14/20 breit) und die Truhenwand (Höhe >= 4) kommen erst in großen bzw. hohen Hallen vor.
+// Alle Bausteine tragen `fn_`-Tags, damit sie nicht in bestehende Lager-Pools laufen (Prüfsummen-Pins bleiben unverändert).
+// Hauptweg bleibt frei (Ware an den Wänden, Ausgabe erreichbar); kein sichtbares Redstone-Kabel (Mechanik hinter Vollholz).
+{
+  id: "storage_hall",
+  name: "Lagerhalle",
+  minArea: 24,
+  coverage: { target: 0.5 },
+  aisle: { width: 2, minWidth: 1, doorPath: true },
+  required: [
+    { tags: ["fn_barrel_wall", "fn_cellar_shelf"], count: [1, 1], signature: true, placement: { zones: ["edge"] } },
+  ],
+  optional: [
+    // Sortier-Lager: Duo (8 breit) in mittleren, Bank (14/20 breit) in großen Hallen; Ausgabe steht daneben
+    { tags: ["fn_sorter", "fn_sorter_bank"], count: [0, 2], weight: 8, placement: { zones: ["edge"] } },
+    { tags: ["fn_chest_wall"], count: [0, 2], weight: 5, placement: { zones: ["edge"] } },
+    { tags: ["fn_shulker"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["fn_counter"], count: [0, 1], weight: 4, placement: { zones: ["edge"] } },
+    { tags: ["fn_cellar_shelf", "fn_barrel_wall"], count: [0, 3], weight: 6, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest", "barrel"], count: [1, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["crate_stack", "barrel_stack", "hay_stack"], count: [0, 3], weight: 3, placement: { zones: ["edge", "corner"] } },
+    { tags: ["sack_pile", "goods"], count: [0, 2], weight: 2, placement: { zones: ["corner", "edge"] } },
+    { tags: ["wall_labels", "wall_shelf"], count: [0, 2], weight: 2 },
+    { tags: ["upper_cabinet", "hanging_chains"], count: [0, 2], weight: 1 },
+    { tags: ["pantry", "cupboard", "farm_tools"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["light_pendant"], count: [1, 3], weight: 3 },
+  ],
+  // Lager zweckmäßig hell (>= 7 wegen der Redstone-Nischen, Spawnschutz), Laternen unter der Decke und an der Wand
+  lighting: { minLevel: 7, prefer: ["light_pendant", "light_wall"], budget: { cellsPer: 16, min: 1 }, anchors: ["table"] },
+}

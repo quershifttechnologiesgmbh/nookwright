@@ -1,0 +1,30 @@
+// research/56 · Doppel-Laternenpfahl (DA Lights: Lanterns, Kreuzungs-Stil): hoher Pfosten mit Querbalken, an
+// beiden Enden je eine stehende Laterne. Heller und markanter als `outdoor/lamp_post` – für Kreuzungen,
+// Platzecken, Hauptwege. Q1a: der Querbalken ist ein voller Block (eine stehende Laterne braucht eine stabile
+// Mitte darunter, eine untere Stufe trägt sie nicht); die Stützmaske der Laternen zeigt deshalb nach unten.
+{
+  id: "outdoor/lamp_post_double",
+  kind: "static",
+  name: "Laternenpfahl (doppelt)",
+  category: "light",
+  tags: ["light", "light_floor", "lamp_post", "outdoor", "plaza", "path"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    [".F."], // y0
+    [".F."], // y1
+    [".F."], // y2
+    ["bbb"], // y3: Querbalken
+    ["L.L"], // y4: Laternen an beiden Enden
+  ],
+  legend: {
+    F: { role: "beam", shape: "log", orient: { axis: "y" } },
+    b: { role: "beam", shape: "block" },
+    L: { role: "light_hanging", shape: "lantern" },
+  },
+  masks: { support: [{ at: [0, 4, 0], side: "down", kind: "center" }, { at: [2, 4, 0], side: "down", kind: "center" }] },
+  light: "auto",
+}

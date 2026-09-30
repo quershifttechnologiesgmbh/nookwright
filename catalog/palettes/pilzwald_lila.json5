@@ -1,0 +1,79 @@
+// Pilzwald Lila – magisch, Biome: mushroom_fields, Stile: fantasy.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "pilzwald_lila",
+  name: "Pilzwald Lila",
+  mood: "magisch",
+  biomes: ["mushroom_fields"],
+  styles: ["fantasy"],
+  values: ["minecraft:mushroom_stem", "minecraft:red_mushroom_block", "minecraft:brown_mushroom_block", "minecraft:purple_terracotta", "minecraft:podzol"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { block: "minecraft:mushroom_stem", weight: 55 },
+        { block: "minecraft:brown_mushroom_block", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:red_mushroom_block", weight: 60 },
+        { block: "minecraft:purple_terracotta", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "stone_bricks", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { block: "minecraft:red_mushroom_block", weight: 55 },
+        { block: "minecraft:brown_mushroom_block", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:shroomlight", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "dark_oak", shape: "stripped_log", weight: 70 },
+        { family: "dark_oak", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { block: "minecraft:mushroom_stem", weight: 55 },
+        { block: "minecraft:podzol", weight: 45 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:purple", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:purple", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:shroomlight", weight: 70 },
+        { family: "iron", shape: "lantern", weight: 30 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:red_mushroom", weight: 55 },
+        { block: "minecraft:brown_mushroom", weight: 45 },
+      ],
+    },
+  },
+}

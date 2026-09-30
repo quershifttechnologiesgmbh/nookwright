@@ -1,0 +1,27 @@
+// research/56 · Brunnen groß (Platzbrunnen, Bing „medieval town square fountain“): 5×5-Becken, Kranz rundum aus
+// Bruchstein, vier Eckpfosten mit Laternen als Beleuchtung des Platzes. Kein Dach (offen, repräsentativ). Für
+// `plaza`/Marktplatz-Mitte, Ersatz für `zones.ts planPlaza` bis der Solver Komponenten dort platzieren kann.
+// W1-I (26.09.2026, W1E M1): nicht mehr in den Zonen-Pools `plaza`/`market`/`yard` – Platz und Hof setzen ihren
+// Brunnen selbst (Platz-Mitte bzw. `decor.well`), ein zufälliger zweiter Brunnen wirkte beliebig.
+{
+  id: "outdoor/well_grand",
+  kind: "static",
+  name: "Brunnen (groß)",
+  category: "architecture",
+  tags: ["well", "outdoor", "water_feature"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["WWWWW", "WQQQW", "WQQQW", "WQQQW", "WWWWW"], // y0: Kranz + Becken
+    ["F...F", ".....", ".....", ".....", "F...F"], // y1: Eckpfosten
+    ["L...L", ".....", ".....", ".....", "L...L"], // y2: Laternen
+  ],
+  legend: {
+    W: { block: "minecraft:cobblestone_wall" },
+    Q: { block: "minecraft:water", state: { level: "0" } },
+    F: { role: "furniture_wood", shape: "fence" },
+    L: { role: "light_hanging", shape: "lantern" },
+  },
+}

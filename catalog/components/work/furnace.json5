@@ -1,0 +1,14 @@
+{
+  id: "work/furnace",
+  kind: "static",
+  name: "Ofen",
+  category: "work",
+  tags: ["furnace", "smelting", "work"],
+  functionTags: ["smelt"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["O"]],
+  legend: { O: { block: "minecraft:furnace", orient: { front: "front" } } },
+  masks: { use: [{ side: "front" }] },
+}

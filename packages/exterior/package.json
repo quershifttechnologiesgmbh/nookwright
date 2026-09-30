@@ -1,0 +1,9 @@
+{
+  "name": "@mcda/exterior",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Außengestaltung: regelbasierte Platzierung von Außen-Komponenten (Fensterläden, Blumenkästen, Portale, Vordächer, Eingangs-Deko, Schornsteine, Traufenlaternen) an den Ankern der Hülle. Rein und deterministisch, abgeleitet wie die Hülle (nicht im Projekt gespeichert).",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts"
+}

@@ -1,0 +1,27 @@
+// Waschraum / Abort (research/17 §4.9, W1–W5). K3a. Signatur: Waschtisch mit Wasserkessel und Spiegel (Kompaktform:
+// Kessel mit Spiegel, 1 × 1 – passt schon in 2 × 2 Zellen). Abort in der türfernen Ecke, Handtuchhalter, Zuber in
+// größeren Räumen, Schrank/Bord. V3 „mehr in die Höhe“: Oberschrank über dem Waschtisch, Oberschrank bzw.
+// Kräuterstange, Wand- oder Deckenlicht.
+{
+  id: "washroom",
+  name: "Waschraum",
+  minArea: 4,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["washstand"], count: [1, 1], signature: true, placement: { zones: ["edge"], windowAffinity: "near" } },
+  ],
+  optional: [
+    // FN-Dense: Waschbank in der Raummitte (Insel)
+    { tags: ["fn_wash_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["latrine"], count: [0, 1], weight: 3, placement: { zones: ["corner", "edge"], doorAffinity: "far" } },
+    { tags: ["bathtub"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["towel_rack", "linen_closet"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["cupboard"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["plant_large"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen): Oberschrank, Borde, Kräuterstange
+    { tags: ["upper_cabinet", "wall_shelf"], count: [1, 2], weight: 2 },
+    { tags: ["herb_rack", "plant_hanging"], count: [0, 1], weight: 1 },
+    { tags: ["light_ceiling", "light_wall"], count: [1, 1], weight: 3 },
+  ],
+  lighting: { minLevel: 6, prefer: ["light_wall", "light_ceiling", "candles", "light_floor"] },
+}

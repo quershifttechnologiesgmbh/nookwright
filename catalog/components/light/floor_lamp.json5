@@ -1,0 +1,35 @@
+// Stehlampe: Zaunpfosten + stehende Laterne (stabile Mitte darunter, Faktencheck 3/4).
+{
+  id: "light/floor_lamp",
+  kind: "static",
+  name: "Stehlampe",
+  category: "light",
+  tags: ["light", "light_floor"],
+  functionTags: ["light"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    {
+      id: "short",
+      weight: 1,
+      layers: [["F"], ["L"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      masks: { support: [{ at: [0, 1, 0], side: "down", kind: "center" }] },
+    },
+    {
+      id: "tall",
+      weight: 2,
+      layers: [["F"], ["F"], ["L"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "down", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

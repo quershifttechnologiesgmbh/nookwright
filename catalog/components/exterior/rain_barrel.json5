@@ -1,0 +1,17 @@
+// research/53 · Regentonne an der Fallrinne bzw. Hausecke: „dry“ = geschlossenes Fass, „full“ = gefülltes Fass
+// unter einer Traufe (Wasserkessel, Level 3 = randvoll).
+{
+  id: "exterior/rain_barrel",
+  kind: "static",
+  name: "Regentonne",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "rustic", "farmstead"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    { id: "dry", weight: 2, layers: [["B"]], legend: { B: { block: "minecraft:barrel", state: { facing: "up", open: "false" } } } },
+    { id: "full", weight: 1, layers: [["B"]], legend: { B: { block: "minecraft:water_cauldron", state: { level: "3" } } } },
+  ],
+}

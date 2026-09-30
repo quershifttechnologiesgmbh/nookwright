@@ -1,0 +1,33 @@
+{
+  "name": "nookwright",
+  "private": true,
+  "description": "Nookwright: kostenloser Generator und Editor für eingerichtete Minecraft-Java-Bauten",
+  "workspaces": [
+    "packages/*"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "quality": "tsx packages/pipeline/scripts/facade-quality.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck:app": "tsc -p packages/app",
+    "typecheck:viewer": "tsc -p packages/viewer",
+    "web:build": "node website/scripts/build.mjs",
+    "web:gallery": "node website/scripts/gallery.mjs",
+    "web": "npm run web -w @mcda/engine --",
+    "perf:serve": "npm run build -w @mcda/app && npm run preview -w @mcda/app -- --port 5391 --strictPort"
+  },
+  "dependencies": {
+    "tsx": "^4.23.15"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  },
+  "license": "AGPL-3.0-only"
+}

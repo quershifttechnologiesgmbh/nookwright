@@ -1,0 +1,23 @@
+// SD Grundstücks-Deko: Feuerschale auf einem Steinsockel (Lagerfeuer obenauf) – Zwerge, Gotik, Burg.
+{
+  id: "outdoor/sd_brazier",
+  kind: "static",
+  name: "Feuerschale",
+  category: "light",
+  tags: ["outdoor", "sd_decor", "sd_statue", "sd_brazier"],
+  styleTags: ["dwarven", "gothic", "medieval", "steampunk"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["B"],
+    ["W"],
+    ["C"],
+  ],
+  legend: {
+    B: { role: "wall_plinth", shape: "block" },
+    W: { role: "wall_plinth", shape: "wall" },
+    C: { block: "minecraft:campfire", state: { lit: "true", signal_fire: "false" }, orient: { front: "front" } },
+  },
+  light: "auto",
+}

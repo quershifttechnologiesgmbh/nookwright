@@ -1,0 +1,35 @@
+// research/57 · Innenfarm: Saatgut-Kiste (Nebenobjekt, ergänzt storage/crate_stack um eine kleinere Form ohne
+// echte Truhe – reine Deko-Kisten aus Fass + Kartoffelsack). Tag `crate_stack` steht in farm_room.json5 im
+// optionalen Eintrag `{ tags: ["hay_stack", "crate_stack"] }`.
+{
+  id: "storage/seed_crate",
+  kind: "static",
+  name: "Saatgut-Kiste",
+  category: "storage",
+  tags: ["seed_crate"],
+  functionTags: ["store"],
+  styleTags: ["rustic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "barrel_pair",
+      weight: 2,
+      layers: [["BB"]],
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+    },
+    {
+      id: "sacks",
+      weight: 2,
+      layers: [["SS"], ["S."]],
+      legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } } },
+    },
+    {
+      id: "burlap",
+      weight: 1,
+      layers: [["WW"]],
+      legend: { W: { block: "minecraft:brown_wool" } },
+    },
+  ],
+}

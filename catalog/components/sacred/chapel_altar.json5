@@ -1,0 +1,107 @@
+// K3a · Kapellen-Altar mit Stuhlreihen (research/17 §4.5, C1–C6). Altartisch aus umgedrehten Steinziegel-Treppen
+// mit gemeißeltem Mittelblock, weißes Altartuch (Teppich), Kerzen auf den Treppen (T5 #4). Darüber je nach
+// lichter Höhe ein Wandbanner oder ein Kreuz aus Zäunen, die sich mit der Wand verbinden (Autotiling); V3 „mehr in
+// die Höhe“: ab lichter Höhe 5 wächst der Kreuzstamm mit der Raumhöhe (`stretch`, `ceiling`).
+// Sitzreihen: Bis ERW Y1 (`aisle` + Reihen quer zur Achse) gibt es keine Bankreihen, die zuverlässig zum Altar
+// blicken (seat/pew wird frei gedreht). Deshalb bringt der Altar seine Gemeinde als Kinder mit: zwei Reihen
+// Stühle (je 3 links und rechts eines Mittelgangs auf der Altarachse) über `adjacent`-Sockets mit Blickregel
+// `toParent` – 1 × 1-Kinder liegen in jeder Drehung richtig. Die Reihe direkt vor dem Altar bleibt frei (Nutzung).
+// Kompaktform „shrine“ (1 × 1): Hausaltar mit Kerzen und zwei Betstühlen.
+{
+  id: "sacred/chapel_altar",
+  kind: "static",
+  name: "Kapellen-Altar",
+  category: "furniture",
+  tags: ["chapel_altar", "altar"],
+  functionTags: ["pray"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [["KAK"], ["CRC"]],
+      legend: {
+        K: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        C: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+        R: { block: "minecraft:white_carpet" },
+      },
+    },
+    {
+      id: "banner",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["KAK"], ["CRC"], [".V."]],
+      legend: {
+        K: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        C: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+        R: { block: "minecraft:white_carpet" },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+    {
+      id: "cross_short",
+      weight: 2,
+      minRoomHeight: 4,
+      maxRoomHeight: 4,
+      layers: [["KAK"], ["CRC"], [".F."], ["FFF"]],
+      legend: {
+        K: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        C: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+        R: { block: "minecraft:white_carpet" },
+        F: { role: "beam", shape: "fence" },
+      },
+    },
+    {
+      id: "cross",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [["KAK"], ["CRC"], [".F."], ["FFF"], [".F."]],
+      legend: {
+        K: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        C: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+        R: { block: "minecraft:white_carpet" },
+        F: { role: "beam", shape: "fence" },
+      },
+      stretch: { layer: 2, max: 10, fill: "ceiling" },
+    },
+    {
+      // Kompaktform: Hausaltar, zwei Betstühle davor
+      id: "shrine",
+      weight: 1,
+      layers: [["A"], ["C"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        C: { block: "minecraft:white_candle", state: { candles: "4", lit: "true" } },
+      },
+      sockets: [
+        { id: "seat_l", type: "adjacent", at: [-1, 0, 2], side: "front", accepts: ["chair"], prob: 0.9, facing: "toParent" },
+        { id: "seat_r", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["chair"], prob: 0.9, facing: "toParent" },
+      ],
+    },
+  ],
+  // Gemeinde: Reihen z = 2 und z = 4, links x −2 … 0, rechts x 2 … 4, Mittelgang auf x = 1 (Altarmitte)
+  sockets: [
+    { id: "r1a", type: "adjacent", at: [-2, 0, 2], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r1b", type: "adjacent", at: [-1, 0, 2], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r1c", type: "adjacent", at: [0, 0, 2], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r1d", type: "adjacent", at: [2, 0, 2], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r1e", type: "adjacent", at: [3, 0, 2], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r1f", type: "adjacent", at: [4, 0, 2], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r2a", type: "adjacent", at: [-2, 0, 4], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r2b", type: "adjacent", at: [-1, 0, 4], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r2c", type: "adjacent", at: [0, 0, 4], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r2d", type: "adjacent", at: [2, 0, 4], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r2e", type: "adjacent", at: [3, 0, 4], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+    { id: "r2f", type: "adjacent", at: [4, 0, 4], side: "front", accepts: ["chair"], prob: 0.85, facing: "toParent" },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

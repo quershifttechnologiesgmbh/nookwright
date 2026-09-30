@@ -1,0 +1,30 @@
+// Waffenkammer (K3b, research/17 §4.22). Signatur: Waffen- und Rüstungswand im Buchten-Takt (row gap 1;
+// Waffenständer, Rüstungswand, Wappenschild). Arbeitsblöcke = Spielnutzen: Schleifstein (Entzaubern, Waffen-
+// schmied), Schmiedetisch (Rüstungsbesätze), Amboss (Reparatur), Bogner-Bank (Pfeile). Pfeil-Truhen in den Ecken.
+// Mehr in die Höhe (V3): Deckenbanner, Werkzeug-/Waffenwand über Kopfhöhe, Kisten gestapelt.
+{
+  id: "armory",
+  name: "Waffenkammer",
+  minArea: 12,
+  coverage: { target: 0.45 },
+  required: [
+    { tags: ["wall_weapons"], count: { perArea: 10, min: 2, max: 6 }, signature: true, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 1 } },
+  ],
+  optional: [
+    // FN-Dense: Instandsetzungs-Tisch in der Raummitte (Insel)
+    { tags: ["fn_armory_island"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    { tags: ["armor_display"], count: [1, 3], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["grindstone"], count: [0, 1], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["smithing_table", "anvil"], count: [0, 2], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["fletcher_bench"], count: [0, 1], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["chest", "barrel"], count: [1, 3], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["tapestry", "wall_banner"], count: [1, 2], weight: 2 },
+    { tags: ["light_ceiling", "light_wall"], count: [1, 4], weight: 4 },
+    // V3 (Raumhöhe nutzen): Deckenbanner, Waffenwand über Kopfhöhe, Kisten gestapelt
+    { tags: ["ceiling_banner"], count: [1, 2], weight: 3 },
+    { tags: ["tool_wall"], count: [1, 2], weight: 2 },
+    { tags: ["hanging_chains"], count: [0, 1], weight: 2 },
+    { tags: ["crate_stack"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+  ],
+  lighting: { minLevel: 8, prefer: ["light_wall", "light_ceiling"] },
+}

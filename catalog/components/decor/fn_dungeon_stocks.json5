@@ -1,0 +1,42 @@
+// FN-Dense · Pranger / Folterbank für den Kerker (Vorbild: Kerker-Baupläne der Community mit Pranger, Streckbank und
+// Ketten statt leerer Zellen). Freistehend nahe der Wand, 3 breit, 2 hoch: zwei Pfosten, dazwischen das
+// Halsbrett aus Falltüren (Holzform) bzw. Eisenstäbe und Kette (Eisenform). Nur solide Stützen (Zaun/Eisenstab auf dem
+// Boden), Falltüren hängen an den Pfosten-Seiten (Falltüren brauchen keine Stütze). Symmetrisch. Tag `fn_dungeon_stocks`.
+{
+  id: "decor/fn_dungeon_stocks",
+  kind: "static",
+  name: "Pranger",
+  category: "furniture",
+  tags: ["fn_dungeon_stocks", "grim_decor"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "wood",
+      weight: 3,
+      layers: [
+        ["F_F"], // y0: Pfosten, Durchgang
+        ["FTF"], // y1: Pfosten, Halsbrett
+      ],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: false } },
+      },
+    },
+    {
+      id: "iron",
+      weight: 2,
+      layers: [
+        ["I_I"],
+        ["ICI"],
+      ],
+      legend: {
+        I: { role: "metal", shape: "bars" },
+        C: { role: "metal", shape: "chain", orient: { axis: "x" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

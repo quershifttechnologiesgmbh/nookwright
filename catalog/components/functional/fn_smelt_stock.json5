@@ -1,0 +1,49 @@
+// Brennstofflager der Schmelzhalle (FN, Welle 28.09.2026): Fässer mit Kohle und Holzkohle zwischen Kohleblöcken, beschriftet (Rahmen hängen an den Kohleblöcken, nie an Fässern: K1).
+// Vorrat zum Nachfüllen der Brennstofffässer (kein Trichter, kein Zufluss). Inhalt nur in den Fässern (Ruhezustand im
+// Export: Kohle bzw. Holzkohle, gut gefüllt); die Kohleblöcke sind Deko. Fässer öffnen immer, keine Freifläche nötig.
+{
+  id: "functional/fn_smelt_stock",
+  kind: "static",
+  name: "Brennstofflager",
+  category: "storage",
+  tags: ["fn_smelt", "fn_smelt_stock"],
+  functionTags: ["store"],
+  styleTags: ["workshop", "dwarven", "medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "low",
+      weight: 2,
+      maxRoomHeight: 3,
+      layers: [["KBK", "___"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:coal", count: [32, 64] }], fill: [0.5, 0.9] } },
+        K: { block: "minecraft:coal_block" },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 0, 1], face: "front", item: { item: "minecraft:coal" } },
+        { type: "item_frame", at: [2, 0, 1], face: "front", item: { item: "minecraft:charcoal" } },
+      ],
+    },
+    {
+      id: "stack",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["KBK", "___"], ["BKb", "..."], ["ULU", "..."]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:coal", count: [32, 64] }], fill: [0.5, 0.9] } },
+        K: { block: "minecraft:coal_block" },
+        b: { block: "minecraft:barrel", orient: { front: "front" }, contents: { items: [{ item: "minecraft:charcoal", count: [32, 64] }], fill: [0.5, 0.9] } },
+        U: { role: "wall_cornice", shape: "slab" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 0, 1], face: "front", item: { item: "minecraft:coal" } },
+        { type: "item_frame", at: [2, 0, 1], face: "front", item: { item: "minecraft:charcoal" } },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

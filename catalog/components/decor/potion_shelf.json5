@@ -1,0 +1,22 @@
+// Alchemie-Bord (research/11 §5.4/§5.5: Borde mit Pilzen, Kerzen, Flaschen): obere Stufen in Kopfhöhe an der
+// Wand, oben Alchemie-Kleinkram (Tag `alchemy_small`: Pilz-Töpfe, Braustand) und Kerzen.
+{
+  id: "decor/potion_shelf",
+  kind: "static",
+  name: "Alchemie-Bord",
+  category: "attachment",
+  tags: ["wall_decor", "potion_shelf"],
+  styleTags: ["medieval", "arcane"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: auch über Kopfhöhe (über Möbeln bevorzugt)
+  rotations: "backToWall",
+  layers: [["SSS"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  sockets: [
+    { id: "top_l", type: "surface", at: [0, 1, 0], accepts: ["alchemy_small", "candles"], prob: 0.8 },
+    { id: "top_m", type: "surface", at: [1, 1, 0], accepts: ["alchemy_small"], prob: 0.6 },
+    { id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["alchemy_small", "candles"], prob: 0.8 },
+  ],
+}

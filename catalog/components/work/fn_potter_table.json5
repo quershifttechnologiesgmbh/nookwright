@@ -1,0 +1,30 @@
+// FN-Dense · Töpfertisch (Raummitte der Töpferei): Tischplatte mit drei Zierkrügen, darunter Terrakotta-Stapel
+// (Vorbild: Töpferwerkstätten der Community mit Regal-Tisch in der Mitte). 5 breit, 2 tief, 3 hoch. Zierkrüge stehen auf
+// der Halbstufe (feste Oberseite). Symmetrisch in der Breite. Insel-Eintrag von `pottery` (Tag `fn_pottery_island`).
+{
+  id: "work/fn_potter_table",
+  kind: "static",
+  name: "Töpfertisch",
+  category: "work",
+  tags: ["fn_pottery_island"],
+  functionTags: ["craft"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["PtttP", "P...P"], // y0: Beine, hinten Terrakotta-Stapel
+    ["sssss", "sssss"], // y1: Platte
+    ["d.d.d", ".l.l."], // y2: Zierkrüge; Laternen
+  ],
+  legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        t: { block: "minecraft:terracotta" },
+        d: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

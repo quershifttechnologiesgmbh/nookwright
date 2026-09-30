@@ -1,0 +1,203 @@
+// Pflanzkasten (Welle FN): kleinster Beet-Baustein, 3 oder 5 breit, 3 tief, Höhe 2 - passt in jeden Wohnraum, Anbau und Hof und ist die
+// Pflichtform der Raumtypen crop_hall und herb_garden (die großen Anlagen sind optional und wachsen mit der Raumgröße).
+// Ackerland-Regeln (Wiki Farmland): eine waterlogged Laterne in der Mittelzelle ist Wasserquelle (Reichweite 4, hier höchstens 2) und Licht 15
+// (Pflanzen wachsen ab Licht 9). Vorne offen zur Ernte, Rückwand aus Brettern mit Topfreihe (getopfte Pflanzen sind fensterverträglich). Frei drehbar (rotations all): Räume mit Fenstern haben kaum 3 breite feste Wandstücke, das Stück steht dann als Insel. Ruhezustand: ausgewachsene Pflanzen, keine Mechanik.
+{
+  id: "functional/fn_crop_planter",
+  kind: "static",
+  name: "Pflanzkasten",
+  category: "work",
+  tags: ["fn_planter", "fn_crop"],
+  functionTags: ["farm:crops", "light"],
+  styleTags: ["rustic", "medieval", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_wheat",
+      weight: 9,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBB", // z0 Rückwand
+          "FLF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppp", // z0 Rückwand
+          "a_a", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:wheat", state: { age: "7" } },
+      },
+    },
+    {
+      id: "s_carrots",
+      weight: 6,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBB", // z0 Rückwand
+          "FLF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppp", // z0 Rückwand
+          "a_a", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:carrots", state: { age: "7" } },
+      },
+    },
+    {
+      id: "s_potatoes",
+      weight: 6,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBB", // z0 Rückwand
+          "FLF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppp", // z0 Rückwand
+          "a_a", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+    {
+      id: "s_beetroots",
+      weight: 3,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBB", // z0 Rückwand
+          "FLF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppp", // z0 Rückwand
+          "a_a", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:beetroots", state: { age: "3" } },
+      },
+    },
+    {
+      id: "m_wheat",
+      weight: 6,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBBBB", // z0 Rückwand
+          "FFLFF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFFFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppppp", // z0 Rückwand
+          "aa_aa", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaaaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:wheat", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_carrots",
+      weight: 4,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBBBB", // z0 Rückwand
+          "FFLFF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFFFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppppp", // z0 Rückwand
+          "aa_aa", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaaaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:carrots", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_potatoes",
+      weight: 4,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBBBB", // z0 Rückwand
+          "FFLFF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFFFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppppp", // z0 Rückwand
+          "aa_aa", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaaaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_beetroots",
+      weight: 2,
+      layers: [
+        [ // y0: Rückwand + Ackerland + Laterne
+          "BBBBB", // z0 Rückwand
+          "FFLFF", // z1 Reihe 1 (Laterne in der Mitte)
+          "FFFFF", // z2 Reihe 2 (vorne offen)
+        ],
+        [ // y1: Topfreihe hinten + Pflanzen
+          "ppppp", // z0 Rückwand
+          "aa_aa", // z1 Reihe 1 (Laterne in der Mitte)
+          "aaaaa", // z2 Reihe 2 (vorne offen)
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        p: { block: "minecraft:potted_fern" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:beetroots", state: { age: "3" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

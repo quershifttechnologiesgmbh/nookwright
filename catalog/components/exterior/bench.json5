@@ -1,0 +1,37 @@
+// X1 · E4 Bank neben der Haustür (research/18 E4, research/16 F7): Sitz aus Treppen, Rücken zur Wand, Armlehnen aus
+// offenen Falltüren an beiden Enden (liegen am Sitz an). „long“ = 2 Sitze, „short“ = 1 Sitz (enge Wandstücke).
+// Auch unter einem Fenster erlaubt (Sitz unter der Scheibe).
+{
+  id: "exterior/bench",
+  kind: "static",
+  name: "Hausbank",
+  category: "furniture",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "long",
+      weight: 2,
+      layers: [["ASSB"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        A: { role: "furniture_wood", shape: "trapdoor", orient: { front: "right", open: true } },
+        B: { role: "furniture_wood", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      id: "short",
+      weight: 1,
+      layers: [["ASB"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        A: { role: "furniture_wood", shape: "trapdoor", orient: { front: "right", open: true } },
+        B: { role: "furniture_wood", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+  ],
+}

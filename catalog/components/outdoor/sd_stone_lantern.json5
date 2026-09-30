@@ -1,0 +1,25 @@
+// SD Grundstücks-Deko: Steinlaterne (Sockel, Schaft, Laterne, Deckplatte) – Gartenzier für asiatische Themes.
+{
+  id: "outdoor/sd_stone_lantern",
+  kind: "static",
+  name: "Steinlaterne",
+  category: "light",
+  tags: ["outdoor", "sd_decor", "sd_statue", "sd_stone_lantern"],
+  styleTags: ["asian"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["B"], // y0: Sockel
+    ["W"], // y1: Schaft
+    ["L"], // y2: Laterne
+    ["s"], // y3: Deckplatte
+  ],
+  legend: {
+    B: { role: "wall_plinth", shape: "block" },
+    W: { role: "wall_plinth", shape: "wall" },
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+    s: { role: "wall_plinth", shape: "slab" },
+  },
+  light: "auto",
+}

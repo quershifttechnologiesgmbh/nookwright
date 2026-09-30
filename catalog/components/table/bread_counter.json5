@@ -1,0 +1,51 @@
+// K3b · Brottheke (research/17 §4.17, Ba2/Ba6): Verkaufstheke mit Kuchen in der Mitte (umgedrehte Treppe ist
+// „fest“ → Kuchen hält, Vanilla isSolid; im Spiel prüfen: research/17 T16) und Brot in Rahmen flach auf den
+// Enden. Die Enden sind Vollholz (Planken, Rolle `beam`), weil Rahmen nur an vollen Blöcken sicher hängen (K1).
+// Beide Seiten nutzbar (Kunde/Bäcker), frei stehend quer zur Tür. Darüber eine Laterne (`hang`, V3).
+// Bewusst ohne Tag `counter` (research/17 §7.2: sonst zöge die Küche die Brottheke).
+{
+  id: "table/bread_counter",
+  kind: "static",
+  name: "Brottheke",
+  category: "furniture",
+  tags: ["bread_counter", "shop_counter"],
+  functionTags: ["trade"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "long",
+      weight: 3,
+      layers: [
+        ["PKP"], // y0: Brett | Theke | Brett
+        ["_k_"], // y1: Brot-Rahmen | Kuchen | Brot-Rahmen
+      ],
+      legend: {
+        P: { role: "beam", shape: "planks" },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        k: { block: "minecraft:cake", state: { bites: "0" } },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:bread" } },
+        { type: "item_frame", at: [2, 1, 0], face: "up", item: { role: "food.baked" } },
+      ],
+      sockets: [{ id: "lamp", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.5 }],
+    },
+    {
+      // kurz: Brett mit Brot, Theke mit Kuchen
+      id: "short",
+      weight: 2,
+      layers: [["PK"], ["_k"]],
+      legend: {
+        P: { role: "beam", shape: "planks" },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        k: { block: "minecraft:cake", state: { bites: "0" } },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:bread" } }],
+      sockets: [{ id: "lamp", type: "hang", at: [0, 99, 0], accepts: ["light_pendant"], prob: 0.5 }],
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

@@ -1,0 +1,48 @@
+// K3d · Raumteiler (research/16 I12, P3; S9 „Wall Dividers“): halbhohe Trennwand, die große Räume ohne Tür
+// gliedert – Bücherregal zwischen Pfosten, Falltür-Paravent oder Zaun mit Laubkrone (Blätter `persistent`,
+// Faktencheck #17; Blätter brauchen keine Stütze). Frei stehend (alle Drehungen), 3 breit, 2 hoch – man sieht
+// darüber hinweg. Der Solver hält die Lauffläche zusammenhängend (Konnektivität), also nie als Sperre.
+// Tag `room_divider`: Speisesaal, Thronsaal und große Wohnräume ziehen es bewusst.
+{
+  id: "decor/room_divider",
+  kind: "static",
+  name: "Raumteiler",
+  category: "furniture",
+  tags: ["room_divider"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "shelves",
+      weight: 3,
+      layers: [["PKP"], ["PKP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        K: { block: "minecraft:bookshelf" },
+      },
+      sockets: [{ id: "top", type: "surface", at: [1, 2, 0], accepts: ["candles", "plant", "light_small"], prob: 0.5 }],
+    },
+    {
+      // Paravent: Zaun-Pfosten, dazwischen offene Falltüren (flach, Muster sichtbar)
+      id: "screen",
+      weight: 2,
+      layers: [["FTF"], ["FTF"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      // Hecke: Pflanzkasten (Fässer, Deckel oben) mit Laubkrone
+      id: "hedge",
+      weight: 2,
+      layers: [["BBB"], ["LLL"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        L: { role: "plant", shape: "leaves", state: { persistent: "true" } },
+      },
+    },
+  ],
+}

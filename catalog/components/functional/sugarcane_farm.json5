@@ -1,0 +1,51 @@
+// Zuckerrohr-Automat (R1): Beobachter hinten auf Höhe 3 sieht die dritte Rohr-Stufe; sein Ausgang (Rückseite)
+// speist Staub auf einem Block, der Block versorgt den Kolben darunter, der Kolben schiebt Stufe 2 weg (Rohr
+// bricht, Stufe 3 fällt mit). Der Kolben tritt nur in Stufe 2 ein → der Beobachter sieht ihn nicht (kein Takt).
+// Wasser hinter der Erde, ringsum eingefasst (fließt nicht aus). Ernte fällt vorn auf die Erde (von Hand
+// aufsammeln). Braucht lichte Höhe ≥ 4 (Rohr 3 hoch). Ruhezustand: alles stromlos, Rohr 1 hoch.
+// Richtungen relativ: front = Süden (+z). Im Spiel geprüft: spikes/ingame Gruppe F.
+{
+  id: "functional/sugarcane_farm",
+  kind: "static",
+  name: "Zuckerrohr-Automat",
+  category: "work",
+  tags: ["sugarcane_farm", "farm_machine"],
+  functionTags: ["farm:sugar_cane", "automation", "redstone"],
+  styleTags: ["workshop", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    [
+      "BBB", // y0 z0: Rückwand
+      "BwB", // y0 z1: Wasser, eingefasst
+      "BdB", // y0 z2: Erde
+    ],
+    [
+      ".B.", // y1 z0
+      "BBB", // y1 z1: Deckel über dem Wasser
+      ".c.", // y1 z2: Zuckerrohr (Stufe 1)
+    ],
+    [
+      ".W.", // y2 z0: Block, den der Staub speist (neben dem Kolben)
+      ".p.", // y2 z1: Kolben → schiebt Stufe 2
+      "._.", // y2 z2: Stufe 2 frei
+    ],
+    [
+      ".r.", // y3 z0: Staub am Beobachter-Ausgang
+      ".o.", // y3 z1: Beobachter sieht Stufe 3
+      "._.", // y3 z2: Stufe 3 frei
+    ],
+  ],
+  legend: {
+    B: { role: "furniture_wood", shape: "planks" },
+    w: { block: "minecraft:water", state: { level: "0" } },
+    d: { block: "minecraft:dirt" },
+    c: { block: "minecraft:sugar_cane", state: { age: "0" } },
+    W: { block: "minecraft:stone_bricks" },
+    p: { block: "minecraft:piston", orient: { front: "front" } },
+    r: { block: "minecraft:redstone_wire" },
+    o: { block: "minecraft:observer", orient: { front: "front" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

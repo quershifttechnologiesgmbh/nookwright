@@ -1,0 +1,63 @@
+// BT16 Hobbit-/Erdhaus (research/19 §5, §7.5, §8 Welle 1 Nr. 5): einstöckiges Erdhaus unter einem Grashügel, Lage `buried`
+// – nur die Front ist Fassade (Rundtür, Rundfenster), Seiten und Rückseite liegen in der Erde. Hinter der Tür die
+// Diele als Mittelflur, vorn Küche und Wohnstube (mit Fenstern; die Stube entfällt in S bei Platzmangel), hinten
+// Schlafkammern, Speisekammer, Waschraum, selten ein Arbeitszimmer.
+// Dach `earth`: flache Decke (`roof: "flat"` + Lage buried), die Erdlagen legt das Gelände („Überdecken“).
+// Referenzen: klotz_klotz „Large Hobbit House“ 14×7×17, General John „Hobbit Hole Home“ (88 % Erde), MEGA Hobbit Hole (PMC).
+{
+  id: "hobbit",
+  name: "Erdhaus",
+  label: "Erdhaus (im Hügel)",
+  // W9-G4 (27.09.2026): Text = Bild – Moos an den Hügelkanten, Stützmauern neben der Front, Rundtür Ø 7 mit Türblatt.
+  // W12-B (28.09.2026, plan/spikes/W12B_erdhausfront.md): Tür mittig im Steinbogen, Rundfenster paarweise in Holzrahmen,
+  // Steinpfeiler
+  // W13-C (28.09.2026, plan/spikes/W13C_erdhaus_huegel.md): schmale, hohe Front mit Stufenbogen, weicher Hügel mit Terrassen
+  // W16-C (28.09.2026, plan/spikes/W16C_erdhaus.md): Bogenfront (Holzband als Halbellipse, Stirn aus Stämmen steigt mit,
+  // Moosnarbe über dem Band), Schornstein und Eiche auf dem Hügel
+  description: "Einstöckiges Erdhaus tief in einem weich gerundeten, bewachsenen Grashügel mit Blumen, Büschen, einer Eiche und einem Schornstein; die schmale, hohe Front sitzt eingerückt zwischen zwei Hügelarmen, unter einem gestuften Holzbogen mit runden Stirnholz-Scheiben über die ganze Breite und einer Moosnarbe darüber, mit der großen Rundtür mittig im Bogenring, Laternen, Rundfenstern in Holzrahmen links und rechts und Pfeilern.",
+  family: "nature",
+  themes: ["rustic", "medieval"],
+  setting: { kind: "buried", front: "south", cover: 2 },
+  // W13-C (28.09.2026, plan/spikes/W13C_erdhaus_huegel.md): schmale Front – quer zur Front 13–17, dafür tiefer (vorher
+  // 13–25 breit, 11–15 tief); die Diele läuft als mittiges Längsband von der Tür nach hinten (`centerHub`, Front an der
+  // Schmalseite), die Räume liegen links und rechts hintereinander
+  sizes: {
+    S: { footprint: [[15, 17], [15, 17]], floors: 1, groundHeight: 3 },
+    M: { footprint: [[15, 17], [15, 19]], floors: 1, groundHeight: 3 },
+    L: { footprint: [[15, 19], [15, 23]], floors: 1, groundHeight: [3, 4] },
+  },
+  // W12-B (28.09.2026, plan/spikes/W12B_erdhausfront.md): Diele mittig, Seiten gespiegelt – Rundtür in der Frontmitte
+  massing: { generator: "rect", ratio: [1.1, 1.9], centerHub: true },
+  entrance: "entrance_hall",
+  program: [
+    { room: "entrance_hall", floor: "ground", share: 0.15, required: true, near: "entrance" },
+    { room: "kitchen", floor: "ground", share: 0.22, required: true, near: "front" },
+    { room: "solar", floor: "ground", share: 0.3, prob: 1, near: "front" },
+    { room: "bedroom", floor: "ground", count: [1, 2], minArea: 9, required: true, near: "back" },
+    { room: "storage", floor: "ground", share: 0.1, prob: 0.8, near: "back" },
+    { room: "washroom", floor: "ground", share: 0.1, prob: 0.7, near: "back" },
+    { room: "study", floor: "ground", share: 0.15, prob: 0.3 },
+  ],
+
+  // Funktionsgrad (W2-1): Kräutergarten oder Pilzkeller im Erdhaus (some); rich: Anbauhalle und Lagerhalle.
+  functions: [
+    { room: "herb_garden", share: 0.24, replaces: ["storage", "study"], weight: 3, group: "farm", near: "back" },
+    { room: "mushroom_cellar", share: 0.24, replaces: ["storage", "washroom"], weight: 2, group: "farm", near: "back" },
+    { room: "crop_hall", level: "rich", share: 0.3, replaces: ["solar"], weight: 1, group: "farm2", sizes: ["M", "L"], minFloor: 270, near: "back" },
+    { room: "storage_hall", level: "rich", share: 0.22, replaces: ["storage"], weight: 2, group: "store", minFloor: 250 },
+  ],
+  shell: {
+    roof: "flat",
+    overhang: 0,
+    facade: {},
+    windows: { spacing: 2 },
+  },
+  // Rundtür und Rundfenster kommen aus der Hülle (Lage buried) – Portal, Vordach und Fensterverdachung aus; Türblatt und
+  // Laternen der Rundtür setzt das Gelände beim Überdecken (W7, Katalog `exterior/earth_portal`); Schornsteine der
+  // Hülle aus – den Schornstein auf dem Hügel setzt das Gelände (W16-C, `crownMound`, Katalog `exterior/chimney`)
+  exterior: { density: 0.75, off: ["portal", "canopy", "hoods", "chimneys"] },
+  // W4 (27.09.2026, plan/spikes/W4A_zaeune.md): Gartenwiese mit Trittstein-Weg statt Wiese. W9-G4 (27.09.2026): Rand
+  // 12 → 15 – die Hügelkuppel (flache Stufen oben, Fuß mit Steigung 1) braucht Platz bis zum Grundstücksrand
+  site: { style: "cottage",lighting: "paths", margin: 15, zones: [{ kind: "garden", at: "front", depth: 5, gap: 3 }] },
+  checks: { ratio: [1.1, 1.9] },
+}

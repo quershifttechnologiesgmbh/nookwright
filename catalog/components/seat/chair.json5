@@ -1,0 +1,17 @@
+// Stuhl: eine Treppe, hohe Seite (Lehne) hinten.
+{
+  id: "seat/chair",
+  kind: "static",
+  name: "Stuhl",
+  category: "furniture",
+  tags: ["chair", "seat"],
+  functionTags: ["sit"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["S"]],
+  legend: {
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+  },
+  masks: { clearance: [{ side: "front", depth: 1, hard: false }] },
+}

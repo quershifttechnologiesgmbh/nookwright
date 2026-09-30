@@ -1,0 +1,18 @@
+// X1 · W1 Fensterladen (research/18 W1, research/16 F1): offene Falltür flach an der Wand links bzw. rechts neben
+// dem Fenster (Rolle `shutter`: dunkles Holz oder Akzentfarbe). So hoch wie das Fenster: Dehnung n = Höhe − 1
+// (Varianten-ID `~n`). Falltüren brauchen keine Stütze. Platziert vom Außen-Solver (@mcda/exterior) am Fensteranker.
+{
+  id: "exterior/shutter",
+  kind: "static",
+  name: "Fensterladen",
+  category: "attachment",
+  tags: ["exterior", "exterior_shutter", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  // offen, facing = außen → liegt an der Wandseite der Zelle
+  layers: [["T"]],
+  legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } } },
+  stretch: { layer: 0, max: 3, fill: "ceiling" },
+}

@@ -1,0 +1,46 @@
+// K2 · Spieltisch (DA Utility: Games): Tisch aus oberen Stufen mit Teppich-Spielbrett (Schach bzw. Mühle),
+// Hocker über Sockets wie beim Tavernentisch. Teppich braucht nur einen Block darunter (Faktencheck #4).
+{
+  id: "table/game_table",
+  kind: "static",
+  name: "Spieltisch",
+  category: "furniture",
+  tags: ["game_table", "table"],
+  functionTags: ["play"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "chess",
+      weight: 2,
+      layers: [["TT", "TT"], ["WB", "BW"]],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        W: { block: "minecraft:white_carpet" },
+        B: { block: "minecraft:black_carpet" },
+      },
+    },
+    {
+      id: "mill",
+      weight: 1,
+      layers: [["TT", "TT"], ["GB", "BG"]],
+      legend: {
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        G: { block: "minecraft:light_gray_carpet" },
+        B: { block: "minecraft:brown_carpet" },
+      },
+    },
+  ],
+  // W8-I (2026-09-27): Hocker spiegelsymmetrisch wie beim Tavernentisch (Windrad-Regel, HANDOFF §1). Vorher lagen
+  // n (0,−1), s (1,2), w (−1,1) – drei Arme eines Windrads, n+s eine S-Figur; drei Hocker können um 2×2 nie gespiegelt
+  // liegen, daher der vierte (e). Die Spieler sitzen sich jetzt über dem Brett gegenüber (n/s, w/e).
+  sockets: [
+    { id: "n", type: "adjacent", at: [0, 0, -1], side: "back", accepts: ["bar_stool"], prob: 0.8, facing: "same" },
+    { id: "s", type: "adjacent", at: [0, 0, 2], side: "front", accepts: ["bar_stool"], prob: 0.8, facing: "same" },
+    { id: "w", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["bar_stool"], prob: 0.5, facing: "same" },
+    { id: "e", type: "adjacent", at: [2, 0, 0], side: "left", accepts: ["bar_stool"], prob: 0.5, facing: "same" },
+    { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.4 }, // V3
+  ],
+}

@@ -1,0 +1,21 @@
+// research/56 · Bank mit Pflanzkübeln (freistehend, anders als `exterior/bench` nicht wandgebunden): Sitzbank aus
+// Treppen mit Zaun-Rückenlehne, an beiden Enden ein Kübelstrauch. Für Gartenwege, Platzränder, Marktplatz.
+{
+  id: "outdoor/bench_planter",
+  kind: "static",
+  name: "Bank mit Kübeln",
+  category: "furniture",
+  tags: ["outdoor", "garden", "yard", "plaza", "path"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic", "cottage", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [[".FFFF.", "PSSSSP"]],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+    P: { block: "minecraft:potted_flowering_azalea_bush" },
+  },
+  masks: { use: [{ side: "front" }] },
+}

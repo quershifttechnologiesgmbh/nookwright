@@ -1,0 +1,69 @@
+// Welle D · D3 (research/24 §7.0, T5 `dwarven`): Bogen – ein freistehender Rundbogen als Durchgang
+// (research/24 §7.5 Kernthema Halle/Schmiede, research/16 E1 Arkaden). Die Pfeiler tragen, der Bogenring ist aus
+// umgedrehten Treppen (volle Seite nach außen, Stufe in die Öffnung) mit einem Schlussstein (`wall_quoin`).
+// Der Schlussstein überspannt die Öffnung – das ist die Bauform des Bogens, kein freier Block.
+{
+  id: "arch/bogen",
+  kind: "static",
+  name: "Bogen",
+  category: "architecture",
+  tags: ["bogen", "arch", "gateway", "outdoor"],
+  styleTags: ["dwarven", "medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      // 5 breit, 3 breite Öffnung
+      id: "narrow",
+      weight: 3,
+      layers: [
+        ["P...P"], // y0
+        ["P...P"], // y1
+        ["P...P"], // y2
+        ["PqKpP"], // y3: Bogenring mit Schlussstein
+      ],
+      legend: {
+        P: { role: "wall_primary", shape: "block" },
+        q: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        p: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        K: { role: "wall_quoin", shape: "block" },
+      },
+    },
+    {
+      // 7 breit, 5 breite Öffnung
+      id: "wide",
+      weight: 2,
+      layers: [
+        ["P.....P"], // y0
+        ["P.....P"], // y1
+        ["P.....P"], // y2
+        ["PqSKSpP"], // y3: Bogenring mit Schlussstein
+      ],
+      legend: {
+        P: { role: "wall_primary", shape: "block" },
+        q: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        S: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { role: "wall_quoin", shape: "block" },
+        p: { role: "wall_primary", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+    },
+    {
+      // Holzbogen (Fachwerk-Halle, Baumhaus)
+      id: "timber",
+      weight: 2,
+      layers: [
+        ["P...P"], // y0
+        ["P...P"], // y1
+        ["P...P"], // y2
+        ["PqKpP"], // y3
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        q: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        p: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        K: { role: "beam", shape: "planks" },
+      },
+    },
+  ],
+}

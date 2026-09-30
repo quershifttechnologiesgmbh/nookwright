@@ -1,0 +1,255 @@
+// Tropisch / Dschungel (research/24 §7.2, T2): Ordnung gegen Chaos, Holz auf Pfählen, viel Grün aber ruhige
+// Flächen. Erbt Möbel und Außenprofil von medieval; die Außenwand bleibt Holz (kein Putz), innen wird gekalkt.
+// Kernthemes: (a) Baumhaus, (b) Bambus-Rückzugsort, (c) überwucherter Tempel, (d) Pfahldorf.
+// Falle (research/24 §7.2): nicht alles grün – Grün als Akzent, Träger bleibt Holz/Stein.
+{
+  id: "tropical",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { organic: 0.5, richness: 0.25 },
+  name: "Tropisch",
+  description: "Dschungelholz mit dunklen Stammrahmen, helles Bambus-Strohdach, Lehmziegelsockel, weißer Putz innen",
+  base: "medieval",
+  roles: {
+    // P1 Dschungelwand über die ganze Fassade (W2 Regeln W4/W5): Dschungelbretter tragen, am nassen Fuß des Gebäudes
+    // dunkle Eiche. Der bemooste Stein sitzt im Sockel (Pfähle und Bruchstein), nicht als Zufallsblock im Holz; Mangrove
+    // (rote Flecken) und Bambus (gelbe Flecken) sind im Bild zu laut und entfallen.
+    wall_primary: {
+      // W4 (27.09.2026, Review M4): dunkler Fuß nur als durchgehende Reihe – `quantize: "ring"` wählt je Wandreihe
+      // (gleiche Höhe über dem Sockel, `facade_h`) genau einen Block, ohne Rauschen und ohne Jitter. Vorher lagen
+      // Cluster-Flecken aus dem dunklen Ton im Bretterfeld und lasen sich wie zugemauerte Türöffnungen. Unteres
+      // Siebtel der Fassade (zweigeschossig: die erste Reihe) dunkel, darüber nur das Hauptbrett (W4/W5).
+      gradient: {
+        along: "facade_h",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "dark_oak", weight: 1 }] },
+          { at: 0.15, mix: [{ family: "jungle", weight: 1 }] },
+          { at: 1, mix: [{ family: "jungle", weight: 1 }] },
+        ],
+      },
+    },
+    // Innen: gekalkt mit Spritzwasser-Saum
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        stops: [
+          { at: 0, mix: [
+            { family: "mossy_stone_bricks", weight: 25 },
+            { family: "calcite", weight: 45 },
+            { family: "white_terracotta", weight: 30 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 60 },
+            { family: "white_terracotta", weight: 25 },
+            { family: "light_gray_terracotta", weight: 15 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "bamboo", weight: 10 },
+        { family: "jungle", weight: 90 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_stone: {
+      mix: [
+        { family: "mossy_stone_bricks", weight: 40 },
+        { family: "stone_bricks", weight: 25 },
+        { family: "mossy_cobblestone", weight: 20 },
+        { family: "stone", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Schlamm hat keine volle Oberseite (Türen brauchen sie) – nur gestampfter Lehm und Erde im Haus
+    floor_earth: {
+      mix: [
+        { block: "minecraft:packed_mud", weight: 45 },
+        { block: "minecraft:coarse_dirt", weight: 35 },
+        { block: "minecraft:rooted_dirt", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Bordüre und Streifen sind HOLZ (Form log/wood)
+    floor_border: { family: "jungle" },
+    floor_strip: { family: "dark_oak" },
+    // Pfähle statt Platte: Stämme tragen das Haus über dem nassen Boden
+    // W13-F: Sockel aus Lehmziegeln (ein Stein; vorher Stämme/Bruchstein/bemoost gemischt – Flecken)
+    foundation: { family: "mud_bricks" },
+    // W13-F: Rahmen aus Dschungelstämmen mit Rinde (dunkel) auf den Dschungelbrettern (vorher entrindet, gleich hell wie die Wand)
+    beam: { family: "jungle" },
+    pillar: { family: "jungle" },
+    door: { family: "jungle" },
+    window_frame: { family: "jungle" },
+    // W13-F: Bambusmosaik zwischen Dschungelbalken (eine Art statt drei gemischt)
+    ceiling: { family: "bamboo_mosaic" },
+    // Holzschindeldach als Deckungsrezept (W2 Regel D1), W4 (27.09.2026, Baustandard D9, Review M5): Fichte trägt, der
+    // First in Dschungelholz – vorher Dschungeldach über Dschungelwand (Helligkeitsabstand 0). Ganze Ringe; Kante (D3)
+    // weiter dunkle Eiche.
+    // W13-F (28.09.2026): helles Bambus-„Stroh“dach (Bambusmosaik) über Dschungeltraufe – Hütte mit Palmstroh über
+    // Dschungelholz mit dunklen Stammrahmen (blockblend.app/palettes/jungle: jungle, mangrove, bamboo; „break edges with
+    // bamboo“). Vorher Fichte → Dschungel: Dach und Wand gleich braun (A/B gegen Bambuswand + Mangrovendach: ruhiger).
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "jungle", weight: 1 }] },
+          { at: 0.2, mix: [{ family: "bamboo_mosaic", weight: 1 }] },
+          { at: 1, mix: [{ family: "bamboo_mosaic", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "dark_oak" },
+    // W2 (Baustandard D4, Giebel-Rezept): Bambusrohre senkrecht (Bambusblock mit Achse y)
+    wall_gable: { family: "bamboo", shapes: { block: "log" } },
+    wall_plinth: { family: "mossy_cobblestone" },
+    // W2 (Regel W6): Gesims/Geschossband am Holzhaus aus Holz im Kontrastton, nicht der geerbte Steinziegel
+    wall_cornice: { family: "dark_oak" },
+    wall_quoin: { family: "jungle", shapes: { block: "log" } },
+    shutter: { family: "jungle" },
+    furniture_wood: { family: "jungle" },
+    textile_primary: { color: "yellow" },
+    textile_accent: { color: "green" },
+    textile_neutral: { color: "white" },
+    // W13-F: Eisenlaterne (warmes Licht) statt Kupferlaterne (grüne Flamme)
+    light_hanging: { family: "iron" },
+    metal: { family: "iron" },
+
+    // ---------------------------------------------------------------- Außen: nasser Boden, Farne, Ranken
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 60 },
+        { block: "minecraft:moss_block", weight: 20 },
+        { block: "minecraft:podzol", weight: 20 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_dirt: {
+      mix: [
+        { block: "minecraft:mud", weight: 45 },
+        { block: "minecraft:packed_mud", weight: 30 },
+        { block: "minecraft:coarse_dirt", weight: 25 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:dirt_path", weight: 45 },
+        { block: "minecraft:gravel", weight: 20 },
+        { block: "minecraft:mud", weight: 20 },
+        { block: "minecraft:coarse_dirt", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:mossy_cobblestone", weight: 45 },
+        { block: "minecraft:cobblestone", weight: 25 },
+        { block: "minecraft:stone", weight: 15 },
+        { block: "minecraft:mud_bricks", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    pond_bed: {
+      mix: [
+        { block: "minecraft:mud", weight: 50 },
+        { block: "minecraft:sand", weight: 30 },
+        { block: "minecraft:gravel", weight: 20 },
+      ],
+    },
+    leaves_oak: { family: "jungle" },
+    leaves_bush: {
+      mix: [
+        { block: "minecraft:azalea_leaves", weight: 35 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 25 },
+        { block: "minecraft:jungle_leaves", weight: 40 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:torchflower", weight: 30 },
+        { block: "minecraft:blue_orchid", weight: 25 },
+        { block: "minecraft:dandelion", weight: 20 },
+        { block: "minecraft:poppy", weight: 25 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:fern", weight: 55 },
+        { block: "minecraft:short_grass", weight: 25 },
+        { block: "minecraft:bush", weight: 20 },
+      ],
+    },
+    ground_cover: {
+      mix: [
+        { block: "minecraft:moss_carpet", weight: 40 },
+        { block: "minecraft:leaf_litter", weight: 35 },
+        { block: "minecraft:pink_petals", weight: 25 },
+      ],
+    },
+    hedge: { family: "jungle" },
+    // Innenhaut (W2-FD): helle Paneele wie Kalkputz, Leisten aus Dschungelholz; dessen Falltür hat Löcher, deshalb
+    // Sockel und Türrahmen als Fichten-Falltür
+    // W3-IN: Blasseiche statt Birke – hell wie Kalkputz, ohne das Fenstermuster der Birken-Falltür
+    lining_panel: { family: "pale_oak" },
+    lining_trim: { family: "jungle", shapes: { log: "stripped_log" }, blocks: { trapdoor: "minecraft:spruce_trapdoor" } },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation"],
+    wall_secondary: ["wall_secondary"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld aus Brettern/Stämmen färbt die Palette wie das Holz
+    wood_frame: ["beam", "pillar", "wall_gable"],
+    floor: ["floor_primary", "floor_stone", "floor_earth", "ground_grass", "ground_dirt", "ground_path", "ground_yard", "pond_bed"],
+    accent: ["textile_primary", "textile_accent", "textile_neutral"],
+    glass: ["window_frame", "shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "grass_tuft", "ground_cover", "hedge"],
+  },
+
+  surfaces: {
+    // Außenwand bleibt Dschungelholz (kein Putz); innen Wandtäfelung unten, Putz darüber (wie medieval)
+    wall: [
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+      { role: "wall_primary" },
+    ],
+    // Holzhaus: der Rähm über den Außenwänden ist ein liegender Stamm (wie rustic/nordic), nicht die Außenhaut
+    ceiling: [{ beams: { role: "beam", period: 3 }, plate: { role: "beam" } }],
+  },
+  decor: {
+    // Feucht und alt: mehr Moos als im Mittelalter, ausgefranste Ränder
+    // W2 (I1): Wände mit Raum dahinter ohne Moos/Risse (Innenseite sichtbar), verwittert wird am Sockel
+    weathering: { age: 0.4, fade: 1.5, interiorFaces: false, roles: ["wall_primary", "foundation", "floor_stone"] },
+  },
+  items: {
+    "food.any": ["minecraft:melon_slice", "minecraft:cooked_chicken", "minecraft:cocoa_beans", "minecraft:bread"],
+    "deco.small": ["minecraft:cocoa_beans", "minecraft:bamboo", "minecraft:feather"],
+  },
+}

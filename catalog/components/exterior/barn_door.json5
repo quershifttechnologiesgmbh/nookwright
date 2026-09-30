@@ -1,0 +1,44 @@
+// W12-C · Scheunentor (Review R6-4, plan/spikes/W12C_bauernhof_details.md): Torflügel und heller Rahmen mittig im
+// Außengiebel der Scheune, die echte Außentür sitzt als Schlupftür in der Mitte des Tors (Laufweg bleibt frei). Die
+// Flügel sind offene Falltüren flach an der Wand (Rolle `shutter`, dunkles Holz), der Rahmen aus Eckbrettern (Vollblock)
+// und einem Sturz aus umgedrehten Treppen in der hellen Kantenrolle `trim_light` – wie das weiße Tor-Gewände roter
+// Scheunen. Spiegelsymmetrisch um die Türachse (Projektregel), 5 breit.
+//
+//   Ansicht (y ab Türunterkante)      Vorbilder: thisoldhouse.com „Why barns are red“ (weiße Tor- und Kantenfassung),
+//     H H H H H   y3  Sturz           famousartisan.com X-/Z-brace barn doors (Flügel ~ 3 Blöcke hoch),
+//     P L L L P   y2  Flügel          brightchamps.com/blog/minecraft-barn (Falltüren + Stämme als Torflügel)
+//     P L _ L P   y1  _ = Tür (frei)
+//     P L _ L P   y0
+{
+  id: "exterior/barn_door",
+  kind: "static",
+  name: "Scheunentor",
+  category: "architecture",
+  tags: ["exterior", "exterior_barn", "outdoor"],
+  styleTags: ["rustic", "farmstead", "medieval"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "gate",
+      weight: 1,
+      layers: [["PL_LP"], ["PL_LP"], ["PLLLP"], ["HHHHH"]],
+      legend: {
+        P: { role: "trim_light", shape: "block" },
+        L: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        H: { role: "trim_light", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "gate_low",
+      // niedrige Wand (lichte Höhe 3): Flügel so hoch wie die Tür, Sturz direkt darüber
+      layers: [["PL_LP"], ["PL_LP"], ["HHHHH"]],
+      legend: {
+        P: { role: "trim_light", shape: "block" },
+        L: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        H: { role: "trim_light", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+}

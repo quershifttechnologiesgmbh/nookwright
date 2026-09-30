@@ -1,0 +1,35 @@
+// research/56 · Busch aus Laub + Mauer (Bing „minecraft bush leaves wall technique“): eine Mauer als sichtbarer
+// „Ast“ in der Mitte, rundherum Laub in Kreuzform (keine Ecken) für eine runde statt würfelige Silhouette. Laub
+// dauerhaft (`persistent`). Für Garten, Heckenrand, Hofecken.
+{
+  id: "outdoor/shrub_wall",
+  kind: "static",
+  name: "Busch (Laub + Mauer)",
+  category: "decor",
+  tags: ["shrub", "bush", "outdoor", "garden", "yard"],
+  styleTags: ["cottage", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: false,
+  variants: [
+    {
+      id: "round",
+      weight: 3,
+      layers: [[".l.", "lwl", ".l."], ["...", ".l.", "..."]],
+      legend: {
+        l: { block: "minecraft:oak_leaves", state: { persistent: "true" } },
+        w: { block: "minecraft:cobblestone_wall" },
+      },
+    },
+    {
+      id: "flowering",
+      weight: 2,
+      layers: [[".l.", "lwl", ".l."], ["...", ".l.", "..."]],
+      legend: {
+        l: { block: "minecraft:flowering_azalea_leaves", state: { persistent: "true" } },
+        w: { block: "minecraft:cobblestone_wall" },
+      },
+    },
+  ],
+}

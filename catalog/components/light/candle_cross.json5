@@ -1,0 +1,25 @@
+// K2 · Kerzenkreuz (DA Lights: Ceiling Lights): kompakter Deckenleuchter für lichte Höhe ≥ 4 (der
+// Kronleuchter light/candle_chandelier braucht ≥ 5). Zaunpfosten unter der Decke, Zaunkreuz darunter, auf den
+// vier Armen je 3 Kerzen (Kerzen auf Zaun: T5 #3). Kopffreiheit: unterste Lage frühestens Boden + 2.
+{
+  id: "light/candle_cross",
+  kind: "static",
+  name: "Kerzenkreuz",
+  category: "light",
+  tags: ["light", "light_ceiling", "chandelier"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  maxRoomHeight: 5, // V3: darüber der Kronleuchter mit mitwachsender Kette
+  layers: [
+    [".F.", "FFF", ".F."], // y0: Zaunkreuz
+    [".C.", "CFC", ".C."], // y1: Kerzen auf den Armen, Mittelpfosten an der Decke
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    C: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+  },
+  light: "auto",
+}

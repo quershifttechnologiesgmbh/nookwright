@@ -1,0 +1,97 @@
+// FN · Back-Straße (Produktionslinien, plan/spikes/FN_produktionslinien.md): 2, 3 oder 4 Räucheröfen in einer
+// Ziegelpfeiler-Reihe (Rolle `hearth_alt`, Pfeiler wachsen per `stretch` bis unter die Decke = Schlote). Räucherofen =
+// Metzger-Arbeitsblock (Faktencheck #7) und backt doppelt so schnell wie ein Ofen: Kartoffeln → Ofenkartoffeln, rohes Fleisch/
+// Fisch, Seetang. Zufuhr wie `functional/smelter_row` (im Spiel geprüft, R1 Gruppe F): Trichter oben → Eingabe-Slot,
+// Trichter von der Seite/hinten → Brennstoff-Slot (Fass darüber: Kohle/Holzkohle/Holz). Das Ergebnis nimmt man vorn aus dem
+// Ofen. EHRLICH: Weizen → Brot ist ein Handwerks-Rezept (Werkbank/Crafter mit gesperrten Slots), kein Ofenrezept – die
+// Straße backt Ofenkost; Brot und Kuchen liegen in der Auslage (Raumtyp `bakery_line`: Brottheke, Rahmen). Ruhezustand:
+// Fässer/Trichter leer, Öfen `lit: true` ohne Brennstoff (wie `work/bread_oven`, T5-Befund: bleibt an). Rücken zur Wand,
+// Front = Bedienseite. Spiegelsymmetrisch. Richtungen relativ: left = +x.
+{
+  id: "functional/fn_line_bakery",
+  kind: "static",
+  name: "Back-Straße",
+  category: "work",
+  tags: ["fn_bakery_line", "fn_line"],
+  functionTags: ["cook", "store", "automation", "light", "villager_workstation", "work:butcher"],
+  styleTags: ["medieval", "rustic", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "two",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PhPhP", "PSPSP"], // y0: Brennstoff-Trichter (→ Ofen) | Räucherofen; Ziegelpfeiler dazwischen
+        ["PbPbP", "PiPiP"], // y1: Brennstoff-Fass | Eingabe-Trichter (↓ Ofen)
+        ["PPPPP", "PcPcP"], // y2: Sturzband hinten | Zutaten-Fass
+      ],
+      stretch: { layer: 2, max: 10, fill: "ceiling", rows: ["P.P.P", "P.P.P"] },
+      legend: {
+        P: { role: "hearth_alt", shape: "block" },
+        S: { block: "minecraft:smoker", orient: { front: "front" }, state: { lit: "true" } },
+        h: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        i: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        c: { block: "minecraft:barrel", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "three",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PhPhPhP", "PSPSPSP"], // y0: Brennstoff-Trichter (→ Ofen) | Räucherofen; Ziegelpfeiler dazwischen
+        ["PbPbPbP", "PiPiPiP"], // y1: Brennstoff-Fass | Eingabe-Trichter (↓ Ofen)
+        ["PPPPPPP", "PcPcPcP"], // y2: Sturzband hinten | Zutaten-Fass
+      ],
+      stretch: { layer: 2, max: 10, fill: "ceiling", rows: ["P.P.P.P", "P.P.P.P"] },
+      legend: {
+        P: { role: "hearth_alt", shape: "block" },
+        S: { block: "minecraft:smoker", orient: { front: "front" }, state: { lit: "true" } },
+        h: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        i: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        c: { block: "minecraft:barrel", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "four",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PhPhPhPhP", "PSPSPSPSP"], // y0: Brennstoff-Trichter (→ Ofen) | Räucherofen; Ziegelpfeiler dazwischen
+        ["PbPbPbPbP", "PiPiPiPiP"], // y1: Brennstoff-Fass | Eingabe-Trichter (↓ Ofen)
+        ["PPPPPPPPP", "PcPcPcPcP"], // y2: Sturzband hinten | Zutaten-Fass
+      ],
+      stretch: { layer: 2, max: 10, fill: "ceiling", rows: ["P.P.P.P.P", "P.P.P.P.P"] },
+      legend: {
+        P: { role: "hearth_alt", shape: "block" },
+        S: { block: "minecraft:smoker", orient: { front: "front" }, state: { lit: "true" } },
+        h: { block: "minecraft:hopper", orient: { attachTo: "front" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        i: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        c: { block: "minecraft:barrel", orient: { front: "up" } },
+      },
+    },
+    {
+      id: "nook",
+      weight: 1,
+      // Kompaktform (Tiefe 1, Höhe 2): ein Räucherofen mit Eingabe-Trichter und Ablage-Fass
+      layers: [
+        ["SB"], // y0: Räucherofen | Ablage-Fass
+        ["IP"], // y1: Eingabe-Trichter (↓ Ofen) | Ziegelstumpf
+      ],
+      legend: {
+        S: { block: "minecraft:smoker", orient: { front: "front" }, state: { lit: "true" } },
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        P: { role: "hearth_alt", shape: "block" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

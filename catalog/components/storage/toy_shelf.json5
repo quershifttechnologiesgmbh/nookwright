@@ -1,0 +1,29 @@
+// I52 · Spielzeugregal (research/52 §Möbel, Kinderzimmer): Unterschrank mit Regalbrett, darauf bunte
+// Bauklötze (Wollblöcke) statt der freistehenden Bodenform decor/toy_blocks — für Kinderzimmer mit wenig
+// Bodenfläche.
+// Q1a: kein Tag `wall_shelf` mehr – der steht in den Raumtypen (z. B. `bedroom` mit count [2, 3]) für
+// WAND-Borde; dieses Regal ist ein Bodenmöbel und hat als solches die Kerzen-Abstellflächen im Schlafzimmer
+// verdrängt (Licht-Pass `lighting.test.ts`: Stimmungsziel 7 nicht mehr erreichbar). Es bleibt über `toys`
+// im Kinderzimmer (`nursery`).
+{
+  id: "storage/toy_shelf",
+  kind: "static",
+  name: "Spielzeugregal",
+  category: "storage",
+  tags: ["toys", "shelf_unit"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["UUU"], // y0: Unterschrank
+    ["ToO"], // y1: Bauklötze in bunten Farben
+  ],
+  legend: {
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    T: { block: "minecraft:red_wool" },
+    o: { block: "minecraft:yellow_wool" },
+    O: { block: "minecraft:light_blue_wool" },
+  },
+}

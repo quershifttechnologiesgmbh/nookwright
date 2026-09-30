@@ -1,0 +1,129 @@
+// W3-EN · Eingangsmodul „Stadthaus“ (plan/spikes/W3EN_eingang.md, Vorbild-Archetyp A „Stein-Portal“; Baustandard F3/F4/F7):
+// Gewände aus dem Eckstein 1 vor der Wand (Tür 1 zurückgesetzt; volle Blöcke wie in 10 von 28 Vorbildern – Mauerblöcke
+// sind im Eckstein nicht in jedem Theme vorhanden), Bogen aus umgedrehten Gesims-Treppen mit Schlussstein (die offenen
+// Bogenecken nehmen dem Portal die Kastenform), Laternenpaar am Zaun-Arm auf den Pfosten des Türfelds (Rückfall: stehend auf niedrigen Steinpfosten),
+// dreibreite Stufe aus Gesimsstein (abgesetzt vom Sockelprofil). Kein Vordach: der Bogen ist die Krone des Eingangs.
+//
+// Katalogeinheit = ein Modul mit seinen Stücken als Varianten (wie `window_module_*`). Der Außen-Planer
+// (@mcda/exterior, entrance.ts) setzt die Stücke an der Haustür zusammen: jedes Stück ist spiegelsymmetrisch um die
+// Türachse und wird an seiner Mittelspalte angesetzt; Schicht 0 = Bodenplattenreihe (eine unter der unteren Türhälfte),
+// Zeile 0 = direkt vor der Wand, Zeile 1 = eine weiter draußen.
+//
+//   Ansicht (5 breit)       Stück            Lage (j = Spalte ab der Türachse, y = Reihe ab der Bodenplatte)
+//     F A K B F             frame            y = 1 … 3, j = −1 … 1 (Gewände, Bogen, Schlussstein; Mitte frei)
+//     L Q . Q L             lanterns         y = 2 … 3, j = ±2 (Laterne unter dem Zaun-Arm)
+//     . Q . Q .             lanterns_post    Rückfall: Laterne stehend auf einem Steinpfosten (y = 1 … 2)
+//     . s s s .             step/block       Vortreppe (3 breit) bzw. Podest/Unterbau
+//
+// Vorbilder (URLs im Bericht): Steinportale mit Treppenbogen und Laternen auf Wangen/Pfosten (YouTube a-bBdvTP_GM,
+// 3ubbDSteuAU, X4M3zL9SJXE, BoyC6uII6Xg „Castle Porch“, dEYWvBfZfnU; Reddit gs0zo5, 1mwpg8t).
+//
+// W4-C (plan/spikes/W4C_tueren.md) Doppeltür: Stücke `double_*` sind eine Spalte breiter (gerade Breite, spiegelsymmetrisch
+// um die Mitte zwischen den beiden Flügeln); der Planer setzt ihre zwei Mittelspalten auf die Flügel. Gewände 4 breit mit
+// doppeltem Schlussstein, Laternen je eine Spalte weiter außen.
+{
+  id: "exterior/entrance_module_townhouse",
+  kind: "static",
+  name: "Eingangsmodul Stadthaus",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_entrance", "exterior_entrance_module", "outdoor", "walls_stone"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  // W13-F (28.09.2026): elven hat jetzt eine Kalzitwand (Stein) – Modul für Steinwände (vorher nordic, Holz)
+  styleTags: ["medieval", "desert", "elven", "asian", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [[".SSS."], [".Q_Q."], ["LQ_QL"], ["FAKBF"]],
+      legend: {
+        S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } },
+        Q: { role: "wall_quoin", shape: "block" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "wall_quoin", shape: "block" },
+      },
+    },
+    {
+      id: "frame",
+      layers: [["..."], ["Q_Q"], ["Q_Q"], ["AKB"]],
+      legend: {
+        Q: { role: "wall_quoin", shape: "block" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "wall_quoin", shape: "block" },
+      },
+    },
+    {
+      id: "lanterns",
+      // Laterne unter dem Zaun-Arm auf den Pfosten des Türfelds; der Zaun verbindet sich mit der Wand (wie die Fensterlaternen)
+      layers: [["....."], ["....."], ["L...L"], ["F...F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [4, 2, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "lanterns_post",
+      // Rückfall (z. B. Traufkonsole auf dem Pfosten): Laterne stehend auf einem niedrigen Steinpfosten (Mittel-Stützung, #3)
+      layers: [["....."], ["W...W"], ["L...L"]],
+      legend: {
+        W: { role: "wall_quoin", shape: "block" },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "down", kind: "center" }, { at: [4, 2, 0], side: "down", kind: "center" }] },
+    },
+    {
+      id: "double_frame",
+      // W4-C: Gewände 4 breit, Bogen mit doppeltem Schlussstein (Vorbilder: Doppeltür im Treppenbogen)
+      layers: [["...."], ["Q__Q"], ["Q__Q"], ["AKKB"]],
+      legend: {
+        Q: { role: "wall_quoin", shape: "block" },
+        A: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        B: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "wall_quoin", shape: "block" },
+      },
+    },
+    {
+      id: "double_lanterns",
+      layers: [["......"], ["......"], ["L....L"], ["F....F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [5, 2, 0], side: "up", kind: "center" }] },
+    },
+    {
+      id: "double_lanterns_post",
+      layers: [["......"], ["W....W"], ["L....L"]],
+      legend: {
+        W: { role: "wall_quoin", shape: "block" },
+        L: { role: "light_hanging", shape: "lantern" },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "down", kind: "center" }, { at: [5, 2, 0], side: "down", kind: "center" }] },
+    },
+    {
+      id: "double_blind",
+      // W4-C Rückfall der Doppeltür (wie `door_canopy#trapdoor`): Blende aus Falltüren über beiden Flügeln
+      layers: [["...."], [".__."], [".__."], ["TTTT"]],
+      legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "front", upsideDown: true, open: false } } },
+    },
+    {
+      id: "step",
+      layers: [["S"]],
+      legend: { S: { role: "wall_cornice", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "block",
+      layers: [["B"]],
+      legend: { B: { role: "wall_cornice", shape: "block" } },
+    },
+  ],
+  light: "auto",
+}

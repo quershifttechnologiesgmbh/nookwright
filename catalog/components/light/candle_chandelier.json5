@@ -1,0 +1,29 @@
+// Kerzen-Kronleuchter (research/10 §7.10, research/11 T-5): Zaunkreuz an Kette, 4 × 3 Kerzen auf den
+// Armen (Kerzen brauchen keine Stütze, Spike T3). Unterste Zelle ≥ Boden + 2 → lichte Höhe ≥ 5.
+// Kette über die Rolle `metal` (ab 1.21.9 `iron_chain`); oben stabile Mitte der Decke.
+// V3 adaptiv: in hohen Räumen wächst die Kette (`stretch`, `drop`), der Leuchter hängt etwa auf halber Höhe.
+{
+  id: "light/candle_chandelier",
+  kind: "static",
+  name: "Kerzen-Kronleuchter",
+  category: "light",
+  tags: ["light", "light_ceiling", "chandelier"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  layers: [
+    [".F.", "FFF", ".F."], // y0: Zaunkreuz (verbindet sich im Autotiling)
+    [".K.", "KCK", ".K."], // y1: Kerzen auf den Armen, Kette in der Mitte
+    ["...", ".C.", "..."], // y2: Kette zur Decke
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    K: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+  },
+  masks: { support: [{ at: [1, 2, 1], side: "up", kind: "center" }] },
+  stretch: { layer: 1, max: 10, fill: "drop", rows: ["...", ".C.", "..."] },
+  light: "auto",
+}

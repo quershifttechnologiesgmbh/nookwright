@@ -1,0 +1,24 @@
+// K3d · Kerker-Wandlaterne (research/11 K-2 Variante „grim“, D1/D5): Seelenlaterne (Licht 10, bläulich) hängt
+// unter einem Eisengitter-Arm an der Wand (Gitter-Unterseite = stabile Mitte, Faktencheck #3). Wie
+// light/wall_arm_lantern, aber fest in Eisen und Seelenfeuer – eigene Komponente, damit andere Raumtypen über
+// `light_wall` keine blauen Lichter bekommen. Tag `light_grim` (Kerker, Gruft).
+{
+  id: "light/grim_lantern",
+  kind: "static",
+  name: "Seelenlaterne am Wandarm",
+  category: "light",
+  tags: ["light", "light_grim"],
+  functionTags: ["light"],
+  styleTags: ["grim"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  layers: [["L"], ["F"]],
+  legend: {
+    L: { block: "minecraft:soul_lantern", orient: { hanging: true } },
+    F: { block: "minecraft:iron_bars" },
+  },
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

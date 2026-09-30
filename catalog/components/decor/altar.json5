@@ -1,0 +1,29 @@
+// K2 · Altar (DA Furniture: Religious; Bing „minecraft medieval chapel altar“): Tisch aus umgedrehten
+// Steinziegel-Treppen mit gemeißeltem Mittelblock, weißes Altartuch (Teppich), Kerzen auf den Treppen
+// (T5 #3: Kerzen auf umgedrehter Treppe), Wandbanner dahinter. Stein fest (Wunsch: Theme-Rolle
+// `accent_noble`, research/11 §2.5). Lichte Höhe ≥ 3.
+{
+  id: "decor/altar",
+  kind: "static",
+  name: "Altar",
+  category: "furniture",
+  tags: ["altar", "religious"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["KAK"], // y0: Treppen-Tisch, gemeißelter Mittelblock
+    ["CRC"], // y1: Kerzen, Altartuch
+    [".V."], // y2: Wandbanner an der Raumwand
+  ],
+  legend: {
+    K: { block: "minecraft:stone_brick_stairs", orient: { upsideDown: true, back: "back" } },
+    A: { block: "minecraft:chiseled_stone_bricks" },
+    C: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+    R: { block: "minecraft:white_carpet" },
+    V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+  },
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

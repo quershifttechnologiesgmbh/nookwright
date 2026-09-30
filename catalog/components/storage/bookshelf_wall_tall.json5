@@ -1,0 +1,41 @@
+// V3 · Bücherwand bis unter die Decke (research/11 §4.2/§4.6 L-1 Pfosten-Bucht; Nutzer-Wunsch „mehr in die
+// Höhe“): Bücherregale zwischen Stamm-Pfosten, vertikal gedehnt (`stretch`, „slice nach oben“): die
+// Einrichtung schiebt so viele Regal-Reihen ein, dass die Wand genau bis unter die Decke reicht (lichte Höhe
+// 4 → 4 hoch, 8 → 8 hoch; höchstens 15). Unter 4 gibt es storage/bookshelf_bay (3 hoch). Gemeißelte Regale
+// nur leer in der Basis-Mitte (Inhalt + slot-State kann die Materialisierung noch nicht, research/11 B2).
+{
+  id: "storage/bookshelf_wall_tall",
+  kind: "static",
+  name: "Bücherwand bis zur Decke",
+  category: "storage",
+  tags: ["bookshelf_wall", "bookshelf_tall"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  minRoomHeight: 4,
+  variants: [
+    {
+      id: "wide",
+      weight: 3,
+      layers: [["PBBBP"], ["PBCBP"], ["PBBBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:bookshelf" },
+        C: { block: "minecraft:chiseled_bookshelf", orient: { front: "front" } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling", rows: ["PBBBP"] },
+    },
+    {
+      id: "narrow",
+      weight: 2,
+      layers: [["PBP"], ["PBP"], ["PBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:bookshelf" },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

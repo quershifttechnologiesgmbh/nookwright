@@ -1,0 +1,20 @@
+// K3a · Spinnweben-Ecke (research/17 §4.12, At1): drei Spinnweben als L direkt unter der Decke an der Wand, ein Arm
+// entlang der Seitenwand (links/rechts als Varianten, der Solver spiegelt nicht). Deckenmontage → nie im Kopfraum
+// über Laufwegen (ab lichter Höhe 3) und nie direkt über einem Bett (Spinnweben verdecken den Bett-Klick, T5):
+// zwischen Bett und Decke bleibt mindestens eine Zelle Luft. Bewusst ohne `decor_ceiling` – sonst zögen
+// Kinderzimmer und andere Räume sie als Deckendeko.
+{
+  id: "decor/cobweb_corner",
+  kind: "static",
+  name: "Spinnweben-Ecke",
+  category: "decor",
+  tags: ["cobweb", "abandoned"],
+  styleTags: ["medieval", "abandoned"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: "backToWall",
+  variants: [
+    { id: "r", weight: 1, layers: [["WW", "W."]], legend: { W: { block: "minecraft:cobweb" } } },
+    { id: "l", weight: 1, layers: [["WW", ".W"]], legend: { W: { block: "minecraft:cobweb" } } },
+  ],
+}

@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Render-Prüfstand</title>
+<style>html, body { margin: 0; background: #000; } canvas { display: block; width: 480px; height: 320px; }</style>
+</head>
+<body>
+<!-- Prüfstand des öffentlichen Renderers (website/test/public-render.test.ts): kleine feste Szenen, Foto-Look, Augenhöhe -->
+<canvas id="c"></canvas>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js", "three/addons/": "/node_modules/three/examples/jsm/" } }</script>
+<script type="module" src="harness.js"></script>
+</body>
+</html>

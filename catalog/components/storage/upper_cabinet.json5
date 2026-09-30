@@ -1,0 +1,53 @@
+// Oberschrank (research/10 §3.3: Küche 8/16, Schlafzimmer B7/B8): direkt unter der Decke an der Wand
+// (y = Boden + 2) → blockiert keinen Laufweg. Braucht lichte Höhe ≥ 3.
+// „barrels“/„barrel_pair“: Fässer mit Deckel zum Raum (benutzbar, öffnen immer).
+// K3d: „doors“ (Falltür-Schranktüren) und „knobs“ (Knopf-Griffe), research/16 I8.
+{
+  id: "storage/upper_cabinet",
+  kind: "static",
+  name: "Oberschrank",
+  category: "attachment",
+  tags: ["upper_cabinet", "wall_decor"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 2,
+  wallHeights: [2, 3], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "barrels",
+      weight: 2,
+      layers: [["BBB"]],
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+    },
+    {
+      id: "barrel_pair",
+      weight: 2,
+      layers: [["BB"]],
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+    },
+    // K3d (research/16 I8): Schranktüren aus offenen Falltüren vor den Fässern (T5 #7: erster Klick klappt die
+    // Tür, zweiter öffnet das Fass) bzw. Knopf-Griffe auf den Fassdeckeln. Die Fronten liegen eine Zelle vor
+    // der Wand, auf Boden + 2 oder höher → kein Laufweg belegt.
+    {
+      id: "doors",
+      weight: 2,
+      layers: [["BB", "TT"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      id: "knobs",
+      weight: 1,
+      layers: [["BBB", "kkk"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        k: { role: "beam", shape: "button", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+}

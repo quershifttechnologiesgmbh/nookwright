@@ -1,0 +1,77 @@
+// Welle D · D3 (research/24 §7.0, T8 `farmstead`): Silo – der Getreidespeicher des Hofes (research/24 §7.8
+// Kernthema (b) „Silo“). 3 × 3 Grundfläche, vier Lagen Körper, oben die Kuppe. Die Kuppe ist ein Ring aus
+// unteren Treppen (hohe Seite zur Mitte), einer oberen Stufe und einem Vollblock in der Mitte – jede Zelle
+// liegt auf dem Körper. `flat` schließt mit einer Metallluke (Rolle `metal`).
+{
+  id: "outdoor/silo",
+  kind: "static",
+  name: "Silo",
+  category: "architecture",
+  tags: ["silo", "grain_store", "outdoor"],
+  styleTags: ["farmstead", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "conical",
+      weight: 3,
+      layers: [
+        ["BBB", "BBB", "BBB"], // y0: Sockel
+        ["WWW", "WWW", "WWW"], // y1
+        ["WWW", "WWW", "WWW"], // y2
+        ["WWW", "WWW", "WWW"], // y3
+        ["nTn", "wRe", "sTs"], // y4: Kuppe
+      ],
+      legend: {
+        B: { role: "foundation", shape: "block" },
+        W: { role: "wall_primary", shape: "block" },
+        n: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "front" } },
+        s: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "back" } },
+        w: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "right" } },
+        e: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "left" } },
+        T: { role: "roof_main", shape: "slab", orient: { upsideDown: true } },
+        R: { role: "roof_main", shape: "block" },
+      },
+    },
+    {
+      id: "flat",
+      weight: 2,
+      layers: [
+        ["BBB", "BBB", "BBB"], // y0
+        ["WWW", "WWW", "WWW"], // y1
+        ["WWW", "WWW", "WWW"], // y2
+        ["WWW", "WWW", "WWW"], // y3
+        ["RRR", "RMR", "RRR"], // y4: Flachdach mit Metallluke
+      ],
+      legend: {
+        B: { role: "foundation", shape: "block" },
+        W: { role: "wall_primary", shape: "block" },
+        R: { role: "roof_main", shape: "block" },
+        M: { role: "metal", shape: "block" },
+      },
+    },
+    {
+      id: "banded",
+      weight: 2,
+      layers: [
+        ["BBB", "BBB", "BBB"], // y0
+        ["VVV", "VVV", "VVV"], // y1: Sockelband
+        ["WWW", "WWW", "WWW"], // y2
+        ["WWW", "WWW", "WWW"], // y3
+        ["nTn", "wRe", "sTs"], // y4: Kuppe
+      ],
+      legend: {
+        B: { role: "foundation", shape: "block" },
+        V: { role: "wall_plinth", shape: "block" },
+        W: { role: "wall_primary", shape: "block" },
+        n: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "front" } },
+        s: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "back" } },
+        w: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "right" } },
+        e: { role: "roof_main", shape: "stairs", orient: { upsideDown: false, back: "left" } },
+        T: { role: "roof_main", shape: "slab", orient: { upsideDown: true } },
+        R: { role: "roof_main", shape: "block" },
+      },
+    },
+  ],
+}

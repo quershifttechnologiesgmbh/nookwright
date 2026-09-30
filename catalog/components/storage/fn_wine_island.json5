@@ -1,0 +1,70 @@
+// FN-Dense · Weininsel: frei stehendes, beidseitiges Flaschenregal für die Raummitte von Wein- und Vorratskellern
+// (Vorbild: Weinkeller-Gänge der Community, Regalreihen mit Laufgang statt nur Wandregalen). 5 breit, 2 tief, 3 hoch;
+// zwei Regalwände Rücken an Rücken (Stamm-Pfosten an den Enden, unten rote Kerzen auf dem Boden, Mitte umgedrehte
+// Bretter, oben grüne Kerzen), beide Längsseiten frei begehbar (harter Freiraum vorn UND hinten). Kerzen brauchen
+// nur eine Auflagefläche (Boden bzw. obere Brett-Hälfte). Bei lichter Höhe 2 nur die niedrige Form ohne obere Kerzen.
+// Symmetrisch (Spiegelung ändert nichts) → keine Hakenform. Tag `fn_wine_island` (nur Weinkeller, additiv).
+{
+  id: "storage/fn_wine_island",
+  kind: "static",
+  name: "Weininsel",
+  category: "storage",
+  tags: ["fn_wine_island", "bottle_rack"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "bottles",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PrrrP", "PrrrP"],
+        ["PsssP", "PsssP"],
+        ["PgggP", "PgggP"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+      },
+    },
+    {
+      // eine Reihe Fässer statt Flaschen im unteren Fach (Fässer öffnen immer, Faktencheck #2)
+      id: "kegs",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PBBBP", "PBBBP"],
+        ["PsssP", "PsssP"],
+        ["PgRgP", "PgRgP"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        R: { block: "minecraft:red_candle", state: { candles: "2", lit: "true" } },
+        g: { block: "minecraft:green_candle", state: { candles: "3", lit: "false" } },
+      },
+    },
+    {
+      id: "low",
+      weight: 2,
+      maxRoomHeight: 2,
+      layers: [
+        ["PrrrP", "PrrrP"],
+        ["PsssP", "PsssP"],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        r: { block: "minecraft:red_candle", state: { candles: "4", lit: "false" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

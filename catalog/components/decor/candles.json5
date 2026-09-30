@@ -1,0 +1,12 @@
+// Kerzen auf einer Abstellfläche. Licht 3 pro Kerze (Faktencheck), 1–4 Kerzen je Block.
+{ id: "decor/candles", kind: "static", name: "Kerzen", category: "decor",
+  tags: ["tabletop_small", "light_small", "candles"], functionTags: ["light"], obtainability: "survival",
+  mount: "surface", rotations: [0],
+  variants: [
+    { id: "one", weight: 1, layers: [["K"]], legend: { K: { block: "minecraft:candle", state: { candles: "1", lit: "true" } } } },
+    { id: "three", weight: 2, layers: [["K"]], legend: { K: { block: "minecraft:candle", state: { candles: "3", lit: "true" } } } },
+    { id: "two", weight: 1, layers: [["K"]], legend: { K: { block: "minecraft:candle", state: { candles: "2", lit: "true" } } } },
+    { id: "four", weight: 1, layers: [["K"]], legend: { K: { block: "minecraft:candle", state: { candles: "4", lit: "true" } } } },
+    { id: "white_three", weight: 1, layers: [["K"]], legend: { K: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } } } },
+  ],
+  light: "auto" }

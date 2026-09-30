@@ -1,0 +1,24 @@
+// I52 · Kindertisch (research/52 §Möbel, Kinderzimmer): niedriger Tisch (untere Stufen statt Theken-Höhe)
+// mit zwei kleinen Hockern per Socket — Kinderzimmer-Pendant zu table/tea_table, bewusst niedriger.
+{
+  id: "table/kids_table_stools",
+  kind: "static",
+  name: "Kindertisch",
+  category: "furniture",
+  tags: ["toys"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1, 2, 3],
+  // Tischplatte als OBERE Stufe (upsideDown: true): eine untere Stufe hat keine volle Oberseite (Faktencheck
+  // faceSupport 'up' nur bei type=top) — der Socket „top“ akzeptiert `tabletop_small`, worunter auch
+  // light/table_lantern fällt, das eine stabile Mitte darunter braucht (research/52 §Nachprüfung).
+  layers: [["T"]],
+  legend: { T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  sockets: [
+    { id: "stool_n", type: "adjacent", at: [0, 0, 0], side: "back", accepts: ["bar_stool"], prob: 0.6, facing: "same" },
+    { id: "stool_s", type: "adjacent", at: [0, 0, 0], side: "front", accepts: ["bar_stool"], prob: 0.6, facing: "same" },
+    { id: "top", type: "surface", at: [0, 1, 0], accepts: ["candles", "tabletop_small"], prob: 0.3 },
+  ],
+}

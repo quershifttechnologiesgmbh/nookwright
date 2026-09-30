@@ -1,0 +1,21 @@
+// Hängendes Grün direkt unter der Decke (research/10: Hängewurzeln S16, Ranken/Blätter von der Decke K13).
+// 1 Block hoch → passt schon bei lichter Höhe 3 (die Kettenpflanze decor/hanging_planter braucht ≥ 4).
+// Hängewurzeln brauchen oben eine tragfähige Fläche, die Sporenblüte eine stabile Mitte (Faktencheck #3).
+// Keine Kollision → durchlaufbar.
+{
+  id: "decor/hanging_herbs",
+  kind: "static",
+  name: "Hängendes Grün",
+  category: "decor",
+  tags: ["plant_hanging", "decor_ceiling", "hang_small"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  walkable: true,
+  variants: [
+    { id: "roots", weight: 3, layers: [["R"]], legend: { R: { block: "minecraft:hanging_roots" } } },
+    { id: "blossom", weight: 1, layers: [["R"]], legend: { R: { block: "minecraft:spore_blossom" } } },
+  ],
+  masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+}

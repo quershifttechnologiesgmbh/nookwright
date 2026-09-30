@@ -1,0 +1,106 @@
+// X1 · W2 Blumenkasten (research/18 W2, research/16 F2, research/12 §6.3): je Fensterspalte ein Stück – Erde bzw.
+// Moos eine Reihe unter der untersten Scheibe, davor eine offene Falltür (Rolle `shutter`, liegt am Kasten), oben
+// eine niedrige Pflanze VOR der Scheibe (Blumen und Farn sind durchsichtig und ohne Kollision – das Fenster bleibt
+// frei; kein Laub, keine Azalee). Blumen stehen nur auf #dirt (Wurzelerde, Moos). Die Seitenteile sind
+// `exterior/flower_box_end`. Varianten = Pflanze; der Solver nimmt je Fassade dieselbe (Symmetrie).
+{
+  id: "exterior/flower_box",
+  kind: "static",
+  name: "Blumenkasten",
+  category: "attachment",
+  tags: ["exterior", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "rustic", "cottage"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "poppy",
+      weight: 3,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:poppy" },
+      },
+    },
+    {
+      id: "dandelion",
+      weight: 2,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:dandelion" },
+      },
+    },
+    {
+      id: "cornflower",
+      weight: 3,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:moss_block" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:cornflower" },
+      },
+    },
+    {
+      id: "azure_bluet",
+      weight: 2,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:moss_block" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:azure_bluet" },
+      },
+    },
+    {
+      id: "allium",
+      weight: 2,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:allium" },
+      },
+    },
+    {
+      id: "oxeye_daisy",
+      weight: 2,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:moss_block" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:oxeye_daisy" },
+      },
+    },
+    {
+      id: "red_tulip",
+      weight: 2,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:rooted_dirt" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:red_tulip" },
+      },
+    },
+    {
+      id: "fern",
+      weight: 1,
+      // y0: Kasten an der Wand (z0), Falltür davor (z1); y1: Pflanze vor der Scheibe
+      layers: [["B", "T"], ["P", "."]],
+      legend: {
+        B: { block: "minecraft:moss_block" },
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+        P: { block: "minecraft:fern" },
+      },
+    },
+  ],
+}

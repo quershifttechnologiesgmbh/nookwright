@@ -1,0 +1,41 @@
+// Truhe mit Bord (research/10 §4.3 Truhenwand im Kleinformat): Doppeltruhe mit einem Bord aus oberen
+// Stufen darüber, 2 breit und 2 hoch → passt an kurze Wandstücke zwischen Fenstern und bei lichter Höhe 2;
+// damit hat jedes Lager seine Truhenwand (Tag `storage_wall`).
+// Keine Truhe unter der Decke: bei lichter Höhe 2 läge sonst ein voller (redstone-leitender) Deckenblock
+// direkt über der oberen Truhe → sie ginge nicht auf (Faktencheck #2; der K1-Fuzz prüft das).
+// Variante mit Stamm-Pfosten: Fässer öffnen immer, auch unter der Decke.
+{
+  id: "storage/chest_stack",
+  kind: "static",
+  name: "Truhe mit Bord",
+  category: "storage",
+  tags: ["storage_wall", "chest_wall"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "chests",
+      weight: 3,
+      layers: [["CC"], ["SS"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+      sockets: [{ id: "shelf", type: "surface", at: [0, 2, 0], accepts: ["tabletop_small", "plant", "candles"], prob: 0.5 }],
+    },
+    {
+      // Fass im Pfosten-Rahmen (S7/S10)
+      id: "barrel_post",
+      weight: 2,
+      layers: [["PB"], ["PB"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+}

@@ -1,0 +1,17 @@
+// EXT2 (Hebel 5, Schattenspender/Erzähldetail): Regenfallrohr – eine Eisenkette senkrecht dicht vor der Wand von der
+// Traufe bis zum Boden (über einer Regentonne endet sie dort). Die Länge dehnt sich mit der Wandhöhe (Varianten-ID `~n`).
+// Eine Kette braucht keine Stütze; der Planer setzt sie nur an Spalten mit geschlossener Wand dahinter.
+{
+  id: "exterior/detail_downspout",
+  kind: "static",
+  name: "Regenfallrohr",
+  category: "attachment",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "harbor", "nordic", "nordic_falu", "winter", "elven", "dwarven", "gothic", "asian", "steampunk", "noble"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["C"]],
+  legend: { C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+  stretch: { layer: 0, max: 10, fill: "ceiling" },
+}

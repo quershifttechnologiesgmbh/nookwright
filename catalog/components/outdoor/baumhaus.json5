@@ -1,0 +1,47 @@
+// Welle D · D3 (research/24 §7.0, T6 `elven`): Baumhaus-Plattform – die begehbare Plattform im Geäst
+// (research/24 §7.6 Kernthema (a) „Baumhaus“). Ständer tragen den Dielenboden, der Stamm wächst mitten hindurch,
+// ein Zaun umläuft die Kante, die Leiter hängt an einem Ständer (Leiter braucht die volle Fläche des Trägers
+// dahinter, Faktencheck #15): Leiter und Geländer haben an der Einstiegsstelle eine Lücke.
+{
+  id: "outdoor/baumhaus",
+  kind: "static",
+  name: "Baumhaus-Plattform",
+  category: "architecture",
+  tags: ["baumhaus", "treehouse", "platform", "outdoor"],
+  styleTags: ["elven", "tropical", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      // 5 × 4: sechs Ständer, Stamm in der Mitte, Dielenboden, Geländer, Leiter am Ständer (4,0)
+      id: "stilt",
+      weight: 3,
+      layers: [
+        ["P.P.P", "....l", ".....", "P.P.P"], // y0: Ständer, Leiter am Ständer (4,0)
+        ["FFFFF", "FFFFl", "FFFFF", "FFFFF"], // y1: Dielenboden, Leiter im Einstieg
+        ["ffffF", "f...l", "f.P.f", "f...f"], // y2: Geländer, Stamm, Einstieg (Lücke im Geländer)
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        F: { role: "furniture_wood", shape: "planks" },
+        f: { role: "furniture_wood", shape: "fence" },
+        l: { block: "minecraft:ladder", orient: { front: "front" } },
+      },
+    },
+    {
+      // 3 × 3: kleine Plattform im Geäst, vier Ständer, ohne Geländer
+      id: "nest",
+      weight: 2,
+      layers: [
+        ["P.P", "...", "P.P"], // y0
+        ["FFF", "FPF", "FFF"], // y1: Boden mit Stamm
+        ["...", ".P.", "..."], // y2: Stamm wächst weiter
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        F: { role: "furniture_wood", shape: "planks" },
+      },
+    },
+  ],
+}

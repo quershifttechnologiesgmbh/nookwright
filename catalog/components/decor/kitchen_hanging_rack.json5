@@ -1,0 +1,29 @@
+// I52 · Hängendes Topfregal (research/52 §Decke, Küche): Zaun-Balken an der Decke, drei Ketten mit
+// verzierten Töpfen darunter (Töpfe brauchen keine Stütze, wie storage/pot_rack). Deckt das WaxFraud-Motiv
+// „Kochgeschirr hängt sichtbar über der Arbeitsplatte“ ab, ohne die Wandregal-Form zu duplizieren.
+{
+  id: "decor/kitchen_hanging_rack",
+  kind: "static",
+  name: "Hängendes Topfregal",
+  category: "decor",
+  tags: ["decor_ceiling", "kitchen_hanging_rack"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 3,
+  walkable: false,
+  layers: [
+    ["P_P"], // y0: verzierte Töpfe (unterste Zelle, Mitte frei für Kopfraum)
+    ["C_C"], // y1: Ketten
+    ["FFF"], // y2: Zaun-Balken (oberste Zelle, an der Decke)
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+    P: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+  },
+  // Stütze 'center' (wie light/hanging_lantern): der Zaun selbst braucht keine eigene Prüfung, geprüft wird nur
+  // der reale Nachbarblock DARÜBER (Decke).
+  masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [1, 2, 0], side: "up", kind: "center" }, { at: [2, 2, 0], side: "up", kind: "center" }] },
+}

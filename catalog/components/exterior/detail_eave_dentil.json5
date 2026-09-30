@@ -1,0 +1,17 @@
+// W15 · Zahnschnitt unter der Traufe (astroworldmc „how to build a roof“ und minecraft.wiki „Roof decorations“:
+// umgedrehte Treppen unter dem Überstand; Vorbild timber_frame_house_1: Konsolenreihe unter Traufe und Auskragung):
+// umgedrehte Treppe in der Rolle der Dachkante jede zweite Zelle unter dem Überstand, zwischen den Traufkonsolen der
+// Pfosten, Rückseite an der Wand. Nur reich.
+{
+  id: "exterior/detail_eave_dentil",
+  kind: "static",
+  name: "Zahnschnitt unter der Traufe",
+  category: "attachment",
+  tags: ["exterior", "exterior_roof", "exterior_detail", "outdoor"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "nordic", "nordic_falu", "harbor", "winter", "elven", "dwarven", "gothic", "asian", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["V"]],
+  legend: { V: { role: "roof_trim", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+}

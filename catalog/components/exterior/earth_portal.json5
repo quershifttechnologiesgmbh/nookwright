@@ -1,0 +1,81 @@
+// W7-I · Erdhaus-Portal (plan/spikes/W7I_gelaende.md, Befund W1-E L1 „die Tür ist nicht rund“): Fassung der Rundtür eines
+// Erdhauses (Lage `buried`). Den Holzring (Pfosten, umgedrehte Treppen, Stufe als Scheitel) legt die Hülle
+// (blueprint `buried.ts`); dieses Modul füllt den Ring zum runden Türblatt und setzt das Laternenpaar auf seine Schultern.
+// Gesetzt vom Gelände (`@mcda/terrain` mound.ts) beim „Überdecken“ vor der Haustür, Rücken zur Wand, Mittelspalte auf
+// der Türachse, unterste Schicht auf Höhe der unteren Türhälfte. Ganz oder gar nicht (belegte Zelle → nächstes Stück).
+//
+//   Rundtür 5 breit (Ring r = 2, W12-B lückenlos)   schmal (Ring r = 1)   Vorbilder (14 Erdhäuser, Bericht):
+//   b+3   L █ █ █ L   Laternen, Bogenrücken       L ▀ L                 runde Türfläche mit Tür in der Mitte 6/14,
+//   b+2   █ ◤ ▀ ◥ █   Kämpfer, Scheitel           █ ▀ █                 Holzbogen um die Tür 12/14,
+//   b+1   █ T D T █                               █ D █                 Laterne an der Tür 9/14
+//   b     █ T D T █
+//
+// T = offene Falltür flach an der Wand (Rolle `shutter`, wie der Fensterladen) – Bretter mit Rahmen, die Tür bleibt in
+// der Mitte; '_' = Laufweg vor der Tür bleibt Luft. L = stehende Laterne auf dem äußeren Pfosten des Rings (volle
+// Oberseite trägt). Alle Stücke spiegelsymmetrisch um die Türachse. W12-B (28.09.2026): `leaf_top` entfällt (über dem
+// Türblatt liegt jetzt der Bogen).
+{
+  id: "exterior/earth_portal",
+  kind: "static",
+  name: "Erdhaus-Portal",
+  category: "architecture",
+  tags: ["exterior", "outdoor", "earth_portal"],
+  styleTags: ["rustic", "medieval"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    // W9-G4 (27.09.2026, plan/spikes/W9G4_erdhaus.md): große Rundtür (Ring r = 3, 7 breit, 5 hoch). W12-B (28.09.2026,
+    // plan/spikes/W12B_erdhausfront.md): der Ring ist lückenlos (Pfosten, Kämpfertreppen, Scheitelstufe, Bogenrücken) –
+    // das Türblatt füllt nur die Öffnung (unten 5 breit, unter dem Scheitel 3 breit), die Laternen stehen auf den
+    // äußeren Pfosten über dem Kämpfer.
+    //   b+4   L ▄ █ █ █ ▄ L
+    //   b+3   █ █ ◤ ▀ ◥ █ █
+    //   b+2   █ ◤ T T T ◥ █
+    //   b+1   █ T T D T T █
+    //   b     █ T T D T T █
+    {
+      id: "leaf_round",
+      layers: [["TT_TT"], ["TT_TT"], [".TTT."]],
+      legend: {
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      // Rückfall der großen Rundtür (z. B. Außen-Deko vor dem Ring): nur die oberste Reihe des Türblatts
+      id: "leaf_round_top",
+      layers: [[".TTT."]],
+      legend: {
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      id: "lanterns_wide",
+      layers: [["L.....L"]],
+      legend: { L: { role: "light_hanging", shape: "lantern" } },
+      masks: { support: [{ at: [0, 0, 0], side: "down", kind: "center" }, { at: [6, 0, 0], side: "down", kind: "center" }] },
+    },
+    {
+      // W12-B: Rundtür r = 2 – Türblatt neben der Tür (die Reihe darüber ist Bogen)
+      id: "leaf",
+      weight: 1,
+      layers: [["T_T"], ["T_T"]],
+      legend: {
+        T: { role: "shutter", shape: "trapdoor", orient: { front: "front", open: true } },
+      },
+    },
+    {
+      id: "lanterns",
+      layers: [["L...L"]],
+      legend: { L: { role: "light_hanging", shape: "lantern" } },
+      masks: { support: [{ at: [0, 0, 0], side: "down", kind: "center" }, { at: [4, 0, 0], side: "down", kind: "center" }] },
+    },
+    {
+      id: "lanterns_narrow",
+      layers: [["L.L"]],
+      legend: { L: { role: "light_hanging", shape: "lantern" } },
+      masks: { support: [{ at: [0, 0, 0], side: "down", kind: "center" }, { at: [2, 0, 0], side: "down", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

@@ -1,0 +1,60 @@
+// Kleiderschrank / Kommode aus Fässern (research/10 §2.3, §7.2; Schlafzimmer 6/13).
+// Falltür-„Türen“ vor Fässern funktionieren (T5 #7 bestätigt) – der Schrank mit Türen ist storage/cupboard.
+// Fässer öffnen immer, auch gestapelt (Faktencheck #2).
+// K3d (research/16 I8): „dresser_knobs“ = Kommode mit Knopf-Griffen auf den Fassdeckeln (Knopf braucht eine
+// volle Fläche dahinter – das Fass; die Knöpfe belegen die dünne Zelle davor).
+// „tall“ braucht lichte Höhe ≥ 3 (sonst wählt der Solver eine andere Komponente).
+// V3: auf der Kommode („dresser“) steht per Stapel-Socket `above` oft ein Aufsatzregal (storage/shelf_hutch).
+{
+  id: "storage/wardrobe",
+  kind: "static",
+  name: "Kleiderschrank",
+  category: "storage",
+  tags: ["wardrobe", "cabinet"],
+  functionTags: ["store"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "tall",
+      weight: 3,
+      layers: [
+        ["BB"], // y0: Fässer, Deckel nach vorn
+        ["BB"], // y1
+        ["KK"], // y2: Gesims aus umgedrehten Treppen
+      ],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "dresser",
+      weight: 2,
+      layers: [["BBB"]], // Kommode: 3 Fässer als Schubladen, oben Abstellfläche
+      legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+      sockets: [
+        { id: "hutch", type: "above", at: [0, 1, 0], accepts: ["dresser_top"], prob: 0.45 },
+        { id: "top_l", type: "surface", at: [0, 1, 0], accepts: ["tabletop_small", "light_small", "plant"], prob: 0.6 },
+        { id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["tabletop_small", "candles", "plant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "dresser_knobs",
+      weight: 1,
+      layers: [["BBB", "kkk"]], // Kommode, davor Knopf-Griffe (Holz aus `beam`, dunkler Kontrast)
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        k: { role: "beam", shape: "button", orient: { attachTo: "back" } },
+      },
+      sockets: [
+        { id: "hutch", type: "above", at: [0, 1, 0], accepts: ["dresser_top"], prob: 0.45 },
+        { id: "top_l", type: "surface", at: [0, 1, 0], accepts: ["tabletop_small", "light_small", "plant"], prob: 0.6 },
+        { id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["tabletop_small", "candles", "plant"], prob: 0.5 },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+}

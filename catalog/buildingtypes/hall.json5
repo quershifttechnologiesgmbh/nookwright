@@ -1,0 +1,11 @@
+// Feste Vorlage „Große Halle“ (bisher App-Vorlage `hall`): ein Saal 25 × 19, braucht den Licht-Pass.
+// W4 (27.09.2026, Review S1): Raumtyp Speisesaal statt Schlafzimmer – der Name verspricht einen Saal (Tafel längs der
+// Mitte, Hochtisch an der Stirnwand, Kamin, Kronleuchter als Licht-Zentrum); vorher standen zwei Betten auf 391 freien
+// Zellen. Nutzerentscheidung 26.09.: Standard-Ergebnisse dürfen sich ändern.
+{
+  id: "hall",
+  name: "Große Halle",
+  label: "Große Halle (25 × 19)",
+  family: "house",
+  massing: { generator: "fixed", rooms: [{ rect: [0, 0, 24, 18], room: "dining_hall" }] },
+}

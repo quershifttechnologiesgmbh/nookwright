@@ -1,0 +1,5 @@
+{ id: "work/blast_furnace", kind: "static", name: "Hochofen", category: "work",
+  tags: ["blast_furnace", "smelting", "work"], functionTags: ["smelt", "work:armorer"], obtainability: "survival",
+  mount: "floor", rotations: "backToWall",
+  layers: [["O"]], legend: { O: { block: "minecraft:blast_furnace", orient: { front: "front" } } },
+  masks: { use: [{ side: "front" }] } }

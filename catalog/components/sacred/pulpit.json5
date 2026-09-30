@@ -1,0 +1,55 @@
+// K3a · Kanzel (research/17 §4.5, C2/C6, DA Furniture: Religious): Planken-Podest (2 Zellen) mit Aufstiegsstufe an
+// der Seite, vorn eine Brüstung mit Lesepult und Zaun-Geländer. Der Leser steht auf dem Podest hinter dem Pult
+// (Füße auf y1, Kopf y2 → lichte Höhe ≥ 3, beide Zellen bleiben Luft). Das Lesepult zeigt mit seiner Buchseite zum
+// Leser (`facing` = Seite des Lesers, wie work/lectern: dort steht der Leser vorn) → hier „back“. Die Stufe steigt
+// von außen zum Podest hin an (Treppe: `back` = hohe Seite). Aufstieg links oder rechts als eigene Varianten.
+// Lesepult = Bibliothekar-Arbeitsblock (FC #7); ohne Buch (Inhalt kann die Materialisierung noch nicht).
+{
+  id: "sacred/pulpit",
+  kind: "static",
+  name: "Kanzel",
+  category: "furniture",
+  tags: ["pulpit"],
+  functionTags: ["read", "work:librarian", "villager_workstation"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  minRoomHeight: 3,
+  variants: [
+    {
+      id: "step_left",
+      weight: 1,
+      layers: [
+        ["PPS", "BB."], // y0: Podest (2) + Aufstiegsstufe; vorn Brüstung
+        ["__.", "LF."], // y1: Standplatz; Lesepult + Geländer auf der Brüstung
+        ["__.", "..."], // y2: Kopfhöhe
+      ],
+      legend: {
+        P: { role: "beam", shape: "planks" },
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "right" } },
+        L: { block: "minecraft:lectern", orient: { front: "back" } },
+        F: { role: "furniture_wood", shape: "fence" },
+      },
+      masks: { use: [{ side: "left" }] },
+    },
+    {
+      id: "step_right",
+      weight: 1,
+      layers: [
+        ["SPP", ".BB"],
+        [".__", ".FL"],
+        [".__", "..."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "planks" },
+        B: { role: "beam", shape: "planks" },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "left" } },
+        L: { block: "minecraft:lectern", orient: { front: "back" } },
+        F: { role: "furniture_wood", shape: "fence" },
+      },
+      masks: { use: [{ side: "right" }] },
+    },
+  ],
+}

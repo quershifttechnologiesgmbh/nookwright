@@ -1,0 +1,32 @@
+{
+  "name": "@mcda/engine",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Engine-API (ADR 12): jede Fähigkeit des Generators als Operation mit zod-Eingabe → JSON Schema. Steuerbar per JSON, per LLM-Tool-Call (OpenRouter) oder später per eigenem Klassifizierungsmodell. Kern rein und deterministisch; HTTP-Server und LLM-Adapter unter ./node.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./intent": "./src/intent/browser.ts",
+    "./node": "./src/node/index.ts"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "schema": "tsx scripts/schema.ts",
+    "serve": "tsx scripts/serve.ts",
+    "web": "tsx scripts/web.ts",
+    "keygen": "tsx scripts/keygen.ts",
+    "prompt": "tsx scripts/prompt.ts",
+    "mcp": "tsx scripts/mcp.ts",
+    "dataset": "tsx scripts/dataset.ts",
+    "live-check": "tsx scripts/live-check.ts",
+    "nl-compare": "tsx scripts/nl-compare.ts",
+    "roomtype": "tsx scripts/roomtype.ts"
+  },
+  "dependencies": {
+    "@mcda/classify": "*",
+    "@mcda/pipeline": "*",
+    "@mcda/projectfile": "*",
+    "@modelcontextprotocol/sdk": "^1.30.1",
+    "zod": "^4.6.5"
+  }
+}

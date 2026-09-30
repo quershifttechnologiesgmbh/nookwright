@@ -1,0 +1,14 @@
+// Nachttisch aus einem Fass; oben Platz für Kerze oder Laterne.
+{
+  id: "storage/nightstand_barrel",
+  kind: "static",
+  name: "Nachttisch (Fass)",
+  category: "storage",
+  tags: ["nightstand", "storage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["B"]],
+  legend: { B: { block: "minecraft:barrel", orient: { front: "front" } } },
+  sockets: [{ id: "top", type: "surface", at: [0, 1, 0], accepts: ["tabletop_small", "light_small"], prob: 0.6 }],
+}

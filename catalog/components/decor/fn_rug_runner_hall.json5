@@ -1,0 +1,53 @@
+// FN · Prunk-Läufer (Innenraum-Offensive): 3 breiter, 7–9 langer Läufer für Flure, Foyers und den Mittelgang von
+// Hallen. Mustert sich nach einem Fries (Rand in der Textilfarbe, Rauten bzw. Balken in der Zweitfarbe) statt einer
+// leeren grauen Bahn. Spiegelsymmetrisch in beiden Achsen. Durchlaufbar (Teppich). Tag `fn_runner`.
+{
+  id: "decor/fn_rug_runner_hall",
+  kind: "static",
+  name: "Prunk-Läufer",
+  category: "decor",
+  tags: ["fn_runner"],
+  styleTags: ["medieval", "noble", "nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "lane5",
+      weight: 2,
+      layers: [["PAPAP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "dash5",
+      weight: 2,
+      layers: [["PPPPP", "PAPAP", "PPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "dash7",
+      weight: 2,
+      layers: [["PPPPPPP", "PAPAPAP", "PPPPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "bar9",
+      weight: 3,
+      layers: [["PPPPPPPPP", "PAAAPAAAP", "PPPPPPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "frieze9",
+      weight: 3,
+      layers: [["PPPPPPPPP", "PAAPAPAAP", "PPPPPPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "wide5",
+      weight: 1,
+      layers: [["PPPPPPP", "PAAAAAP", "PAPPPAP", "PAAAAAP", "PPPPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+  ],
+}

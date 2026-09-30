@@ -1,0 +1,46 @@
+// Küche (research/10 §3, §8.2). Signatur: gemauerte Kochstelle mit Rauchfang (14/16) ist Pflicht (Tag
+// `hearth`; eine niedrige Form für lichte Höhe 2). Arbeitsplatten an den Wänden, Wand-Ebene mit Rahmen
+// (Essen) und Oberschränken, Grün, Vorräte. Werkbank höchstens selten.
+// K2: dichter (0.5); Küchengerät-Rahmen, Vorratsregal/Schrank, Holzstapel/Hackklotz, Erntehaufen, Wandkübel,
+// Sitzgruppe. `wall_food` umfasst jetzt Fleischhaken, `goods` Töpferware und Holz; auf der Arbeitsplatte
+// auch Schneidebrett und Essen.
+// I2: Signatur explizit (`signature: true`, Solver v2) statt Konvention „erster Pflicht-Eintrag“.
+{
+  id: "kitchen",
+  name: "Küche",
+  minArea: 6,
+  coverage: { target: 0.5 },
+  required: [
+    // W3-IN: Herd an der türfernen Wand, nicht in der Ecke (Vorbilder: meist mittig an der Stirnwand, Zeile beidseits)
+    { tags: ["hearth"], count: [1, 1], signature: true, placement: { zones: ["edge"], doorAffinity: "far" } },
+    // W3-IN: Arbeitszeile – jede Arbeitsplatte schließt an Herd oder Arbeitsplatte an, an derselben Wand
+    { tags: ["counter"], count: { perArea: 7, min: 2, max: 6 }, placement: { zones: ["edge", "corner"] }, near: { tags: ["hearth", "counter"], sameWall: true } },
+  ],
+  optional: [
+    { tags: ["wall_food", "upper_cabinet", "butcher_knife_rack"], count: [2, 4], weight: 3 },
+    { tags: ["sink"], count: [0, 1], weight: 3, placement: { zones: ["edge"], windowAffinity: "near" }, near: { tags: ["counter", "hearth"], sameWall: true } },
+    { tags: ["goods", "barrel"], count: [1, 3], weight: 3, placement: { zones: ["corner", "edge"] } },
+    { tags: ["smoker"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"] }, near: { tags: ["counter", "hearth"], sameWall: true } },
+    { tags: ["plant_large"], count: [0, 1], weight: 2, placement: { zones: ["corner"] } },
+    // FN (Innenraum-Offensive): Eckenbild (Fass mit Kerze, Kübel auf Hocker)
+    { tags: ["fn_corner"], count: [0, 2], weight: 3, placement: { zones: ["corner"] } },
+    { tags: ["plant_hanging", "hanging_plant_shelf"], count: [0, 2], weight: 2 },
+    // W3-IN: Zentrum – Arbeitstisch frei in der Mitte (Kerze bzw. Laterne darauf/darüber). W7-F: als Insel – der Küchentisch
+    // (2–3 lang) steht in der Raummitte, der Hauptweg führt um ihn herum (Vorbilder: Tisch/Insel mittig 10/17)
+    { tags: ["kitchen_table", "table_small", "breakfast_nook_booth"], count: [1, 1], weight: 3, placement: { zones: ["center"] }, island: true },
+    { tags: ["crafting"], count: [0, 1], weight: 0.5, placement: { zones: ["edge", "corner"] } },
+    { tags: ["kitchen_utensils"], count: [0, 2], weight: 2 },
+    { tags: ["pantry", "cupboard"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["firewood", "chopping_block"], count: [0, 1], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["harvest"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["wall_plant", "window_herb_shelf"], count: [0, 1], weight: 1 },
+    { tags: ["seating_group", "breakfast_nook_booth"], count: [0, 1], weight: 1, placement: { zones: ["center", "edge"] } },
+    // V3 (Raumhöhe nutzen): Stapel, Wand über Kopfhöhe, Decke (optional, additiv)
+    { tags: ["herb_rack", "hanging_chains", "herb_drying_bundle", "kitchen_hanging_rack"], count: [0, 2], weight: 2 },
+    { tags: ["wall_shelf", "spice_shelf"], count: [0, 2], weight: 2 },
+    // W3-IN (I7): Hängelaternen an den Balken statt Kerzenkreuz/Kronleuchter (Tag `light_pendant`; Vorbilder: 1–3)
+    { tags: ["light_pendant"], count: { perArea: 20, min: 1, max: 3 }, weight: 4 },
+  ],
+  // Licht-Pass (W3-IN, I7): Laternen an der Wand und über dem Tisch, Kerzen nur auf dem Tisch; Budget je Fläche
+  lighting: { minLevel: 7, prefer: ["light_wall", "light_pendant", "candles"], budget: { cellsPer: 10, min: 2 }, anchors: ["kitchen_table", "table_small", "dining_table", "breakfast_nook_booth"] },
+}

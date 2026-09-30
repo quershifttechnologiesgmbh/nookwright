@@ -1,0 +1,25 @@
+// I52 · Moosecke (research/52 §Ecke, Gewächshaus/Wohnraum): Blumenkasten-Ecke mit Moosteppich und zwei
+// Blätterbüscheln — das üppige Grün-Cluster für Wohnzimmer-/Gewächshausecken, dichter als eine einzelne
+// decor/flower_pot. Echte Azalee (Busch) braucht Erde/Gras/Ackerland/Moosblock darunter (Faktencheck, siehe
+// research/52 §Nachprüfung) — Moosteppich reicht NICHT. Blätter (`azalea_leaves`) wie in decor/leaf_planter
+// brauchen dagegen keinen Untergrund, deshalb hier statt der echten Azalee.
+{
+  id: "decor/moss_corner_planter",
+  kind: "static",
+  name: "Moosecke",
+  category: "decor",
+  tags: ["moss_corner_planter"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["MM"], // y0: Moosteppich
+    ["AL"], // y1: blühendes Blätterbüschel | Blätterbüschel
+  ],
+  legend: {
+    M: { block: "minecraft:moss_carpet" },
+    A: { block: "minecraft:flowering_azalea_leaves", state: { persistent: "true" } },
+    L: { block: "minecraft:azalea_leaves", state: { persistent: "true" } },
+  },
+}

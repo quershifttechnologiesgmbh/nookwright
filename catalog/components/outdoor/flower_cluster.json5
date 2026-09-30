@@ -1,0 +1,59 @@
+// research/56 · Blumenbeet-Cluster (research/16 V3 Streudeko, aber als platzierbares Katalog-Stück statt reinem
+// Rauschen): unregelmäßige Blütenflecken statt einzelner Blumen im Raster. `wild` mischt Wiesenblumen frei,
+// `formal` ist eine symmetrische Reihe (Gartenbeet), `meadow_patch` mischt Blumen und Grasbüschel. Q1a: Blumen
+// brauchen laut Vanilla-Physik Erde/Gras/Ackerland unter sich – die Theme-Rolle `garden_soil` liegt deshalb als
+// unterste Lage darunter (Vorbild `decor/garden_bed`); das Beet ist damit ein Bodenmöbel und nicht mehr `walkable`.
+// W1-I (26.09.2026, W1E M1): Katalog-Objekte stehen auf Geländehöhe + 1, die Erdlage lag also als nackter Erdklotz
+// AUF dem Rasen (bis zu 222 je Grundstück). Jetzt ist jedes Beet ein Hochbeet mit Einfassung aus der Theme-Rolle
+// `bed_edge` (Beetkante, research/16 V4; medieval: Bruchstein/bemooster Bruchstein) rund um die Erde, als Reihe
+// (`formal`, `meadow_patch`) bzw. kleines Geviert (`wild`); die Erde ist nur noch von oben zu sehen. Nur noch im
+// Garten-Pool (`garden`), nicht mehr zufällig im Hof (Pflaster) oder auf der Wiese. Formen spiegelsymmetrisch
+// (HANDOFF §1).
+{
+  id: "outdoor/flower_cluster",
+  kind: "static",
+  name: "Blumenbeet (eingefasst)",
+  category: "decor",
+  tags: ["flower_bed", "outdoor", "garden"],
+  styleTags: ["cottage", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      // Geviert mit Wiesenblumen
+      id: "wild",
+      weight: 3,
+      layers: [["eeee", "esse", "esse", "eeee"], ["....", ".ff.", ".ff.", "...."]],
+      legend: {
+        e: { role: "bed_edge", shape: "block" },
+        s: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_wild", shape: "block" },
+      },
+    },
+    {
+      // Reihenbeet: warm – kühl – warm
+      id: "formal",
+      weight: 2,
+      layers: [["eeeee", "essse", "eeeee"], [".....", ".wcw.", "....."]],
+      legend: {
+        e: { role: "bed_edge", shape: "block" },
+        s: { role: "garden_soil", shape: "block" },
+        w: { role: "flower_warm", shape: "block" },
+        c: { role: "flower_cool", shape: "block" },
+      },
+    },
+    {
+      // längeres Reihenbeet, Blumen und Grasbüschel im Wechsel
+      id: "meadow_patch",
+      weight: 2,
+      layers: [["eeeeeee", "essssse", "eeeeeee"], [".......", ".fgfgf.", "......."]],
+      legend: {
+        e: { role: "bed_edge", shape: "block" },
+        s: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_wild", shape: "block" },
+        g: { role: "grass_tuft", shape: "block" },
+      },
+    },
+  ],
+}

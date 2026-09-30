@@ -1,0 +1,25 @@
+// Etikett-Rahmen (research/10 §4.3: Rahmen als Etikett 7/18) – vorsichtige Fassung: an der RAUMWAND mit
+// kleinem Bord, NICHT an Truhen, solange offen ist, ob Rahmen an Truhenfronten halten (research/10 §11 #1,
+// Spike T5). Items fest, bis das Theme die Item-Rolle `label.any` kennt.
+{
+  id: "decor/frame_labels",
+  kind: "static",
+  name: "Etikett-Rahmen",
+  category: "attachment",
+  tags: ["wall_decor", "wall_labels"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["S"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  variants: [
+    { id: "wheat", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:wheat" } }] },
+    { id: "coal", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:coal" } }] },
+    { id: "iron", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_ingot" } }] },
+    { id: "leather", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:leather" } }] },
+    { id: "food", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { role: "food.any" } }] },
+  ],
+}

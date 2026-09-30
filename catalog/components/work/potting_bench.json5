@@ -1,0 +1,28 @@
+// K3d · Pflanztisch (Gewächshaus, research/11 F-4 Kompost-Ecke + G6 „Mittelweg mit Tisch“): Komposter (Bauer,
+// Faktencheck #7; Füllstand 4), Arbeitsplatte aus umgedrehter Treppe, Fass für Saatgut. Auf der Platte Töpfe und
+// Kleinkram (`surface`), darüber Kräuter von der Decke (`hang`, V3: darf über dem Möbel tiefer hängen).
+// Tag `potting_bench` (Gewächshaus).
+{
+  id: "work/potting_bench",
+  kind: "static",
+  name: "Pflanztisch",
+  category: "work",
+  tags: ["potting_bench", "table"],
+  functionTags: ["work:farmer", "store", "villager_workstation"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["OUB"]],
+  legend: {
+    O: { block: "minecraft:composter", state: { level: "4" } },
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    B: { block: "minecraft:barrel", orient: { front: "front" } },
+  },
+  sockets: [
+    { id: "top", type: "surface", at: [1, 1, 0], accepts: ["plant", "tabletop_small"], prob: 0.7 },
+    { id: "barrel_top", type: "surface", at: [2, 1, 0], accepts: ["plant", "light_small"], prob: 0.5 },
+    { id: "herbs", type: "hang", at: [1, 99, 0], accepts: ["hang_small"], prob: 0.4 },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

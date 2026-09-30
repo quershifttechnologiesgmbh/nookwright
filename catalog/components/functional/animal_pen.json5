@@ -1,0 +1,47 @@
+// Kuh-/Schafgehege (R1, research/11 §8): Zaunring (1,5 hoch, Faktencheck #14) mit Tor vorn, innen Moosteppich.
+// Der Teppich gehört zur Komponente: so zählen die Innenzellen als belegt und der Solver sieht keine
+// abgeschnittene Tasche. Große Form: Heuballen und Wasserkessel im Ring, je mit Zaun darüber (sonst springt
+// ein Tier über den 1 Block hohen Ringteil). Tiere exportieren wir nicht (plan/01 §4.7): der Spieler bringt sie.
+// Im Spiel geprüft: spikes/ingame Gruppe F (Kuh bleibt im Gehege, Tor öffnet per Spieler-Klick).
+{
+  id: "functional/animal_pen",
+  kind: "static",
+  name: "Tiergehege",
+  category: "furniture",
+  tags: ["animal_pen", "livestock"],
+  functionTags: ["animal:cow", "animal:sheep", "animal:pig"],
+  styleTags: ["rustic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "small",
+      weight: 1,
+      layers: [
+        ["fff", "fmf", "fgf"],
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        m: { block: "minecraft:moss_carpet" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "large",
+      weight: 3,
+      layers: [
+        ["ffhff", "fmmmf", "kmmmf", "fmmmf", "ffgff"], // y0: Ring mit Heu (hinten) und Tränke (links), Tor vorn
+        ["..f..", ".....", "f....", ".....", "....."], // y1: Zaun auf Heu und Kessel
+      ],
+      legend: {
+        f: { role: "furniture_wood", shape: "fence" },
+        m: { block: "minecraft:moss_carpet" },
+        g: { role: "furniture_wood", shape: "fence_gate", orient: { front: "front" } },
+        h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        k: { block: "minecraft:water_cauldron", state: { level: "3" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

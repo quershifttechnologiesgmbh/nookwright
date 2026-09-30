@@ -1,0 +1,18 @@
+// research/53 F7 · Eckquader (Quoins): abwechselnd lang und kurz verzahnte Steinquader an der Gebäudeecke
+// (research/12 §3.6). „header“ = 2 lang (bindet in beide Wände), „stretcher“ = 1 kurz. Der Solver wechselt je
+// Reihe zwischen den Varianten.
+{
+  id: "exterior/corner_quoin",
+  kind: "static",
+  name: "Eckquader",
+  category: "architecture",
+  tags: ["exterior", "exterior_corner", "outdoor"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "corner_out",
+  rotations: "all",
+  variants: [
+    { id: "header", weight: 1, layers: [["QQ"]], legend: { Q: { role: "wall_quoin", shape: "block" } } },
+    { id: "stretcher", weight: 1, layers: [["Q"]], legend: { Q: { role: "wall_quoin", shape: "block" } } },
+  ],
+}

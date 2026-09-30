@@ -1,0 +1,41 @@
+// K2 · Waffenständer (DA Furniture/Utility: Armory, Weapons; Bing „medieval armory“): niedriger Zaun-Rechen
+// vor der Wand, darüber Waffen in Rahmen an der Raumwand. Boden-Montage mit Rücken zur Wand: Die Wand hinter
+// den Zaunzellen ist geprüft (keine Fenster, keine Tür) und trägt auch die Rahmen darüber. „tall“: lichte
+// Höhe ≥ 3. Rüstungsständer-Entities kann materialize noch nicht (Wunsch im Bericht K2).
+// V3-Korrektur (Materialisierungs-Prüfung `entity_support`, Vanilla `ItemFrame#survives`): Ein Zaun ragt ½ Block
+// in die Zelle darüber, sein Arm zur Wand trifft einen Rahmen direkt darüber → der Rahmen fällt ab. Deshalb
+// hängen die Rahmen über dem Zaun-Rechen erst eine Zelle höher (darunter Luft), und die niedrige Form ist eine
+// Waffenbank aus oberen Stufen (volle Höhe 1, ragt nicht in die Zelle darüber).
+{
+  id: "decor/weapon_rack",
+  kind: "static",
+  name: "Waffenständer",
+  category: "decor",
+  tags: ["weapon_rack", "wall_weapons"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "tall",
+      weight: 2,
+      layers: [["FF"], ["__"], ["__"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" } },
+      entities: [
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+        { type: "item_frame", at: [1, 2, 0], face: "front", item: { item: "minecraft:shield" } },
+      ],
+    },
+    {
+      id: "low",
+      weight: 1,
+      layers: [["SS"], ["__"]],
+      legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:stone_sword" } },
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:crossbow" } },
+      ],
+    },
+  ],
+}

@@ -1,0 +1,55 @@
+// 2×2-Kolbentür als freistehender Durchgang (R1). Die Hülle kann noch keine `wall_inset`-Türen, deshalb ein
+// eigener Rahmen; lichte Höhe ≥ 4, weil die Verbindung beider Seiten über dem Sturz läuft (unter dem Durchgang
+// ist der Boden der Hülle). Ruhezustand im Export: stromlos = OFFEN (Türblöcke in den Taschen neben den
+// Klebekolben). Hebel vorn am Sturz AN → Staub über dem Sturz → Sturz-Enden (obere Kolben) und hinten eine
+// Staub-Treppe → Block hinter dem unteren Kolben → alle vier Kolben fahren aus: Tor zu. Hebel AUS → auf.
+// Staub-Treppen laufen gerade nach unten (Stützblöcke leiten, darüber Luft), sonst fließt kein Signal abwärts.
+// Richtungen relativ: left = +x, right = −x, back = Norden. Im Spiel geprüft: spikes/ingame Gruppe F.
+{
+  id: "functional/piston_door_2x2",
+  kind: "static",
+  name: "2×2-Kolbentor",
+  category: "architecture",
+  tags: ["piston_door", "secret_door", "redstone_door"],
+  functionTags: ["door", "redstone"],
+  styleTags: ["dwarven", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    [
+      "K.__.K", // y0 z0 (hinten): Block hinter dem unteren Kolben | Durchgang
+      "PD__DQ", // y0 z1 (Türebene): Klebekolben | Türblock | Durchgang | Türblock | Klebekolben
+      "..__..", // y0 z2 (vorn)
+    ],
+    [
+      "dW__Wd", // y1 z0: Staub auf K | Stützblock der Treppe
+      "PD__DQ",
+      "..__..",
+    ],
+    [
+      "_eVVe_", // y2 z0: Luft über dem Staub | Staub-Treppe | Stützblöcke oben
+      "LLLLLL", // y2 z1: Sturz (leitet)
+      "..v...", // y2 z2: Hebel am Sturz
+    ],
+    [
+      "._uu_.", // y3 z0: Luft über der Treppe | Staub oben hinten
+      "uuuuuu", // y3 z1: Staub auf dem Sturz
+      "......",
+    ],
+  ],
+  legend: {
+    K: { block: "minecraft:stone_bricks" },
+    W: { block: "minecraft:stone_bricks" },
+    V: { block: "minecraft:stone_bricks" },
+    P: { block: "minecraft:sticky_piston", orient: { front: "left" } },
+    Q: { block: "minecraft:sticky_piston", orient: { front: "right" } },
+    D: { block: "minecraft:polished_andesite" },
+    L: { role: "beam", shape: "log", orient: { axis: "along" } },
+    d: { block: "minecraft:redstone_wire" },
+    e: { block: "minecraft:redstone_wire" },
+    u: { block: "minecraft:redstone_wire" },
+    v: { block: "minecraft:lever", orient: { attachTo: "back" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

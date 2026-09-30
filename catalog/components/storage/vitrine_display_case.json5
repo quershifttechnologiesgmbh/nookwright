@@ -1,0 +1,26 @@
+// I52 · Vitrine (research/52 §Möbel): Unterschrank aus umgedrehten Stufen, darüber ein Regalbrett
+// (`furniture_wood.shelf`, wie storage/display_shelf), davor eine echte Glasscheiben-Front als eigene Zeile
+// (kein Rahmen-Trick: ein Rahmen in derselben Zelle wie ein Blockmaterial kollidiert mit dem Trägerblock,
+// siehe research/52 §Nachprüfung). Für Sammlerstücke statt offener Präsentation.
+{
+  id: "storage/vitrine_display_case",
+  kind: "static",
+  name: "Vitrine",
+  category: "storage",
+  tags: ["display_case", "display_shelf"],
+  functionTags: ["display", "store"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  minVersion: 4554,
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["UUU", "..."], // y0: Unterschrank hinten, vorn frei
+    ["SSS", "GGG"], // y1: Regalbrett hinten, Glasfront vorn
+  ],
+  legend: {
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    S: { role: "furniture_wood", shape: "shelf", orient: { front: "front" } },
+    G: { block: "minecraft:glass_pane" },
+  },
+}

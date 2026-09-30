@@ -1,0 +1,241 @@
+// Elbisch / Wald (research/24 §7.6, T6): hell, filigran, gewachsen statt gebaut, viel Weiß und Hellgrün.
+// Erbt von nordic (Holzhandwerk) und überschreibt Wände, Böden, Dach, Metall und die Außenwelt.
+// Kernthemes: (a) Baumhaus-Kanopy, (b) Bogenpavillon, (c) Waldtempel, (d) Terrassen am Hang.
+// Falle (research/24 §7.6): zu viel Grün verschwindet im Biom – Holz und Weiß tragen, Grün bleibt Akzent.
+// W7-D (plan/spikes/W7D_fantasy.md): Fantasy-Vibe über Module, nicht über Rauschen – die Fantasy-Module
+// `exterior/fantasy_*` nennen dieses Theme in ihren `styleTags` (Fantasy-Stufe `full`, Kit `elven`): Hängelaternen am
+// Bogenarm, Giebelhörner, grünes Banner je Seite, Amethyst in der Giebelspitze, Laubranken an den Eingangsecken.
+{
+  id: "elven",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { organic: 0.5, richness: 0.25, wear: -0.25 },
+  name: "Elbisch",
+  description: "Kalzitwände, entrindete Eiche, tiefgrünes Prismarindach mit dunkler Kante, Birke innen, Moos am Sockel",
+  base: "nordic",
+  roles: {
+    // P5 helle Bohlenwand über die ganze Fassade (W2 Regeln W4/W5): Birkenbretter tragen, am Fuß wärmere Eiche
+    // (Wurzelholz); keine Zufallsstämme im Bretterfeld – Stämme stehen als Eckständer und liegen als Geschossband
+    // W13-F (28.09.2026): helle Steinwand statt Birkenbrettern – Kalzit trägt, unten ein Ring aus poliertem Diorit
+    // („calcite, smooth quartz, quartz bricks … moss, azalea“, blockblend.app/palettes/fantasy; „each part its own texture:
+    // calcite, quartz and diorite“). Vorher Birke über Eiche: Wand, Rahmen, Böden und Möbel in einem Gelb.
+    wall_primary: {
+      // W4 (27.09.2026, Review M4): dunkler Fuß nur als durchgehende Reihe – `quantize: "ring"` wählt je Wandreihe
+      // (gleiche Höhe über dem Sockel, `facade_h`) genau einen Block, ohne Rauschen und ohne Jitter. Vorher lagen
+      // Cluster-Flecken aus dem dunklen Ton im Bretterfeld und lasen sich wie zugemauerte Türöffnungen. Unteres
+      // Siebtel der Fassade (zweigeschossig: die erste Reihe) dunkel, darüber nur das Hauptbrett (W4/W5).
+      gradient: {
+        along: "facade_h",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "polished_diorite", weight: 1 }] },
+          { at: 0.15, mix: [{ family: "calcite", weight: 1 }] },
+          { at: 1, mix: [{ family: "calcite", weight: 1 }] },
+        ],
+      },
+      fallback: ["smooth_quartz"],
+    },
+    // Innen: Kalkputz mit grünem Sockelsaum
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.1,
+        stops: [
+          { at: 0, mix: [
+            { family: "moss_block", weight: 20 },
+            { family: "calcite", weight: 50 },
+            { family: "white_terracotta", weight: 30 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 60 },
+            { family: "quartz", weight: 25 },
+            { family: "white_terracotta", weight: 15 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    floor_primary: {
+      // W4 (27.09.2026, Review M6 „Tarnmuster“): Dielen in Reihen statt großer Flecken – nur Bretter (keine entrindeten
+      // Hölzer mit Maserung quer zur Diele), ein Hauptholz ≥ 75 % (Ruine) bzw. ≥ 86 %, Nachbartöne nur als ganze Bretter
+      // (`noise.boards`: Wahl je Brett aus 4 Blöcken, Reihen versetzt). Sprenkel innen < 15 %.
+      mix: [
+        { family: "birch", weight: 90 },
+        { family: "oak", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_stone: {
+      mix: [
+        { family: "quartz", weight: 45 },
+        { family: "calcite", weight: 30 },
+        { family: "mossy_stone_bricks", weight: 15 },
+        { family: "stone_bricks", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    floor_border: { family: "birch" },
+    floor_strip: { family: "oak" },
+    // Sockel (W7): ein Stein, im Wald bemoost
+    // W13-F: Sockel aus Steinziegeln, bemoost (vorher Bruchstein – zu rau für die glatte Kalzitwand)
+    foundation: {
+      mix: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "mossy_stone_bricks", weight: 40 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    // W13-F: Rahmen in entrindeter Eiche – warmes Holz, sichtbar dunkler als der Kalzit (vorher entrindete Birke, gleich hell wie die Wand)
+    beam: { family: "oak", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    pillar: { family: "oak", shapes: { log: "stripped_log", wood: "stripped_wood" } },
+    door: { family: "birch" },
+    window_frame: { family: "birch" },
+    // W13-F: eine Holzart in den Deckenfeldern (vorher Birke/entrindet/Eiche gefleckt)
+    ceiling: { family: "birch" },
+    // Schindeldach als Deckungsrezept (W2 Regel D1), W4 (27.09.2026, Baustandard D9, Review M5): Fichte trägt, der First
+    // in Eiche – vorher Birkendach über Birkenwand (Helligkeitsabstand 0). Kante (D3) weiter dunkle Eiche.
+    // W13-F: tiefgrünes Dach (dunkler Prismarin, am First Prismarinziegel) – grün-türkises Dach über heller Wand und
+    // dunkler Kante („green/teal roof against dark wood“, blockblend.app/palettes/fantasy; sportskeeda „oxidized copper against
+    // dark oak“). Vorher Fichte → Eiche: braunes Dach wie bei rustic.
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "dark_prismarine", weight: 1 }] },
+          { at: 0.85, mix: [{ family: "prismarine_bricks", weight: 1 }] },
+          { at: 1, mix: [{ family: "prismarine_bricks", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "dark_oak" },
+    // W2 (Baustandard D4, Giebel-Rezept): weißer Kalkputz im Birkenrahmen
+    wall_gable: { family: "calcite" },
+    // W13-F: bemooste Steinziegel am Fuß (statt bemoostem Bruchstein, ruhiger)
+    wall_plinth: { family: "mossy_stone_bricks" },
+    // W2 (Regel W6): Gesims/Geschossband am Holzhaus aus Holz im Kontrastton, nicht der geerbte Steinziegel
+    wall_cornice: { family: "birch" },
+    wall_quoin: { family: "quartz", shapes: { block: "pillar" } },
+    shutter: { family: "birch" },
+    furniture_wood: { family: "birch" },
+    // Metall: Silber-Ton (Eisen) statt Kupfer, Gold nur als Zierlinie
+    metal: { family: "iron" },
+    light_hanging: { family: "iron" },
+    textile_primary: { color: "white" },
+    textile_accent: { color: "lime" },
+    textile_neutral: { color: "light_gray" },
+
+    // ---------------------------------------------------------------- Außen: heller Waldboden, Blüten
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 55 },
+        { block: "minecraft:moss_block", weight: 25 },
+        { block: "minecraft:podzol", weight: 10 },
+        { block: "minecraft:coarse_dirt", weight: 10 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:dirt_path", weight: 40 },
+        { block: "minecraft:moss_block", weight: 25 },
+        { block: "minecraft:grass_block", weight: 20 },
+        { block: "minecraft:coarse_dirt", weight: 15 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:mossy_stone_bricks", weight: 40 },
+        { block: "minecraft:stone_bricks", weight: 25 },
+        { block: "minecraft:mossy_cobblestone", weight: 20 },
+        { block: "minecraft:quartz_block", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    leaves_oak: { family: "birch" },
+    leaves_bush: {
+      mix: [
+        { block: "minecraft:azalea_leaves", weight: 35 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 35 },
+        { block: "minecraft:birch_leaves", weight: 30 },
+      ],
+    },
+    flower_wild: {
+      mix: [
+        { block: "minecraft:oxeye_daisy", weight: 30 },
+        { block: "minecraft:lily_of_the_valley", weight: 25 },
+        { block: "minecraft:azure_bluet", weight: 25 },
+        { block: "minecraft:allium", weight: 20 },
+      ],
+    },
+    grass_tuft: {
+      mix: [
+        { block: "minecraft:short_grass", weight: 45 },
+        { block: "minecraft:fern", weight: 35 },
+        { block: "minecraft:bush", weight: 20 },
+      ],
+    },
+    ground_cover: {
+      mix: [
+        { block: "minecraft:moss_carpet", weight: 40 },
+        { block: "minecraft:pink_petals", weight: 35 },
+        { block: "minecraft:wildflowers", weight: 25 },
+      ],
+    },
+    hedge: { family: "birch" },
+    // Innenhaut (W2-FD, W3-IN): helle Blasseichen-Paneele (ruhiger als das Fenstermuster der Birken-Falltür), Leisten und
+    // Ständer aus entrindeter Birke
+    lining_panel: { family: "pale_oak" },
+    lining_trim: { family: "birch", shapes: { log: "stripped_log" } },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation"],
+    // W4 (27.09.2026, W2-FC §8): das Giebelfeld (Putz/glatter Stein, Kontrast zur Wand) färbt die Palette wie die Zweitwand
+    wall_secondary: ["wall_secondary", "wall_gable"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    wood_frame: ["beam", "pillar"],
+    floor: ["floor_primary", "floor_stone", "ground_grass", "ground_path", "ground_yard"],
+    accent: ["textile_primary", "textile_accent", "textile_neutral"],
+    glass: ["window_frame", "shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "grass_tuft", "ground_cover", "hedge"],
+  },
+
+  surfaces: {
+    // Außen Holz, innen Sockelvertäfelung unten und Kalkputz darüber
+    wall: [
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+  },
+  decor: {
+    // W13-B: kein Torfdach (nordic legt es an; hier bleibt das eigene Dach unverändert)
+    turfRoof: { roles: ["roof_main"], share: 0 },
+    // Wald: Moos und Risse, ausgefranste Ränder
+    // W2 (I1): Wände mit Raum dahinter ohne Moos/Risse (Innenseite sichtbar), verwittert wird am Sockel
+    weathering: { age: 0.35, fade: 1.5, interiorFaces: false, roles: ["wall_primary", "foundation", "floor_stone"] },
+  },
+  items: {
+    "food.any": ["minecraft:apple", "minecraft:bread", "minecraft:sweet_berries", "minecraft:glow_berries"],
+    "deco.small": ["minecraft:glow_berries", "minecraft:feather", "minecraft:paper"],
+  },
+}

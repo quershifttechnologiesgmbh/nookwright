@@ -1,0 +1,24 @@
+// research/56 · Handkarren (DA Structural: Vehicles; Bing „minecraft market cart build“): Räder aus seitlich
+// montierten Zauntoren (Speichen-Optik), Ladefläche aus Stufen, ein stehendes Fass als Ladung. Für Hof, Markt,
+// Gasse.
+{
+  id: "outdoor/handcart",
+  kind: "static",
+  name: "Handkarren",
+  category: "decor",
+  tags: ["cart", "outdoor", "market", "yard"],
+  styleTags: ["medieval", "rustic", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["LBR", "LBR"], // y0: Räder (Zauntore) links/rechts, Ladefläche
+    ["...", ".C."], // y1: Fass als Ladung
+  ],
+  legend: {
+    L: { role: "furniture_wood", shape: "fence_gate", orient: { front: "left" } },
+    R: { role: "furniture_wood", shape: "fence_gate", orient: { front: "right" } },
+    B: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+    C: { block: "minecraft:barrel", orient: { front: "up" } },
+  },
+}

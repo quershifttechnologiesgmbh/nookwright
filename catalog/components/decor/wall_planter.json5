@@ -1,0 +1,45 @@
+// K2 · Wandkübel (DA Nature: Wall Plants/Potted Plants): Konsole aus umgedrehter Treppe in Augenhöhe, darauf
+// eine Topfpflanze (Blumentöpfe brauchen keine Stütze). Lichte Höhe ≥ 3. Echte Wandranken (vine,
+// glow_lichen) fehlen, weil die Physik ihre Wand-Stützregel noch nicht kennt (Wunsch im Bericht K2).
+{
+  id: "decor/wall_planter",
+  kind: "static",
+  name: "Wandkübel",
+  category: "attachment",
+  tags: ["wall_decor", "wall_plant"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "fern",
+      weight: 2,
+      layers: [["K"], ["P"]],
+      legend: {
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        P: { block: "minecraft:potted_fern" },
+      },
+    },
+    {
+      id: "azalea",
+      weight: 2,
+      layers: [["K"], ["P"]],
+      legend: {
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        P: { block: "minecraft:potted_flowering_azalea_bush" },
+      },
+    },
+    {
+      id: "mushroom",
+      weight: 1,
+      layers: [["K"], ["P"]],
+      legend: {
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        P: { block: "minecraft:potted_red_mushroom" },
+      },
+    },
+  ],
+}

@@ -1,0 +1,37 @@
+// K2 · Kirchenbank (DA Furniture: Religious/Benches): Treppenreihe mit Falltür-Wangen, frei im Raum (Reihen in
+// Kapelle oder Saal). Für einen späteren Raumtyp Kapelle; heute auch als freie Bank nutzbar.
+{
+  id: "seat/pew",
+  kind: "static",
+  name: "Kirchenbank",
+  category: "furniture",
+  tags: ["pew", "bench", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "long",
+      weight: 2,
+      layers: [["TSSSU"]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      id: "short",
+      weight: 1,
+      layers: [["TSSU"]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,56 @@
+// research/57 · Gewächshaus: gemauertes Hochbeet, zweite Bauform neben decor/garden_bed (bislang die einzige
+// Signatur-Form, immer mit Falltür-Einfassung). Tag `garden_bed` steht in greenhouse.json5 im Pflicht-Eintrag
+// `{ tags: ["garden_bed", "planter"], signature: true }` und im optionalen Eintrag `{ tags: ["garden_bed"] }`.
+// Steinziegel-Stufen als Einfassung statt Falltüren, wirkt neben mehreren Hochbeeten im selben Raum abwechslungsreich.
+{
+  id: "decor/raised_bed_stone",
+  kind: "static",
+  name: "Gemauertes Hochbeet",
+  category: "decor",
+  tags: ["garden_bed", "planter_bed"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "square_flowers",
+      weight: 2,
+      layers: [
+        ["nnn", "nSn", "nnn"], // y0: Steinziegel-Stufen rundum, Erde in der Mitte
+        ["...", ".f.", "..."], // y1: Blume
+      ],
+      legend: {
+        n: { block: "minecraft:stone_brick_slab", orient: { upsideDown: false } },
+        S: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_warm", shape: "block" },
+      },
+    },
+    {
+      id: "long_herbs",
+      weight: 2,
+      layers: [
+        ["nnnnn", "nSSSn", "nnnnn"],
+        [".....", ".ggg.", "....."],
+      ],
+      legend: {
+        n: { block: "minecraft:stone_brick_slab", orient: { upsideDown: false } },
+        S: { role: "garden_soil", shape: "block" },
+        g: { role: "grass_tuft", shape: "block" },
+      },
+    },
+    {
+      id: "small",
+      weight: 1,
+      layers: [
+        ["nn", "nS"],
+        ["..", ".f"],
+      ],
+      legend: {
+        n: { block: "minecraft:stone_brick_slab", orient: { upsideDown: false } },
+        S: { role: "garden_soil", shape: "block" },
+        f: { role: "flower_cool", shape: "block" },
+      },
+    },
+  ],
+}

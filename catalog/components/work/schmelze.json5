@@ -1,0 +1,56 @@
+// Welle D · D3 (research/24 §7.0, T5 `dwarven`): Schmelze – das Schmelzwerk der Zwergensiedlung
+// (research/24 §7.5 Kernthema (b) Schmiede; die dort genannte Pflichtrolle `ember_light` gibt es NICHT – research/32
+// §5.3 hat bewusst keine der 27 neuen Rollen angelegt –, deshalb ist die Glut ein brennendes Lagerfeuer).
+// Mauerwerk aus dem Herd-Mauerwerk (`hearth_alt`/`hearth`), zwei Hochöfen in der Front, darüber die
+// Erz-Trichter, oben der Schlot mit dem Feuer (Rauch nach oben frei, Faktencheck #13). Das Fass steht frei
+// (Fässer öffnen immer, Faktencheck #2) – darüber bleibt Luft.
+{
+  id: "work/schmelze",
+  kind: "static",
+  name: "Schmelze",
+  category: "work",
+  tags: ["schmelze", "smelter", "fire_feature", "workshop_prop"],
+  functionTags: ["smelt", "store", "light"],
+  styleTags: ["dwarven", "workshop"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "brick",
+      weight: 3,
+      layers: [
+        ["BBB", "FFR"], // y0: Mauerwerk | zwei Hochöfen | Erzfass
+        ["BBB", "II_"], // y1: Mauerwerk | Erz-Trichter über den Öfen | Luft über dem Fass
+        ["BBB", "..."], // y2: Haube
+        [".C.", "..."], // y3: Schlot mit Glut (Rauch nach oben frei)
+      ],
+      legend: {
+        B: { role: "hearth_alt", shape: "block" },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+        R: { block: "minecraft:barrel", orient: { front: "front" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+    {
+      id: "stone",
+      weight: 2,
+      layers: [
+        ["BBB", "FFR"], // y0
+        ["BBB", "II_"], // y1
+        ["BBB", "..."], // y2
+        [".C.", "..."], // y3
+      ],
+      legend: {
+        B: { role: "hearth", shape: "block" },
+        F: { block: "minecraft:blast_furnace", orient: { front: "front" } },
+        R: { block: "minecraft:barrel", orient: { front: "front" } },
+        I: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

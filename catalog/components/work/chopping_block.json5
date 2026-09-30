@@ -1,0 +1,16 @@
+// K2 · Hackklotz (DA Utility: Carpenter's Tools / Camping): aufrechter Stamm, darauf liegt eine Axt im
+// Rahmen (Rahmen flach auf dem Stamm, face up). Für Küche, Lager, Hof.
+{
+  id: "work/chopping_block",
+  kind: "static",
+  name: "Hackklotz",
+  category: "decor",
+  tags: ["chopping_block", "workshop_prop"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [["L"], ["_"]],
+  legend: { L: { role: "beam", shape: "log", orient: { axis: "y" } } },
+  entities: [{ type: "item_frame", at: [0, 1, 0], face: "up", item: { item: "minecraft:iron_axe" } }],
+}

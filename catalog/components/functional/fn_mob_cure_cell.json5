@@ -1,0 +1,67 @@
+// FN · Heilzelle für Zombie-Dorfbewohner (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Gemauerte Zelle 3 × 3 (Rolle
+// `hearth`), innen 1 × 2 (Zombie-Dorfbewohner sind 1,95 hoch). Ablauf nach Wiki Zombie Villager, Abschnitt Curing:
+// Trank der Schwäche + Goldener Apfel → 3600–6000 Ticks Heilung; Eisengitter/Betten im 9 × 9 × 9-Würfel beschleunigen sie
+// (höchstens 14 Blöcke zählen, je etwa 4,2 %) – darum Gitterfenster in den Seitenwänden und die Betten von `fn_cure_room`.
+// Die Zelle steht FREI im Raum (Rotation beliebig, kein Wandbezug), so passt sie auch zwischen Fensterachsen.
+// Ausbruchsicherheit (Auftrag: Kampf-/Mob-Elemente dürfen Spieler in Wohnzonen nicht gefährden):
+//  - Vorn eine EISENTÜR: Villager und Zombies öffnen keine Eisentüren (Wiki Door: Eisentüren nur per Redstone/Knopf), nur
+//    Holztüren; der Knopf sitzt NUR AUSSEN links und rechts der Tür an den Pfeilern (wie `decor/prison_cell`, T5-Befund:
+//    ein Knopf an einem Block, der an eine Türhälfte grenzt, öffnet die Tür).
+//  - Dach: geschlossen über der Zelle (y2), Zombie-Dorfbewohner brennen im Tageslicht nur bei freiem Himmel.
+//  - Licht: Seelenfackel im Zellenboden (Licht 10), nichts spawnt in der Zelle; der Raum bleibt Licht ≥ 8.
+//  - Der Export enthält keine Mobs; die Zelle steht leer, die Tür zu.
+// Gebrauch: Zombie-Dorfbewohner hineinführen, Tür zu, durch ein Gitterfenster (Spieler steht seitlich davor, 2 Blöcke Abstand)
+// Schwäche-Wurftrank und Goldapfel anwenden. Nicht im Spiel geprüft: Wurf/Interaktion durch die Gitter, Angriffsreichweite
+// durch die Gitter, Geschwindigkeitsbonus.
+{
+  id: "functional/fn_mob_cure_cell",
+  kind: "static",
+  name: "Heilzelle",
+  category: "work",
+  tags: ["fn_cure_cell"],
+  functionTags: ["cure", "confine"],
+  styleTags: ["medieval", "grim"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "full",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["PPP", "PTP", "PDP", "..."], // y0: Mauer | Seelenfackel in der Zelle | Eisentür (unten) vorn
+        ["PPP", "I_I", "PdP", "b.b"], // y1: Gitterfenster in den Seitenwänden | Tür oben | Knöpfe außen an den Pfeilern
+        ["PPP", "PPP", "PPP", "..."], // y2: Dach
+      ],
+      legend: {
+        P: { role: "hearth", shape: "block" },
+        T: { block: "minecraft:soul_torch" },
+        I: { role: "metal", shape: "bars" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+      },
+    },
+    {
+      // Flachform für lichte Höhe 2: die Raumdecke ist das Dach der Zelle (innen 2 hoch, Zombie-Dorfbewohner 1,95).
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["PPP", "PTP", "PDP", "..."],
+        ["PPP", "I_I", "PdP", "b.b"],
+      ],
+      legend: {
+        P: { role: "hearth", shape: "block" },
+        T: { block: "minecraft:soul_torch" },
+        I: { role: "metal", shape: "bars" },
+        D: { block: "minecraft:iron_door", orient: { front: "back", half: "lower" }, state: { hinge: "right", open: "false" } },
+        d: { block: "minecraft:iron_door", orient: { front: "back", half: "upper" }, state: { hinge: "right", open: "false" } },
+        b: { block: "minecraft:stone_button", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 2, hard: false }], use: [{ side: "front" }] },
+  light: "auto",
+}

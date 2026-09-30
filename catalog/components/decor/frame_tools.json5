@@ -1,0 +1,25 @@
+// Werkzeugleiste (research/10 §5.3: Werkzeug-/Waffenrahmen 8/16, „Zaun + Rahmen“ F4): Rahmen mit
+// Werkzeug in Augenhöhe an der Raumwand, darüber ein Zaun als Haken (verbindet sich mit der Wand).
+// Waffen als feste Items, bis das Theme `weapon.blade` kennt (research/10 §10).
+{
+  id: "decor/frame_tools",
+  kind: "static",
+  name: "Werkzeugrahmen",
+  category: "attachment",
+  tags: ["wall_decor", "wall_tools"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: Werkzeug über der Werkbank, in hohen Räumen eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["F"]],
+  legend: { F: { role: "furniture_wood", shape: "fence" } },
+  variants: [
+    { id: "axe", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_axe" } }] },
+    { id: "sword", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_sword" } }] },
+    { id: "pickaxe", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } }] },
+    { id: "shears", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:shears" } }] },
+    { id: "material", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { role: "tool.smithing" } }] },
+  ],
+}

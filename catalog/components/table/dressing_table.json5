@@ -1,0 +1,30 @@
+// I52 · Frisiertisch (research/52 §Möbel, Schlaf-/Ankleidezimmer): Tischplatte aus umgedrehten Stufen, an der
+// Wand ein Rahmen mit Glasscheibe als Spiegel (Trick aus bath/washstand), daneben eine Kerze. Ein Hocker
+// dockt per Socket an (seat/bar_stool), damit keine zweite Sitz-Komponente entsteht.
+{
+  id: "table/dressing_table",
+  kind: "static",
+  name: "Frisiertisch",
+  category: "furniture",
+  tags: ["vanity", "dressing_table"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "noble", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["UU"], // y0: Tischplatte
+    ["c_"], // y1: Kerze | Spiegel an der Wand
+  ],
+  legend: {
+    U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    c: { block: "minecraft:white_candle", state: { candles: "1", lit: "true" } },
+  },
+  // Kein zweiter Socket auf [1,1,0]: die Zelle ist als Luft für den Spiegel-Rahmen reserviert (sonst Kollision
+  // mit dem Rahmen bzw. mit der Luft-Maske, research/52 §Nachprüfung).
+  entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+  sockets: [
+    { id: "stool", type: "adjacent", at: [0, 0, 1], side: "front", accepts: ["bar_stool"], prob: 0.7, facing: "same" },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

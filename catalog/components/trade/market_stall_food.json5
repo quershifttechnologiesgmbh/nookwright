@@ -1,0 +1,102 @@
+// research/57 · Handelshalle: zweite Bauform des Villager-Stands (research/17 §4.24) neben trade/villager_stall.
+// Bisher gibt es nur eine Silhouette (Baumstamm-Pfosten, Stufen-Decke) für alle 13 Berufe – zwei Stände nebenan
+// sehen dadurch fast gleich aus. Diese Form hat Bretter- statt Stamm-Pfosten und farbige Wollklötze als
+// Markisen-Ecken statt der Stufen-Decke; gleiche Fluchtsicherung (Villager-Platz unter der Decke, Deckel auf
+// Höhe 2) und dieselbe `stretch`-Dehnung für höhere Räume wie trade/villager_stall.
+// Tag `villager_stall` steht in trading_hall.json5 in beiden Einträgen (required und optional/`row`).
+// Nachprüfung research/57 (Katalog-Lint + E2E):
+//  - Die Wollmarkise war zuerst als Treppen-Form der Rolle textile_primary gebaut; Treppen/Stufen gibt es in
+//    1.21.11 aber nicht (Farb-Familien kennen laut `families-1.21.11.json` nur wool/carpet/bed/banner/
+//    wall_banner/candle/…/candle_cake – die Treppen kommen laut Auftrag erst ab 26.3). Q1a: die Markisen-Ecken
+//    sind Teppiche (Form carpet) auf den Pfostenköpfen – die einzige Form, die die Rolle textile_primary über
+//    alle repräsentativen Familien auflöst (`color:red` kennt `wool`, die Wollfamilien dagegen nur `block`,
+//    beide kennen `carpet`; Katalog-Vertragstest packages/platform/test/catalog-contract.test.ts).
+//  - `stallGeometry`/`jobSiteReachable` schlugen fehl: über dem Arbeitsblock war mehr als 1 Block frei und es
+//    gab keinen gedeckelten Villager-Platz, weil (anders als beim Vorbild trade/villager_stall) die fehlende
+//    `stretch`-Dehnung für Räume > lichte Höhe 2 keinen Deckel nachlegt. Jetzt exakt wie im Vorbild: identische
+//    Grundgeometrie (Pfosten | Villager-Platz | Pfosten, davor der Arbeitsblock, Deckel aus unteren Stufen
+//    direkt darüber bzw. – ab lichter Höhe 3 – über `stretch`, `fill: "ceiling"`).
+//  - Zweiter Fund (2. Prüf-Runde): die mittlere Zelle über dem Villager-Platz war mit `s` (Deckel) gefüllt statt
+//    `_` (Luft) zu bleiben – der Villager braucht dort 2 Zellen Kopffreiheit (Fuß- UND Kopfhöhe müssen passierbar
+//    sein), der Deckel darf erst eine Zellenreihe höher (Basis-Dach bzw. `stretch`-Reihe) sitzen. Korrigiert auf
+//    `_` wie im Vorbild trade/villager_stall (dort `P_P`).
+//  - Dritter Fund (3. Prüf-Runde): `minecraft:loom` hat eine `facing`-Eigenschaft und braucht wie im Vorbild
+//    `orient: { front: "front" }`, sonst schlägt die Materialisierung fehl („loom (horizontal) braucht eine
+//    Ausrichtung“).
+{
+  id: "trade/market_stall_food",
+  kind: "static",
+  name: "Marktstand mit Wollmarkise",
+  category: "work",
+  tags: ["villager_stall", "trade_stall"],
+  functionTags: ["trade", "villager_workstation"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "butcher",
+      weight: 1,
+      layers: [
+        ["BTB", "BJB"], // y0: Bretter-Pfosten | Villager-Platz (Fackel) | Pfosten; vorn der Arbeitsblock
+        ["W_W", "s_s"], // y1: Wollklötze an den Pfosten, Deckel (untere Stufen) über Platz und Arbeitsblock
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        T: { block: "minecraft:torch" },
+        W: { role: "textile_primary", shape: "carpet" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:smoker", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "fletcher",
+      weight: 1,
+      layers: [
+        ["BTB", "BJB"],
+        ["W_W", "s_s"],
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        T: { block: "minecraft:torch" },
+        W: { role: "textile_primary", shape: "carpet" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:fletching_table" },
+      },
+    },
+    {
+      id: "leatherworker",
+      weight: 1,
+      layers: [
+        ["BTB", "BJB"],
+        ["W_W", "s_s"],
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        T: { block: "minecraft:torch" },
+        W: { role: "textile_primary", shape: "carpet" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:cauldron" },
+      },
+    },
+    {
+      id: "shepherd",
+      weight: 1,
+      layers: [
+        ["BTB", "BJB"],
+        ["W_W", "s_s"],
+      ],
+      legend: {
+        B: { role: "beam", shape: "planks" },
+        T: { block: "minecraft:torch" },
+        W: { role: "textile_primary", shape: "carpet" },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        J: { block: "minecraft:loom", orient: { front: "front" } },
+      },
+    },
+  ],
+  // y2 (ab lichter Höhe 3): Pfosten hinten, Deckel aus unteren Stufen über Platz und Arbeitsblock (wie im Vorbild)
+  stretch: { layer: 1, max: 1, fill: "ceiling", rows: ["BsB", ".s."] },
+  masks: { clearance: [{ side: "front", depth: 2, hard: true }], use: [{ side: "front" }] },
+}

@@ -1,0 +1,135 @@
+// K3a · Kamin (research/17 §4.3, L1–L3): Lagerfeuer in einer gemauerten Nische, davor ein Eisengitter als
+// Funkenschutz (Lagerfeuer verletzt, nie auf dem Laufweg: research/11 §2.4). Das Feuer entzündet keine Nachbarn,
+// auch nicht die Regale (T5 #13). Mauerwerk aus der Theme-Rolle `hearth` (je Zelle gemischt: Steinziegel, rissig,
+// Bruchstein, Schwarzstein), Sims aus umgedrehten Treppen. Rauch zieht teilweise durch den Block direkt darüber
+// (FC #13); der Schlot über das Dach bleibt Folgeaufgabe (wie K1).
+// V3 „mehr in die Höhe“: ab lichter Höhe 4 steigt der Kaminvorsprung (und die Bücherregale daneben) bis unter die
+// Decke (`stretch`, `ceiling`); auf dem Sims stehen dann Kerzen/Krüge über Sockets vor dem Vorsprung (y 3 bleibt
+// beim Dehnen fest, weil die Dehnung erst ÜBER Lage 3 einschiebt).
+// Kompaktform „hob“ (2 × 1): Feuerbank unter einer gemauerten Haube – über dem Feuer liegt ein Block, niemand
+// kann darauf stehen (wie work/kitchen_stove); darüber der Schlot bis zur Decke.
+{
+  id: "arch/fireplace_wall",
+  kind: "static",
+  name: "Kamin",
+  category: "architecture",
+  tags: ["fireplace", "hearth_living"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      // Kamin zwischen Bücherregalen (L3), lichte Höhe 3
+      id: "shelves",
+      weight: 3,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["BMCMB", "._I_."], // y0: Regal | Mauer | Feuer | Mauer | Regal; vorn Gitter vor dem Feuer
+        ["BM_MB", "....."], // y1: Feueröffnung
+        ["BMMMB", ".UUU."], // y2: Sturz, Sims ragt vor
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        M: { role: "hearth", shape: "block" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        I: { role: "metal", shape: "bars" },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      // dasselbe mit Kaminvorsprung bis zur Decke, Regale daneben ebenso; Kerzen/Krüge auf dem Sims
+      id: "shelves_tall",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["BMCMB", "._I_."],
+        ["BM_MB", "....."],
+        ["BMMMB", ".UUU."],
+        ["BMMMB", "....."], // y3: Vorsprung (wird bis zur Decke gedehnt)
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        M: { role: "hearth", shape: "block" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        I: { role: "metal", shape: "bars" },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      stretch: { layer: 3, max: 12, fill: "ceiling" },
+      sockets: [
+        { id: "mantel_l", type: "surface", at: [1, 3, 1], accepts: ["candles", "tabletop_small"], prob: 0.8 },
+        { id: "mantel_r", type: "surface", at: [3, 3, 1], accepts: ["candles", "tabletop_small"], prob: 0.8 },
+      ],
+    },
+    {
+      // schlichter Kamin (L2), lichte Höhe 3
+      id: "plain",
+      weight: 2,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["MCM", "_I_"],
+        ["M_M", "..."],
+        ["MMM", "UUU"],
+      ],
+      legend: {
+        M: { role: "hearth", shape: "block" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        I: { role: "metal", shape: "bars" },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "plain_tall",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        ["MCM", "_I_"],
+        ["M_M", "..."],
+        ["MMM", "UUU"],
+        ["MMM", "..."],
+      ],
+      legend: {
+        M: { role: "hearth", shape: "block" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        I: { role: "metal", shape: "bars" },
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      stretch: { layer: 3, max: 12, fill: "ceiling" },
+      sockets: [
+        { id: "mantel_l", type: "surface", at: [0, 3, 1], accepts: ["candles", "tabletop_small"], prob: 0.8 },
+        { id: "mantel_r", type: "surface", at: [2, 3, 1], accepts: ["candles", "tabletop_small"], prob: 0.8 },
+      ],
+    },
+    {
+      // lichte Höhe 2: Sturz direkt über der Feuernische
+      id: "low",
+      weight: 2,
+      maxRoomHeight: 2,
+      layers: [
+        ["MCM", ".I."],
+        ["MMM", "..."],
+      ],
+      legend: {
+        M: { role: "hearth", shape: "block" },
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        I: { role: "metal", shape: "bars" },
+      },
+    },
+    {
+      // Kompaktform: Feuerbank unter der gemauerten Haube, Schlot bis zur Decke
+      id: "hob",
+      weight: 1,
+      layers: [["CC"], ["MM"]],
+      legend: {
+        C: { block: "minecraft:campfire", orient: { front: "front" }, state: { lit: "true", signal_fire: "false" } },
+        M: { role: "hearth", shape: "block" },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

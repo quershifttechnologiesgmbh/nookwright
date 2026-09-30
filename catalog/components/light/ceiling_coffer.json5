@@ -1,0 +1,82 @@
+// K3d · Licht hinter Falltür in der Decke (research/16 L1, P1; S1 Tipp 24 „Place lightsources behind trapdoors“,
+// S5 „Lighting: 2 primary ways“, S22). Grundlicht ohne sichtbare Leuchte, als Kassetten-Optik.
+// Echte Deckenebene (`carve` in die Decke) trägt Schema/Solver noch nicht → hier als ABGEHÄNGTE Kassette im
+// Raumvolumen: ein 3×3-Balkenrahmen direkt unter der Decke, in der Mitte ein Lichtblock, darunter eine
+// geschlossene obere Falltür (Muster sichtbar). Der Lichtblock ist allseitig verdeckt (Decke, Balken, Falltür);
+// Licht geht durch Falltüren (T5, materialize/light.ts), nicht durch die Balken. Die Falltür hängt auf
+// Boden + 2 → erst ab lichter Höhe 4 (Kopffreiheit). Unter lichter Höhe 4: Wunsch `carve` an K3c (Bericht).
+// Tag `light_hidden` (NICHT `light_ceiling`): bestehende Raumtypen ziehen die Kassette nur bewusst.
+// Lichtblöcke gibt es in 1.21.11 und 26.3 (Glowstone, Pilzlicht, Froschlicht, Seelaterne).
+{
+  id: "light/ceiling_coffer",
+  kind: "static",
+  name: "Deckenkassette mit verdecktem Licht",
+  category: "light",
+  tags: ["light", "light_hidden", "coffer"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 4,
+  variants: [
+    {
+      id: "glowstone",
+      weight: 3,
+      layers: [
+        ["...", ".T.", "..."], // y0: obere Falltür, geschlossen, unter dem Lichtblock
+        ["XXX", "zGz", "XXX"], // y1: Balkenrahmen unter der Decke, Lichtblock in der Mitte
+      ],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: false, upsideDown: true } },
+        X: { role: "beam", shape: "log", orient: { axis: "along" } },
+        z: { role: "beam", shape: "log", orient: { axis: "across" } },
+        G: { block: "minecraft:glowstone" },
+      },
+    },
+    {
+      id: "shroomlight",
+      weight: 2,
+      layers: [
+        ["...", ".T.", "..."],
+        ["XXX", "zGz", "XXX"],
+      ],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: false, upsideDown: true } },
+        X: { role: "beam", shape: "log", orient: { axis: "along" } },
+        z: { role: "beam", shape: "log", orient: { axis: "across" } },
+        G: { block: "minecraft:shroomlight" },
+      },
+    },
+    {
+      id: "froglight",
+      weight: 1,
+      layers: [
+        ["...", ".T.", "..."],
+        ["XXX", "zGz", "XXX"],
+      ],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: false, upsideDown: true } },
+        X: { role: "beam", shape: "log", orient: { axis: "along" } },
+        z: { role: "beam", shape: "log", orient: { axis: "across" } },
+        G: { block: "minecraft:ochre_froglight", orient: { axis: "y" } },
+      },
+    },
+    {
+      // Doppelkassette 5×3 mit zwei Lichtern (lange Säle)
+      id: "double",
+      weight: 1,
+      layers: [
+        [".....", ".T.T.", "....."],
+        ["XXXXX", "zGzGz", "XXXXX"],
+      ],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "front", open: false, upsideDown: true } },
+        X: { role: "beam", shape: "log", orient: { axis: "along" } },
+        z: { role: "beam", shape: "log", orient: { axis: "across" } },
+        G: { block: "minecraft:glowstone" },
+      },
+    },
+  ],
+  light: 15,
+}

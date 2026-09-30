@@ -1,0 +1,88 @@
+// Himmelbett (Schlafzimmer-Signatur, research/10 §2.3/§7.1: Baldachin in 7/13 Referenzen).
+// Einzelbett zwischen vier Pfosten, darüber ein Baldachin. y=1 über dem Bett bleibt Luft ('_'):
+// kein Block direkt über Kopf- oder Fußteil (Faktencheck #8). Braucht lichte Höhe ≥ 3; für niedrige
+// oder sehr kleine Räume gibt es bed/canopy_head. Die Seiten sind durch die Pfosten zu → Zugang vom Fußende.
+// Das Fußende bleibt frei genug für den Aufwachplatz (Faktencheck #8: Nachbarfeld frei).
+{
+  id: "bed/canopy",
+  kind: "static",
+  name: "Himmelbett",
+  category: "furniture",
+  tags: ["bed", "canopy_bed"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "log_slab",
+      weight: 3,
+      stretch: { layer: 1, max: 2, fill: "ceiling" }, // V3: Pfosten bis zur Decke (höchstens 5 hoch)
+      layers: [
+        ["PHP", "PFP"], // y0: Pfosten, Kopfteil hinten, Fußteil vorn
+        ["P_P", "P_P"], // y1: Luft über dem Bett
+        ["TTT", "TTT"], // y2: Baldachin aus oberen Stufen
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+    {
+      // Vorhänge (B1/B2/B7): Wandbanner vorn an den Fußpfosten; darunter bleibt Luft, weil das Banner
+      // optisch einen Block tief hängt. Das Fußende (Mitte vorn) bleibt der Zugang.
+      id: "log_curtains",
+      weight: 2,
+      stretch: { layer: 1, max: 2, fill: "ceiling" },
+      layers: [
+        ["PHP", "PFP", "_._"],
+        ["P_P", "P_P", "V.V"],
+        ["TTT", "TTT", "..."],
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        V: { role: "textile_primary", shape: "wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+    {
+      // leichter: Zaunpfosten (B8)
+      id: "fence_slab",
+      weight: 2,
+      stretch: { layer: 1, max: 2, fill: "ceiling" },
+      layers: [
+        ["PHP", "PFP"],
+        ["P_P", "P_P"],
+        ["TTT", "TTT"],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "fence" },
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+      },
+    },
+  ],
+  sockets: [
+    // +x = links (Front zeigt nach Süden), wie bei bed/single
+    { id: "nightstand_l", type: "adjacent", at: [3, 0, 0], side: "left", accepts: ["nightstand"], prob: 0.7, pairWith: "nightstand_r", facing: "same" },
+    { id: "nightstand_r", type: "adjacent", at: [-1, 0, 0], side: "right", accepts: ["nightstand"], prob: 0.7, facing: "same" },
+    { id: "foot_chest", type: "adjacent", at: [1, 0, 2], side: "front", accepts: ["chest"], prob: 0.3, facing: "same" },
+    // W7-F (I7, Licht am Bett): Laterne unter der Decke neben dem Kopfende, über dem Platz des Nachttischs (Vorbilder:
+    // Laternen links/rechts am Kopfende b02/b08, Hängelaterne am Bett b05/b09). Unter dem Baldachin (obere Stufe) hält
+    // keine Laterne (Faktencheck #3), darum neben den Pfosten; sonst vor dem Fußende. Das Licht-Budget lässt je Bett
+    // höchstens eine Hängelaterne zu – die erste freie Stelle gewinnt.
+    { id: "lamp_l", type: "hang", at: [3, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "lamp_r", type: "hang", at: [-1, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "lamp_foot", type: "hang", at: [1, 99, 2], accepts: ["light_pendant"], prob: 0.8 },
+  ],
+  masks: {
+    use: [{ side: "front" }],
+    clearance: [{ side: "front", depth: 1, hard: true }],
+  },
+}

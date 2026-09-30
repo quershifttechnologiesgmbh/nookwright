@@ -1,0 +1,66 @@
+// K3a · Gerümpel (research/17 §4.12, At1): Truhe (oben frei, FC #2 / Regel containerOpen), Fass mit stehender
+// Laterne (Laterne auf Fass hält, T5 #3), angeschlagener Amboss mit vertrocknetem Busch im Topf (Topf braucht keine
+// Stütze, FC #4), davor ein leerer Kessel. Der Amboss fällt nur ohne Boden – er steht auf dem Raumboden.
+// V3 „mehr in die Höhe“: ab lichter Höhe 3 gestapelt – Truhe auf Truhe (T5 #6), Fass auf Fass, Laterne oben.
+// Kompaktform „crate“ (2 × 1): Truhe und Fass mit Laterne. Bewusst ohne `goods` (Lager/Taverne ziehen es nicht).
+{
+  id: "storage/junk_pile",
+  kind: "static",
+  name: "Gerümpel",
+  category: "storage",
+  tags: ["junk_pile", "attic_clutter"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic", "abandoned"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "heap",
+      weight: 2,
+      layers: [
+        ["CBa", "..k"], // y0: Truhe | Fass | Amboss; vorn Kessel
+        ["_Lp", "..."], // y1: frei über der Truhe | Laterne | Topf
+      ],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        a: { block: "minecraft:chipped_anvil", orient: { front: "front" } },
+        k: { block: "minecraft:cauldron" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        p: { block: "minecraft:potted_dead_bush" },
+      },
+    },
+    {
+      id: "tall",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["CBa", "..k"],
+        ["CBp", "..."], // y1: Truhe auf Truhe, Fass auf Fass, Topf auf dem Amboss
+        ["_L.", "..."], // y2: frei über der oberen Truhe, Laterne auf dem Fass
+      ],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        a: { block: "minecraft:chipped_anvil", orient: { front: "front" } },
+        k: { block: "minecraft:cauldron" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        p: { block: "minecraft:potted_dead_bush" },
+      },
+    },
+    {
+      // Kompaktform: Truhe und Fass mit Laterne
+      id: "crate",
+      weight: 1,
+      layers: [["CB"], ["_L"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+        B: { block: "minecraft:barrel", orient: { front: "up" } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

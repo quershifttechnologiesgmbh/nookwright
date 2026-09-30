@@ -1,0 +1,23 @@
+// K2 · Wegweiser (DA Decoration: Signs): Zaunpfosten, oben zwei Wandschilder links und rechts (Wandschilder
+// halten an Zäunen, T5 #2). Schilder aus dunklem Holz (`beam`). Für Hof, Markt, Wegkreuzung.
+{
+  id: "outdoor/signpost",
+  kind: "static",
+  name: "Wegweiser",
+  category: "decor",
+  tags: ["signpost", "outdoor"],
+  styleTags: ["medieval", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    [".F."], // y0
+    [".F."], // y1
+    ["AFB"], // y2: Schilder am Pfosten
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    A: { role: "beam", shape: "wall_sign", orient: { attachTo: "left" } },
+    B: { role: "beam", shape: "wall_sign", orient: { attachTo: "right" } },
+  },
+}

@@ -1,0 +1,81 @@
+// Winterhort – winterlich, Biome: snowy_taiga, mountains, Stile: nordic, rustic.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "winterhort",
+  name: "Winterhort",
+  mood: "winterlich",
+  biomes: ["snowy_taiga", "mountains"],
+  styles: ["nordic", "rustic"],
+  values: ["minecraft:snow_block", "minecraft:spruce_planks", "minecraft:stripped_spruce_log", "minecraft:cobblestone", "minecraft:spruce_log"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "spruce", weight: 60 },
+        { family: "spruce", shape: "stripped_log", weight: 40 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:white_concrete", weight: 60 },
+        { block: "minecraft:snow_block", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "spruce", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { block: "minecraft:snow_block", weight: 55 },
+        { block: "minecraft:powder_snow", weight: 20 },
+        { family: "spruce", weight: 25 },
+      ],
+    },
+    roof_accent: {
+      // roof_accent_fixed_more: hellblaue Glasur zu nah an der Wand (Q4, research/54 §1.2)
+      blocks: [
+        { family: "pale_oak", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "spruce", shape: "log", weight: 70 },
+        { family: "spruce", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "spruce", weight: 75 },
+        { family: "spruce", shape: "stripped_log", weight: 25 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:light_blue", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:light_blue", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 60 },
+        { block: "minecraft:soul_lantern", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "spruce", shape: "leaves", weight: 70 },
+        { block: "minecraft:snow", weight: 30 },
+      ],
+    },
+  },
+}

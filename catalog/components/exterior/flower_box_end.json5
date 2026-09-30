@@ -1,0 +1,17 @@
+// X1 · W2 Blumenkasten, Seitenteil (research/16 F2): offene Falltür neben dem Kasten, flach an seiner Seite.
+// Kanonisch liegt der Kasten östlich (links): facing West (rechts) → die Falltür liegt an der Ostseite. Das rechte
+// Ende setzt der Solver gespiegelt (mirror x).
+{
+  id: "exterior/flower_box_end",
+  kind: "static",
+  name: "Blumenkasten-Seitenteil",
+  category: "attachment",
+  tags: ["exterior", "exterior_window", "outdoor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  mirror: true,
+  layers: [["T"]],
+  legend: { T: { role: "shutter", shape: "trapdoor", orient: { front: "right", open: true } } },
+}

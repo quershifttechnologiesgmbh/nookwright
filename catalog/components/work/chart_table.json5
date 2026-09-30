@@ -1,0 +1,43 @@
+// K3d · Kartentisch, frei stehend (research/11 §11 M1/M6 „Kartentische seitlich“): Kartentisch (Kartograf,
+// Faktencheck #7), wahlweise mit Lesepult für den Atlas (ohne Buch – Inhalt kann die Materialisierung noch nicht).
+// Braucht keine Wand → Kompaktform der Kartenraum-Signatur neben work/map_desk (K3a, 3 breit an der Wand), auch in
+// Räumen mit eng gesetzten Fenstern. Laterne/Kerzen oben (voller Block), Stuhl davor mit Blick zum Tisch.
+// Tag `cartography_table` (NICHT `lectern`: die Bibliothek soll ihn nicht als Pflicht-Pult nehmen).
+{
+  id: "work/chart_table",
+  kind: "static",
+  name: "Kartentisch (frei stehend)",
+  category: "work",
+  tags: ["cartography_table", "chart_table", "table"],
+  functionTags: ["work:cartographer", "villager_workstation"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "single",
+      weight: 2,
+      layers: [["C"]],
+      legend: { C: { block: "minecraft:cartography_table" } },
+      sockets: [
+        { id: "lamp", type: "surface", at: [0, 1, 0], accepts: ["light_small", "candles"], prob: 0.7 },
+        { id: "chair", type: "adjacent", at: [0, 0, 1], side: "front", accepts: ["chair"], prob: 0.6, facing: "toParent" },
+      ],
+    },
+    {
+      id: "atlas",
+      weight: 2,
+      layers: [["CL"]],
+      legend: {
+        C: { block: "minecraft:cartography_table" },
+        L: { block: "minecraft:lectern", orient: { front: "front" } },
+      },
+      sockets: [
+        { id: "lamp", type: "surface", at: [0, 1, 0], accepts: ["light_small", "candles"], prob: 0.7 },
+        { id: "chair", type: "adjacent", at: [0, 0, 1], side: "front", accepts: ["chair"], prob: 0.6, facing: "toParent" },
+      ],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

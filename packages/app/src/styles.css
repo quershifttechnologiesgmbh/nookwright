@@ -1,0 +1,3396 @@
+/*
+ * Schriften (W1, A7): Inter für Text, JetBrains Mono für Zahlen und Details – dieselben Dateien wie Website und
+ * Social-Kit (SIL OFL, `tools/public-support/fonts/`). Vite bündelt sie als Assets: der Editor im iframe ist
+ * eigenständig, kein Aufruf an Google Fonts. Inter ist eine variable Schrift (eine Datei für alle Stärken),
+ * JetBrains Mono liegt nur in 600 vor. Wer die Dateien verschiebt: `test/styles.test.ts` meldet es.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../../../tools/public-support/fonts/Inter-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../../../tools/public-support/fonts/JetBrainsMono-600.woff2') format('woff2');
+}
+
+/*
+ * Farbwelt der Website (website/css/site.css): Nachtblau-Flächen, Amber/Glut als Akzent, Creme-Text. Kontraste nach
+ * WCAG AA (≥ 4,5 : 1 für Text) prüft `test/styles.test.ts`. Raumfarben (Grundriss, 3D) sind semantisch und bleiben.
+ */
+:root {
+  --bg: #0d1020;
+  --panel: #151a36;
+  --panel-2: #1d2347;
+  --panel-3: #262d58;
+  --line: #2a3160;
+  --line-strong: #3d4680;
+  --text: #fff6e8;
+  --muted: #b3badf;
+  --accent: #ffb547;
+  --accent-2: #ff8a3c;
+  --accent-text: #0d1020;
+  --accent-soft: rgba(255, 181, 71, 0.14);
+  --holo: #58c8ff;
+  --ok: #7fd89a;
+  --warn: #ffcf7a;
+  --danger: #ff7b7b;
+  --danger-text: #ffb3b5;
+  --viewer-bg: #121631;
+  --radius: 10px;
+  --glass: rgba(13, 16, 32, 0.86);
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: dark;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 650;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 12px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 0 5px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- Grundgerüst: eine Web-App, große 3D-Ansicht */
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.workbench {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 330px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'top top top'
+    'tools stage side'
+    'status status status';
+}
+
+.topbar {
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+/* Eingebettet (?embed=1): die Leiste der Website trägt Logo und Namen – hier kompakt ohne Marke */
+.embedded .brand {
+  display: none;
+}
+
+.embedded .topbar {
+  padding: 6px 10px;
+}
+
+.topbar .name-input {
+  width: min(320px, 40vw);
+  padding: 4px 8px;
+  font-weight: 600;
+}
+
+.topbar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.topbar-actions button {
+  white-space: nowrap;
+}
+
+/* Hinweis auf kleinen Bildschirmen: ehrlich und schließbar (A7) */
+.small-screen-hint {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(88, 200, 255, 0.45);
+  background: rgba(88, 200, 255, 0.1);
+  font-size: 13px;
+}
+
+.small-screen-hint p {
+  margin: 0;
+  flex: 1;
+}
+
+.small-screen-hint button.link {
+  padding: 2px 6px;
+  font-size: 14px;
+}
+
+.help-button {
+  width: 32px;
+  font-weight: 700;
+}
+
+/* Werkzeugleiste links */
+.toolbar {
+  grid-area: tools;
+  width: 156px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 8px;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+  overflow-y: auto;
+}
+
+.tool-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tool {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 6px;
+  text-align: left;
+  font-size: 12px;
+}
+
+.tool kbd {
+  font-size: 10px;
+  padding: 0 3px;
+}
+
+.tool svg {
+  width: 18px;
+  height: 18px;
+}
+
+.tool.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 650;
+}
+
+.tool.active kbd {
+  background: transparent;
+  color: var(--accent-text);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.palette {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.palette-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 4px 2px;
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  font-size: 12px;
+  background: transparent;
+  border-color: transparent;
+  text-align: left;
+}
+
+/* Namen umbrechen statt abschneiden (R1-13: „Arbeitszim…“; Tooltip allein reicht nicht) */
+.palette-item span {
+  min-width: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.palette-item.active {
+  border-color: var(--accent);
+  background: var(--panel-2);
+}
+
+/* W8-F: bester Suchtreffer – den wählt Enter */
+.palette-item.best {
+  outline: 1px dashed var(--accent);
+  outline-offset: -1px;
+}
+
+.palette-best-key {
+  margin-left: auto;
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+/* Bühne: Grundriss + 3D */
+.stage {
+  grid-area: stage;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Leerzustand (W1): zwei große Einstiege über der Bühne; „Fortsetzen“ bleibt oben sichtbar */
+.empty-start {
+  position: absolute;
+  inset: 8px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: radial-gradient(ellipse at 50% 40%, rgba(13, 16, 32, 0.55), rgba(13, 16, 32, 0.88));
+  backdrop-filter: blur(2px);
+}
+
+.empty-start-card {
+  width: min(720px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
+
+.empty-start-card h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 600 11px/1 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+.empty-start-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.start-action {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  text-align: left;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+}
+
+.start-action strong {
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.start-action span {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Fokus deutlich sichtbar (R1-19: die Hauptaktion bekommt beim Öffnen den Fokus; Amber-Rahmen auf Amber sähe man nicht) */
+.start-action:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.start-action.primary span {
+  color: #3a2410;
+}
+
+.empty-start-resume {
+  margin: 0;
+}
+
+.layout-split .stage {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+.plan-pane,
+.view-pane {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+
+.pane-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.pane-head h2 {
+  font-size: 14px;
+}
+
+/* Grundriss füllt seinen Platz und behält das Seitenverhältnis (40 × 30) */
+.plan-host {
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+
+.floorplan {
+  display: block;
+  width: min(100cqw, calc(100cqh * 40 / 30));
+  height: auto;
+  border-radius: 6px;
+  touch-action: none;
+  user-select: none;
+}
+
+.view-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.view-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.viewer {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--viewer-bg);
+}
+
+.viewer canvas {
+  display: block;
+}
+
+.viewer .texture-canvas {
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+.viewer-failure {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  padding: 16px;
+  text-align: center;
+}
+
+/* W11-B (R6): unter der Leiste über der 3D-Ansicht (Grundriss, Schnitt, Augenhöhe …) – vorher lag die Meldung
+   „Blöcke werden berechnet …“ oben mittig genau hinter diesen Knöpfen, und das leere Bild wirkte wie ein Fehler */
+.viewer-overlay {
+  position: absolute;
+  top: 56px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 24px);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.viewer-overlay[data-busy]:not([data-busy="false"])::before {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  border-top-color: var(--accent);
+  animation: overlay-spin 0.9s linear infinite;
+}
+
+@keyframes overlay-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer-overlay[data-busy]::before {
+    animation: none;
+  }
+}
+
+.viewer-note {
+  position: absolute;
+  left: 56px;
+  top: 10px;
+  max-width: calc(100% - 70px);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  color: var(--warn);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+/* Grundriss als Fenster über der 3D-Ansicht */
+.plan-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: min(44%, 520px);
+  aspect-ratio: 40 / 30;
+  padding: 4px;
+  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  display: flex;
+}
+
+.plan-overlay .floorplan {
+  opacity: 0.92;
+}
+
+/* Etagen-Leiste */
+.floor-bar {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--line);
+}
+
+.floor-bar button {
+  min-width: 36px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.floor-bar button.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 650;
+}
+
+/* W11-A: Schalter „Treppen automatisch“ unten in der Etagen-Leiste (kein Etagen-Knopf: eigener Look) */
+.floor-bar button.floor-auto {
+  margin-top: 4px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.floor-bar button.floor-auto.active {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 650;
+  opacity: 1;
+}
+
+/* Rechte Spalte: Raum- und Projekt-Panel */
+.inspector {
+  grid-area: side;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px 8px 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+/* Panel-Überschriften wie die „Eyebrows“ der Website: Mono, gesperrt, gedämpft */
+.panel h2 {
+  font: 600 11px/1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel h3 {
+  font-size: 13px;
+  margin: 12px 0 6px;
+}
+
+.section {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+.section > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+  margin: 0;
+}
+
+.statusbar {
+  grid-area: status;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 6px 12px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  font-size: 12px;
+}
+
+.statusbar .status {
+  flex: 1 1 280px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusbar .stats {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.statusbar .disclaimer,
+.disclaimer-line {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.disclaimer-line {
+  margin: 10px 0 0;
+}
+
+/* Schmal: Inspektor unter die Bühne, Seite scrollt */
+@media (max-width: 1100px) {
+  .workbench {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(460px, 78vh) auto auto;
+    grid-template-areas:
+      'top top'
+      'tools stage'
+      'tools side'
+      'status status';
+  }
+  .app {
+    height: auto;
+    min-height: 100%;
+  }
+  .inspector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: start;
+    overflow: visible;
+    padding: 0 8px 8px;
+  }
+  /* Grundriss über der 3D-Ansicht statt daneben (breiter, also größer) */
+  .layout-split .stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  /* Bühne (Grundriss, 3D, Leerzustand) zuerst: auf dem Handy wird vor allem angesehen und übernommen */
+  .workbench {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(420px, 80vh) auto auto auto;
+    grid-template-areas: 'top' 'stage' 'tools' 'side' 'status';
+  }
+  /* Tastenkürzel-Hilfe braucht eine Tastatur; so passt die Aktionszeile in eine Reihe */
+  .help-button {
+    display: none;
+  }
+  .topbar-actions button {
+    padding: 5px 8px;
+  }
+  .toolbar {
+    width: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .tool-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  /* Werkzeuge nur als Symbol (Name per aria-label und Tooltip) – vorher abgeschnitten: „Radiere“, „Auswähle“, „Trepp“ */
+  .tool {
+    grid-template-columns: 20px;
+    padding: 8px 10px;
+  }
+  .tool svg {
+    width: 20px;
+    height: 20px;
+  }
+  .tool .tool-label,
+  .tool kbd {
+    display: none;
+  }
+  .palette {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .layout-split .stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+  }
+  .topbar .name-input {
+    flex: 1 1 160px;
+    width: auto;
+  }
+  .topbar-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+  .empty-start-card {
+    padding: 16px;
+  }
+  /* Zeilenansicht der Palette: Namen einzeilig, die Knöpfe brechen als Ganzes um */
+  .palette-item span {
+    white-space: nowrap;
+  }
+  .empty-start-card h2 {
+    font-size: 20px;
+  }
+}
+
+/* ---------------------------------------------------------------- Bedienelemente */
+
+button,
+select {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--line-strong);
+}
+
+/* Hover-Fläche nur für neutrale Knöpfe – aktive (Amber), Haupt- und Link-Knöpfe behalten ihre Fläche */
+button:not(.active, .primary, .link):hover:not(:disabled) {
+  background-color: var(--panel-3);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hauptaktion wie die Knöpfe der Website: Amber → Glut, dunkle Schrift */
+button.primary {
+  background: linear-gradient(180deg, #ffc768, var(--accent-2));
+  color: var(--accent-text);
+  border-color: transparent;
+  font-weight: 700;
+}
+
+button.primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffc768, var(--accent-2));
+  border-color: transparent;
+  filter: brightness(1.06);
+}
+
+button.primary kbd {
+  background: transparent;
+  color: var(--accent-text);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+button.danger:hover:not(:disabled) {
+  border-color: var(--danger);
+  color: var(--danger-text);
+}
+
+button.link {
+  background: none;
+  border: 0;
+  padding: 0 2px;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+select {
+  width: 100%;
+}
+
+input[type='text'] {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  width: 100%;
+}
+
+input[type='range'] {
+  accent-color: var(--accent);
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.segmented button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 4px 9px;
+  font-size: 13px;
+}
+
+.segmented button + button {
+  border-left: 1px solid var(--line);
+}
+
+/* Umschalter über die ganze Zeile (Export-Format: vorher leere Restfläche rechts) */
+.segmented.fill {
+  display: flex;
+}
+
+.segmented.fill button {
+  flex: 1 1 0;
+}
+
+.segmented button.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.field > span {
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.field-grid .segmented {
+  justify-self: start;
+}
+
+.swatch {
+  display: inline-block;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.template-row select {
+  flex: 1;
+  width: auto;
+}
+
+.tooltip-host {
+  display: inline-block;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+
+.facts dt {
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.warnings {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--warn);
+  font-size: 12px;
+}
+
+.furniture,
+.furniture ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.furniture ul {
+  padding-left: 20px;
+}
+
+.furniture-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.furniture-row.selected {
+  background: var(--accent-soft);
+  outline: 1px solid var(--accent);
+}
+
+.badge {
+  margin-left: auto;
+  font-size: 11px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.badge.light {
+  background: rgba(255, 210, 122, 0.14);
+  color: #ffd27a;
+}
+
+.status {
+  margin: 0;
+  color: var(--muted);
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.warn-text {
+  color: var(--warn);
+}
+
+.error-box {
+  margin: 8px 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  background: rgba(255, 123, 123, 0.1);
+  color: #ffd7d8;
+  font-size: 13px;
+}
+
+.error-box ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.fatal {
+  padding: 24px 16px;
+  color: var(--danger);
+}
+
+details summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  margin-top: 8px;
+  accent-color: var(--accent);
+}
+
+.cut {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cut input[type='range'] {
+  width: 110px;
+}
+
+.cut-label {
+  min-width: 48px;
+  color: var(--text);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- Lichtleiste (Texturen) */
+
+.light-bar {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.light-bar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.light-time input[type='range'] {
+  width: 140px;
+}
+
+.light-presets {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.light-presets button,
+.light-more button {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.light-presets button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.light-more {
+  position: relative;
+  margin-left: auto;
+}
+
+.light-more > summary {
+  margin: 0;
+  list-style: none;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.light-more-body {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.light-more-body input[type='range'] {
+  width: 100px;
+}
+
+/* ---------------------------------------------------------------- Dialoge (Export, Hilfe) */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(6, 8, 18, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.modal {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+}
+
+.modal h2 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.modal.help {
+  width: min(860px, 100%);
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px 20px;
+}
+
+.help-grid h3 {
+  font: 600 11px/1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 8px 0 6px;
+}
+
+.help-grid dl {
+  margin: 0;
+}
+
+/* Tastenspalte so breit wie die breiteste Taste je Liste (vorher fest 96 px – zu breit, der Text brach eng um) */
+.help-grid dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 10px;
+  font-size: 13px;
+}
+
+.help-row {
+  display: contents;
+}
+
+.help-row dt {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+  flex-wrap: wrap;
+  color: var(--muted);
+}
+
+.help-row dd {
+  margin: 0;
+}
+
+.export-check {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel-2);
+  font-size: 13px;
+}
+
+.export-check p {
+  margin: 0;
+}
+
+.export-summary {
+  font-weight: 600;
+}
+
+.export-check .ok {
+  margin-top: 6px;
+  color: var(--ok);
+}
+
+.violations {
+  margin-top: 8px;
+}
+
+.violations ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  font-size: 12px;
+}
+
+.violations.errors {
+  color: var(--danger-text);
+}
+
+.violations.warnings-box {
+  color: var(--warn);
+}
+
+.place-hint code,
+.hint code {
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  background: var(--panel-2);
+  padding: 0 4px;
+  border-radius: 4px;
+  color: var(--text);
+}
+
+.row.end {
+  justify-content: flex-end;
+}
+
+.segmented-label {
+  padding: 5px 4px 5px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  align-self: center;
+}
+
+/* ---------------------------------------------------------------- Dev-Galerie */
+
+.gallery {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery .topbar select {
+  width: auto;
+}
+
+.gallery .topbar a {
+  color: var(--accent);
+}
+
+.gallery-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin: 8px;
+}
+
+/* ---------------------------------------------------------------- Gebäude: Etagen, Wandhöhe, Dach, Fenster, Treppe */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.floors {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.floors th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 0 4px 4px;
+}
+
+.floors td {
+  padding: 2px 4px;
+  border-top: 1px solid var(--line);
+}
+
+.floors tr.active td {
+  background: var(--accent-soft);
+}
+
+.floors td.num {
+  text-align: center;
+  color: var(--muted);
+}
+
+.floor-pick {
+  min-width: 48px;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.floor-pick.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 650;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.stepper button {
+  border: 0;
+  border-radius: 0;
+  padding: 2px 8px;
+  background: var(--panel-2);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.stepper input {
+  width: 38px;
+  font: inherit;
+  font-size: 12px;
+  text-align: center;
+  color: var(--text);
+  background: var(--panel);
+  border: 0;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  padding: 2px 0;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.stepper input::-webkit-outer-spin-button,
+.stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.stepper input:disabled,
+.stepper button:disabled {
+  opacity: 0.45;
+}
+
+.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.panel .field-grid {
+  margin-top: 10px;
+}
+
+button.icon {
+  padding: 0 6px;
+  font-size: 11px;
+  line-height: 1.6;
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+
+button.icon:hover:not(:disabled) {
+  color: var(--danger-text);
+  border-color: var(--danger);
+}
+
+.furniture-row .remove {
+  margin-left: auto;
+  opacity: 0.55;
+}
+
+.furniture-row .badge + .remove {
+  margin-left: 2px;
+}
+
+.furniture-row:hover .remove,
+.furniture-row.selected .remove {
+  opacity: 1;
+}
+
+/* Treppen-Werkzeug in der Werkzeugleiste */
+.stair-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 4px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: rgba(255, 181, 71, 0.07);
+}
+
+.stair-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.stair-options .palette-item {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.stair-options .palette-item kbd {
+  margin-left: auto;
+  font-size: 10px;
+  padding: 0 3px;
+}
+
+.stair-options .hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+}
+
+/* Dichte und Qualität im Raum-Panel */
+.density input[type='range'] {
+  width: 100%;
+}
+
+.quality {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  font-size: 12px;
+}
+
+.quality.good {
+  border-color: #3d6b45;
+}
+
+.quality.ok {
+  border-color: #7a6a2c;
+}
+
+.quality.weak {
+  border-color: #7a3434;
+}
+
+.quality-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.quality-head > span {
+  color: var(--muted);
+}
+
+.quality-head meter {
+  width: 100%;
+  height: 10px;
+}
+
+.quality .hint {
+  margin-top: 4px;
+}
+
+.quality details {
+  margin-top: 4px;
+}
+
+.quality summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.quality-parts,
+.quality-notes {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quality-parts li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 8px;
+  padding: 2px 0;
+  border-top: 1px solid var(--line);
+}
+
+.quality-parts li .muted {
+  grid-column: 1 / -1;
+  font-size: 11px;
+}
+
+.quality-notes li {
+  color: var(--warn);
+  padding: 2px 0;
+}
+
+.quality-none {
+  margin-top: 10px;
+}
+
+/* Wichtige Hinweise des Solvers (Theme passt nicht, Raum zu niedrig): sichtbar ohne Aufklappen */
+.quality-alerts {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quality-alerts li {
+  padding: 4px 6px;
+  margin-top: 4px;
+  border-left: 3px solid #d9a43a;
+  background: rgba(217, 164, 58, 0.1);
+  border-radius: 0 4px 4px 0;
+  color: var(--text);
+}
+
+/* Raumtyp-Palette: dezenter Hinweis „passt nicht“ (Theme, Wandhöhe) */
+.palette-item .misfit,
+.palette-current .misfit {
+  flex: none;
+  margin-left: auto;
+  width: 12px;
+  height: 12px;
+  line-height: 11px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  color: #d9a43a;
+  border: 1px solid rgba(217, 164, 58, 0.55);
+  overflow: visible;
+}
+
+.palette-item.misfit-item > span:not(.misfit) {
+  opacity: 0.75;
+}
+
+/* Außen-Deko (Panel Gebäude): Regler mit Wert, Teilezahl je Gruppe */
+.range-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.range-field input[type='range'] {
+  flex: 1;
+  min-width: 0;
+}
+
+.range-value {
+  flex: none;
+  min-width: 64px;
+  color: var(--text);
+  font-size: 11px;
+}
+
+.check .count {
+  margin-left: 2px;
+  padding: 0 4px;
+  border-radius: 6px;
+  font-size: 10px;
+  background: var(--panel-2);
+  color: var(--muted);
+}
+
+/* 0 ist kein Fehler (Baukasten je Haus: Kasten oder Fensterbank), nur blasser */
+.check .count.zero {
+  opacity: 0.55;
+}
+
+/* Gruppe des angeklickten Außen-Teils (Panel Gebäude → Außen-Deko) */
+.check.marked {
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------------------- Dach und Außenwände (Panel Gebäude) */
+
+.roof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.roof-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 2px 3px;
+  font-size: 11px;
+  line-height: 1.2;
+  min-width: 0;
+}
+
+.roof-option span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roof-option.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 650;
+}
+
+.roof-icon {
+  width: 40px;
+  height: 25px;
+  flex: none;
+}
+
+.roof-icon .ri-roof {
+  fill: currentColor;
+}
+
+.roof-icon .ri-wall {
+  fill: currentColor;
+  opacity: 0.28;
+}
+
+.roof-icon .ri-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+}
+
+.field-grid > .stepper,
+select.compact {
+  justify-self: start;
+}
+
+select.compact {
+  width: auto;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.section .field-grid {
+  margin-top: 8px;
+}
+
+/* ---------------------------------------------------------------- Raumtyp-Palette: Suche und Gruppen */
+
+.palette-current {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.palette-current span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+input.palette-search {
+  font: inherit;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 6px;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 2px;
+}
+
+.palette-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.palette-group-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border-color: transparent;
+  text-align: left;
+  min-width: 0;
+}
+
+.palette-group-head:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.palette-group-head .caret {
+  width: 10px;
+  flex: none;
+}
+
+.palette-group-label {
+  min-width: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.palette-group-head .count {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.palette-group .palette-item {
+  padding-left: 8px;
+}
+
+@media (max-width: 720px) {
+  .palette-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .palette-search {
+    max-width: 180px;
+  }
+}
+
+/* ---------------------------------------------------------------- Modus Umgebung (U2b) */
+
+.mode-switch {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.site-toolbar > * {
+  flex: none;
+}
+
+/* Maus-Hinweis nur mit Maus und genug Breite (R1-11) */
+@media (max-width: 720px), (pointer: coarse) {
+  .mouse-hint {
+    display: none;
+  }
+}
+
+/* Schmal: Werkzeuge und Zonen der Umgebung umbrechen statt rechts aus dem Bild zu laufen */
+@media (max-width: 720px) {
+  .site-toolbar > .tool-group,
+  .site-toolbar > .palette,
+  .site-toolbar > .stair-options {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
+
+/* Auswahl-Knöpfe (Pinsel, Profil, Torbreite, Grundform): so viele Spalten, wie ohne Überlauf passen */
+.site-toolbar .stair-types {
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+}
+
+.mode-switch button {
+  padding: 4px 2px;
+  font-size: 11px;
+}
+
+.siteplan-host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.siteplan {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  user-select: none;
+}
+
+.siteplan-zoom {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 2px;
+}
+
+.siteplan-zoom button {
+  width: 26px;
+  padding: 2px 0;
+  background: var(--glass);
+}
+
+.siteplan-legend {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  max-width: calc(100% - 100px);
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--glass);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.siteplan-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.siteplan-note {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--glass);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.tool-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.tool-field select {
+  width: 100%;
+}
+
+.tower-fields .check {
+  font-size: 11px;
+}
+
+.site-list {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+
+.site-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.site-list li.selected {
+  background: var(--panel-2);
+  outline: 1px solid var(--accent);
+}
+
+.site-list li > button.link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.site-list li > button.icon {
+  margin-left: auto;
+}
+
+.site-editor {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.site-editor .stair-options {
+  border-color: var(--line);
+}
+
+/* Absolut positionierte Elemente im Inspektor (z. B. .sr-only) bleiben in seinem Scrollbereich – sonst wächst die Seite */
+.inspector {
+  position: relative;
+}
+
+/* ---------------------------------------------------------------- Assistent „Neues Projekt aus Bautyp“ (U4) */
+
+.modal.wizard {
+  width: min(1180px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wizard section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wizard .modal-head .row {
+  margin-top: 0;
+}
+
+/* „Beschreibe dein Gebäude“ (C3): Freitext über dem Bautyp-Schritt */
+.nl-describe {
+  padding: 10px 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.nl-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nl-label {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nl-form input[type='text'] {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.nl-result {
+  margin: 0;
+}
+
+.nl-result.error {
+  color: var(--danger);
+}
+
+.nl-note {
+  margin: 0;
+}
+
+.wizard-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.wizard-step > span {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-text);
+  font: 700 12px/1 var(--font-mono);
+}
+
+.wizard-step-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* A8: „Feste Vorlage – eine Variante“, „2 gleiche Vorschläge zusammengefasst“ */
+.proposal-note {
+  flex: 1 1 240px;
+}
+
+.badge.same {
+  margin-left: 0;
+  align-self: flex-start;
+  background: rgba(88, 200, 255, 0.14);
+  color: #9bdcff;
+}
+
+/* Eine Karte (feste Vorlage, alle gleich): nicht über die ganze Breite ziehen */
+.proposal-grid.count-1 {
+  grid-template-columns: minmax(0, 420px);
+}
+
+.wizard .segmented {
+  align-self: flex-start;
+  flex-wrap: wrap;
+}
+
+.wizard .segmented .count {
+  opacity: 0.65;
+  font-size: 11px;
+}
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 8px;
+}
+
+.type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  text-align: left;
+  padding: 8px 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  min-height: 74px;
+}
+
+.type-card.selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.type-card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.type-card-text {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.badge.draft {
+  background: rgba(88, 200, 255, 0.14);
+  color: #9bdcff;
+}
+
+.badge.fixed {
+  background: rgba(185, 212, 154, 0.14);
+  color: #c9e3ab;
+}
+
+.wizard-params {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+
+.wizard-params .param {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.wizard-params select {
+  width: auto;
+}
+
+.proposal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 720px) {
+  .proposal-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.proposal {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  outline: none;
+}
+
+.proposal.pending {
+  cursor: progress;
+}
+
+.proposal.selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.proposal:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.proposal-image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 36 / 22;
+  border-radius: 6px;
+  background: radial-gradient(ellipse at 50% 80%, #283060, #121631);
+  overflow: hidden;
+}
+
+.proposal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.proposal-sketches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.plan-sketch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.proposal-facts {
+  display: block;
+}
+
+/* W8-E: gezeigter, aber unspielbarer Vorschlag (Reserve erschöpft) – Grund sichtbar statt still */
+.proposal-notice {
+  display: block;
+  color: var(--warn);
+}
+
+.wizard-foot {
+  align-items: center;
+  margin-top: 0;
+  /* W8-D: „Übernehmen“ bleibt ohne Scrollen erreichbar (Fuß klebt unten im scrollenden Dialog; -18px = Innenabstand) */
+  position: sticky;
+  bottom: -18px;
+  z-index: 2;
+  margin: 0 -18px -18px;
+  padding: 10px 18px 14px;
+  background: var(--panel);
+  border-top: 1px solid var(--line-strong);
+  border-radius: 0 0 16px 16px;
+}
+
+/* W11-B: gewählter Vorschlag im Fuß (Klick scrollt zu den Karten); die Hinweise nehmen den Rest */
+.wizard-chosen {
+  flex: none;
+  margin-right: auto;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* W11-B: während „Wird gebaut …“ zeigt der Dialog den Fortschritt auch am Mauszeiger */
+.modal.wizard.is-busy,
+.modal.wizard.is-busy * {
+  cursor: progress;
+}
+
+.wizard-hints {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.type-params {
+  margin-top: 10px;
+}
+
+.type-params select {
+  width: auto;
+}
+
+/* Palette (gemessen) – Axiom-Vorbild: Blöcke je Rolle mit Anteil */
+.palette-group {
+  margin: 6px 0 10px;
+}
+.palette-group h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 6px 0 3px;
+  font-size: 12px;
+}
+.palette-group h3 .muted,
+.palette-row .palette-share {
+  color: var(--muted);
+  font-weight: 400;
+}
+.palette-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px 34px;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.palette-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.palette-bar {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+.palette-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6c8ebf, #9ecbff);
+}
+.palette-share {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.palette-subs {
+  margin: 4px 0 0 14px;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Wiederaufnahme-Hinweis und Autosave-Anzeige (Nutzer-Review: Arbeit darf nicht verloren gehen) */
+/* Zeile in der Kopfleiste (im Fluss, überdeckt nichts): Text links, Aktionen rechts, eine Zeile ab ~620 px */
+.resume-offer {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 6px 8px 6px 12px;
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  font-size: 13px;
+}
+
+.resume-text {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.resume-actions {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+.statusbar .autosave {
+  white-space: nowrap;
+}
+.statusbar .autosave.warn {
+  color: var(--warn);
+}
+
+/* ================================================================ W2-ED U2: Editor aufs Minimum
+   Kopf (Neu ▾, ↶ ↷, Exportieren, ⋯) · Werkzeug-Schiene (6) · 3D groß mit einblendbarem Grundriss · Eigenschaften der
+   Auswahl mit Tabs „Auswahl“ | „Material“. Seltenes in Menüs bzw. „Mehr Haus-Optionen“ (Heimat-Tabelle controlHomes.ts). */
+
+@media (min-width: 1101px) {
+  .workbench.rail-mode {
+    grid-template-columns: auto minmax(0, 1fr) 340px;
+  }
+}
+
+/* 721–1100 px: die Eigenschaften passen jetzt in eine schmale Spalte – drei Spalten statt Inspektor unter der Bühne */
+@media (min-width: 721px) and (max-width: 1100px) {
+  .app:has(.workbench) {
+    height: 100%;
+  }
+  .workbench {
+    grid-template-columns: auto minmax(0, 1fr) 292px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'top top top'
+      'tools stage side'
+      'status status status';
+  }
+  .inspector {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto;
+    padding: 8px 8px 8px 0;
+  }
+  .props {
+    grid-template-columns: 84px minmax(0, 1fr);
+  }
+}
+
+.icon-button {
+  min-width: 34px;
+  padding-inline: 8px;
+}
+
+.caret {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+
+/* Aufklappmenüs */
+.menu-host {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-button {
+  white-space: nowrap;
+}
+
+.menu-button.open {
+  border-color: var(--line-strong);
+  background: var(--panel-3);
+}
+
+.menu-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  z-index: 40;
+  min-width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+}
+
+.menu-pop.right {
+  right: 0;
+}
+
+.menu-pop.left {
+  left: 0;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  text-align: left;
+  background: transparent;
+  border-color: transparent;
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
+.menu-hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.menu-label {
+  padding: 8px 8px 2px;
+  font: 600 10px/1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.menu-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px;
+  min-width: 270px;
+  font-size: 13px;
+}
+
+.menu-form .menu-label {
+  padding: 4px 0 0;
+}
+
+.menu-form .cut {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.menu-form .cut input {
+  flex: 1;
+}
+
+/* Werkzeug-Schiene */
+.toolbar.rail {
+  width: 58px;
+  align-items: center;
+  padding: 8px 7px;
+  gap: 12px;
+  overflow: visible;
+  position: relative;
+  z-index: 6;
+}
+
+.rail-modes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 3px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.rail-modes button,
+.rail .tool {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.rail-modes button {
+  background: transparent;
+  border-color: transparent;
+  height: 34px;
+}
+
+.rail-modes button.active {
+  background: var(--panel-3);
+  color: var(--accent);
+  border-color: var(--line-strong);
+}
+
+.rail-modes svg,
+.rail .tool svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* W11-B: Beschriftung der Symbol-Schiene sofort bei Zeiger oder Tastatur-Fokus (der native Tooltip kommt erst nach
+   ~1 s; „Umgebung“ war hinter einem Wellen-Symbol kaum zu finden) */
+.rail-modes button[data-tip]:hover::after,
+.rail-modes button[data-tip]:focus-visible::after,
+.rail .tool[data-tip]:hover::after,
+.rail .tool[data-tip]:focus-visible::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-3);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.rail .tool kbd {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  font-size: 8px;
+  line-height: 1.2;
+  padding: 0 2px;
+  border-bottom-width: 1px;
+}
+
+.rail-flyout {
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 8px;
+  width: 224px;
+  max-height: calc(100% - 16px);
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Bedienung über der 3D-Ansicht */
+.stage-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stage-controls > button,
+.stage-controls .menu-button {
+  background: var(--glass);
+  border-color: var(--line);
+  backdrop-filter: blur(4px);
+}
+
+.stage-controls > button.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-weight: 650;
+}
+
+/*
+ * W8-D: Ist die Werkzeug-Leiste offen (Raumtypen „M“, Treppe „T“), liegt sie links über der Bühne (224 px breit,
+ * 6 px Abstand zur Leiste). Etagen-Leiste (W8-H) und eingeblendeter Grundriss rücken dann rechts daneben – in derselben
+ * Reihenfolge wie ohne Leiste (Etagen links, 54 px, dann Grundriss) –, statt links verdeckt zu werden.
+ * Unter 720 px steht die Leiste im Fluss (siehe unten), dort gilt das nicht.
+ */
+@media (min-width: 721px) {
+  .stage.with-flyout .plan-overlay.plan-pane {
+    left: 290px;
+    width: min(46%, 620px, calc(100% - 300px));
+  }
+  /*
+   * W8-H: auch die Etagen-Leiste rückt rechts neben die offene Leiste (vorher fing „Küche & Vorrat“ den Klick auf „EG“).
+   * Nicht bei „Daneben“: dort liegt die Leiste über dem Grundriss, die Etagen-Leiste steht in der 3D-Hälfte rechts.
+   */
+  .workbench:not(.layout-split) .stage.with-flyout .floor-bar {
+    left: 236px;
+  }
+}
+
+/* Grundriss eingeblendet über der 3D-Ansicht (Anordnung „Darüber“) */
+.plan-overlay.plan-pane {
+  top: 54px;
+  left: 64px;
+  right: auto;
+  width: min(46%, 620px);
+  max-height: calc(100% - 64px);
+  aspect-ratio: auto;
+  padding: 8px;
+  gap: 6px;
+  z-index: 2;
+  background: rgba(21, 26, 54, 0.94);
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-overlay .plan-host {
+  flex: none;
+  width: 100%;
+  aspect-ratio: 40 / 30;
+  max-height: calc(100% - 30px);
+}
+
+.plan-overlay .floorplan {
+  opacity: 1;
+}
+
+.view-pane {
+  padding: 6px;
+}
+
+/* Eigenschaften */
+.inspector {
+  padding-top: 8px;
+}
+
+.insp-tabs {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.insp-tabs button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 9px 8px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.insp-tabs button.active {
+  background: var(--panel-3);
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.insp-crumb {
+  margin: 0 0 4px;
+  font: 600 11px/1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.insp-crumb button.link {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--muted);
+}
+
+.insp-crumb button.link:hover {
+  color: var(--accent);
+}
+
+.panel h2.insp-title {
+  font: 700 18px/1.25 var(--font-body);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 2px;
+}
+
+.insp-meta {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.props {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.props > label,
+.props > span {
+  color: var(--muted);
+}
+
+.props .inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.props .inline button {
+  flex: 1;
+}
+
+.props .check,
+.props .range-field {
+  color: var(--text);
+}
+
+.insp-actions {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.insp-actions button,
+.insp-more {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 10px;
+}
+
+.insp-more {
+  margin-top: 6px;
+}
+
+.insp-note {
+  margin: 14px 0 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(88, 200, 255, 0.35);
+  background: rgba(88, 200, 255, 0.08);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.insp-quality.quality {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 6px 8px;
+}
+
+.insp-quality meter {
+  width: 100%;
+  height: 8px;
+}
+
+.insp-quality .quality-alerts {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+p.insp-quality {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+}
+
+.insp .section > summary {
+  padding: 2px 0;
+}
+
+.access-hints summary {
+  color: var(--warn);
+}
+
+.facts .fact {
+  display: contents;
+}
+
+.info-dialog .section {
+  margin-top: 14px;
+}
+
+@media (max-width: 720px) {
+  .toolbar.rail {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+  }
+  .rail-modes {
+    flex-direction: row;
+  }
+  .rail-flyout {
+    position: static;
+    width: 100%;
+    max-height: 40vh;
+    box-shadow: none;
+  }
+  .plan-overlay.plan-pane {
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
+}
+
+/* W2-ED U3/U4: Dach-Link im Haus-Panel, Variante ◀ n ▶, Raum fixieren, Umfang-Chip über der 3D-Ansicht */
+.insp-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+}
+
+.props .variant {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.props .variant .primary {
+  flex: 1;
+}
+
+.variant-no {
+  min-width: 2ch;
+  text-align: center;
+  color: var(--text);
+}
+
+button.active-toggle {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.scope-chip {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 140px);
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.plan-pane .floorplan {
+  touch-action: none;
+}
+
+/* W2-ED U5: Möbel tauschen */
+.swap .insp-crumb {
+  margin-bottom: 6px;
+}
+
+.swap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.swap-grid button {
+  padding: 8px 6px;
+  font-size: 12.5px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------------- Tab „Material“ (W3-BL): Materialliste, Blöcke sperren */
+.material .mat-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.material .mat-head h2 {
+  margin-bottom: 2px;
+}
+.material .mat-head p {
+  margin: 0;
+}
+.mat-preset {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 0 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  cursor: pointer;
+}
+.mat-preset input {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+.mat-preset > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mat-caption {
+  font: 600 11px/1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 12px 0 6px;
+}
+.mat-banned,
+.mat-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mat-banned li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'main unlock' 'meta meta';
+  align-items: center;
+  gap: 2px 6px;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  font-size: 12px;
+}
+.mat-banned li.warn {
+  border-color: var(--danger);
+}
+.mat-banned-main {
+  grid-area: main;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-banned-meta {
+  grid-area: meta;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.mat-banned s {
+  color: var(--muted);
+}
+.mat-banned select {
+  font-size: 11px;
+  padding: 0 4px;
+  max-width: 60%;
+}
+.mat-banned button.icon {
+  grid-area: unlock;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+input.mat-search {
+  width: 100%;
+  margin: 10px 0 6px;
+}
+.mat-rows li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 2px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+}
+.mat-swatch {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+/* W4-D: deutsche Namen sind lange Komposita („Schwarzeichenholztreppe“) – umbrechen mit Silbentrennung statt „…“ */
+.mat-name {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.25;
+}
+.mat-count {
+  font: 11px/1.4 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+.mat-rows button.icon {
+  border-color: var(--line);
+}
+.mat-rows button.icon:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.material button.wide {
+  width: 100%;
+  margin-top: 10px;
+}
+.mat-palette {
+  margin-top: 12px;
+  font-size: 12px;
+}
+.mat-palette > summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.mat-palette .panel {
+  border: 0;
+  padding: 6px 0 0;
+  background: transparent;
+}
+.mat-caption .muted {
+  font: 400 11px/1.3 var(--font-body);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------------- Befehlssuche (W7-G, Strg+K) */
+
+.palette-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12vh 16px 16px;
+  background: rgba(6, 8, 18, 0.55);
+}
+.palette {
+  width: min(620px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+.palette-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font: 500 15px/1.3 var(--font-body);
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  outline: none;
+}
+.palette-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 50vh;
+  overflow: auto;
+}
+.palette-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.palette-list li.active {
+  background: var(--accent-soft);
+  outline: 1px solid var(--accent);
+}
+.palette-label {
+  color: var(--text);
+}
+.palette-path {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.palette-empty,
+.palette-foot {
+  margin: 0;
+  padding: 10px 16px;
+  color: var(--muted);
+}
+.palette-foot {
+  border-top: 1px solid var(--line);
+}
+/* Ziel eines Sprungs aus der Befehlssuche kurz hervorheben */
+.palette-flash {
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--accent-soft);
+  transition: box-shadow 0.2s;
+}
+
+/* feat/pareto-proposals: Beschriftung und Begründung bewerteter Vorschläge */
+.badge.proposal-label {
+  margin-left: 0;
+  align-self: flex-start;
+  font-weight: 600;
+}
+.badge.proposal-label.beautiful {
+  background: rgba(255, 170, 220, 0.16);
+  color: #ffb8e0;
+}
+.badge.proposal-label.practical {
+  background: rgba(120, 220, 140, 0.16);
+  color: #9fe7ae;
+}
+.badge.proposal-label.balanced {
+  background: rgba(255, 210, 110, 0.16);
+  color: #ffd98a;
+}
+.proposal-reason {
+  display: block;
+  line-height: 1.35;
+}
+.proposal-warning {
+  color: #ffcf7a;
+}
+/* F „Bereich neu einrichten“ (Raum-Panel) */
+.block-refurnish .insp-sub {
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+}
+.block-refurnish .row {
+  margin-top: 6px;
+  align-items: center;
+}
+.block-refurnish label.inline {
+  display: inline-flex;
+  margin: 0 0 0 4px;
+}
+.block-refurnish label.inline select {
+  width: auto;
+}
+
+/*
+ * W13-G Paletten-Editor (Tab „Material“ und Assistent): Rollengruppen mit Farbfeldern aus `blockLook` (eigene Werte),
+ * harmonische Optionen umrandet, aktive Option mit Akzent-Ring, Theme-Option mit Punkt.
+ */
+.pal-section {
+  margin: 10px 0 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+}
+.pal-section > summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.pal-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.pal-intro {
+  margin: 0;
+}
+.pal-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pal-groups {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pal-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pal-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.pal-main {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.pal-group.changed .pal-main {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.pal-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.pal-label > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pal-lock.on {
+  color: var(--accent);
+}
+.pal-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding-left: 30px;
+}
+.pal-chip {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  min-width: 0;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  opacity: 0.45;
+  cursor: pointer;
+}
+.pal-chip.fits {
+  opacity: 1;
+  box-shadow: 0 0 0 1px var(--ok);
+}
+.pal-chip:hover,
+.pal-chip:focus-visible {
+  opacity: 1;
+  transform: scale(1.15);
+}
+.pal-chip.active {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.pal-chip.theme::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1px #000;
+}
+.pal-swaps ul {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+}
+.pal-swaps li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.pal-swaps li button {
+  margin-left: auto;
+}
+.pal-swap-add {
+  display: flex;
+  gap: 6px;
+}
+.pal-swap-add select {
+  flex: 1;
+  min-width: 0;
+}
+.wizard-palette {
+  flex: 1 1 100%;
+  order: 10;
+  margin: 4px 0 0;
+}

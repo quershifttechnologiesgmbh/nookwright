@@ -1,0 +1,236 @@
+// Hochbeet-Reihe für Wohnräume, Höfe und Gewächshäuser (Welle FN): zwei Pflanzreihen, Holzrahmen, Randplatten, Eckpfosten.
+// Ackerland-Regeln (Wiki Farmland): Wasser im Umkreis 4 auf Ackerland- oder Pflanzenhöhe befeuchtet; hier eine waterlogged Laterne in
+// Reihe 1 (Wasserquelle + Licht 15; die Pflanze wächst ab Licht 9). Größe S (5 lang, 1 Laterne) hat höchstens Abstand 3,
+// Größe M (9 lang, 2 Laternen) höchstens Abstand 2 zur nächsten Laterne. Ackerland trocknet nie aus, Pflanzen sind ausgewachsen.
+// Keine Mechanik. Auf geschlossenen Böden strict platzieren. Höhe 2, 4 tief.
+{
+  id: "functional/fn_crop_bed_row",
+  kind: "static",
+  name: "Hochbeet-Reihe",
+  category: "work",
+  tags: ["fn_bed_row", "fn_crop"],
+  functionTags: ["farm:crops", "light"],
+  styleTags: ["rustic", "medieval", "cottage"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_wheat",
+      weight: 9,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBB", // z0 Rand
+          "BFLFB", // z1 Reihe 1
+          "BFFFB", // z2 Reihe 2
+          "BBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssf", // z0 Rand
+          "sa_as", // z1 Reihe 1
+          "sbbbs", // z2 Reihe 2
+          "fsssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:wheat", state: { age: "7" } },
+        b: { block: "minecraft:wheat", state: { age: "7" } },
+      },
+    },
+    {
+      id: "s_carrots",
+      weight: 6,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBB", // z0 Rand
+          "BFLFB", // z1 Reihe 1
+          "BFFFB", // z2 Reihe 2
+          "BBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssf", // z0 Rand
+          "sa_as", // z1 Reihe 1
+          "sbbbs", // z2 Reihe 2
+          "fsssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:carrots", state: { age: "7" } },
+        b: { block: "minecraft:carrots", state: { age: "7" } },
+      },
+    },
+    {
+      id: "s_potatoes",
+      weight: 6,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBB", // z0 Rand
+          "BFLFB", // z1 Reihe 1
+          "BFFFB", // z2 Reihe 2
+          "BBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssf", // z0 Rand
+          "sa_as", // z1 Reihe 1
+          "sbbbs", // z2 Reihe 2
+          "fsssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:potatoes", state: { age: "7" } },
+        b: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+    {
+      id: "s_mixed",
+      weight: 9,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBB", // z0 Rand
+          "BFLFB", // z1 Reihe 1
+          "BFFFB", // z2 Reihe 2
+          "BBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssf", // z0 Rand
+          "sa_as", // z1 Reihe 1
+          "sbbbs", // z2 Reihe 2
+          "fsssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:carrots", state: { age: "7" } },
+        b: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_wheat",
+      weight: 6,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBBBBBB", // z0 Rand
+          "BFLFFFLFB", // z1 Reihe 1
+          "BFFFFFFFB", // z2 Reihe 2
+          "BBBBBBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssssssf", // z0 Rand
+          "sa_aaa_as", // z1 Reihe 1
+          "sbbbbbbbs", // z2 Reihe 2
+          "fsssssssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:wheat", state: { age: "7" } },
+        b: { block: "minecraft:wheat", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_carrots",
+      weight: 4,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBBBBBB", // z0 Rand
+          "BFLFFFLFB", // z1 Reihe 1
+          "BFFFFFFFB", // z2 Reihe 2
+          "BBBBBBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssssssf", // z0 Rand
+          "sa_aaa_as", // z1 Reihe 1
+          "sbbbbbbbs", // z2 Reihe 2
+          "fsssssssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:carrots", state: { age: "7" } },
+        b: { block: "minecraft:carrots", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_potatoes",
+      weight: 4,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBBBBBB", // z0 Rand
+          "BFLFFFLFB", // z1 Reihe 1
+          "BFFFFFFFB", // z2 Reihe 2
+          "BBBBBBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssssssf", // z0 Rand
+          "sa_aaa_as", // z1 Reihe 1
+          "sbbbbbbbs", // z2 Reihe 2
+          "fsssssssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:potatoes", state: { age: "7" } },
+        b: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+    {
+      id: "m_mixed",
+      weight: 6,
+      layers: [
+        [ // y0: Rahmen + Ackerland + Laternen
+          "BBBBBBBBB", // z0 Rand
+          "BFLFFFLFB", // z1 Reihe 1
+          "BFFFFFFFB", // z2 Reihe 2
+          "BBBBBBBBB", // z3 Rand
+        ],
+        [ // y1: Pflanzen, Randplatten, Eckpfosten
+          "fsssssssf", // z0 Rand
+          "sa_aaa_as", // z1 Reihe 1
+          "sbbbbbbbs", // z2 Reihe 2
+          "fsssssssf", // z3 Rand
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        f: { role: "furniture_wood", shape: "fence" },
+        F: { block: "minecraft:farmland", state: { moisture: "7" } },
+        L: { block: "minecraft:lantern", orient: { hanging: false }, state: { waterlogged: "true" } },
+        a: { block: "minecraft:carrots", state: { age: "7" } },
+        b: { block: "minecraft:potatoes", state: { age: "7" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

@@ -1,0 +1,67 @@
+// Fachwerk (research/18 F1, research/12 §3.1/§3.3, research/16 R1/R6/U3/U4): Erdgeschoss aus Stein (von medieval),
+// darüber Fachwerk aus dunkler Eiche mit hellem Kalkputz – dunkler Rahmen, helle Füllung, dunkles Dach. Schwelle und
+// Rähm liegen an den Etagengrenzen, Ständer an Ecken, neben Fenstern und im Feldrhythmus 3, Streben je Feld
+// symmetrisch zur Fassadenmitte. Eingeschossige Bauteile: Steinsockel, darüber Fachwerk. Grat und Kehle betont (D12).
+// Erbt alles andere von medieval (Innenräume, Böden, Decken, Dach, Gelände).
+{
+  id: "timber",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { formality: -0.25 },
+  name: "Fachwerk",
+  description: "Stein-Erdgeschoss, Fachwerk aus dunkler Eiche mit Kalkputz, Schieferdach mit Grat in Eiche",
+  base: "medieval",
+  roles: {
+    // Gefach: heller Kalkputz. W4 (27.09.2026, Review S5): genau **ein** Füllmaterial – Kalzit. Der Mix aus Kalzit und
+    // Pilzstiel (Cluster-Rauschen) machte unregelmäßige hell/grau-Felder quer durch die Gefache; die Vorbilder
+    // (plan/spikes/W4G_material2.md §2) füllen fast immer mit einem einzigen hellen Block. Vollblock, 1.21.11 und 26.3.
+    wall_infill: { family: "calcite" },
+  },
+
+
+
+
+
+
+
+
+  // W2 (Baustandard F1): Fachwerk-Joch 4 (wie `timber.bay` der Wandregel)
+  facade: { bay: 4 },
+  surfaces: {
+    // Erste passende Zeile gewinnt. Außenwände des Erdgeschosses unter einem Obergeschoss bleiben Stein (wall_primary).
+    wall: [
+      // Obergeschosse: Fachwerk ab der ersten Reihe; Schwelle = Bodenplatte (footing), Rähm = Deckenrähm bzw. die
+      // Schwelle der Etage darüber. `bay: 4` (statt Standard 3) hält den Holzanteil niedriger: gemessen am
+      // Fachwerkhaus 53,3 % → 45,7 % Holz an den Außenwandzellen des OG (F1-Bericht §Nachtrag). Motive je Feld:
+      // Andreaskreuz, Strebe, K-Strebe, Raute oder leeres Gefach.
+      // `decorate`: Anbauteile in Außenluft (research/16 W4) – offene Falltür-Paneele in der Brüstungsreihe unter den
+      // Fenstern und Streben als Treppe vor der Giebelwand, in der Holzrolle (dunkle Eiche). Die App setzt daraus den
+      // Schalter „Fachwerk-Deko“ vor.
+      // W13-E (28.09.2026): Obergeschoss im Rhythmus 3 statt 4 – die 4–5 breiten leeren Putzfelder (Taverne vorn) werden
+      // 2–3 breite Gefache zwischen Ständern (Vorbilder: dichtes Ständerwerk, YT N-9rrK7g0PU, reddit 1uy0tw3); das
+      // Fassadenraster (`facade.bay` 4) bleibt, nur die Rhythmusständer dazwischen werden dichter. Fensterlose Felder
+      // bekommen einen Brustriegel (`rail`, liegender Stamm in der Mitte) statt leerem Putz – keine Diagonalen: im 3 hohen
+      // Feld passten Kreuz, Strebe, K und Raute ohnehin nie (W4 S5), Streben lasen sich im A/B als Z-Muster
+      { when: { exterior: true, storey: [1, 16] }, role: "wall_infill", timber: { bay: 3, motifs: ["rail"], decorate: true } },
+      // Eingeschossige Bauteile (keine Etage darüber): Bodenplatte als Steinsockel, Schwelle in der ersten Reihe,
+      // Felder 2 hoch: Strebe, Fußbänder, leeres Gefach (Kreuz passt erst ab 3 × 3)
+      { when: { exterior: true, storey: 0, topStorey: true }, role: "wall_infill", timber: { bay: 4, sill: true, motifs: ["brace", "feet", "cross", "none"], decorate: true } },
+      // Innenwände wie medieval: Vertäfelung unten, darüber Putz
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Bodenplatte unter den Wänden der Obergeschosse = Schwelle (Stamm entlang der Wand, Ecken rundum Rinde) – außen
+    // das Geschossband, innen (W2, Baustandard I3) die Schwelle in der Decke darunter statt Fundamentstein;
+    // sonst sichtbarer Steinsockel
+    footing: [
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      // I3: auch der Wandfuß innen über einem Keller ist dessen Decke – Schwelle statt Fundamentstein
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+    // Fachwerk: der Rähm über den Außenwänden gehört zum Gerüst (anders als beim Steinhaus von medieval, wo die
+    // Außenhaut bis unter das Dach durchläuft) – Balkendecke und Rähm innen wie außen
+    ceiling: [{ beams: { role: "beam", period: 3 }, plate: { role: "beam" } }],
+    // research/16 D12: Grat und Kehle des Walmdachs in der Kantenrolle (dunkle Eiche), die Fläche bleibt Schiefer mit Verlauf
+    roof: [{ when: { roofLine: ["hip", "valley"] }, role: "roof_trim" }],
+  },
+}

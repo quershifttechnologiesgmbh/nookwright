@@ -1,0 +1,6 @@
+// Krug/Becher: leerer Blumentopf – der bekannteste Tavernen-Trick (research/11 §2.2, T-3).
+// Braucht keine Stütze (Faktencheck #4).
+{ id: "decor/mug", kind: "static", name: "Krug", category: "decor",
+  tags: ["tabletop_small", "mug"], styleTags: ["medieval", "rustic"], obtainability: "survival",
+  mount: "surface", rotations: [0],
+  layers: [["M"]], legend: { M: { block: "minecraft:flower_pot" } } }

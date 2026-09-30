@@ -1,0 +1,18 @@
+// Kupfer-Wandfackel (grünliche Flamme, Licht 14). Erst ab 1.21.9 (DataVersion 4554, Faktencheck 10).
+{
+  id: "light/copper_wall_torch",
+  kind: "static",
+  name: "Kupfer-Wandfackel",
+  category: "light",
+  tags: ["light", "light_wall"],
+  functionTags: ["light"],
+  styleTags: ["rustic"],
+  obtainability: "survival",
+  minVersion: 4554,
+  mount: "wall",
+  rotations: "backToWall",
+  walkable: true,
+  cells: [{ at: [0, 0, 0], mat: { block: "minecraft:copper_wall_torch", orient: { attachTo: "back" } } }],
+  masks: { support: [{ at: [0, 0, 0], side: "back", kind: "full" }] },
+  light: 14,
+}

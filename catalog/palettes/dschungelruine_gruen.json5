@@ -1,0 +1,82 @@
+// Dschungelruine Gruen – verfallen, Biome: jungle, Stile: ruin.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "dschungelruine_gruen",
+  name: "Dschungelruine Grün",
+  mood: "verfallen",
+  biomes: ["jungle"],
+  styles: ["ruin"],
+  values: ["minecraft:mossy_cobblestone", "minecraft:cracked_stone_bricks", "minecraft:mossy_stone_bricks", "minecraft:cobblestone", "minecraft:cobbled_deepslate"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "stone_bricks", variant: "mossy", weight: 45 },
+        { family: "stone_bricks", variant: "cracked", weight: 30 },
+        { family: "cobblestone", weight: 25 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "cobblestone", variant: "mossy", weight: 60 },
+        { family: "cobbled_deepslate", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "stone_bricks", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "cobblestone", variant: "mossy", weight: 55 },
+        { family: "cobbled_deepslate", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      // edge_fixed: eigene Wertstufe fuer den First (Q4, research/53 §1-3)
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "jungle", shape: "stripped_log", weight: 60 },
+        { family: "jungle", weight: 40 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "stone_bricks", variant: "mossy", weight: 55 },
+        { block: "minecraft:gravel", weight: 25 },
+        { family: "jungle", weight: 20 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:green", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:glow_lichen", weight: 60 },
+        { block: "minecraft:torch", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "jungle", shape: "leaves", weight: 45 },
+        { block: "minecraft:vine", weight: 35 },
+        { family: "moss", shape: "carpet", weight: 20 },
+      ],
+    },
+  },
+}

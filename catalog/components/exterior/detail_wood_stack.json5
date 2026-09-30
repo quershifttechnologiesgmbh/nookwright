@@ -1,0 +1,16 @@
+// W15 · Holzstapel mittig an einer fensterlosen Seitenwand (research/53 A6, research/16 R8 „Kleinteile am Sockel“;
+// Vorbild: switchbladegaming – gestapeltes Holz am Haus): liegende Stämme, 3 breit, 2 hoch, an der Wand, Stirnseiten
+// nach außen. Nur reich, in nordic/winter/rustic schon dezent.
+{
+  id: "exterior/detail_wood_stack",
+  kind: "static",
+  name: "Holzstapel an der Seitenwand",
+  category: "storage",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor", "detail_subtle:nordic", "detail_subtle:winter", "detail_subtle:rustic"],
+  styleTags: ["medieval", "rustic", "farmstead", "nordic", "nordic_falu", "winter"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [["LLL"], ["LLL"]],
+  legend: { L: { role: "log_spruce", shape: "log", orient: { axis: "along" } } },
+}

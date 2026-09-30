@@ -1,0 +1,35 @@
+// K2 · Wandbank (Settle): Treppen mit Lehne zur Wand, offene Falltüren als Armlehnen (research/10 §6.1
+// Motiv „Front/Tür“, Tavernen-Referenzen). Falltüren aus `beam` (dunkles Holz als Kontrast; `furniture_wood`
+// darf laut Rollen-Schnappschuss nur fence/pressure_plate/slab/stairs). Falltür offen liegt an der Seite
+// gegenüber ihrer Blickrichtung: links (x=0) Blick nach „right“ → liegt an der Treppe an.
+{
+  id: "seat/settle",
+  kind: "static",
+  name: "Wandbank",
+  category: "furniture",
+  tags: ["bench", "wall_bench", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "arms",
+      weight: 2,
+      layers: [["TSSU"]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+      },
+    },
+    {
+      id: "plain",
+      weight: 1,
+      layers: [["SSS"]],
+      legend: { S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } } },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

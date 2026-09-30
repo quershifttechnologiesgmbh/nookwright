@@ -1,0 +1,79 @@
+// Schmiede Rot – gemuetlich, Biome: hills, mountains, Stile: medieval, industrial.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "schmiede_rot",
+  name: "Schmiede Rot",
+  mood: "gemuetlich",
+  biomes: ["hills", "mountains"],
+  styles: ["medieval", "industrial"],
+  values: ["minecraft:cobblestone", "minecraft:polished_andesite", "minecraft:andesite", "minecraft:cobbled_deepslate", "minecraft:blackstone"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "stone_bricks", weight: 45 },
+        { family: "cobblestone", weight: 35 },
+        { family: "blackstone", weight: 20 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "polished_andesite", weight: 60 },
+        { family: "andesite", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "iron", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "cobbled_deepslate", weight: 55 },
+        { family: "blackstone", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { family: "copper", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "dark_oak", shape: "log", weight: 70 },
+        { family: "dark_oak", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "cobblestone", weight: 55 },
+        { block: "minecraft:gravel", weight: 25 },
+        { family: "blackstone", weight: 20 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:red", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 70 },
+        { block: "minecraft:campfire", weight: 30 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "oak", shape: "leaves", weight: 100 },
+      ],
+    },
+  },
+}

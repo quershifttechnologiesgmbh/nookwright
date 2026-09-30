@@ -1,0 +1,63 @@
+// FN · Villager-Bettreihe (Welle FN, 28.09.2026, plan/spikes/FN_villagers.md). Villager schlafen nur in einem Bett, das
+// sie sich als Ruhepunkt ausgesucht haben (Wiki Villager, Abschnitt Sleeping: ein Bett gehört einem Villager, Java-Reichweite
+// 48); zur Zucht brauchen sie ein unbeanspruchtes Bett (Wiki Villager, Abschnitt Breeding). Darum gibt es kompakte
+// Bettreihen: Kopfende an der Wand, Fußende vorn (dort steht der Villager beim Aufstehen), zwischen den Betten ein Zaunpfosten
+// mit stehender Laterne (Licht gegen Spawns, trennt die Betten optisch). Über den Betten bleibt Luft (Faktencheck #8,
+// Solver-Regel `bedObstructed`). „single“ = 1 Bett, „pair“ = 2 Betten (3 breit), „trio“ = 3 Betten (5 breit). Vor dem
+// Fußende bleibt eine Zelle Zugang (Maske `use`), ohne sie könnte der Villager das Bett nicht erreichen.
+// Kein Tag `bed` (sonst liefen diese Reihen in jedes Schlafzimmer): erreichbar nur über `fn_villager_quarters` und
+// `fn_cure_room`.
+{
+  id: "bed/fn_villager_bed",
+  kind: "static",
+  name: "Villager-Bettreihe",
+  category: "furniture",
+  tags: ["fn_villager_bed"],
+  functionTags: ["sleep"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "single",
+      weight: 2,
+      layers: [["H", "F"]],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+      },
+    },
+    {
+      id: "pair",
+      weight: 3,
+      layers: [
+        ["HfH", "FgF"], // y0: Bett | Zaunpfosten | Bett; vorn statt des Pfostens eine Stufe (Fußende bleibt frei)
+        ["_L_", "___"], // y1: Laterne auf dem hinteren Pfosten
+      ],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+    {
+      id: "trio",
+      weight: 2,
+      layers: [
+        ["HfHfH", "FgFgF"],
+        ["_L_L_", "_____"],
+      ],
+      legend: {
+        H: { role: "textile_primary", shape: "bed", orient: { part: "head", back: "back" } },
+        F: { role: "textile_primary", shape: "bed", orient: { part: "foot", back: "back" } },
+        f: { role: "furniture_wood", shape: "fence" },
+        g: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+}

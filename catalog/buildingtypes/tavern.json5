@@ -1,0 +1,67 @@
+// BT09 Taverne / Gasthaus (research/19 §4): Schankraum am Eingang mit Treppe zu den Gästezimmern, Küche direkt
+// daneben, Lager; Keller mit Fasslager (M, L); oben Flur mit Gästezimmern und Abort, im Dach die Wirtswohnung;
+// in L ein Stallflügel hinten (T/L). Satteldach 1:1 (W2 D5, vorher steil) mit Gauben, Steinsockel, Konsolen; Gehöft-Gelände.
+// Referenzen: WesterosCraft 31×25×19, GrabCraft-Tavernen 1 400–2 900 Blöcke (Rechteck oder L, 20–31 × 15–20).
+{
+  id: "tavern",
+  name: "Taverne",
+  label: "Taverne / Gasthaus",
+  family: "house",
+  styleTags: { require: ["medieval"] },
+  themes: ["timber", "medieval", "rustic"],
+  sizes: {
+    // W2 (Baustandard I5): Schankraum im Erdgeschoss mit lichter Höhe 4
+    S: { footprint: [[15, 11], [19, 13]], floors: 2, groundHeight: 4 },
+    M: { footprint: [[19, 13], [25, 15]], floors: [2, 3], groundHeight: 4, cellar: 0.6 },
+    L: { footprint: [[23, 15], [29, 17]], floors: 3, groundHeight: 4, cellar: true, wings: ["stable"] },
+  },
+  massing: {
+    generator: "wings",
+    ratio: [1.3, 1.9],
+    // W5 (27.09.2026, Review N8): gerade Frontlänge – gerades Mittelfeld, der Schankraum bekommt die Doppeltür
+    evenFront: true,
+    wings: { stable: { side: "back", depth: [7, 9], length: [9, 13], align: "end", floors: 1, prob: 0.8 } },
+    // W9-G1 (27.09.2026, Review R5 G1): Baumasse-Akzente statt Kiste – Quergiebel an einer Ecke der Front (Vorbilder YT sK2TL4NM7aI, reddit
+    // 1jkq0iu), die Obergeschosse kragen auf Konsolen aus (hinten; vorn nur ohne Quergiebel, sonst Putzstreifen in der
+    // Innenecke); mit Stallflügel (L) nur die Auskragung. Die Doppeltür bleibt im Mittelfeld
+    features: { jetty: { sides: ["front", "back"] }, cross: { width: [7, 9], depth: [3, 4], align: "corner" } },
+  },
+  entrance: "tavern",
+  corridor: { room: "gallery", minDepth: 11 },
+  program: [
+    { room: "tavern", floor: "ground", share: 0.45, required: true, near: "entrance" },
+    { room: "kitchen", floor: "ground", share: 0.2, required: true, adjacent: ["tavern"] },
+    { room: "storage", floor: "ground", share: 0.12, prob: 0.8 },
+    { room: "brewhouse", floor: "ground", share: 0.15, prob: 0.35 },
+    { room: "wine_cellar", floor: "cellar", share: 0.5, required: true },
+    { room: "storage", floor: "cellar", fill: true },
+    { room: "gallery", floor: "upper", share: 0.15 },
+    { room: "guest_room", floor: "upper", count: [2, 6], minArea: 15, required: true },
+    { room: "washroom", floor: "upper", count: [0, 1] },
+    { room: "bedroom", floor: "top", prob: 0.5 },
+    { room: "stable", wing: "stable", required: true },
+  ],
+
+  // Funktionsgrad (W2-1): Brauwerk oder Backstube (some), Kellerlager, Geheimstudie und Pilzkeller (rich).
+  functions: [
+    { room: "brew_works", share: 0.24, richShare: 0.3, replaces: ["brewhouse", "storage"], weight: 3, group: "cook", sizes: ["M", "L"], minFloor: 200 },
+    { room: "bakery_line", share: 0.22, replaces: ["storage"], weight: 2, group: "cook", sizes: ["M", "L"], minFloor: 200 },
+    { room: "storage_hall", floor: "cellar", share: 0.3, weight: 2, group: "store" },
+    { room: "mushroom_cellar", floor: "cellar", level: "rich", share: 0.3, weight: 1, group: "store", minFloor: 180 },
+    { room: "secret_study", floor: "top", level: "rich", share: 0.25, weight: 1, group: "secret", sizes: ["M", "L"], minFloor: 200 },
+  ],
+  stairs: { at: "end" },
+  shell: {
+    roof: "gable",
+    overhang: 1,
+    // W2 (Baustandard D5): Neigung 1:1 statt steil – so bleibt das Dach im Höhen-Budget (First ≤ 1,5 × Traufhöhe und
+    // ≤ 2 Geschosse, eingeschossig ≤ Traufhöhe); die Neigung des Bautyps gilt genau (keine automatische Absenkung)
+    roofDetail: { pitch: "normal", trim: true, verge: "closed", gableWindows: true },
+    dormers: { kind: "gable", width: 3 },
+    facade: { plinthProfile: true, cornice: true, quoins: true, brackets: 3, upperFrame: true },
+  },
+  exterior: { density: 1 },
+  site: { template: "homestead", style: "homestead", lighting: "paths" },
+  // W2 (Baustandard D5): Dach höchstens 1,5 × Traufhöhe; das Budget der Hülle senkt die Neigung (steil → normal → 1:2)
+  checks: { roofToEave: [0.4, 1.5], ratio: [1.2, 2.0] },
+}

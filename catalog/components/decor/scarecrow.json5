@@ -1,0 +1,44 @@
+// research/57 · Innenfarm: Vogelscheuche (Nebenobjekt, ergänzt decor/frame_farm_tools um ein freistehendes
+// Stück statt Wandrahmen). Tag `farm_tools` steht in farm_room.json5 im optionalen Eintrag
+// `{ tags: ["farm_tools"] }`. Zaun-Kreuz mit Kürbiskopf und Lumpen (Bannerfetzen), frei drehbar.
+{
+  id: "decor/scarecrow",
+  kind: "static",
+  name: "Vogelscheuche",
+  category: "decor",
+  tags: ["farm_prop", "decor_scarecrow"],
+  styleTags: ["rustic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "pumpkin",
+      weight: 3,
+      layers: [["F"], ["F"], ["P"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        P: { block: "minecraft:carved_pumpkin", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "hay",
+      weight: 2,
+      layers: [["F"], ["H"], ["H"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        H: { block: "minecraft:hay_block", orient: { axis: "y" } },
+      },
+    },
+    {
+      id: "webbed",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [["F"], ["F"], ["C"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        C: { block: "minecraft:cobweb" },
+      },
+    },
+  ],
+}

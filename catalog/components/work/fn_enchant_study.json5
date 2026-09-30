@@ -1,0 +1,99 @@
+// FN · Studierstube (Produktionslinien, plan/spikes/FN_produktionslinien.md): Zaubertisch im Regal-Ring, mit Verkleidung
+// statt Labor. FAKTENCHECK (minecraft.wiki/w/Enchanting_Table, EnchantingTableBlock.BOOKSHELF_OFFSETS + `isValidBookShelf`):
+// Nur ECHTE BÜCHERREGAL-Blöcke (`minecraft:bookshelf`) im Abstand 2 um den Tisch (Ring aus 16 Zellen je Ebene, Ebene 0 und
+// +1) zählen, und die Zelle dazwischen (innerer 3×3-Ring auf beiden Ebenen) muss ein `#enchantment_power_transmitter` sein
+// (Luft o. ä.; KEIN Teppich, keine Kerze/Fackel/Platte). Höchstwert 15 (Maximum für Stufe 30). Der Ring hat vorn EINE Öffnung
+// (Zugang): 16 − 1 = genau 15 zählende Regale auf Ebene 0; die Innenzellen bleiben auf Ebene 0 und +1 Luft. Alles
+// Dekorative liegt außerhalb dieses Rings oder besteht aus Blöcken, die NICHT zählen: gemeißelte Regale (zählen nicht), Laternen und
+// Platten AUF den Regalen (Ebene 1), die hintere Regalwand bei Abstand 3 (zählt nicht, macht aber Bibliotheksstimmung), Lesepulte.
+// Größen: `ring` 5×5 (lichte Höhe ≥ 2), `study` 7×6 mit hinterer Regalwand und 2 Lesepulten (Höhe ≥ 3), `library` 9×6 mit
+// doppelt breiter Wand und Regalstümpfen neben den Lesepulten (Höhe ≥ 3). Lesepulte stehen mit `has_book: false`.
+// Ruhezustand: nichts zu befüllen, Zaubertisch ohne Inhalt. Spiegelsymmetrisch (kein Windrad). Richtungen relativ: left = +x.
+{
+  id: "work/fn_enchant_study",
+  kind: "static",
+  name: "Studierstube",
+  category: "work",
+  tags: ["fn_enchant_study", "fn_study"],
+  functionTags: ["enchant", "light", "work:librarian"],
+  styleTags: ["medieval", "noble", "arcane"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "ring",
+      weight: 3,
+      minRoomHeight: 2,
+      layers: [
+        ["BBBBB", "B___B", "B_E_B", "B___B", "BB_BB"],
+        ["lCCCl", "S___S", "c___d", "S___S", "lS_Sl"],
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        E: { block: "minecraft:enchanting_table" },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        l: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        C: { block: "minecraft:chiseled_bookshelf", orient: { front: "front" } },
+        c: { block: "minecraft:chiseled_bookshelf", orient: { front: "left" } },
+        d: { block: "minecraft:chiseled_bookshelf", orient: { front: "right" } },
+      },
+    },
+    {
+      id: "study",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["BBBBBBB", "BBBBBBB", "BB___BB", "LB_E_BL", ".B___B.", ".BB_BB."],
+        ["BBBBBBB", "BlCCClB", "BS___SB", ".c___d.", ".S___S.", ".lS_Sl."],
+        ["SSSSSSS", ".......", ".......", ".......", ".......", "......."],
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        E: { block: "minecraft:enchanting_table" },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        l: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        C: { block: "minecraft:chiseled_bookshelf", orient: { front: "front" } },
+        c: { block: "minecraft:chiseled_bookshelf", orient: { front: "left" } },
+        d: { block: "minecraft:chiseled_bookshelf", orient: { front: "right" } },
+        L: { block: "minecraft:lectern", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "library",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["BBBBBBBBB", "B.BBBBB.B", "B.B___B.B", "L.B_E_B.L", "..B___B..", "..BB_BB.."],
+        ["BBBBBBBBB", "B.lCCCl.B", "B.S___S.B", "..c___d..", "..S___S..", "..lS_Sl.."],
+        ["SSSSSSSSS", ".........", ".........", ".........", ".........", "........."],
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        E: { block: "minecraft:enchanting_table" },
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        l: { role: "light_hanging", shape: "lantern", orient: { hanging: false } },
+        C: { block: "minecraft:chiseled_bookshelf", orient: { front: "front" } },
+        c: { block: "minecraft:chiseled_bookshelf", orient: { front: "left" } },
+        d: { block: "minecraft:chiseled_bookshelf", orient: { front: "right" } },
+        L: { block: "minecraft:lectern", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "nook",
+      weight: 1,
+      minRoomHeight: 2,
+      // Kompaktform 5×3: Tisch an der Rückwand-Nische. Vanilla-Zählung: Rückreihe (5) + Seiten (4) je Ebene = 9, zwei Ebenen 18, gedeckelt auf 15.
+      layers: [
+        ["BBBBB", "B___B", "B_E_B"],
+        ["BBBBB", "B___B", "B___B"],
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        E: { block: "minecraft:enchanting_table" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+  light: "auto",
+}

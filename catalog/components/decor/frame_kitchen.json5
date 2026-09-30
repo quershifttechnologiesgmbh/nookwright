@@ -1,0 +1,23 @@
+// K2 · Küchengerät an der Wand (DA Utility: Cooking Tools): Rahmen mit Schüssel, Eimer oder Kelle
+// (Schaufel) in Augenhöhe, darüber ein Zaun-Haken. 1 breit, an der Raumwand.
+{
+  id: "decor/frame_kitchen",
+  kind: "static",
+  name: "Küchengerät",
+  category: "attachment",
+  tags: ["wall_decor", "kitchen_utensils"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["F"]],
+  legend: { F: { role: "furniture_wood", shape: "fence" } },
+  variants: [
+    { id: "bowl", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:bowl" } }] },
+    { id: "bucket", weight: 2, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:bucket" } }] },
+    { id: "ladle", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:wooden_shovel" } }] },
+    { id: "milk", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:milk_bucket" } }] },
+  ],
+}

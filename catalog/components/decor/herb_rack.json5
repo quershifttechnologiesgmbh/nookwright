@@ -1,0 +1,38 @@
+// V3 · Kräuterstange (research/10 §3: Kräuter und Hängepflanzen in Küchen, K1/K13; research/11 §5 Alchemie):
+// Topfpflanzen (getrocknete Kräuter = Topf mit totem Busch, Farn) an einer Zaun-Stange unter der Decke.
+// Blumentöpfe brauchen keine Stütze (Faktencheck #4). „low“ (1 hoch) schon bei lichter Höhe 3, „rack“ ab 4
+// (unterste Zelle ≥ Boden + 2, Kopffreiheit).
+{
+  id: "decor/herb_rack",
+  kind: "static",
+  name: "Kräuterstange",
+  category: "decor",
+  tags: ["plant_hanging", "decor_ceiling", "herb_rack"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "low",
+      weight: 2,
+      layers: [["DFP"]],
+      legend: {
+        D: { block: "minecraft:potted_dead_bush" },
+        F: { role: "furniture_wood", shape: "fence" },
+        P: { block: "minecraft:potted_fern" },
+      },
+    },
+    {
+      id: "rack",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["D.P"], ["FFF"]],
+      legend: {
+        D: { block: "minecraft:potted_dead_bush" },
+        F: { role: "furniture_wood", shape: "fence" },
+        P: { block: "minecraft:potted_fern" },
+      },
+    },
+  ],
+}

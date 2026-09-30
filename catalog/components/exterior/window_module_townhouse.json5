@@ -1,0 +1,86 @@
+// W2-FW · Fenstermodul „Stadthaus“ (plan/spikes/W2FW_fenster.md, Prüfbericht X2 §6.4, Baustandard F2/F6/F7):
+// durchgehender Sturz aus umgedrehten Treppen über Glas UND Läden, durchgehende Bank aus Stufen, Läden als offene
+// Falltüren flach an der Wand, Laterne am Zaun-Arm auf dem Rasterpfosten zwischen zwei Fenstern. Alles liegt 1 Block
+// vor der Wand – das Glas bleibt in der Wandebene und wirkt dadurch 1 Block zurückgesetzt (Laibung).
+//
+// Katalogeinheit = ein Modul mit seinen Stücken als Varianten. Der Außen-Planer (@mcda/exterior, windows.ts) setzt die
+// Stücke je Fenster (Breite `span`, Höhe `h`) zusammen; `module` ist das ganze Modul für ein 1 × 2-Fenster (Vorschau).
+//
+//   Ansicht (1 × 2)           Stück       Lage (j = Spalte ab der Scheibe, y = Reihe ab der untersten Scheibe)
+//     L L L                    lintel      y = h, j = −1 … span  (Ecken setzt die Hülle schon als Rahmen, gleiche Form)
+//     J . J    .  = Glas       jamb        y = 0 … h−1, j = −1 und span (Dehnung n = h − 1)
+//     J . J                    sill        y = −1, j = −1 … span
+//     S S S                    lantern     Zaun auf der Sturzreihe, Laterne darunter – nur an Pfosten zwischen Fenstern
+//
+// Vorbilder (URLs im Bericht): Planet-Minecraft-/YouTube-Fensterdesigns mit Treppen-Sturz, Stufen-Bank und
+// Falltür-Läden; Laternen an Zaun-Armen zwischen den Fenstern. Rollen: `window_frame` wie der Rahmen der Hülle
+// (gleiches Holz, lückenloser Rahmen), `beam` für die Läden (dunkler als der Rahmen, z. B. Dunkeleiche zu Fichte im
+// Theme medieval – sonst verschmelzen Laden und Rahmen zu einem „Balken“), `beam` + `light_hanging` für die Laterne.
+{
+  id: "exterior/window_module_townhouse",
+  kind: "static",
+  name: "Fenstermodul Stadthaus",
+  category: "architecture",
+  // W5-B (Review W4-R N4): Wandmaterial, für das das Modul gebaut ist (`themeMaterial`: Bautyp gibt die Familie, Theme das Material)
+  tags: ["exterior", "exterior_window", "exterior_window_module", "outdoor", "walls_stone"],
+  // Standardwahl dieser Themes (Außen-Planer: erstes Modul, dessen styleTags die Theme-ID enthalten)
+  // W13-F (28.09.2026): elven hat jetzt eine Kalzitwand (Stein) – Modul für Steinwände (vorher nordic, Holz)
+  styleTags: ["medieval", "desert", "elven", "asian", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        ["SSS"],
+        ["J_J"],
+        ["J_J"],
+        ["LLL"],
+      ],
+      legend: {
+        S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } },
+        J: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "lintel",
+      layers: [["L"]],
+      legend: { L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    {
+      // W9-G2 (27.09.2026, plan/spikes/W9G2_fensterrahmen.md): Rahmenwange – flache, offene Falltür links und rechts der
+      // Scheibe, wo die Läden keine Luft haben (W7-A). Mit Sturz und Bank ein Rahmen aus einem Guss. Holz der Läden
+      // (`beam`), nicht des Rahmens: im Blind-A/B las sich die Wange im Rahmenholz blass (verschmilzt mit Sturz und Bank
+      // zu einem Balken, vgl. `window_module_townhouse`), die dunkle Wange hebt das Fenster ab.
+      id: "frame_jamb",
+      layers: [["J"]],
+      legend: { J: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+      stretch: { layer: 0, max: 3, fill: "ceiling" },
+    },
+    {
+      id: "sill",
+      layers: [["S"]],
+      legend: { S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "jamb",
+      layers: [["J"]],
+      legend: { J: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } } },
+      stretch: { layer: 0, max: 3, fill: "ceiling" },
+    },
+    {
+      id: "lantern",
+      // Laterne hängt unter dem Zaun (Zaun-Unterseite = stabile Mitte, Faktencheck #3); der Zaun verbindet sich mit der Wand
+      layers: [["L"], ["F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

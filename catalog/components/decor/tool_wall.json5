@@ -1,0 +1,57 @@
+// V3 · Werkzeug-/Waffenwand (research/10 §5.3: Werkzeug- und Waffenrahmen in 8/16 Schmieden, „über der
+// Werkbank“; Nutzer-Wunsch „Wand in der Höhe“): drei Rahmen nebeneinander an der Raumwand, darüber ein Brett
+// (obere Stufen) bzw. eine Zaun-Leiste. Wand-Montage in Augenhöhe oder eine Reihe höher (`wallHeights`); der
+// Solver hängt sie bevorzugt über niedrige Möbel (Werkbank, Amboss, Truhe). „double“ (zwei Rahmen-Reihen)
+// ab lichter Höhe 4. Die Rahmen-Zellen bleiben frei ('_'), die Rahmen hängen an der Raumwand (T5 #1).
+{
+  id: "decor/tool_wall",
+  kind: "static",
+  name: "Werkzeugwand",
+  category: "attachment",
+  tags: ["wall_decor", "wall_tools", "tool_wall"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2],
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "tools",
+      weight: 3,
+      layers: [["___"], ["SSS"]],
+      legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+      entities: [
+        { type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_axe" } },
+        { type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } },
+        { type: "item_frame", at: [2, 0, 0], face: "front", item: { item: "minecraft:iron_shovel" } },
+      ],
+    },
+    {
+      id: "weapons",
+      weight: 2,
+      layers: [["___"], ["SSS"]],
+      legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+      entities: [
+        { type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+        { type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:shield" } },
+        { type: "item_frame", at: [2, 0, 0], face: "front", item: { item: "minecraft:bow" } },
+      ],
+    },
+    {
+      id: "double",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["___"], ["___"], ["FFF"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" } },
+      entities: [
+        { type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:iron_hoe" } },
+        { type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:shears" } },
+        { type: "item_frame", at: [2, 0, 0], face: "front", item: { item: "minecraft:iron_shovel" } },
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:iron_axe" } },
+        { type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:iron_sword" } },
+        { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:iron_pickaxe" } },
+      ],
+    },
+  ],
+}

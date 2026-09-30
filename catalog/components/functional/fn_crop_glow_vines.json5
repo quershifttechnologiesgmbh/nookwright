@@ -1,0 +1,130 @@
+// Leuchtbeeren-Vorhang (Welle FN): Höhlenranken hängen vom Balken (Unterseite voller Block, Wiki Glow_Berries: die Unterseite deckt den ganzen Block).
+// Ranken mit Beeren leuchten mit Stufe 14 (Wiki) - der Vorhang ist Lichtquelle und Nahrungsquelle zugleich; Beeren erntet man per Rechtsklick,
+// die Ranke bleibt stehen. Wuchs: 11 % Chance je neuem Ranken-Block auf Beeren; der Kopf endet über dem Sockel und wächst nur bis dort
+// (darunter Block, keine Weiterbildung). Knochenmehl/Bienen erzeugen neue Beeren (Wiki). Mischvariante: Beerenreihe im Wechsel mit beerenlosen Ranken.
+// Ruhezustand im Export: Köpfe age 25 mit Beeren, keine Mechanik. Höhe 5, 1 tief (Wand-/Raumteiler, Fensterreihe). Größen 3 oder 7 Ranken.
+{
+  id: "functional/fn_crop_glow_vines",
+  kind: "static",
+  name: "Leuchtbeeren-Vorhang",
+  category: "work",
+  tags: ["fn_glow_vines", "fn_crop"],
+  functionTags: ["farm:glow_berries", "light"],
+  styleTags: ["rustic", "cellar", "fantasy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "s_full",
+      weight: 3,
+      layers: [
+        [ // y0: Sockel
+          "BBBBB", // z0 Front
+        ],
+        [ // y1: Ranke (Kopf mit Beeren)
+          "fhhhf", // z0 Front
+        ],
+        [ // y2: Ranke
+          "fVVVf", // z0 Front
+        ],
+        [ // y3: Ranke
+          "fVVVf", // z0 Front
+        ],
+        [ // y4: Balken
+          "BBBBB", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:cave_vines_plant", state: { berries: "true" } },
+        h: { block: "minecraft:cave_vines", state: { age: "25", berries: "true" } },
+      },
+    },
+    {
+      id: "s_mixed",
+      weight: 3,
+      layers: [
+        [ // y0: Sockel
+          "BBBBB", // z0 Front
+        ],
+        [ // y1: Ranke (Kopf mit Beeren)
+          "fhhhf", // z0 Front
+        ],
+        [ // y2: Ranke
+          "fvVvf", // z0 Front
+        ],
+        [ // y3: Ranke
+          "fvVvf", // z0 Front
+        ],
+        [ // y4: Balken
+          "BBBBB", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:cave_vines_plant", state: { berries: "true" } },
+        v: { block: "minecraft:cave_vines_plant", state: { berries: "false" } },
+        h: { block: "minecraft:cave_vines", state: { age: "25", berries: "true" } },
+      },
+    },
+    {
+      id: "m_full",
+      weight: 2,
+      layers: [
+        [ // y0: Sockel
+          "BBBBBBBBB", // z0 Front
+        ],
+        [ // y1: Ranke (Kopf mit Beeren)
+          "fhhhhhhhf", // z0 Front
+        ],
+        [ // y2: Ranke
+          "fVVVVVVVf", // z0 Front
+        ],
+        [ // y3: Ranke
+          "fVVVVVVVf", // z0 Front
+        ],
+        [ // y4: Balken
+          "BBBBBBBBB", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:cave_vines_plant", state: { berries: "true" } },
+        h: { block: "minecraft:cave_vines", state: { age: "25", berries: "true" } },
+      },
+    },
+    {
+      id: "m_mixed",
+      weight: 2,
+      layers: [
+        [ // y0: Sockel
+          "BBBBBBBBB", // z0 Front
+        ],
+        [ // y1: Ranke (Kopf mit Beeren)
+          "fhhhhhhhf", // z0 Front
+        ],
+        [ // y2: Ranke
+          "fvVvVvVvf", // z0 Front
+        ],
+        [ // y3: Ranke
+          "fvVvVvVvf", // z0 Front
+        ],
+        [ // y4: Balken
+          "BBBBBBBBB", // z0 Front
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        f: { role: "furniture_wood", shape: "fence" },
+        V: { block: "minecraft:cave_vines_plant", state: { berries: "true" } },
+        v: { block: "minecraft:cave_vines_plant", state: { berries: "false" } },
+        h: { block: "minecraft:cave_vines", state: { age: "25", berries: "true" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }, { side: "back" }] },
+}

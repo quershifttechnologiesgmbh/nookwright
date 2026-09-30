@@ -1,0 +1,34 @@
+// K2 · Urne auf Sockel (DA Decoration: Statues; Ersatz für Statuen/Rüstungsständer): verzierter Krug auf
+// gemeißeltem Steinziegel, Variante „column“ mit Mauersäule dazwischen (lichte Höhe ≥ 3).
+{
+  id: "decor/pedestal_urn",
+  kind: "static",
+  name: "Urne auf Sockel",
+  category: "decor",
+  tags: ["pedestal", "statue"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "low",
+      weight: 2,
+      layers: [["A"], ["V"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "column",
+      weight: 1,
+      layers: [["A"], ["W"], ["V"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        W: { block: "minecraft:stone_brick_wall" },
+        V: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+      },
+    },
+  ],
+}

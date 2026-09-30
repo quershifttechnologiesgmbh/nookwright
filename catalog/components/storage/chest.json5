@@ -1,0 +1,28 @@
+// Truhe mit Loot-Table. Regel containerOpen: darüber kein redstone-leitender Block.
+// V3: Stapel-Socket `above` – Truhe auf Truhe öffnet (In-Game T5 #6 bestätigt: Truhe, Stufe, Topf blockieren
+// nicht; Fass, Planken, Decke schon). Die Kette wächst, bis die Regel endet: unter der Decke keine Truhe →
+// bei lichter Höhe 3 höchstens 2, bei 4 höchstens 3 übereinander. Oben auf dem Stapel auch ein Krug.
+{
+  id: "storage/chest",
+  kind: "static",
+  name: "Truhe",
+  category: "storage",
+  tags: ["chest", "storage", "stack_on_chest"],
+  functionTags: ["store"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["C"]],
+  legend: {
+    C: {
+      block: "minecraft:chest",
+      orient: { front: "front" },
+      contents: { lootTable: "minecraft:chests/village/village_plains_house" },
+    },
+  },
+  sockets: [
+    { id: "stack", type: "above", at: [0, 1, 0], accepts: ["stack_on_chest"], prob: 0.55 },
+    { id: "top", type: "above", at: [0, 1, 0], accepts: ["stack_top"], prob: 0.35 },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

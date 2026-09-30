@@ -1,0 +1,79 @@
+// Elfenwald Hell – gemuetlich, Biome: forest, birch_forest, Stile: elven.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "elfenwald_hell",
+  name: "Elfenwald Hell",
+  mood: "gemuetlich",
+  biomes: ["forest", "birch_forest"],
+  styles: ["elven"],
+  values: ["minecraft:birch_planks", "minecraft:stripped_birch_log", "minecraft:white_terracotta", "minecraft:pale_oak_planks", "minecraft:spruce_planks"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "pale_oak", weight: 55 },
+        { family: "birch", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:white_terracotta", weight: 60 },
+        { family: "calcite", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "birch", weight: 40 },
+      ],
+    },
+    roof: {
+      // roof_fixed: helle Wand -> dunkles Schieferdach (Q4, research/54 §1.2 Wertkontrast)
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:pearlescent_froglight", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "pale_oak", shape: "stripped_log", weight: 70 },
+        { family: "pale_oak", shape: "log", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "birch", weight: 70 },
+        { family: "birch", shape: "stripped_log", weight: 30 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:light_blue", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:pearlescent_froglight", weight: 60 },
+        { family: "iron", shape: "lantern", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:azalea_leaves", weight: 45 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 35 },
+        { family: "pale_oak", shape: "leaves", weight: 20 },
+      ],
+    },
+  },
+}

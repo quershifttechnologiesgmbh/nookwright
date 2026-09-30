@@ -1,0 +1,50 @@
+// research/57 · Trophäenraum: Glasvitrine, zweite Bauform neben decor/head_pedestal (bislang die einzige
+// Signatur-Form der Vitrinen-Reihe). Tag `trophy_pedestal` steht in trophy_room.json5 im Pflicht-Eintrag
+// `{ tags: ["trophy_pedestal"], signature: true, pattern: { kind: "row", gap: 1 } }`. Glaskasten mit Sockel
+// und Schaustück im Rahmen statt Kopf-Block – wirkt in Reihe mit head_pedestal abwechslungsreich.
+// Nachprüfung research/57: Der Rahmen saß ursprünglich IN derselben Zelle wie der Glasblock (Kollision). Jetzt
+// eine Zelle Tiefe vor dem Glas (reservierte Luft), der Rahmen hängt mit `face: "front"` am Glas dahinter.
+{
+  id: "decor/glass_case_trophy",
+  kind: "static",
+  name: "Glasvitrine",
+  category: "decor",
+  tags: ["trophy_pedestal", "head_pedestal", "glass_case_trophy"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "totem_case",
+      weight: 3,
+      layers: [["A", "."], ["G", "_"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        G: { block: "minecraft:glass" },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 1], face: "front", item: { item: "minecraft:totem_of_undying" } }],
+    },
+    {
+      id: "shield_case",
+      weight: 2,
+      layers: [["A", "."], ["G", "_"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        G: { block: "minecraft:glass" },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 1], face: "front", item: { item: "minecraft:shield" } }],
+    },
+    {
+      id: "trident_case",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["A", "."], ["G", "_"], ["G", "_"]],
+      legend: {
+        A: { block: "minecraft:chiseled_stone_bricks" },
+        G: { block: "minecraft:glass" },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 1], face: "front", item: { item: "minecraft:trident" } }],
+    },
+  ],
+}

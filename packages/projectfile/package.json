@@ -1,0 +1,16 @@
+{
+  "name": "@mcda/projectfile",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Published Language Projektdatei (.projekt.json der App): Format, Version/Migration, Grenzen, Einstellungen (Choices → Optionen des Anwendungsdienstes) und Umgebung. Rein; gemeinsam genutzt von App und Engine-API.",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@mcda/blueprint": "*",
+    "@mcda/catalog": "*",
+    "@mcda/core": "*",
+    "@mcda/pipeline": "*",
+    "@mcda/terrain": "*"
+  }
+}

@@ -1,0 +1,25 @@
+// K2 · Standuhr (DA Furniture: Clocks): Gehäuse aus Stamm und Planken (Rolle `beam`), Krone aus umgedrehter
+// Treppe; das Zifferblatt ist eine Uhr im Rahmen vorn am Gehäuse (Rahmen halten an vollen Blöcken, T5 #1).
+// Die Rahmen-Zelle vor dem Gehäuse bleibt frei; die Bodenzelle davor bleibt begehbar. Lichte Höhe ≥ 3.
+{
+  id: "decor/tall_clock",
+  kind: "static",
+  name: "Standuhr",
+  category: "furniture",
+  tags: ["clock", "tall_clock"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["L", "."], // y0: Stamm
+    ["P", "_"], // y1: Planken, davor das Zifferblatt
+    ["K", "."], // y2: Krone
+  ],
+  legend: {
+    L: { role: "beam", shape: "log", orient: { axis: "y" } },
+    P: { role: "beam", shape: "planks" },
+    K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+  entities: [{ type: "item_frame", at: [0, 1, 1], face: "front", item: { item: "minecraft:clock" } }],
+}

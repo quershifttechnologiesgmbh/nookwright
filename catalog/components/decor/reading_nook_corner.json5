@@ -1,0 +1,31 @@
+// I52 · Lesenische (research/52 §Möbel): Ohrensessel-Motiv (offene Falltüren als Armlehnen, Treppe als Sitz,
+// vgl. seat/wing_chair) direkt neben einer schmalen 3 hohen Bücherwand, damit Sitzplatz und Nachschub am
+// selben Fleck stehen (WaxFraud-Motiv „Sitzecke mit Regal“). Über dem Sessel ein Hänge-Socket für eine Leselampe.
+{
+  id: "decor/reading_nook_corner",
+  kind: "static",
+  name: "Lesenische",
+  category: "decor",
+  tags: ["reading_nook", "seat", "reading_nook_corner"],
+  functionTags: ["sit", "read"],
+  styleTags: ["medieval", "noble", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BTSU"], // y0: Regalspalte | Armlehne | Sitz | Armlehne
+    ["B..."], // y1: Regal weiter, Luft über dem Sessel
+    ["B..."], // y2: Regal bis Kopfhöhe
+  ],
+  legend: {
+    B: { block: "minecraft:bookshelf" },
+    T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+    S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+    U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+  },
+  sockets: [
+    { id: "lamp", type: "hang", at: [2, 99, 0], accepts: ["light_pendant"], prob: 0.6 },
+    { id: "book_top", type: "surface", at: [0, 3, 0], accepts: ["candles", "tabletop_small"], prob: 0.4 },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

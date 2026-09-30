@@ -1,0 +1,28 @@
+// research/56 · Schmiedeeiserner Laternenpfahl (DA Lights: Lanterns, Stil „Stadt“ statt `outdoor/lamp_post`
+// Holz/Dorf): dünner Schaft aus Eisengittern auf Eisenblock-Sockel, stehende Laterne obendrauf. Für Platz,
+// Markt, Hafenstadt.
+{
+  id: "outdoor/lamp_post_iron",
+  kind: "static",
+  name: "Laternenpfahl (Eisen)",
+  category: "light",
+  tags: ["light", "light_floor", "lamp_post", "outdoor", "plaza", "market"],
+  functionTags: ["light"],
+  styleTags: ["harbor", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["B"], // y0: Sockel
+    ["I"], // y1: Schaft
+    ["I"], // y2: Schaft
+    ["I"], // y3: Schaft
+    ["L"], // y4: Laterne
+  ],
+  legend: {
+    B: { block: "minecraft:iron_block" },
+    I: { block: "minecraft:iron_bars" },
+    L: { role: "light_hanging", shape: "lantern" },
+  },
+  light: "auto",
+}

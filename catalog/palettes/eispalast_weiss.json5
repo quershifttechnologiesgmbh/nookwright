@@ -1,0 +1,79 @@
+// Eispalast Weiss – winterlich, Biome: ice_spikes, snowy_taiga, Stile: fantasy.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "eispalast_weiss",
+  name: "Eispalast Weiß",
+  mood: "winterlich",
+  biomes: ["ice_spikes", "snowy_taiga"],
+  styles: ["fantasy"],
+  values: ["minecraft:snow_block", "minecraft:white_concrete", "minecraft:blue_ice", "minecraft:packed_ice", "minecraft:light_blue_stained_glass"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { block: "minecraft:snow_block", weight: 55 },
+        { block: "minecraft:white_concrete", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:packed_ice", weight: 60 },
+        { block: "minecraft:blue_ice", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "stone_bricks", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { block: "minecraft:blue_ice", weight: 55 },
+        { block: "minecraft:packed_ice", weight: 45 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { block: "minecraft:diamond_block", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "spruce", shape: "stripped_log", weight: 70 },
+        { family: "spruce", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { block: "minecraft:packed_ice", weight: 55 },
+        { block: "minecraft:snow_block", weight: 45 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:light_blue", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:light_blue", shape: "stained_glass_pane", weight: 60 },
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 40 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:sea_lantern", weight: 60 },
+        { block: "minecraft:soul_lantern", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "spruce", shape: "leaves", weight: 60 },
+        { block: "minecraft:snow", weight: 40 },
+      ],
+    },
+  },
+}

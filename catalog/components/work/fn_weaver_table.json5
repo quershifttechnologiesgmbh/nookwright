@@ -1,0 +1,32 @@
+// FN-Dense · Webertisch (Raummitte der Nähstube): zwei Webstühle an einer Tischplatte mit Wollballen (Vorbild: Weber-/
+// Färbereien der Community mit zentralem Arbeitstisch statt leerer Mitte). 5 breit, 2 tief, 3 hoch. Webstuhl = Schäfer-
+// Arbeitsblock (Faktencheck #7). Platte aus umgedrehten Halbstufen. Symmetrisch in der Breite. Insel-Eintrag von
+// `weaving_room` (Tag `fn_weaving_island`).
+{
+  id: "work/fn_weaver_table",
+  kind: "static",
+  name: "Webertisch",
+  category: "work",
+  tags: ["fn_weaving_island"],
+  functionTags: ["craft", "work:shepherd"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["PwwwP", "P...P"], // y0: Beine, hinten Wollballen
+    ["sssss", "sssss"], // y1: Platte
+    ["M.b.M", ".l.l."], // y2: Webstuhl | Wollballen | Webstuhl; Laternen
+  ],
+  legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        w: { block: "minecraft:white_wool" },
+        b: { block: "minecraft:blue_wool" },
+        M: { block: "minecraft:loom", orient: { front: "front" } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

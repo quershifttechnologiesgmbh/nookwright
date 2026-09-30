@@ -1,0 +1,40 @@
+// SD Grundstücks-Deko: Kürbis- bzw. Melonenbeet (Gartenerde, Früchte in Reihen, Grasbüschel dazwischen).
+{
+  id: "outdoor/sd_pumpkin_patch",
+  kind: "static",
+  name: "Kürbisbeet",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_pumpkin_patch"],
+  styleTags: ["cottage", "rustic", "village", "farm"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  variants: [
+    {
+      id: "pumpkin",
+      weight: 3,
+      layers: [
+        ["sssss", "sssss", "sssss"],
+        ["P.g.P", "..P..", "P.g.P"],
+      ],
+      legend: {
+        s: { role: "garden_soil", shape: "block" },
+        P: { block: "minecraft:pumpkin" },
+        g: { role: "grass_tuft", shape: "block" },
+      },
+    },
+    {
+      id: "melon",
+      weight: 2,
+      layers: [
+        ["sssss", "sssss", "sssss"],
+        ["M.g.M", "..M..", "M.g.M"],
+      ],
+      legend: {
+        s: { role: "garden_soil", shape: "block" },
+        M: { block: "minecraft:melon" },
+        g: { role: "grass_tuft", shape: "block" },
+      },
+    },
+  ],
+}

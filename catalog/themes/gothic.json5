@@ -1,0 +1,195 @@
+// Gotik (FN M9/M11-Vorstufe, plan/spikes/FN_inspiration_gebaeude.md §3.5): dunkler Schiefer- und Tiefenschieferstein mit
+// hellen Gesimsen und Eckquadern, sehr dunkles, steiles Schieferdach, Turmhelme aus grünspanigem Kupfer, dunkle Eiche,
+// Eisen, tiefes Glas. Erbt Böden, Möbel, Außenwelt von medieval.
+// Farbe trägt hier nur die Fläche; Strebepfeiler, Fialen und Spitzbögen sind Formen der Gebäudetypen (Empfehlung im
+// Bericht `plan/spikes/FN_themes_gotik_asien.md`) – das Theme liefert dafür die Rollen `wall_quoin`/`wall_cornice`
+// (hell) und `roof_tower` (Kupferhelm).
+// Vorbilder: blockblend.app/palettes/gothic (deepslate_bricks, polished_blackstone_bricks, dark_oak, Eisen, gilded_blackstone),
+// Kathedralen mit Kupferdach und Kupferturm (en.wikipedia.org/wiki/Gothic_architecture).
+{
+  id: "gothic",
+  mood: { formality: 0.5, richness: 0.5, wear: 0.25 },
+  name: "Gotik",
+  description: "Dunkler Tiefenschieferstein mit hellen Gesimsen, sehr dunkles Schieferdach, Kupfer-Turmhelme, dunkle Eiche und Eisen",
+  base: "medieval",
+  roles: {
+    // Dunkel unten, nach oben etwas heller; Tonordnung in allen Stopps hell → dunkel
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        jitter: 0.1,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "stone_bricks", weight: 25 },
+            { family: "deepslate_bricks", weight: 45 },
+            { family: "cobbled_deepslate", weight: 30 },
+          ] },
+          { at: 0.5, mix: [
+            { family: "stone_bricks", weight: 40 },
+            { family: "deepslate_bricks", weight: 60 },
+          ] },
+          { at: 1, mix: [
+            { family: "andesite", weight: 25 },
+            { family: "stone_bricks", weight: 50 },
+            { family: "deepslate_bricks", weight: 25 },
+          ] },
+        ],
+      },
+      noise: { type: "cells", cell: 3 },
+    },
+    // Innenwände: kühler heller Stein statt Kalkputz (ein Steinhaus von innen)
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        interpolate: "ease",
+        stops: [
+          { at: 0, mix: [
+            { family: "andesite", weight: 30 },
+            { family: "stone_bricks", weight: 70 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 35 },
+            { family: "andesite", weight: 25 },
+            { family: "stone_bricks", weight: 40 },
+          ] },
+        ],
+      },
+      noise: { type: "cells", cell: 3 },
+      fallback: ["quartz"],
+    },
+    foundation: {
+      mix: [
+        { family: "deepslate_bricks", weight: 55 },
+        { family: "cobbled_deepslate", weight: 45 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Helle Gliederung auf dunklem Grund: Eckquader, Gesims, Sockelprofil in Steinziegeln bzw. Andesit
+    wall_quoin: { family: "andesite" },
+    wall_cornice: { family: "andesite" },
+    wall_plinth: { family: "stone_bricks" },
+    portal_stone: { family: "stone_bricks" },
+    // Giebelfeld: helleres Mauerwerk als Fläche (Giebel trägt das Maßwerk-Feld)
+    wall_gable: {
+      mix: [
+        { family: "andesite", weight: 15 },
+        { family: "stone_bricks", weight: 85 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    // Sehr dunkles Schieferdach in ganzen Ringen; Kante hell (Steinziegel) für die Silhouette
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        patch: 0.05,
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 0.25, mix: [{ family: "polished_blackstone_bricks", weight: 1 }] },
+          { at: 1, mix: [{ family: "polished_blackstone_bricks", weight: 1 }] },
+        ],
+      },
+    },
+    roof_trim: { family: "stone_bricks" },
+    roof_barn: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 1, mix: [{ family: "polished_blackstone_bricks", weight: 1 }] },
+        ],
+      },
+    },
+    // Turmhelme: Grünspan-Kupfer wie die Dächer gotischer Kathedralen
+    roof_tower: { family: "waxed_oxidized_copper" },
+    crown_cap: { family: "stone_bricks" },
+    hoarding: { family: "dark_oak" },
+    fort_base: {
+      mix: [
+        { family: "deepslate_bricks", weight: 45 },
+        { family: "cobbled_deepslate", weight: 55 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    parapet: {
+      mix: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "deepslate_bricks", weight: 40 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    // Holz dunkel: Balken, Rahmen, Türen, Läden
+    beam: { family: "dark_oak" },
+    pillar: { family: "dark_oak" },
+    door: { family: "dark_oak" },
+    window_frame: { family: "dark_oak" },
+    shutter: { family: "dark_oak" },
+    ceiling: { family: "dark_oak" },
+    floor_primary: {
+      mix: [
+        { family: "dark_oak", weight: 88 },
+        { family: "spruce", weight: 12 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 1, boards: 4 },
+    },
+    floor_stone: {
+      mix: [
+        { family: "polished_andesite", weight: 35 },
+        { family: "stone_bricks", weight: 40 },
+        { family: "polished_deepslate", weight: 25 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    furniture_wood: { family: "dark_oak" },
+    // Getönte Scheiben, dunkle Textilien (Rot/Schwarz)
+    window: { color: "gray", shapes: { pane: "stained_glass_pane" } },
+    textile_primary: { color: "red" },
+    textile_accent: { color: "black" },
+    textile_neutral: { color: "gray" },
+    light_hanging: { family: "iron" },
+    metal: { family: "iron" },
+    hearth_alt: { family: "deepslate_bricks" },
+    lining_panel: { family: "dark_oak" },
+    lining_trim: { family: "spruce" },
+    // Außenwelt: karger, kühler Grund
+    ground_yard: {
+      mix: [
+        { family: "stone_bricks", weight: 35 },
+        { family: "cobblestone", weight: 25 },
+        { family: "andesite", weight: 25 },
+        { family: "cobbled_deepslate", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+  },
+
+  facade: { bay: 3 },
+  paletteRoleMap: {
+    wall_primary: ["wall_primary", "foundation", "fort_base"],
+    wall_secondary: ["wall_secondary", "wall_gable"],
+  },
+
+  surfaces: {
+    // Wände ohne Fachwerk-Obergeschoss (Steinbau in allen Geschossen); innen Vertäfelung unten, darüber Stein
+    wall: [
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+    // Geschossband als helles Gesims; innen die Schwelle aus dunkler Eiche
+    footing: [
+      { when: { exterior: true, storey: [1, 16] }, role: "wall_cornice", shape: "block" },
+      { when: { storey: [1, 16] }, role: "beam", shape: "log", along: true },
+      { when: { exterior: false, bottomStorey: false }, role: "beam", shape: "log", along: true },
+      { role: "foundation" },
+    ],
+    ceiling: [
+      { when: { exterior: true }, plate: { role: "wall_primary", shape: "block", corner: "block" } },
+      { beams: { role: "beam", period: 3 }, plate: { role: "beam" } },
+    ],
+  },
+}

@@ -1,0 +1,48 @@
+// K3a · Handtuchhalter (research/17 §4.9, W2/W4): Zäune, darauf weiße Teppiche als gefaltete Tücher (Teppich auf
+// Zaun hält, FC #4). Rücken zur Wand. Variante „hook“: daneben ein langes Tuch (weißes Wandbanner) an einem
+// zweiten, höheren Pfosten (Banner halten an Zäunen, T5 #9); das Tuch hängt einen Block tief → davor Luft.
+{
+  id: "decor/towel_rack",
+  kind: "static",
+  name: "Handtuchhalter",
+  category: "decor",
+  tags: ["towel_rack", "bath_decor"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pair",
+      weight: 2,
+      layers: [["FF"], ["ww"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        w: { block: "minecraft:white_carpet" },
+      },
+    },
+    {
+      id: "single",
+      weight: 1,
+      layers: [["F"], ["w"]],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        w: { block: "minecraft:white_carpet" },
+      },
+    },
+    {
+      // gefaltetes Tuch auf dem niedrigen Pfosten, daneben ein langes Tuch am hohen Pfosten
+      id: "hook",
+      weight: 2,
+      layers: [
+        ["FF", "._"], // y0: zwei Pfosten; vor dem rechten Luft (das Tuch hängt hinein)
+        ["wF", ".V"], // y1: Tuch auf dem Pfosten | hoher Pfosten mit Tuch vorn
+      ],
+      legend: {
+        F: { role: "furniture_wood", shape: "fence" },
+        w: { block: "minecraft:white_carpet" },
+        V: { block: "minecraft:white_wall_banner", orient: { attachTo: "back" } },
+      },
+    },
+  ],
+}

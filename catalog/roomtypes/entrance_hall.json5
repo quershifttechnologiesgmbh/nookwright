@@ -1,0 +1,37 @@
+// Eingangshalle / Foyer (research/17 §4.1, E1–E6). K3a. Signatur: Läufer auf der Achse Tür → Rückwand (6/6). An der
+// Tür Mantelständer bzw. Wandbank und die Wegweiser-Tafel, hinten (Zone `stage`, große Hallen) Wandteppich und
+// Sockel-Paar. Wenig Möbel (coverage 0.25), damit die Halle wirkt. Drei Ebenen (V3 „mehr in die Höhe“): Boden
+// (Läufer, Kübel, Sockel), Wand (Wandpfeiler bis zur Decke, Wandteppich unter der Decke, Wappen, Kopf-Trophäe),
+// Decke (Deckenbanner, Kronleuchter an der Kette). ERW X7 (`axis`, `symmetry` für Spiegelpaare) steht noch aus.
+{
+  id: "entrance_hall",
+  name: "Eingangshalle",
+  minArea: 20,
+  coverage: { target: 0.25 },
+  zones: [{ id: "entry", doorAffinity: "near" }, { id: "stage", doorAffinity: "far" }],
+  required: [
+    { tags: ["fn_runner", "runner_rug"], count: [1, 1], signature: true, placement: { zones: ["center"] } },
+    { tags: ["coat_stand", "wall_bench", "coat_rack_mirror"], count: [1, 2], zone: "entry", placement: { zones: ["edge", "corner"], doorAffinity: "near" } },
+  ],
+  optional: [
+    { tags: ["room_directory"], count: [0, 1], weight: 4, zone: "entry", placement: { doorAffinity: "near" } },
+    { tags: ["plant_large"], count: [1, 2], weight: 4, placement: { zones: ["corner", "edge"] } },
+    // Säulenhalle (E1/E4): Wandpfeiler bzw. Pfeiler-Buchten im Takt an den Längswänden
+    { tags: ["pilaster", "gallery_bay", "gallery_wall_cluster"], count: [0, 4], weight: 3, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 2 } },
+    { tags: ["fn_tapestry", "tapestry", "wall_banner"], count: [2, 4], weight: 4, zone: "stage" },
+    // FN (Innenraum-Offensive): Konsole/Anrichte an der Wand, Ecken belegen, Kerzenständer am Weg
+    { tags: ["sideboard", "tall_clock"], count: [0, 2], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["fn_corner"], count: [1, 3], weight: 4, placement: { zones: ["corner"] } },
+    { tags: ["candle_stand"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["fn_tapestry", "wall_banner"], count: [1, 2], weight: 3, zone: "entry" },
+    { tags: ["pedestal"], count: [0, 2], weight: 2, zone: "stage", placement: { zones: ["edge", "corner"] } },
+    { tags: ["wall_weapons"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["chest"], count: [0, 1], weight: 1, zone: "entry", placement: { zones: ["corner"] } },
+    // V3 (Raumhöhe nutzen): Decke und obere Wand
+    { tags: ["ceiling_banner"], count: [1, 2], weight: 3 },
+    { tags: ["head_trophy", "shield_display"], count: [0, 1], weight: 1 },
+    { tags: ["chandelier", "light_ceiling"], count: { perArea: 25, min: 1, max: 3 }, weight: 4 },
+    { tags: ["light_wall"], count: [0, 4], weight: 2 },
+  ],
+  lighting: { minLevel: 7, prefer: ["chandelier", "light_ceiling", "light_wall", "candles", "light_floor"] },
+}

@@ -1,0 +1,8 @@
+// Braustand als Deko auf einem Bord (research/11 §2.2 „Flaschen-Deko“) – vorsichtig ohne Flaschen, weil
+// `has_bottle_*` zum Inhalt passen muss (A1) und Braustand-Inhalte noch nicht materialisiert werden.
+// Braucht keine Stütze. Licht 1.
+{ id: "decor/brewing_stand", kind: "static", name: "Braustand (Deko)", category: "decor",
+  tags: ["alchemy_small"], functionTags: ["brew"], styleTags: ["arcane"], obtainability: "survival",
+  mount: "surface", rotations: [0],
+  layers: [["B"]], legend: { B: { block: "minecraft:brewing_stand" } },
+  light: "auto" }

@@ -1,0 +1,13 @@
+{
+  "name": "@mcda/terrain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Gelände: Aggregat Site (Grundstück, Außenbereiche, Terraforming) und reiner Generator (Höhenfeld, Fundament, Wege, Felder, Gärten, Teiche, Vegetation) → ShellCell[] mit kind terrain/plant.",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "json5": "^2.2.3",
+    "zod": "^4.6.5"
+  }
+}

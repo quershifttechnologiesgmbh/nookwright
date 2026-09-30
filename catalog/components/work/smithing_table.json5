@@ -1,0 +1,5 @@
+{ id: "work/smithing_table", kind: "static", name: "Schmiedetisch", category: "work",
+  tags: ["smithing_table", "work"], functionTags: ["work:toolsmith"], obtainability: "survival",
+  mount: "floor", rotations: [0],
+  layers: [["S"]], legend: { S: { block: "minecraft:smithing_table" } },
+  masks: { use: [{ side: "front" }] } }

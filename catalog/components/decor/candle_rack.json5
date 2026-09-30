@@ -1,0 +1,22 @@
+// K2 · Opferkerzen (DA Lights: Candles / Furniture: Religious): Bord aus oberen Glattstein-Stufen vor der
+// Wand, darauf weiße Kerzen in verschiedener Zahl (T5 #3: Kerzen auf oberer Stufe).
+{
+  id: "decor/candle_rack",
+  kind: "static",
+  name: "Opferkerzen",
+  category: "decor",
+  tags: ["candle_rack", "religious"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [["SSS"], ["abc"]],
+  legend: {
+    S: { block: "minecraft:smooth_stone_slab", orient: { upsideDown: true } },
+    a: { block: "minecraft:white_candle", state: { candles: "3", lit: "true" } },
+    b: { block: "minecraft:white_candle", state: { candles: "4", lit: "true" } },
+    c: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+  },
+  light: "auto",
+}

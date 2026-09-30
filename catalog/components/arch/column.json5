@@ -1,0 +1,77 @@
+// K3d · Innensäule / Ständer in weiten Räumen (research/16 I9, P2; S5 „Details“: Säulen „best for WIDE
+// interiors“, S9 „Wall Dividers“, S4 „Structural support“; research/11 R-5 Säule im Thronsaal).
+// Adaptiv (V3 `stretch`, fill `ceiling`): der Schaft wächst genau bis unter die Decke – Säule = Boden → Decke.
+// Kapitell aus umgedrehten Treppen zu 4 Seiten (Rücken an den Schaft: volle Seite am Stamm, Stufe nach außen =
+// Konsole). Die Kapitell-Zellen liegen auf Deckenhöhe (≥ Boden + 2) über freiem Boden: kein Laufweg belegt.
+// „timber“: Holzständer (Rolle `beam`), „stone“: Steinsäule mit gemeißelter Basis (Rolle `wall_cornice` =
+// saubere Steinziegel, Thronsaal ohne Moos, research/11 §2.5), „braced“: Ständer mit Sattelholz und
+// Kopfbändern (Fachwerk-Halle, ab lichter Höhe 4, Streben erst über Kopfhöhe).
+// Unterzüge über die ganze Raumbreite (Balkenraster) gehören zur Hülle – Wunsch im Bericht K3d.
+{
+  id: "arch/column",
+  kind: "static",
+  name: "Säule",
+  category: "architecture",
+  tags: ["column", "pillar_free"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  minRoomHeight: 3,
+  variants: [
+    {
+      id: "timber",
+      weight: 3,
+      layers: [
+        ["...", ".L.", "..."], // y0: Stamm
+        ["...", ".L.", "..."], // y1: Stamm (wird bis zur Decke gedehnt)
+        [".n.", "wLe", ".s."], // y2: Kapitell unter der Decke
+      ],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "y" } },
+        n: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+        s: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        w: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        e: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+    {
+      id: "stone",
+      weight: 3,
+      layers: [
+        ["...", ".B.", "..."], // y0: gemeißelte Basis
+        ["...", ".M.", "..."], // y1: Schaft (gedehnt)
+        [".n.", "wBe", ".s."], // y2: Kapitell
+      ],
+      legend: {
+        B: { block: "minecraft:chiseled_stone_bricks" },
+        M: { role: "wall_cornice", shape: "block" },
+        n: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "front" } },
+        s: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        w: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        e: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+    {
+      // Ständer mit Sattelholz (liegender Balken quer) und Kopfbändern auf Höhe Boden + 2 (ab lichter Höhe 4)
+      id: "braced",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [
+        [".L."], // y0
+        [".L."], // y1 (gedehnt)
+        ["kLK"], // y2: Kopfbänder (umgedrehte Treppen, Rücken zum Ständer)
+        ["HHH"], // y3: Sattelholz, Stamm liegend quer
+      ],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "y" } },
+        k: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        H: { role: "beam", shape: "log", orient: { axis: "along" } },
+      },
+      stretch: { layer: 1, max: 12, fill: "ceiling" },
+    },
+  ],
+}

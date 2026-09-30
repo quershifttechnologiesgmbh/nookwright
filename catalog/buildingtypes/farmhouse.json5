@@ -1,0 +1,120 @@
+// BT07 Bauernhaus (research/19 §4): Wohnhaus mit Wohnküche am Eingang, Stube, Kammern, Lager; in L zweistöckig mit
+// der Scheune als eigenem Baukörper daneben (Stall, Lager; Mansard-Satteldach). Krüppelwalmdach 1:1 (W2 D5, vorher steil), Sockel;
+// Gehöft-Gelände (Hof, Garten, Feld, Koppel, Obstgarten).
+// Referenzen: Ripee123 20×16×15, Strange_Chemicals-Scheune 20×14×15.
+{
+  id: "farmhouse",
+  name: "Bauernhaus",
+  family: "house",
+  themes: ["rustic", "medieval"],
+  sizes: {
+    // W13-A (28.09.2026): Anbau ab M (Komposition statt Kiste). Runde 2: in S ohne – mit dem Anbau hinten links entstand in S
+    // (Seed 11) ein Wegmuster, das der Windrad-Wächter nicht beheben kann (Wegeblöcke)
+    S: { footprint: [[11, 9], [15, 11]], floors: 1 },
+    // W9-G3 (27.09.2026, Review R5 G3): die Scheune gehört schon in M zum Hof – ohne sie liest sich das Bauernhaus als
+    // Wohnhaus (Community-A/B 0:0:3, JEV „Bauernhof mit Scheune“ ohne Scheune). Vorbilder: Scheune ≥ Wohnteil
+    // (Historic England, Pennsylvania Barn), Standard 9×13 bis 11×15 (minecraftgradient.blog).
+    M: { footprint: [[15, 11], [19, 13]], floors: [1, 2], parts: ["barn", "annex"] },
+    L: { footprint: [[17, 11], [21, 13]], floors: 2, parts: ["barn", "annex"] },
+  },
+  massing: {
+    generator: "wings",
+    ratio: [1.3, 1.9],
+    wings: {},
+    // W9-G1 (27.09.2026, Review R5 G1): Baumasse-Akzente statt Kiste – L-Bauernhaus mit Querflügel an einer Ecke (Hall-and-crosswing,
+    // vernacularbuildingglossary.org.uk; Vorbild YT lkJ8zbYotGQ)
+    features: { cross: { width: [7, 9], depth: [4, 5], align: "corner" } },
+  },
+  // W9-G3 (27.09.2026): die Scheune ist ein Ensemble-Teil (research/19 §7.4) statt eines Flügels – nur so hat sie eine
+  // eigene, höhere Geschosshöhe und eigene Dach-Details: eine hohe Tenne unter einem ungeteilten Mansard-Satteldach
+  // (Heuboden), Giebel zur Hofseite. Vorbilder: Pennsylvania Barn/Bank Barn (Steinsockel, Holz darüber, Heuboden
+  // unter dem Dach), Dreschscheune mit Toren (British Listed Buildings), Scheune ≥ Wohnteil (Historic England).
+  parts: {
+    // W13-A (28.09.2026, Komposition der Baumasse; plan/spikes/W13A_komposition.md): niedriger Anbau (Backstube bzw.
+    // Waschküche) an der Rückseite – eigener Baukörper mit eigenem, quer laufendem Satteldach und lichter Höhe 3, also
+    // tieferer Traufe und tieferem First als das Wohnhaus („big house, little house“, L-Grundriss). Runde 2: hinten links statt mittig – mittig wanderte die Haustür oft auf die Hofseite zur Scheune (die
+    // Augenhöhe stand dann im Hof vor der Scheune; website/test/camera-rig „Gehöft“). Er schließt außen an die Wand des
+    // Wohnhauses an (der höhere Baukörper trägt die Brandwand). Hinten statt
+    // seitlich: Haus + Anbau + Abstand + Scheune bleiben im Raster der App (40 breit), und die Fenster der Wohnküche bleiben
+    // frei. Vorbilder: YT lkJ8zbYotGQ (Cottage mit Anbau), reddit 1s1my20 (Anbauten mit eigenem Dach), Minecraft-Tutorials
+    // „roof layering“ (mehrere Körper, gestaffelte Firste).
+    annex: {
+      name: "Anbau",
+      massing: "rect",
+      footprint: [[7, 5], [9, 7]],
+      floors: 1,
+      floorHeight: 3,
+      anchor: { side: "back", align: "start", gap: 0 },
+      roof: "gable",
+    },
+    barn: {
+      name: "Scheune",
+      massing: "hall",
+      // [quer vom Haus weg, entlang der Hausseite]: der First läuft vom Haus weg, der Mansard-Giebel zeigt nach
+      // außen (im Hero-Blick sichtbar); die Scheune ist kürzer als die Hausseite und steht an der Rückseite
+      // („start“), die Straßenfront bleibt dem Wohnhaus
+      // W12-C: Giebelbreite ungerade (M 11, L 13) – Scheunentor und Heuluke liegen spiegelsymmetrisch auf der Mittelachse
+      footprint: [[13, 11], [15, 11]],
+      floors: 1,
+      floorHeight: 5,
+      sizes: { L: { footprint: [[13, 13], [15, 13]] } },
+      anchor: { side: "right", align: "start", gap: 4 },
+      roof: "gambrel",
+      // W12-C: keine Giebelfenster mehr (das Kreuzfenster im Giebel wich der Heuluke)
+      roofDetail: { pitch: "normal", trim: true, gableWindows: false },
+      // W12-C (Review R6-4, Vorbilder: rote Scheunen mit weißem Rahmen, Tor im Giebel, Heuluke darüber – thisoldhouse.com,
+      // en.wikipedia.org/wiki/Hay_hood, phmc.state.pa.us „Hay Hood and Door“): helle Dachkante und Eckbretter nur an der
+      // Scheune (`trim_light`), Scheunentor mittig im Außengiebel mit Heuluke und Heubalken, keine Blumenkästen (Nutzbau)
+      // W16-B (Review R7-2): eigenes, dunkles Scheunendach (`roof_barn`) statt derselben Deckung wie das Wohnhaus
+      exterior: { trim: "trim_light", roof: "roof_barn", off: ["flowerBoxes"], barn: true },
+    },
+  },
+  entrance: "kitchen",
+  program: [
+    { room: "kitchen", floor: "ground", share: 0.35, required: true, near: "entrance" },
+    { room: "solar", floor: "ground", share: 0.25, minArea: 20, prob: 0.7 },
+    { room: "storage", floor: "ground", share: 0.15, prob: 0.8 },
+    { room: "bedroom", floor: "top", count: [1, 3], minArea: 15, required: true },
+    { room: "nursery", floor: "upper", minArea: 12, prob: 0.5 },
+    { room: "attic", floor: "upper", prob: 0.5 },
+    { room: "weaving_room", floor: "upper", prob: 0.3 },
+    { room: "stable", part: "barn", share: 0.7, required: true },
+    { room: "storage", part: "barn", fill: true },
+    // W13-A: Raum im Anbau (je Seed Backstube oder Waschküche); als letzter Eintrag, damit die Zufallsströme der übrigen
+    // Einträge (je Index) gleich bleiben
+    { room: ["bakery", "washroom"], part: "annex", required: true },
+  ],
+
+  // Funktionsgrad (W2-1): Mikrofarm (Kräutergarten, Anbauhalle) oder Kornkammer im Wohnhaus, Stallanlage in der Scheune;
+  // rich: mehr und größere Anlagen (Imkerei, Hühnerhaus im Anbau der Scheune).
+  functions: [
+    { room: "herb_garden", share: 0.26, replaces: ["solar", "storage"], weight: 3, group: "farm", minFloor: 130 },
+    { room: "crop_hall", share: 0.3, richShare: 0.36, replaces: ["solar", "storage"], weight: 2, group: "farm", sizes: ["M", "L"], minFloor: 180 },
+    { room: "storage_hall", share: 0.22, replaces: ["storage"], weight: 2, group: "store", minFloor: 130 },
+    { room: ["barn_farm", "chicken_house"], part: "barn", share: 0.45, richShare: 0.55, minArea: 30, replaces: ["storage"], weight: 4, group: "animals" },
+    { room: "apiary", part: "barn", level: "rich", share: 0.4, replaces: ["storage"], weight: 1, group: "animals", sizes: ["L"] },
+  ],
+  shell: {
+    roof: "half_hip",
+    overhang: 1,
+    // W2 (Baustandard D5): Neigung 1:1 statt steil – so bleibt das Dach im Höhen-Budget (First ≤ 1,5 × Traufhöhe und
+    // ≤ 2 Geschosse, eingeschossig ≤ Traufhöhe); die Neigung des Bautyps gilt genau (keine automatische Absenkung)
+    roofDetail: { pitch: "normal", trim: true, verge: "closed", gableWindows: true },
+    // W16-B (Review R7-4): die Wohnküche mit Haustür bekommt immer ein Fenster – sie lag oft zwischen Haustür-Feld und
+    // Anbau ohne freies Fensterfeld (R7: `kitchen@E0` fensterlos in rustic und medieval)
+    facade: { plinthProfile: true, quoins: true, upperFrame: true, lightRooms: ["kitchen"] },
+  },
+  // W12-C (Review R6-4 „Veranda/Vordach fehlt“): Eingangsmodul Cottage in jedem Theme – Vordach auf zwei Pfosten vor der
+  // Haustür (Laube), Laternen darunter; vorher nur in rustic/farmstead (Theme-Wahl), medieval bekam das Steingewände
+  // ohne Dach. Vorbilder: Farmhaus-Veranda (theplancollection.com wraparound porches), Vordach (hoklartherm.de)
+  exterior: { density: 1, entranceModule: "cottage" },
+  // W16-B (28.09.2026, Review R7-2): reifes Weizenfeld direkt vor der Scheune, bündig zum Wohnhaus (der Silo steht am
+  // Außenende) – im ersten Blick liegt so ein goldenes Feld vor der roten Scheune statt leerer Wiese (Vorbilder review-r5
+  // farmhouse_1/_2; buildingguide.app „Minecraft farm designs“: Feld, Scheune und Silo als ein System)
+  site: { template: "homestead", style: "homestead", lighting: "paths", zones: [{ kind: "field", at: "front", part: "barn", depth: 8, width: 10, gap: 2, align: "inner" }] },
+  // W12-C (Review R6-4 „Silo fehlt“): runder Hochsilo an der Außenecke hinter der Scheune, ab Größe L (Vorbilder: rote
+  // Scheune mit Silo, reddit 1p5rck5; YouTube „Barn & Silo“ xcMV0TYs9sM; en.wikipedia.org/wiki/Silo)
+  structures: { silo: { part: "barn", sizes: ["M", "L"], side: "front", radius: 2, height: 18 } },
+  // W2 (Baustandard D5): Dach höchstens 1,5 × Traufhöhe; das Budget der Hülle senkt die Neigung (steil → normal → 1:2)
+  checks: { roofToEave: [0.4, 1.5], ratio: [1.2, 2.0] },
+}

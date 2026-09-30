@@ -1,0 +1,48 @@
+// Wiese (Standard): sanft gewellt, einzelne Baumgruppen, viele Blumen. Relief nach research/03 §C10 (fBm),
+// Fundament: 1 Block planiert, Überblendung über 6 Blöcke (Jigsaw „beard“), Talus ≤ 1 im Generator.
+{
+  id: "meadow",
+  name: "Wiese",
+  description: "Sanfte Hügel, Baumgruppen aus Eiche und Birke, Blumenwiese",
+  // Q3: freie Landschaft – Blumenwiese (L3: Blumenanteil am höchsten).
+  // W1-I (26.09.2026, W1E M1 „Grundstück zugemüllt“): keine freie Landschaft mehr. `outdoor/flower_cluster` legte seine
+  // Erdlage AUF das Gras (Katalog-Objekte stehen auf Geländehöhe + 1), jedes Beet war ein erhöhter Erdklotz – 89–100 %
+  // aller Gelände-Objekte, 78–113 je Grundstück. Die Blumen der Wiese wachsen jetzt nur noch über `vegetation.ground`
+  // (Flecken, direkt im Rasen). Versuchsweise Büsche (`outdoor/shrub_wall`) statt Beeten: deren Laub kollidierte beim
+  // Materialisieren mit Baumkronen (MergeViolation im Langhaus-Fuzz); Findlinge wirkten beliebig verstreut.
+  relief: { amplitude: 2, scale: 28, octaves: 3, gain: 0.5 },
+  soil: { depth: 3 },
+  // Wegbeleuchtung (research/37/38): Laterne am Hauptweg alle 8 Blöcke; vorher stand der Weg 29–43 Blöcke dunkel
+  lighting: { mode: "paths", every: { main: 8, side: 12 }, entry: true },
+  foundation: { pad: 1, blend: 6 },
+  // W1-I (26.09.2026, W1E M1 „Weg zur Tür“): Wegprofil statt 1 breiter Trampelpfad – die Zufahrt läuft von der
+  // Haustür in Türrichtung zum Grundstücksrand (2 breit, weicher Rand), Nebenwege 1 breit, Pfade als Trittsteine;
+  // vorher 7–13 Weg-Zellen je Grundstück, der Eingang war kaum zu finden.
+  // W3 (27.09.2026, Grundstücks-Module, plan/spikes/W3GA_grundstueck.md, 25 Vorbilder): Weg stößt direkt ans Gras,
+  // Rand ±1 ausgefranst im Wegmaterial (`bulge`, 10/12 Vorbildern) statt Erdflecken (`edge` 0); Straßenzaun mit Tor
+  // genau über dem Hauptweg und Laternen nur auf den Torpfosten (Öffnung in der Wegachse 4/4, Licht an jedem Pfosten
+  // 0/16); Zonen als feste Module (Hofecke, Gartenecke …, `kits`); Baumgruppen an den Ecken und hinter dem Haus, nie
+  // vor einer Fassade (0/16); Büsche nur als Unterholz und am Fundament; Blumen im Saum (`near`).
+  // W4 (27.09.2026, Review M3): Vorplatz 3 × 6 vor der Tür als Pflaster aus einer Rolle (≤ 3 Blockarten)
+  paths: { profile: { main: 2, side: 1, edge: 0, bulge: 0.3, median: false, stepping: true, forecourt: 6 } },
+  // W4 (27.09.2026, plan/spikes/W4A_zaeune.md): schlanke Zaunlinie (Stamm nur an Enden und Torpfosten) und
+  // Straßenzaun nur vor dem Haus (Vorgartenzaun)
+  fences: { lanterns: "gate", street: true, logEvery: 12, streetSpan: "front" },
+  // W3: Brunnenhaus im Hof (Langhaus), Beet an der Hauptfassade beidseits der Tür (7/16 Vorbildern)
+  decor: { well: "roofed", beds: true, kits: true },
+  vegetation: {
+    // Wiese: Baumgruppen statt Einzelbäume (harte Schwelle auf der Waldmaske, research/30 K6)
+    // W1-I (26.09.2026): weniger Bäume, dichter gruppiert (Dichte 0,45 → 0,15, Schwelle 0,25 → 0,45), weniger
+    // Einzelbüsche in der Fläche (0,35 → 0,15); die Büsche am Hausfundament bleiben
+    trees: { spacing: 9, density: 0.15, threshold: 0.45, species: { oak: 60, birch: 30, spruce: 10 },
+      groups: { size: [2, 3], every: 96, rim: [2, 6], understory: 1 } },
+    bushes: { spacing: 7, density: 0, foundation: 0.55 },
+    // Blumen in Flecken statt Konfetti (research/37, research/38)
+    ground: { spacing: 1, density: 0.95, threshold: 0.3, flowers: 0.7, carpet: 0.1,
+      // Q3: dichteste Blumenflecken aller Stile (research/51 §4/§7)
+      clusters: { spacing: 4, radius: [1, 3], core: 0.85, edge: 0.3 },
+      near: { distance: 3, open: 0.2 } },
+    // W1-I: Vorplatz vor der Tür 2 → 5 frei (Tür und Weg lesbar)
+    keepFree: [{ along: "path", distance: 1 }, { around: "door", distance: 5 }],
+  },
+}

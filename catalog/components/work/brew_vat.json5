@@ -1,0 +1,59 @@
+// K3b · Braubottich (research/17 §4.19, Br1/Br2/Br4): 3 × 3-Bottich, unten Honigblöcke als Würze (orange,
+// Kreuz) mit Planken in den Ecken, oben ein Rand aus offenen Falltüren (Paneel liegt gegenüber `front` → hier an
+// der Außenkante) mit Stamm-Pfosten in den Ecken. Honig ist klebrig: er liegt IM Bottich, nie auf dem Laufweg.
+// „paddle“: Rührholz (zwei Zäune) steht in der Würze. Bewusst KEINE Wasser-Variante: ob Wasser in einem Ring aus
+// offenen Falltüren bleibt, ist ungeprüft (research/17 T11) – sie folgt nach dem Ingame-Test. Kompaktform der
+// Brauhaus-Signatur ist der Braukessel über Feuer (Tag `brew_kettle`).
+{
+  id: "work/brew_vat",
+  kind: "static",
+  name: "Braubottich",
+  category: "work",
+  tags: ["brew_vat", "brewing_beer"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "wort",
+      weight: 3,
+      layers: [
+        ["PHP", "HHH", "PHP"], // y0: Würze (Honigblöcke), Planken in den Ecken
+        ["KNK", "W_E", "KSK"], // y1: Rand aus Falltüren, Mitte offen
+      ],
+      legend: {
+        P: { role: "beam", shape: "planks" },
+        H: { block: "minecraft:honey_block" },
+        K: { role: "beam", shape: "log", orient: { axis: "y" } },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        S: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+      },
+    },
+    {
+      id: "paddle",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["PHP", "HHH", "PHP"],
+        ["KNK", "WfE", "KSK"], // Rührholz steht in der Würze
+        ["...", ".f.", "..."], // und ragt über den Rand
+      ],
+      legend: {
+        P: { role: "beam", shape: "planks" },
+        H: { block: "minecraft:honey_block" },
+        K: { role: "beam", shape: "log", orient: { axis: "y" } },
+        N: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        S: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+        W: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        E: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        f: { role: "furniture_wood", shape: "fence" },
+      },
+    },
+  ],
+  // Hopfen/Kräuter über dem Bottich (V3 `hang`: über Möbeln darf es tiefer hängen)
+  sockets: [{ id: "hops", type: "hang", at: [1, 99, 1], accepts: ["hang_small", "light_pendant"], prob: 0.5 }],
+  masks: { use: [{ side: "front" }] },
+}

@@ -1,0 +1,34 @@
+// W7-D · Fantasy-Modul „Banner“ (plan/spikes/W7D_fantasy.md): ein einfarbiges Wandbanner je Fassadenseite, hoch oben –
+// an der Giebelseite mittig unter der Giebelzier, an der Traufseite am mittleren Rasterpfosten direkt unter der Traufe
+// (unter der Traufkonsole). Vorbilder D5/D7: „1 einfarbiges Banner je Seite, hoch oben“; zwischen den Fenstern hängt in
+// keinem Vorbild ein Banner. Einfarbig, ohne Muster (keine Ornament-Figuren, HANDOFF §1).
+//
+//   Schnitt     B Wandbanner (fester Block dahinter, Faktencheck #9)
+//     y1  B     _ Luft: das Banner hängt optisch eine Zelle tiefer
+//     y0  _
+//
+// Kits: `elven` Grün (fest; Weiß verschwand auf dem Kalzit-Giebel, das Hellgrün der Theme-Akzentrolle wirkte grell),
+// `dwarven` Rot (fest, wie D5/D7). Feste Farben, weil das Kit auch in anderen Themes zuschaltbar ist.
+{
+  id: "exterior/fantasy_banner",
+  kind: "static",
+  name: "Banner (hoch an der Fassade)",
+  category: "decor",
+  tags: ["exterior", "exterior_facade", "exterior_fantasy", "outdoor"],
+  styleTags: ["elven", "dwarven"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "elven",
+      layers: [["_"], ["B"]],
+      legend: { B: { block: "minecraft:green_wall_banner", orient: { attachTo: "back" } } },
+    },
+    {
+      id: "dwarven",
+      layers: [["_"], ["B"]],
+      legend: { B: { block: "minecraft:red_wall_banner", orient: { attachTo: "back" } } },
+    },
+  ],
+}

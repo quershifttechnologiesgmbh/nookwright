@@ -1,0 +1,30 @@
+// I52 · Deckenbalken mit Laternenpaar (research/52 §Decke): ein Stamm quer unter der Decke, an beiden Enden
+// eine Kette mit stehender Laterne — verstecktes Licht direkt am sichtbaren Konstruktionsbalken statt am
+// Kronleuchter in der Mitte (Lichtabstands-Logik aus research/37 §2.4, hier als Bauteil).
+{
+  id: "light/ceiling_beam_lantern_pair",
+  kind: "static",
+  name: "Deckenbalken mit Laternenpaar",
+  category: "light",
+  tags: ["light", "light_ceiling", "decor_ceiling"],
+  functionTags: ["light"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0, 1],
+  minRoomHeight: 3,
+  layers: [
+    ["L_L"], // y0: Laternen (unterste Zelle, hängt am tiefsten)
+    ["C_C"], // y1: Ketten an beiden Enden
+    ["BBB"], // y2: Deckenbalken (oberste Zelle, liegt an der Decke an)
+  ],
+  legend: {
+    B: { role: "beam", shape: "log", orient: { axis: "along" } },
+    C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+    L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+  },
+  // Stütze IMMER 'center' prüfen (wie light/hanging_lantern, decor/amethyst_hanging „geode“): 'full' würde an der
+  // eigenen Kette in benachbarten Räumen/Stapeln scheitern, sobald oberhalb kein reiner Vollblock liegt.
+  masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }, { at: [1, 2, 0], side: "up", kind: "center" }, { at: [2, 2, 0], side: "up", kind: "center" }] },
+  light: "auto",
+}

@@ -1,0 +1,34 @@
+// K3a · Orgel (research/17 §4.26, Kapelle C-Refs, Mu-Refs): Spieltisch aus drei Notenblöcken (spielbar; Klang nach
+// dem Block darunter; nur mit Luft darüber – Wiki, Validator-Wunsch Y8 `noteBlockAirAbove`), seitlich Treppen-
+// Wangen; hinten ein Planken-Gehäuse, darauf gewachste Blitzableiter als Pfeifen in zwei Höhen (gewachst: sie
+// oxidieren seit 1.21.9 nicht; `waxed_lightning_rod` gibt es in 1.21.11 und 26.3). Blitzableiter brauchen keine
+// Stütze. V3 „mehr in die Höhe“: die Pfeifen wachsen bis unter die Decke (`stretch`, `ceiling`), jede zweite eine
+// Zelle länger. Orgelhocker (1 × 1, richtungslos) vor der mittleren Taste. Lichte Höhe ≥ 4.
+{
+  id: "music/pipe_organ",
+  kind: "static",
+  name: "Orgel",
+  category: "furniture",
+  tags: ["organ", "keyboard_instrument"],
+  functionTags: ["play"],
+  styleTags: ["medieval", "sacred"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  minRoomHeight: 4,
+  layers: [
+    ["PPPPP", "SNNNS"], // y0: Gehäuse | Wange, Notenblöcke, Wange
+    ["PPPPP", ".___."], // y1: Gehäuse | Luft über den Notenblöcken
+    ["RRRRR", "....."], // y2: Pfeifen (werden bis zur Decke gedehnt)
+    [".R.R.", "....."], // y3: lange Pfeifen
+  ],
+  legend: {
+    P: { role: "beam", shape: "planks" },
+    S: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    N: { block: "minecraft:note_block" },
+    R: { block: "minecraft:waxed_lightning_rod", orient: { front: "up" } },
+  },
+  stretch: { layer: 2, max: 10, fill: "ceiling" },
+  sockets: [{ id: "stool", type: "adjacent", at: [2, 0, 2], side: "front", accepts: ["bar_stool"], prob: 0.8, facing: "same" }],
+  masks: { use: [{ side: "front" }] },
+}

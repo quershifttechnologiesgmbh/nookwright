@@ -1,0 +1,32 @@
+// FN-Dense · Zimmermannstisch (Raummitte): Werkbank-Insel mit zwei Werkbänken, Steinsäge und Laternen, darunter
+// Bretterstapel (Vorbild: Tischlereien der Community mit zentralem Arbeitstisch). 5 breit, 2 tief, 3 hoch.
+// Steinsäge = Steinmetz-Arbeitsblock (Faktencheck #7). Platte aus umgedrehten Halbstufen. Symmetrisch in der
+// Breite. Insel-Eintrag von `carpentry` (Tag `fn_carpenter_island`).
+{
+  id: "work/fn_carpenter_table",
+  kind: "static",
+  name: "Zimmermannstisch",
+  category: "work",
+  tags: ["fn_carpenter_island"],
+  functionTags: ["craft", "work:mason"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["PLLLP", "P...P"], // y0: Beine, hinten Bretterstapel
+    ["sssss", "sssss"], // y1: Platte
+    ["C.T.C", ".l.l."], // y2: Werkbank | Säge | Werkbank; Laternen
+  ],
+  legend: {
+    P: { role: "beam", shape: "log", orient: { axis: "y" } },
+    L: { role: "furniture_wood", shape: "planks" },
+    s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    C: { block: "minecraft:crafting_table" },
+    T: { block: "minecraft:stonecutter", orient: { front: "front" } },
+    l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

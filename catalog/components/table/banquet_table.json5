@@ -1,0 +1,93 @@
+// K3d · Bankett-Tafel (research/11 T-7 „Festtafel“, DH1–DH3; research/17 §5 Delta Speisesaal): Platte aus
+// oberen Stufen, 3 tief (Rand | Läufer | Rand), der Läufer als Teppich auf den oberen Stufen (liegt bündig,
+// research/11 §2.2 G4), rundum Stühle aus Treppen mit hoher Lehne (offene Falltür an der Lehnenseite, wie
+// seat/wing_chair#high_back). Die Stühle gehören zur Komponente (K2-Befund: `adjacent`-Kinder finden an
+// Festtafeln selten Platz). Auf den Rändern Kerzen, Laternen, Krüge, Essen (`surface`), über der Tafel
+// Hängelaternen (`hang`, V3: dürfen über dem Möbel tiefer hängen); Kronleuchter setzt das Raumprogramm.
+// `kind: slice` (beliebige Länge) gibt es noch nicht → feste Längen 3, 5, 7. Tag `banquet_table`
+// (Speisesaal); NICHT `dining_table` (das zöge die Taverne).
+{
+  id: "table/banquet_table",
+  kind: "static",
+  name: "Bankett-Tafel",
+  category: "furniture",
+  tags: ["banquet_table", "table"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "long5",
+      weight: 3,
+      layers: [
+        ["CCCCC", "TTTTT", "TTTTT", "TTTTT", "ccccc"], // y0: Stühle | Platte 3 tief | Stühle
+        ["hhhhh", ".....", "RRRRR", ".....", "HHHHH"], // y1: hohe Lehnen, Läufer in der Mitte
+      ],
+      legend: {
+        C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        c: { role: "furniture_wood", shape: "stairs", orient: { back: "front" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { role: "textile_primary", shape: "carpet" },
+        h: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        H: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 1], accepts: ["candles", "light_small"], prob: 0.7, pairWith: "top_b" },
+        { id: "top_b", type: "surface", at: [3, 1, 3], accepts: ["candles", "light_small"], prob: 0.7 },
+        { id: "top_c", type: "surface", at: [3, 1, 1], accepts: ["mug", "food", "tabletop_small"], prob: 0.6 },
+        { id: "top_d", type: "surface", at: [1, 1, 3], accepts: ["mug", "food", "tabletop_small"], prob: 0.6 },
+        { id: "top_e", type: "surface", at: [2, 1, 1], accepts: ["food", "cake"], prob: 0.4 },
+        { id: "lamp", type: "hang", at: [2, 99, 2], accepts: ["light_pendant"], prob: 0.6 },
+      ],
+    },
+    {
+      id: "long7",
+      weight: 2,
+      layers: [
+        ["CCCCCCC", "TTTTTTT", "TTTTTTT", "TTTTTTT", "ccccccc"],
+        ["hhhhhhh", ".......", "RRRRRRR", ".......", "HHHHHHH"],
+      ],
+      legend: {
+        C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        c: { role: "furniture_wood", shape: "stairs", orient: { back: "front" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { role: "textile_primary", shape: "carpet" },
+        h: { role: "beam", shape: "trapdoor", orient: { front: "front", open: true } },
+        H: { role: "beam", shape: "trapdoor", orient: { front: "back", open: true } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [1, 1, 1], accepts: ["candles", "light_small"], prob: 0.7, pairWith: "top_b" },
+        { id: "top_b", type: "surface", at: [5, 1, 3], accepts: ["candles", "light_small"], prob: 0.7 },
+        { id: "top_c", type: "surface", at: [5, 1, 1], accepts: ["candles", "light_small"], prob: 0.7, pairWith: "top_d" },
+        { id: "top_d", type: "surface", at: [1, 1, 3], accepts: ["candles", "light_small"], prob: 0.7 },
+        { id: "top_e", type: "surface", at: [3, 1, 1], accepts: ["food", "cake", "mug"], prob: 0.6 },
+        { id: "top_f", type: "surface", at: [3, 1, 3], accepts: ["food", "mug", "tabletop_small"], prob: 0.6 },
+        { id: "lamp_a", type: "hang", at: [2, 99, 2], accepts: ["light_pendant"], prob: 0.5, pairWith: "lamp_b" },
+        { id: "lamp_b", type: "hang", at: [4, 99, 2], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      // Kompaktform 3 lang (kleine Säle, lichte Höhe 2)
+      id: "short3",
+      weight: 1,
+      layers: [
+        ["CCC", "TTT", "TTT", "TTT", "ccc"],
+        ["...", "...", "RRR", "...", "..."],
+      ],
+      legend: {
+        C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        c: { role: "furniture_wood", shape: "stairs", orient: { back: "front" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { role: "textile_primary", shape: "carpet" },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 1], accepts: ["candles", "light_small"], prob: 0.7, pairWith: "top_b" },
+        { id: "top_b", type: "surface", at: [2, 1, 3], accepts: ["candles", "light_small"], prob: 0.7 },
+        { id: "top_c", type: "surface", at: [2, 1, 1], accepts: ["mug", "food", "tabletop_small"], prob: 0.6 },
+        { id: "lamp", type: "hang", at: [1, 99, 2], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+  ],
+}

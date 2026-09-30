@@ -1,0 +1,734 @@
+[
+ {
+  "id": "wohnhaus-eckturm",
+  "title": "Beispielhaus",
+  "blurb": "Wohnhaus mit Quergiebel, Werkstatt und Eckturm – gestaffelte Dächer.",
+  "kind": "Bautyp",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 2026,
+  "size": "M",
+  "type": "house",
+  "floors": 3,
+  "rooms": [
+   "Küche",
+   "Lager",
+   "Wohnstube",
+   "Schmiede",
+   "Schlafzimmer",
+   "Arbeitszimmer",
+   "Bibliothek",
+   "Turmzimmer",
+   "Diele"
+  ],
+  "roomCount": 10,
+  "footprint": [
+   32,
+   18
+  ],
+  "height": 24,
+  "blocks": 3571,
+  "digest": "ff7fd091f513a540",
+  "ms": 770,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 5727,
+   "schem": 6011,
+   "nbt": 41344
+  }
+ },
+ {
+  "id": "burg-steinwacht",
+  "title": "Burg",
+  "blurb": "Mauerring, Ecktürme und ein Burghof mit Wohnhaus.",
+  "kind": "Bautyp",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 1,
+  "size": "M",
+  "type": "castle_compact",
+  "floors": 8,
+  "rooms": [
+   "Kerker",
+   "Lager",
+   "Thronsaal",
+   "Küche",
+   "Speisesaal",
+   "Schlafzimmer",
+   "Kaserne",
+   "Waffenkammer",
+   "Turmzimmer"
+  ],
+  "roomCount": 14,
+  "footprint": [
+   97,
+   75
+  ],
+  "height": 35,
+  "blocks": 53756,
+  "digest": "8ab12a55d7af08cb",
+  "ms": 2202,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 41870,
+   "schem": 26207,
+   "nbt": 711371
+  }
+ },
+ {
+  "id": "taverne-zum-fass",
+  "title": "Taverne",
+  "blurb": "Schankraum, Küche und Gästezimmer unter einem Fachwerkdach.",
+  "kind": "Bautyp",
+  "theme": "timber",
+  "themeName": "Fachwerk",
+  "seed": 2,
+  "size": "M",
+  "type": "tavern",
+  "floors": 2,
+  "rooms": [
+   "Taverne",
+   "Lager",
+   "Küche",
+   "Flur / Galerie",
+   "Gästezimmer",
+   "Waschraum"
+  ],
+  "roomCount": 7,
+  "footprint": [
+   57,
+   53
+  ],
+  "height": 24,
+  "blocks": 21693,
+  "digest": "e5bd9b2520347706",
+  "ms": 878,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 18660,
+   "schem": 12516,
+   "nbt": 205240
+  }
+ },
+ {
+  "id": "erdhaus-am-huegel",
+  "title": "Erdhaus",
+  "blurb": "Halb im Hügel versteckt, mit Garten vor der runden Tür.",
+  "kind": "Bautyp",
+  "theme": "rustic",
+  "themeName": "Rustikal",
+  "seed": 2026,
+  "size": "L",
+  "type": "hobbit",
+  "floors": 1,
+  "rooms": [
+   "Eingangshalle",
+   "Lager",
+   "Wohnstube",
+   "Schlafzimmer",
+   "Küche"
+  ],
+  "roomCount": 6,
+  "footprint": [
+   45,
+   55
+  ],
+  "height": 21,
+  "blocks": 25721,
+  "digest": "aee7653a625e75da",
+  "ms": 588,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 12582,
+   "schem": 11334,
+   "nbt": 146208
+  }
+ },
+ {
+  "id": "wachturm-nord",
+  "title": "Wachturm",
+  "blurb": "Stockwerk für Stockwerk nach oben, oben die Wachstube.",
+  "kind": "Bautyp",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 2026,
+  "size": "M",
+  "type": "watchtower",
+  "floors": 4,
+  "rooms": [
+   "Lager",
+   "Arbeitszimmer",
+   "Schlafzimmer",
+   "Turmzimmer"
+  ],
+  "roomCount": 4,
+  "footprint": [
+   35,
+   35
+  ],
+  "height": 38,
+  "blocks": 9354,
+  "digest": "86cac5df110aec11",
+  "ms": 331,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 7483,
+   "schem": 7036,
+   "nbt": 124934
+  }
+ },
+ {
+  "id": "langhaus-fjord",
+  "title": "Langhaus",
+  "blurb": "Eine lange Halle aus dunklem Holz unter einem Torfdach.",
+  "kind": "Bautyp",
+  "theme": "nordic",
+  "themeName": "Nordisch",
+  "seed": 2026,
+  "size": "M",
+  "type": "longhouse",
+  "floors": 1,
+  "rooms": [
+   "Methalle"
+  ],
+  "roomCount": 1,
+  "footprint": [
+   47,
+   36
+  ],
+  "height": 17,
+  "blocks": 10055,
+  "digest": "414a657e0d00d210",
+  "ms": 368,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 6574,
+   "schem": 6100,
+   "nbt": 78874
+  }
+ },
+ {
+  "id": "bauernhof-lindenhof",
+  "title": "Bauernhaus",
+  "blurb": "Wohnhaus mit Anbau und Scheune, dazu Hof, Felder und Garten.",
+  "kind": "Bautyp",
+  "theme": "rustic",
+  "themeName": "Rustikal",
+  "seed": 2,
+  "size": "M",
+  "type": "farmhouse",
+  "floors": 2,
+  "rooms": [
+   "Küche",
+   "Wohnstube",
+   "Schlafzimmer",
+   "Kinderzimmer",
+   "Nähstube",
+   "Stall",
+   "Lager",
+   "Bäckerei"
+  ],
+  "roomCount": 8,
+  "footprint": [
+   69,
+   57
+  ],
+  "height": 27,
+  "blocks": 24573,
+  "digest": "c78f5947e2f00aa3",
+  "ms": 1019,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 21037,
+   "schem": 13765,
+   "nbt": 298592
+  }
+ },
+ {
+  "id": "fachwerkhaus-markt",
+  "title": "Fachwerkhaus",
+  "blurb": "Klassisches Fachwerk mit Obergeschoss und Waschhaus.",
+  "kind": "Bautyp",
+  "theme": "timber",
+  "themeName": "Fachwerk",
+  "seed": 1,
+  "size": "M",
+  "type": "timber",
+  "floors": 2,
+  "rooms": [
+   "Wohnstube",
+   "Küche",
+   "Lager",
+   "Schlafzimmer",
+   "Arbeitszimmer",
+   "Gästezimmer",
+   "Waschraum"
+  ],
+  "roomCount": 7,
+  "footprint": [
+   28,
+   19
+  ],
+  "height": 27,
+  "blocks": 3168,
+  "digest": "5c3ff64ca3d90690",
+  "ms": 351,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 5433,
+   "schem": 5260,
+   "nbt": 41446
+  }
+ },
+ {
+  "id": "stadthaus-gasse",
+  "title": "Stadthaus",
+  "blurb": "Schmal, hoch und mitten in der Stadt zu Hause.",
+  "kind": "Bautyp",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 3,
+  "size": "M",
+  "type": "townhouse",
+  "floors": 4,
+  "rooms": [
+   "Küche",
+   "Nähstube",
+   "Wohnstube",
+   "Schlafzimmer",
+   "Arbeitszimmer"
+  ],
+  "roomCount": 6,
+  "footprint": [
+   33,
+   40
+  ],
+  "height": 30,
+  "blocks": 7869,
+  "digest": "627576154e17a5cf",
+  "ms": 341,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 6964,
+   "schem": 6820,
+   "nbt": 108487
+  }
+ },
+ {
+  "id": "grosse-halle",
+  "title": "Große Halle",
+  "blurb": "Eine Festhalle für Bankette und Versammlungen.",
+  "kind": "Bautyp",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 2026,
+  "size": "M",
+  "type": "hall",
+  "floors": 1,
+  "rooms": [
+   "Speisesaal"
+  ],
+  "roomCount": 1,
+  "footprint": [
+   27,
+   21
+  ],
+  "height": 14,
+  "blocks": 2938,
+  "digest": "e03fb192b6393819",
+  "ms": 457,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 4851,
+   "schem": 3341,
+   "nbt": 22195
+  }
+ },
+ {
+  "id": "taverne-mittelalter",
+  "title": "Taverne",
+  "blurb": "Dieselbe Taverne, neu gewürfelt und aus Stein.",
+  "kind": "Bautyp",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 42,
+  "size": "L",
+  "type": "tavern",
+  "floors": 4,
+  "rooms": [
+   "Weinkeller",
+   "Lager",
+   "Taverne",
+   "Küche",
+   "Flur / Galerie",
+   "Gästezimmer",
+   "Waschraum"
+  ],
+  "roomCount": 17,
+  "footprint": [
+   59,
+   56
+  ],
+  "height": 27,
+  "blocks": 21535,
+  "digest": "d8b9d1e63b799525",
+  "ms": 1334,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 21837,
+   "schem": 14847,
+   "nbt": 254203
+  }
+ },
+ {
+  "id": "burg-nordwall",
+  "title": "Burg",
+  "blurb": "Die Burg im nordischen Stil, mit neuem Grundriss.",
+  "kind": "Bautyp",
+  "theme": "nordic",
+  "themeName": "Nordisch",
+  "seed": 5,
+  "size": "M",
+  "type": "castle_compact",
+  "floors": 6,
+  "rooms": [
+   "Thronsaal",
+   "Küche",
+   "Speisesaal",
+   "Schlafzimmer",
+   "Kaserne",
+   "Waffenkammer",
+   "Lager",
+   "Turmzimmer"
+  ],
+  "roomCount": 11,
+  "footprint": [
+   93,
+   68
+  ],
+  "height": 31,
+  "blocks": 45108,
+  "digest": "15796ec37a68b845",
+  "ms": 1570,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 36477,
+   "schem": 22278,
+   "nbt": 545381
+  }
+ },
+ {
+  "id": "langhaus-winterlicht",
+  "title": "Langhaus Winterlicht",
+  "blurb": "Verschneites Langhaus mit dunkler Traufe und warmem Innenraum.",
+  "kind": "Bautyp",
+  "theme": "winter",
+  "themeName": "Winter",
+  "seed": 2026,
+  "size": "M",
+  "type": "longhouse",
+  "floors": 1,
+  "rooms": [
+   "Methalle"
+  ],
+  "roomCount": 1,
+  "footprint": [
+   47,
+   36
+  ],
+  "height": 17,
+  "blocks": 9878,
+  "digest": "307ad3a95fb4cafb",
+  "ms": 159,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 6862,
+   "schem": 6115,
+   "nbt": 79107
+  }
+ },
+ {
+  "id": "burg-tiefenfels",
+  "title": "Burg Tiefenfels",
+  "blurb": "Zwergenstil auf einer kompakten Burg: dunkler Stein, Mauerring und Burghof.",
+  "kind": "Bautyp",
+  "theme": "dwarven",
+  "themeName": "Zwergisch",
+  "seed": 1,
+  "size": "M",
+  "type": "castle_compact",
+  "floors": 8,
+  "rooms": [
+   "Kerker",
+   "Lager",
+   "Thronsaal",
+   "Küche",
+   "Speisesaal",
+   "Schlafzimmer",
+   "Kaserne",
+   "Waffenkammer",
+   "Turmzimmer"
+  ],
+  "roomCount": 14,
+  "footprint": [
+   97,
+   75
+  ],
+  "height": 35,
+  "blocks": 53453,
+  "digest": "d485c2f907a35881",
+  "ms": 778,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 42503,
+   "schem": 21544,
+   "nbt": 710118
+  }
+ },
+ {
+  "id": "erdhaus-elbenhain",
+  "title": "Erdhaus Elbenhain",
+  "blurb": "Ein großes Erdhaus im Elfenstil, halb verborgen im Hügel.",
+  "kind": "Bautyp",
+  "theme": "elven",
+  "themeName": "Elbisch",
+  "seed": 2026,
+  "size": "L",
+  "type": "hobbit",
+  "floors": 1,
+  "rooms": [
+   "Eingangshalle",
+   "Lager",
+   "Wohnstube",
+   "Schlafzimmer",
+   "Küche"
+  ],
+  "roomCount": 6,
+  "footprint": [
+   45,
+   55
+  ],
+  "height": 21,
+  "blocks": 25714,
+  "digest": "fb80809f9b148812",
+  "ms": 225,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 12598,
+   "schem": 11243,
+   "nbt": 146306
+  }
+ },
+ {
+  "id": "wachturm-verfallen",
+  "title": "Verfallener Wachturm",
+  "blurb": "Ein Wachturm mit Ruinen-Theme und erodierter Silhouette.",
+  "kind": "Bautyp",
+  "theme": "ruin",
+  "themeName": "Ruine",
+  "seed": 2026,
+  "size": "M",
+  "type": "watchtower",
+  "floors": 4,
+  "rooms": [
+   "Lager",
+   "Arbeitszimmer",
+   "Schlafzimmer",
+   "Turmzimmer"
+  ],
+  "roomCount": 4,
+  "footprint": [
+   35,
+   35
+  ],
+  "height": 38,
+  "blocks": 9260,
+  "digest": "e10b32451ffbf0eb",
+  "ms": 131,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 7416,
+   "schem": 6836,
+   "nbt": 124834
+  }
+ },
+ {
+  "id": "base-mauerring",
+  "title": "Komplette Base",
+  "blurb": "Taverne, Schmiede und Bibliothek hinter Mauern, mit Feld und Garten.",
+  "kind": "Base",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 2026,
+  "size": null,
+  "type": null,
+  "floors": 2,
+  "rooms": [
+   "Taverne",
+   "Lager",
+   "Küche",
+   "Schmiede",
+   "Schlafzimmer",
+   "Bibliothek"
+  ],
+  "roomCount": 6,
+  "footprint": [
+   79,
+   68
+  ],
+  "height": 34,
+  "blocks": 37282,
+  "digest": "6015463fedd07b6b",
+  "ms": 948,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 29612,
+   "schem": 17964,
+   "nbt": 507680
+  }
+ },
+ {
+  "id": "gehoeft-wiesental",
+  "title": "Gehöft",
+  "blurb": "Ein Wohnhaus mit Brunnenhof, Koppel, Obstgarten und Feld.",
+  "kind": "Base",
+  "theme": "rustic",
+  "themeName": "Rustikal",
+  "seed": 2026,
+  "size": null,
+  "type": null,
+  "floors": 1,
+  "rooms": [
+   "Küche",
+   "Schlafzimmer",
+   "Lager",
+   "Schmiede"
+  ],
+  "roomCount": 4,
+  "footprint": [
+   58,
+   48
+  ],
+  "height": 17,
+  "blocks": 16329,
+  "digest": "9c047adc82964f49",
+  "ms": 383,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 8877,
+   "schem": 8402,
+   "nbt": 133800
+  }
+ },
+ {
+  "id": "haus-medieval",
+  "title": "Zweistöckiges Haus",
+  "blurb": "Taverne, Küche, Bibliothek und Alchemie auf zwei Etagen, dazu die Werkstatt.",
+  "kind": "Haus",
+  "theme": "medieval",
+  "themeName": "Mittelalter",
+  "seed": 2026,
+  "size": "M",
+  "type": "twostory",
+  "floors": 2,
+  "rooms": [
+   "Taverne",
+   "Küche",
+   "Lager",
+   "Schlafzimmer",
+   "Bibliothek",
+   "Alchemie / Brauerei",
+   "Tischlerei",
+   "Diele"
+  ],
+  "roomCount": 8,
+  "footprint": [
+   28,
+   18
+  ],
+  "height": 17,
+  "blocks": 2927,
+  "digest": "0dc059b29327a4a5",
+  "ms": 291,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 5287,
+   "schem": 5263,
+   "nbt": 26693
+  }
+ },
+ {
+  "id": "haus-nordic",
+  "title": "Zweistöckiges Haus",
+  "blurb": "Taverne, Küche, Bibliothek und Alchemie auf zwei Etagen, dazu die Werkstatt.",
+  "kind": "Haus",
+  "theme": "nordic",
+  "themeName": "Nordisch",
+  "seed": 2026,
+  "size": "M",
+  "type": "twostory",
+  "floors": 2,
+  "rooms": [
+   "Taverne",
+   "Küche",
+   "Lager",
+   "Schlafzimmer",
+   "Bibliothek",
+   "Alchemie / Brauerei",
+   "Tischlerei",
+   "Diele"
+  ],
+  "roomCount": 8,
+  "footprint": [
+   28,
+   20
+  ],
+  "height": 17,
+  "blocks": 3342,
+  "digest": "b07ecc0bf13b3bdc",
+  "ms": 360,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 5427,
+   "schem": 5327,
+   "nbt": 29457
+  }
+ },
+ {
+  "id": "haus-timber",
+  "title": "Zweistöckiges Haus",
+  "blurb": "Taverne, Küche, Bibliothek und Alchemie auf zwei Etagen, dazu die Werkstatt.",
+  "kind": "Haus",
+  "theme": "timber",
+  "themeName": "Fachwerk",
+  "seed": 2026,
+  "size": "M",
+  "type": "twostory",
+  "floors": 2,
+  "rooms": [
+   "Taverne",
+   "Küche",
+   "Lager",
+   "Schlafzimmer",
+   "Bibliothek",
+   "Alchemie / Brauerei",
+   "Tischlerei",
+   "Diele"
+  ],
+  "roomCount": 8,
+  "footprint": [
+   30,
+   20
+  ],
+  "height": 17,
+  "blocks": 2978,
+  "digest": "63913237410d6aa8",
+  "ms": 324,
+  "version": "1.21.11",
+  "files": {
+   "litematic": 5359,
+   "schem": 5263,
+   "nbt": 31201
+  }
+ }
+]

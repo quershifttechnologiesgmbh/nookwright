@@ -1,0 +1,28 @@
+// X1 · E3 Vortreppe und Podest (research/18 E3): Stufe vor der Tür auf Bodenplattenhöhe, Rücken zur Tür (Rolle
+// `foundation`). Liegt die Tür höher über dem Gelände, setzt der Solver ein Podest („block“) und Stufen nach außen,
+// darunter Unterbau bis zum Boden. An der Haustür 3 breit (Tür + 2); ein Sockelprofil füllt die Seiten schon.
+{
+  id: "exterior/stoop",
+  kind: "static",
+  name: "Vortreppe",
+  category: "architecture",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "step",
+      weight: 1,
+      layers: [["S"]],
+      legend: { S: { role: "foundation", shape: "stairs", orient: { back: "back" } } },
+    },
+    {
+      id: "block",
+      weight: 1,
+      layers: [["B"]],
+      legend: { B: { role: "foundation", shape: "block" } },
+    },
+  ],
+}

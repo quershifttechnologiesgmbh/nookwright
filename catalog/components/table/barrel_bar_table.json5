@@ -1,0 +1,26 @@
+// I52 · Fasstisch (research/52 §Möbel, Taverne): stehendes Fass als Tischbein, oben eine Stufenplatte mit
+// zwei Bechern — die kleine Stehtisch-Form neben table/bar_counter, passt auch mitten in den Raum statt nur
+// an die Wand.
+{
+  id: "table/barrel_bar_table",
+  kind: "static",
+  name: "Fasstisch",
+  category: "furniture",
+  tags: ["barrel_bar_table"],
+  functionTags: ["sit", "eat"],
+  styleTags: ["medieval", "tavern", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1, 2, 3],
+  layers: [
+    ["B"], // y0: Fass
+    ["T"], // y1: Tischplatte (obere Stufe, volle Oberseite für den Socket)
+  ],
+  legend: {
+    B: { block: "minecraft:barrel", orient: { front: "front" } },
+    // upsideDown: true (nicht false): der Socket „top“ akzeptiert `tabletop_small`, worunter auch
+    // light/table_lantern fällt, das eine stabile Mitte darunter braucht (research/52 §Nachprüfung).
+    T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+  },
+  sockets: [{ id: "top", type: "surface", at: [0, 2, 0], accepts: ["mug", "candles", "tabletop_small"], prob: 0.7 }],
+}

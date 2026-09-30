@@ -1,0 +1,56 @@
+// K2 · Festtafel / Bocktisch (DA Furniture: Tables; research/11 §6 Speisesaal). Platte aus oberen Stufen, an den
+// Stirnseiten umgedrehte Treppen als Böcke (die Stufe hängt nach außen = Tischbein). Oben Krüge, Kerzen, Essen.
+// Variante „benches“ (Standard): Bänke aus unteren Stufen gehören zur Komponente – im Fuzz fanden die Bänke
+// über `adjacent`-Sockets fast nie Platz, weil die Pose des Tisches den Platz der Kinder nicht mitbewertet.
+// Variante „plain“: nur die Tafel, Bänke über Sockets (Tag `table_bench`, richtungslos, weil der Solver
+// `facing: toParent` noch nicht kann).
+{
+  id: "table/trestle_table",
+  kind: "static",
+  name: "Festtafel",
+  category: "furniture",
+  tags: ["dining_table", "table"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    {
+      id: "benches",
+      weight: 3,
+      layers: [["bbb", "WTE", "WTE", "bbb"]],
+      legend: {
+        b: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 1], accepts: ["mug", "candles", "light_small"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [1, 1, 1], accepts: ["food", "tabletop_small"], prob: 0.6 },
+        { id: "top_c", type: "surface", at: [2, 1, 2], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+        { id: "top_d", type: "surface", at: [1, 1, 2], accepts: ["candles", "mug"], prob: 0.5 },
+        { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5 }, // V3
+      ],
+    },
+    {
+      id: "plain",
+      weight: 1,
+      layers: [["WTE", "WTE"]],
+      legend: {
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 0], accepts: ["mug", "candles", "light_small"], prob: 0.7 },
+        { id: "top_b", type: "surface", at: [1, 1, 0], accepts: ["food", "tabletop_small"], prob: 0.6 },
+        { id: "top_c", type: "surface", at: [2, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+        { id: "bench_n", type: "adjacent", at: [0, 0, -1], side: "back", accepts: ["table_bench"], prob: 0.9, facing: "same" },
+        { id: "bench_s", type: "adjacent", at: [0, 0, 2], side: "front", accepts: ["table_bench"], prob: 0.9, facing: "same" },
+        { id: "lamp", type: "hang", at: [1, 99, 0], accepts: ["light_pendant"], prob: 0.5 }, // V3
+      ],
+    },
+  ],
+}

@@ -1,0 +1,77 @@
+// Koenigsschloss Gold – festlich, Biome: plains, hills, Stile: royal.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "koenigsschloss_gold",
+  name: "Königsschloss Gold",
+  mood: "festlich",
+  biomes: ["plains", "hills"],
+  styles: ["royal"],
+  values: ["minecraft:quartz_block", "minecraft:smooth_quartz", "minecraft:white_concrete", "minecraft:chiseled_quartz_block", "minecraft:gold_block"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "quartz", weight: 55 },
+        { family: "smooth_quartz", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { family: "quartz", variant: "chiseled", weight: 60 },
+        { family: "quartz", shape: "pillar", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "gold", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      // edge_fixed: eigene Wertstufe fuer den First (Q4, research/53 §1-3)
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "dark_oak", shape: "stripped_log", weight: 70 },
+        { family: "dark_oak", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "quartz", weight: 55 },
+        { block: "minecraft:purple_carpet", weight: 45 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:purple", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { block: "minecraft:sea_lantern", weight: 60 },
+        { family: "iron", shape: "lantern", weight: 40 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { family: "oak", shape: "leaves", weight: 100 },
+      ],
+    },
+  },
+}

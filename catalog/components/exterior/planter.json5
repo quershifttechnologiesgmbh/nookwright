@@ -1,0 +1,19 @@
+// X1 · E4 Kübel neben der Haustür (research/18 E4, V1): Topfpflanze vor der Wand, paarweise beidseits der Tür
+// (unter den Wandlaternen). Blumentöpfe brauchen keine Stütze und fallen in Java nicht ab.
+{
+  id: "exterior/planter",
+  kind: "static",
+  name: "Kübelpflanze",
+  category: "decor",
+  tags: ["exterior", "exterior_entrance", "outdoor"],
+  styleTags: ["medieval", "rustic", "cottage"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    { id: "azalea", weight: 3, layers: [["P"]], legend: { P: { block: "minecraft:potted_flowering_azalea_bush" } } },
+    { id: "bush", weight: 2, layers: [["P"]], legend: { P: { block: "minecraft:potted_azalea_bush" } } },
+    { id: "fern", weight: 2, layers: [["P"]], legend: { P: { block: "minecraft:potted_fern" } } },
+    { id: "spruce", weight: 1, layers: [["P"]], legend: { P: { block: "minecraft:potted_spruce_sapling" } } },
+  ],
+}

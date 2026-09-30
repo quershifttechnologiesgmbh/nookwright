@@ -1,0 +1,24 @@
+// I52 · Werkzeugleiste (research/52 §Wand, Küche/Werkstatt): Zaunleiste über der Arbeitsplatte, davor
+// hängende Küchengeräte als Rahmen-Item (wie decor/frame_kitchen, aber als 3er-Reihe statt Einzelrahmen —
+// WaxFraud-Motiv „Utensilien an der Wand aufgereiht“).
+{
+  id: "decor/utensil_rail",
+  kind: "static",
+  name: "Werkzeugleiste",
+  category: "attachment",
+  tags: ["kitchen_utensils", "utensil_rail"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 2,
+  rotations: "backToWall",
+  // y0: Rahmen hängen frei vor der Wand (Träger ist die reale Wand dahinter, wie decor/frame_tools), y1: Zaun-
+  // Leiste als sichtbare Halterung darüber — nie dieselbe Zelle wie ein Rahmen, sonst „entity_support“-Kollision.
+  layers: [["___"], ["FFF"]],
+  legend: { F: { role: "furniture_wood", shape: "fence" } },
+  entities: [
+    { type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:shears" } },
+    { type: "item_frame", at: [1, 0, 0], face: "front", item: { item: "minecraft:flint_and_steel" } },
+    { type: "item_frame", at: [2, 0, 0], face: "front", item: { item: "minecraft:bucket" } },
+  ],
+}

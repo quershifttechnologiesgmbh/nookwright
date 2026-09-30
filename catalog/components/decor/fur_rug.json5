@@ -1,0 +1,28 @@
+// K2 · Fell (DA Decoration: Rugs/Trophies): Tierfell aus Teppich in Fellfarbe (Kopf, Rumpf, Läufe).
+// Durchlaufbar, frei drehbar. Farben fest (braun/weiß = Fell, nicht Theme-Textil).
+{
+  id: "decor/fur_rug",
+  kind: "static",
+  name: "Fell",
+  category: "decor",
+  tags: ["rug", "fur_rug"],
+  styleTags: ["medieval", "nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: true,
+  variants: [
+    {
+      id: "brown",
+      weight: 2,
+      layers: [[".B.", "BBB", "B.B"]],
+      legend: { B: { block: "minecraft:brown_carpet" } },
+    },
+    {
+      id: "white",
+      weight: 1,
+      layers: [[".W.", "WWW", "W.W"]],
+      legend: { W: { block: "minecraft:white_carpet" } },
+    },
+  ],
+}

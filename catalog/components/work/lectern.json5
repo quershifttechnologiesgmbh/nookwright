@@ -1,0 +1,7 @@
+// Lesepult (research/11 E-6, Bibliothekar-Arbeitsblock). Vorsichtig OHNE Buch: `has_book=true` braucht das
+// Buch als Block-Entity-Inhalt, das kann die Materialisierung noch nicht (research/11 B1) → Folgeaufgabe.
+{ id: "work/lectern", kind: "static", name: "Lesepult", category: "work",
+  tags: ["lectern", "job_block"], functionTags: ["read", "work:librarian"], styleTags: ["medieval"],
+  obtainability: "survival", mount: "floor", rotations: "all",
+  layers: [["L"]], legend: { L: { block: "minecraft:lectern", orient: { front: "front" } } },
+  masks: { use: [{ side: "front" }] } }

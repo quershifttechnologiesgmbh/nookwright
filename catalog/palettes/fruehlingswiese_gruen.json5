@@ -1,0 +1,77 @@
+// Fruehlingswiese Gruen – gemuetlich, Biome: plains, flower_forest, Stile: cottage, farm.
+// Farbschicht zu research/54 §6; Rolle -> gewichtete Blockliste, HELL -> DUNKEL. Eintraege mit `family`
+// loest der Materialisierer zur Form auf, `block` steht fuer Dinge ohne Plattform-Familie.
+{
+  id: "fruehlingswiese_gruen",
+  name: "Frühlingswiese Grün",
+  mood: "gemuetlich",
+  biomes: ["plains", "flower_forest"],
+  styles: ["cottage", "farm"],
+  values: ["minecraft:oak_planks", "minecraft:birch_planks", "minecraft:white_terracotta", "minecraft:light_gray_concrete", "minecraft:spruce_planks"],
+  roles: {
+    wall_primary: {
+      blocks: [
+        { family: "oak", weight: 55 },
+        { family: "birch", weight: 45 },
+      ],
+    },
+    wall_secondary: {
+      blocks: [
+        { block: "minecraft:white_terracotta", weight: 60 },
+        { family: "calcite", weight: 40 },
+      ],
+    },
+    trim: {
+      // trim_shape: Steinziegel tragen die Treppen/Stufen der Kante (Q4, Formvertrag trim → roof_trim)
+      blocks: [
+        { family: "stone_bricks", weight: 60 },
+        { family: "oak", weight: 40 },
+      ],
+    },
+    roof: {
+      blocks: [
+        { family: "deepslate_tiles", weight: 100 },
+      ],
+    },
+    roof_accent: {
+      blocks: [
+        { family: "lime_terracotta", variant: "glazed", weight: 100 },
+      ],
+    },
+    wood_frame: {
+      blocks: [
+        { family: "oak", shape: "log", weight: 70 },
+        { family: "oak", weight: 30 },
+      ],
+    },
+    floor: {
+      blocks: [
+        { family: "oak", weight: 65 },
+        { block: "minecraft:white_carpet", weight: 35 },
+      ],
+    },
+    accent: {
+      // accent_bed: Farbstoff-Anteil fuer die Form `bed` (Q4, Formvertrag accent → textile_primary)
+      blocks: [
+        { family: "color:lime", variant: "wool", weight: 60 },
+      ],
+    },
+    glass: {
+      blocks: [
+        { family: "color:undyed", shape: "stained_glass_pane", weight: 100 },
+      ],
+    },
+    light: {
+      blocks: [
+        { family: "iron", shape: "lantern", weight: 100 },
+      ],
+    },
+    foliage: {
+      blocks: [
+        { block: "minecraft:azalea_leaves", weight: 45 },
+        { block: "minecraft:flowering_azalea_leaves", weight: 35 },
+        { family: "oak", shape: "leaves", weight: 20 },
+      ],
+    },
+  },
+}

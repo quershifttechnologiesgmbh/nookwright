@@ -1,0 +1,18 @@
+// K2 · Moosflecken (DA Nature: Plants): Moosteppich auf dem Boden – Keller, Lager, Alchemie, verwilderte
+// Räume. Moosteppich braucht eine volle Oberseite darunter (Bodenblock). Durchlaufbar.
+{
+  id: "decor/moss_patch",
+  kind: "static",
+  name: "Moosflecken",
+  category: "decor",
+  tags: ["moss_rug"],
+  styleTags: ["rustic", "overgrown"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: true,
+  variants: [
+    { id: "small", weight: 2, layers: [["MM", "M."]], legend: { M: { block: "minecraft:moss_carpet" } } },
+    { id: "wide", weight: 1, layers: [["MM.", ".MM"]], legend: { M: { block: "minecraft:moss_carpet" } } },
+  ],
+}

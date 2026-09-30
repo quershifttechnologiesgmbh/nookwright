@@ -1,0 +1,22 @@
+// K2 · Schild an der Wand (DA Decoration: Shields): Rahmen mit Schild, Bogen oder Armbrust in Augenhöhe,
+// darüber ein kleines Bord. Wie die K1-Rahmen 1 breit, an der Raumwand (Rahmen-Zelle bleibt frei).
+{
+  id: "decor/shield_display",
+  kind: "static",
+  name: "Wappenschild",
+  category: "attachment",
+  tags: ["wall_decor", "wall_weapons"],
+  styleTags: ["medieval", "martial"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [1, 2], // V3: in hohen Räumen auch eine Reihe höher
+  rotations: "backToWall",
+  layers: [["_"], ["S"]],
+  legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } } },
+  variants: [
+    { id: "shield", weight: 3, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:shield" } }] },
+    { id: "bow", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:bow" } }] },
+    { id: "crossbow", weight: 1, entities: [{ type: "item_frame", at: [0, 0, 0], face: "front", item: { item: "minecraft:crossbow" } }] },
+  ],
+}

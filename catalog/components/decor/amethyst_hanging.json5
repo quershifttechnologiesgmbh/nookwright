@@ -1,0 +1,39 @@
+// K3d · Hängender Amethyst (research/11 E-4, E4/E6 Verzauberungsraum): Amethyst-Cluster (Licht 5) zeigt nach unten.
+// Vanilla: der Cluster braucht eine tragfähige Fläche auf seiner Rückseite – direkt unter der Decke („cluster“)
+// bzw. unter einem Amethystblock, der an einer Kette hängt („geode“, V3 `stretch` `drop`: in hohen Räumen hängt
+// die Geode tiefer, unterste Zelle nie unter Boden + 2; ab lichter Höhe 5). Die Physik-Daten kennen die Stützregel des Clusters
+// nicht (Wunsch im Bericht K3d) – beide Formen sind im Spiel gültig. Tag `amethyst_hanging`.
+{
+  id: "decor/amethyst_hanging",
+  kind: "static",
+  name: "Hängender Amethyst",
+  category: "decor",
+  tags: ["amethyst_hanging", "decor_ceiling"],
+  functionTags: ["light"],
+  styleTags: ["arcane"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  variants: [
+    {
+      id: "cluster",
+      weight: 2,
+      layers: [["A"]],
+      legend: { A: { block: "minecraft:amethyst_cluster", orient: { front: "down" } } },
+    },
+    {
+      id: "geode",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [["A"], ["M"], ["C"]], // y0: Cluster | y1: Amethystblock | y2: Kette zur Decke (gedehnt)
+      legend: {
+        A: { block: "minecraft:amethyst_cluster", orient: { front: "down" } },
+        M: { block: "minecraft:amethyst_block" },
+        C: { role: "metal", shape: "chain", orient: { axis: "y" } },
+      },
+      masks: { support: [{ at: [0, 2, 0], side: "up", kind: "center" }] },
+      stretch: { layer: 1, max: 8, fill: "drop", rows: ["C"] },
+    },
+  ],
+  light: "auto",
+}

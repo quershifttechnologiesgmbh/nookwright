@@ -1,0 +1,37 @@
+// K2 · Erntehaufen (DA Food & Drink: Fruit and Vegetables): Kürbisse, Melonen und Heuballen, zum Teil
+// gestapelt (Vollblöcke, keine Stütze nötig). Für Küche, Lager, Markt. Kein Surface-Tag (sonst landet
+// der Haufen auf Tischen).
+{
+  id: "food/harvest_pile",
+  kind: "static",
+  name: "Erntehaufen",
+  category: "storage",
+  tags: ["harvest", "goods"],
+  styleTags: ["rustic", "festive"],
+  obtainability: "survival",
+  mount: "floor",
+  // W4 (27.09.2026, Review M7): Ware steht mit dem Rücken an der Wand (Vorbilder W3-IN §1.5: Stapel an den Wänden,
+  // Mitte frei) – vorher frei drehbar und oft als Insel mitten im Lager
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "pumpkins",
+      weight: 2,
+      layers: [["PH", "MP"], ["P.", ".."]],
+      legend: {
+        P: { block: "minecraft:pumpkin" },
+        H: { block: "minecraft:hay_block", orient: { axis: "y" } },
+        M: { block: "minecraft:melon" },
+      },
+    },
+    {
+      id: "melons",
+      weight: 1,
+      layers: [["MM", "H."], ["M.", ".."]],
+      legend: {
+        M: { block: "minecraft:melon" },
+        H: { block: "minecraft:hay_block", orient: { axis: "x" } },
+      },
+    },
+  ],
+}

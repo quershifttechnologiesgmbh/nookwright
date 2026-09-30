@@ -1,0 +1,24 @@
+// SD Grundstücks-Deko: Gräberfeld an der Kapelle (5 × 5): zwei Reihen Grabhügel (grobe Erde mit Moosteppich), dahinter je
+// ein Kopfstein (Mauer mit Treppenkappe). Spiegelsymmetrisch; der Streifen zwischen den Reihen bleibt frei.
+{
+  id: "outdoor/sd_graves",
+  kind: "static",
+  name: "Gräberfeld",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_graves"],
+  styleTags: ["ruin", "overgrown", "medieval", "gothic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  walkable: false,
+  layers: [
+    ["W.W.W", "c.c.c", ".....", "W.W.W", "c.c.c"],
+    ["S.S.S", "m.m.m", ".....", "S.S.S", "m.m.m"],
+  ],
+  legend: {
+    W: { role: "wall_plinth", shape: "wall" },
+    c: { block: "minecraft:coarse_dirt" },
+    m: { block: "minecraft:moss_carpet" },
+    S: { role: "wall_cornice", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+}

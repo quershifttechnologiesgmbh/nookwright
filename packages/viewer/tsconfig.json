@@ -1,0 +1,12 @@
+// Eigene Typprüfung der Vorschau (DOM + WebGL für den Renderer, Node für Skript und Tests).
+// Die Wurzel-tsconfig schließt packages/viewer aus. Aufruf: `npm run typecheck:viewer` bzw. `npx tsc -p packages/viewer`.
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "golden/**/*.ts"]
+}

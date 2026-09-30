@@ -1,0 +1,88 @@
+// K3a · Waschtisch (research/17 §4.9, W3/W5): Wasserkessel zwischen zwei umgedrehten Treppen (Theke), darüber an
+// der Raumwand ein Rahmen mit Glasscheibe als „Spiegel“ (eine frei stehende Scheibe ergäbe keine Fläche). Kerze auf
+// der linken Treppe (T5 #4). Kessel: Flaschen füllen, Leder und Banner waschen. V3 „mehr in die Höhe“: ab lichter
+// Höhe 3 ein Oberschrank aus Fässern über dem Spiegel (W3; Fass öffnet immer). Schmale Form (2 × 1) für Wandstücke
+// zwischen Fenstern, Kompaktform „basin“ (1 × 1): Kessel mit Spiegel darüber. Bewusst ohne den Tag `sink`
+// (research/17 §7.2): Küchen ziehen ihn nicht.
+{
+  id: "bath/washstand",
+  kind: "static",
+  name: "Waschtisch",
+  category: "furniture",
+  tags: ["washstand", "wash_basin"],
+  functionTags: ["water_source"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "stand",
+      weight: 2,
+      layers: [
+        ["UKU"], // y0: Theke mit Kessel
+        ["c_."], // y1: Kerze | Spiegel an der Wand | Socket
+      ],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        c: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+      },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+      sockets: [{ id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["plant", "tabletop_small"], prob: 0.6 }],
+    },
+    {
+      id: "cabinet",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["UKU"],
+        ["c_."],
+        ["BBB"], // y2: Oberschrank aus Fässern
+      ],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        c: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+      entities: [{ type: "item_frame", at: [1, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+      sockets: [{ id: "top_r", type: "surface", at: [2, 1, 0], accepts: ["plant", "tabletop_small"], prob: 0.6 }],
+    },
+    {
+      // schmal (2 × 1) für Wandstücke zwischen Fenstern: Kessel + Ablage mit Kerze, Spiegel über dem Kessel
+      id: "narrow",
+      weight: 2,
+      layers: [["KU"], ["_c"]],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        c: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+    },
+    {
+      id: "narrow_cabinet",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["KU"], ["_c"], ["BB"]],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        c: { block: "minecraft:white_candle", state: { candles: "2", lit: "true" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+    },
+    {
+      // Kompaktform: Kessel, darüber der Spiegel
+      id: "basin",
+      weight: 1,
+      layers: [["K"], ["_"]],
+      legend: { K: { block: "minecraft:water_cauldron", state: { level: "3" } } },
+      entities: [{ type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:glass_pane" } }],
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

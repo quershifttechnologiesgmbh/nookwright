@@ -1,0 +1,55 @@
+// FN · Medaillon-Teppich (Innenraum-Offensive, Wohn-/Repräsentationsräume): symmetrische Teppiche mit Rand und
+// Mittelmotiv statt schlichter Rechtecke (Vorbild: Community-Hallen mit Teppichinsel unter der Sitzgruppe bzw. vor
+// dem Kamin; Rand in der Textilfarbe, Mitte in der Zweitfarbe). Alle Muster sind spiegelsymmetrisch in beiden Achsen
+// (keine Windrad-Formen). Größen 3×5 bis 9×5, damit große Räume eine Teppichinsel bekommen. Durchlaufbar.
+// Tag nur `fn_rug` (kein `rug`), damit der Bestand nicht in den Pool läuft.
+{
+  id: "decor/fn_rug_medallion",
+  kind: "static",
+  name: "Medaillon-Teppich",
+  category: "decor",
+  tags: ["fn_rug"],
+  styleTags: ["medieval", "noble", "nordic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  walkable: true,
+  variants: [
+    {
+      id: "band3",
+      weight: 2,
+      layers: [["PPPPP", "PAAAP", "PPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "cross5",
+      weight: 3,
+      layers: [[".PPP.", "PPAPP", "PAAAP", "PPAPP", ".PPP."]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "frame5",
+      weight: 3,
+      layers: [["PPPPP", "PAAAP", "PAPAP", "PAAAP", "PPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "long7",
+      weight: 3,
+      layers: [["PPPPPPP", "PAAAAAP", "PAAPAAP", "PAAAAAP", "PPPPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "long9",
+      weight: 2,
+      layers: [["PPPPPPPPP", "PAAAAAAAP", "PAAAPAAAP", "PAAAAAAAP", "PPPPPPPPP"]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+    {
+      id: "diamond7",
+      weight: 2,
+      layers: [["...P...", "..PAP..", ".PAAAP.", "PAAPAAP", ".PAAAP.", "..PAP..", "...P..."]],
+      legend: { P: { role: "textile_primary", shape: "carpet" }, A: { role: "textile_accent", shape: "carpet" } },
+    },
+  ],
+}

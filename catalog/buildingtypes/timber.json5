@@ -1,0 +1,40 @@
+// Feste Vorlage „Fachwerkhaus“ (bisher App-Vorlage `timber`): zweistöckig auf rechteckigem Grundriss, steiles
+// Satteldach mit Kanten, geschlossenem Ortgang und Giebelfenstern; Sockel, Gesims, Eckquader, Traufkonsolen – OHNE
+// Wandvorlagen (verdecken das Fachwerk), Fensterabstand 6, Theme „Fachwerk“ (timber), Außen-Deko an (Stand C4). Treppe an der Südwand (mitten im 3 breiten Innenraum würde die Öffnung das Gästezimmer teilen).
+{
+  id: "timber",
+  name: "Fachwerkhaus",
+  label: "Fachwerkhaus (steiles Dach, Außenprofil)",
+  family: "house",
+  themes: ["timber", "medieval", "rustic"],
+  massing: {
+    generator: "fixed",
+    upperFloors: 1,
+    rooms: [
+      { rect: [0, 0, 9, 6], room: "solar" },
+      { rect: [10, 0, 16, 6], room: "kitchen" },
+      { rect: [0, 7, 16, 11], room: "storage" },
+      { rect: [0, 0, 8, 6], room: "bedroom", floor: 1 },
+      { rect: [9, 0, 16, 6], room: "study", floor: 1 },
+      { rect: [0, 7, 16, 11], room: "guest_room", floor: 1 },
+      // W13-A (Runde 2, 28.09.2026, Komposition der Baumasse): eingeschossiger Anbau „Waschhaus“ an der Ostseite, 2 hinter der Front
+      // (L; hinten nahm er der Küche das Giebelfenster, bündig bzw. 1 hinter der Front entstanden an der Auskragung ein 1 breiter
+      // Putzstreifen bzw. ein Anschluss-Stamm ohne Raster), eigenes Satteldach, lichte Höhe 3 (Vorbild: Fachwerk-Hof mit Nebenbau)
+      { rect: [17, 3, 23, 9], room: "washroom", volume: "annex" },
+    ],
+    volumes: { annex: { name: "Waschhaus", floorHeight: 3 } },
+    stairs: [{ floor: 0, origin: [3, 10], facing: "east", type: "straight" }],
+    // W9-G1 (27.09.2026, Review R5 G1): Baumasse-Akzente statt Kiste – Fachwerk-Obergeschoss kragt vorn und hinten 1 Block auf Konsolen aus
+    // (Jettying, en.wikipedia.org/wiki/Jettying; Vorbilder YT N-9rrK7g0PU, reddit 1uy0tw3), mittig ein eingeschossiger
+    // Vorbau mit eigenem Giebel über der Haustür
+    features: { jetty: { sides: ["front", "back"] }, cross: { width: 5, depth: [2, 3], align: "center", floors: "ground", prob: 0.7 } },
+  },
+  shell: {
+    roof: "gable",
+    overhang: 1,
+    roofDetail: { pitch: "steep", trim: true, verge: "closed", gableWindows: true },
+    windows: { spacing: 6 },
+    facade: { plinthProfile: true, cornice: true, quoins: true, brackets: 3, upperFrame: true },
+  },
+  exterior: { density: 1 },
+}

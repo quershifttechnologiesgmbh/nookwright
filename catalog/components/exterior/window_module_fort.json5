@@ -1,0 +1,74 @@
+// W6-B · Fenstermodul „Wehrbau Holz“ (plan/spikes/W6B_laternen.md, Review W4-R Runde 3 „Leichtes“): das Gegenstück
+// zum Stein-Modul für Wehrbauten mit Holzwänden (Wachturm und Burg in rustic/nordic). Keine Läden, keine Kästen – ein
+// Wachturm ist kein Wohnhaus. Links und rechts der Scheibe je ein stehender Stamm (Rolle `beam`, Achse y; rustic
+// Eichenstamm mit Rinde, nordic entrindete Fichte – `pillar` wäre in Stein-Themes kein Stamm) 1 Block vor der Wand: die
+// Scheibe liegt einen Block zurück wie eine Scharte in einer Blockwand, gleiche Tiefe wie die Stein-Laibung. Sturz aus
+// umgedrehten Treppen, Bank aus Stufen (am Wachturm setzt die Hülle beide über die ganze Breite, `frameRole`). Laterne
+// am Zaun-Arm auf dem Rasterpfosten bzw. neben dem Fenster.
+//
+//   Ansicht (1 × 2)      Schnitt
+//     L L L               y+2  L .
+//     P . P               y+1  . .    P Stamm (Rolle `beam`, Achse y), 1 vor der Wand
+//     P . P               y    . .
+//     S S S               y−1  S .
+//
+// Vorbilder (URLs im Bericht): 7 Holz- bzw. Fachwerk-Wachtürme – 0 mit Läden, 0 mit Blumenkästen; schmale, hohe
+// Öffnungen zwischen stehenden Stämmen (4/7), Laternen an Ketten bzw. Balken unter der Plattform (4/7).
+{
+  id: "exterior/window_module_fort",
+  kind: "static",
+  name: "Fenstermodul Wehrbau Holz",
+  category: "architecture",
+  // Wandmaterial (W5-B `themeMaterial`) und Familie „wehrhaft“ (W6-B): `module_fort` verbindet das Stein- und das
+  // Holzmodul – ein Bautyp, der `stone` wählt, bekommt an Holzwänden dieses Modul statt des Wohnhaus-Moduls des Themes
+  tags: ["exterior", "exterior_window", "exterior_window_module", "outdoor", "walls_wood", "module_fort"],
+  // Standardwahl keines Themes (nur über die Familie bzw. ausdrücklich `windowModule: "fort"`)
+  styleTags: [],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "module",
+      weight: 1,
+      layers: [
+        ["SSS"],
+        ["P_P"],
+        ["P_P"],
+        ["LLL"],
+      ],
+      legend: {
+        S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "lintel",
+      layers: [["L"]],
+      legend: { L: { role: "window_frame", shape: "stairs", orient: { upsideDown: true, back: "back" } } },
+    },
+    {
+      id: "sill",
+      layers: [["S"]],
+      legend: { S: { role: "window_frame", shape: "slab", orient: { upsideDown: true } } },
+    },
+    {
+      id: "jamb",
+      layers: [["J"]],
+      legend: { J: { role: "beam", shape: "log", orient: { axis: "y" } } },
+      stretch: { layer: 0, max: 3, fill: "ceiling" },
+    },
+    {
+      id: "lantern",
+      // Laterne hängt unter dem Zaun (Zaun-Unterseite = stabile Mitte, Faktencheck #3); der Zaun verbindet sich mit der Wand
+      layers: [["L"], ["F"]],
+      legend: {
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+        F: { role: "beam", shape: "fence" },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

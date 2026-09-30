@@ -1,0 +1,40 @@
+// K3d · Kerker (research/11 §9 D1–D7; research/17 §5 Delta: gemeinsame Zellen-Geometrie, Spinnweben nur in Ecken).
+// Signatur: Zellen an den Wänden (Gitterfront, Eisentür, Knopf nur außen) bzw. frei stehender Gitterkäfig als
+// Kompaktform (Tag `prison_cell`), je nach Fläche 1–4. Wachstube nahe der Tür (Tisch, Stuhl, Truhe, Etagenbett,
+// Waffen). Stimmung: Knochen in Ecken, Fesseln an den Wänden, Spinnweben unter der Decke (nie über Laufwegen in
+// Kopfhöhe), Hängekäfig und Ketten von der Decke (V3), Seelenlaternen am Wandarm, Feuerbecken in der Mitte.
+// Licht bewusst gedämpft (≥ 2, Spawn-Schutz ≥ 1 erfüllt).
+{
+  id: "dungeon",
+  name: "Kerker",
+  minArea: 24,
+  coverage: { target: 0.4 },
+  required: [
+    { tags: ["prison_cell"], count: [1, 1], signature: true, placement: { zones: ["edge", "corner"], doorAffinity: "far" } },
+  ],
+  optional: [
+    // weitere Zellen je nach Fläche (optional, sonst sprengen mehrere Pflicht-Zellen kleine Räume)
+    { tags: ["prison_cell"], count: { perArea: 20, min: 0, max: 3 }, weight: 4, placement: { zones: ["edge", "corner"] } },
+    { tags: ["table_small"], count: [0, 1], weight: 2, placement: { zones: ["corner", "edge"], doorAffinity: "near" } },
+    { tags: ["chair"], count: [0, 1], weight: 1, placement: { zones: ["edge"], doorAffinity: "near" } },
+    { tags: ["chest"], count: [0, 1], weight: 2, placement: { zones: ["corner"], doorAffinity: "near" } },
+    { tags: ["bunk_bed", "straw_pallet"], count: [0, 1], weight: 1, placement: { zones: ["edge", "corner"], doorAffinity: "near" } },
+    { tags: ["weapon_rack", "armor_display"], count: [0, 1], weight: 1, placement: { zones: ["edge"], doorAffinity: "near" } },
+    // FN-Dense: Streckbank in der Raummitte (Insel)
+    { tags: ["fn_dungeon_rack"], count: [1, 1], weight: 6, placement: { zones: ["center"] }, island: true },
+    // FN-Dense: Pranger nahe der Wand, Folterständer und Wandketten gehören zur Ausstattung
+    { tags: ["fn_dungeon_stocks"], count: [0, 1], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["bone_pile"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["brazier"], count: [0, 1], weight: 2, placement: { zones: ["center"] } },
+    { tags: ["barrel"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    // Wand und Decke (über Kopfhöhe)
+    { tags: ["shackles"], count: [1, 3], weight: 3 },
+    { tags: ["cobweb"], count: [1, 3], weight: 2 },
+    { tags: ["hanging_chains", "hanging_cage", "hanging_moss"], count: [0, 2], weight: 2 },
+    // W2 (I6): passende Kerker-Stücke statt der Q1a-Entwürfe fremder Räume (Kindertisch, Fasstisch, Frühstücksbox)
+    { tags: ["trophy", "rubble"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["crate_stack"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["light_grim"], count: { perArea: 12, min: 1, max: 4 }, weight: 4 },
+  ],
+  lighting: { minLevel: 2, prefer: ["light_grim", "light_wall", "brazier"] },
+}

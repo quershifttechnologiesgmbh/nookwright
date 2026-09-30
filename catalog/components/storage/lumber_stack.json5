@@ -1,0 +1,47 @@
+// K3b · Bretterstapel (research/17 §4.15, Z2): unten Stämme quer (Stirnseite zur Raummitte), darauf Bretter als
+// untere Stufen. Mehr in die Höhe (V3): „tall“ mit zweiter Stamm-Lage, „high“ ab lichter Höhe 4 als Holzlager
+// bis unter die Decke (weitere Stamm-Lagen per `stretch`, oben die Bretter). Stämme und Stufen brauchen keine
+// Stütze und fallen nicht. Bewusst ohne Tag `goods` (sonst stünden Bretterstapel in Küche und Taverne).
+{
+  id: "storage/lumber_stack",
+  kind: "static",
+  name: "Bretterstapel",
+  category: "storage",
+  tags: ["lumber_stack", "woodwork"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "low",
+      weight: 2,
+      layers: [["LLL"], ["sss"]],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+    {
+      id: "tall",
+      weight: 2,
+      layers: [["LLL"], ["sss"], ["LL."]],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+    },
+    {
+      // Holzlager bis zur Decke: Stämme, Bretter, Stämme (gedehnt), oben Bretter
+      id: "high",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["LLL"], ["sss"], ["LLL"], ["ss."]],
+      legend: {
+        L: { role: "beam", shape: "log", orient: { axis: "across" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } },
+      },
+      stretch: { layer: 2, max: 6, fill: "ceiling" },
+    },
+  ],
+}

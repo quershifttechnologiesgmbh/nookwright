@@ -1,0 +1,33 @@
+// K3b · Stückfass (research/17 §4.20, V5/V6): 3 × 3-Stirnseite mit „runden“ Ecken aus Treppen, in der Mitte ein
+// Fass als Spund (echter Behälter, öffnet immer, Faktencheck #2), dahinter Planken. Treppen-Ecken mit der Lehne
+// zur Mitte (left = +x): so fehlt die äußere Ecke, die Stirn wirkt rund. Fass = Fischer-Arbeitsblock
+// (Faktencheck #7) → `villager_workstation`. Mehr in die Höhe (V3): auf dem Fass stehen Fässchen gestapelt
+// (Socket `above`, Tag `stack_on_barrel`), bis die Decke kommt. Zapfhahn (Stolperdrahthaken) fehlt, bis die
+// Physik seine Stützregel kennt (K2 §5).
+{
+  id: "storage/cask_big",
+  kind: "static",
+  name: "Stückfass",
+  category: "storage",
+  tags: ["cask_big", "cask"],
+  functionTags: ["store", "villager_workstation", "work:fisherman"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["PPP", "aPb"], // y0: hinten Planken; vorn untere Ecken (umgedrehte Treppen)
+    ["PPP", "PBP"], // y1: vorn das Fass als Spund
+    ["PPP", "cPd"], // y2: vorn obere Ecken
+  ],
+  legend: {
+    P: { role: "beam", shape: "planks" },
+    B: { block: "minecraft:barrel", orient: { front: "front" }, contents: { lootTable: "minecraft:chests/village/village_plains_house" } },
+    a: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+    b: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+    c: { role: "furniture_wood", shape: "stairs", orient: { back: "left" } },
+    d: { role: "furniture_wood", shape: "stairs", orient: { back: "right" } },
+  },
+  sockets: [{ id: "keg", type: "above", at: [1, 3, 0], accepts: ["stack_on_barrel"], prob: 0.5 }],
+  masks: { use: [{ side: "front" }] },
+}

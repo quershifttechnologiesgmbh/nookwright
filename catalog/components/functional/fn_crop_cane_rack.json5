@@ -1,0 +1,190 @@
+// Zuckerrohr- und Bambus-Reihenautomat (Welle FN), Spalten im Abstand 2 nach dem im Spiel geprüften Muster von sugarcane_farm (R1):
+// Beobachter (Höhe 3, hinten) sieht die dritte Stufe, sein Ausgang speist Staub → Block → Kolben (Höhe 2), der Kolben schiebt Stufe 2 weg
+// (Rohr/Bambus: Schubreaktion „zerstören“), Stufe 3 fällt mit. Der Kolben tritt nur in Stufe 2 ein; der Beobachter sieht ihn nicht (kein Takt).
+// Zuckerrohr braucht Wasser waagerecht neben dem Erdblock (Wiki Sugar_Cane): Wasser liegt hinter der Erde, eingefasst und überdeckt
+// (fließt nicht aus). Bambus braucht kein Wasser (Wiki Bamboo), nur Erde/Sand/Podsol und Licht ab 9 an der Spitze: die Laternen auf den
+// Trennwänden liefern 15 - 3 = 12. Bambus wird hier nur bis Höhe 3 gehalten (Ernte durch denselben Kolben; die Wuchshöhe 12-16 wird nie erreicht).
+// Ernte fällt vorn in die Beetzelle und wird von Hand aufgesammelt (ein Trichter darunter ist nicht erreichbar).
+// Ruhezustand im Export: stromlos, Rohr/Bambus Stufe 1, Kolben eingefahren, Deckel über der Technik.
+// Größen: 2 Spalten (5 breit) oder 4 Spalten (9 breit), 3 tief, Höhe 5; die freien Zellen über dem Beet bleiben reserviert.
+{
+  id: "functional/fn_crop_cane_rack",
+  kind: "static",
+  name: "Rohr-/Bambusreihe mit Kolben",
+  category: "work",
+  tags: ["fn_crop_cane", "fn_crop", "fn_farm_machine"],
+  functionTags: ["farm:sugar_cane", "farm:bamboo", "automation", "redstone", "light"],
+  styleTags: ["workshop", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "s_cane",
+      weight: 9,
+      layers: [
+        [ // y0: Wasser hinten, Erde vorn
+          "BBBBB", // z0 Rückwand
+          "BwBwB", // z1 Technik
+          "BdBdB", // z2 Beet
+        ],
+        [ // y1: Rohr Stufe 1, Deckel
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Technik
+          "BcBcB", // z2 Beet
+        ],
+        [ // y2: Kolben, Rohr Stufe 2, Laternen
+          "BBBBB", // z0 Rückwand
+          "BpBpB", // z1 Technik
+          "._l_.", // z2 Beet
+        ],
+        [ // y3: Beobachter, Staub, Rohr Stufe 3
+          "BrBrB", // z0 Rückwand
+          "BoBoB", // z1 Technik
+          "._._.", // z2 Beet
+        ],
+        [ // y4: Deckel
+          "sssss", // z0 Rückwand
+          "sssss", // z1 Technik
+          ".....", // z2 Beet
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        d: { block: "minecraft:dirt" },
+        c: { block: "minecraft:sugar_cane", state: { age: "0" } },
+        l: { block: "minecraft:lantern", orient: { hanging: false } },
+        p: { block: "minecraft:piston", orient: { front: "front" } },
+        r: { block: "minecraft:redstone_wire" },
+        o: { block: "minecraft:observer", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "s_bamboo",
+      weight: 6,
+      layers: [
+        [ // y0: Wasser hinten, Erde vorn
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Technik
+          "BdBdB", // z2 Beet
+        ],
+        [ // y1: Rohr Stufe 1, Deckel
+          "BBBBB", // z0 Rückwand
+          "BBBBB", // z1 Technik
+          "BcBcB", // z2 Beet
+        ],
+        [ // y2: Kolben, Rohr Stufe 2, Laternen
+          "BBBBB", // z0 Rückwand
+          "BpBpB", // z1 Technik
+          "._l_.", // z2 Beet
+        ],
+        [ // y3: Beobachter, Staub, Rohr Stufe 3
+          "BrBrB", // z0 Rückwand
+          "BoBoB", // z1 Technik
+          "._._.", // z2 Beet
+        ],
+        [ // y4: Deckel
+          "sssss", // z0 Rückwand
+          "sssss", // z1 Technik
+          ".....", // z2 Beet
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        d: { block: "minecraft:dirt" },
+        c: { block: "minecraft:bamboo", state: { age: "0", leaves: "none", stage: "0" } },
+        l: { block: "minecraft:lantern", orient: { hanging: false } },
+        p: { block: "minecraft:piston", orient: { front: "front" } },
+        r: { block: "minecraft:redstone_wire" },
+        o: { block: "minecraft:observer", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "m_cane",
+      weight: 6,
+      layers: [
+        [ // y0: Wasser hinten, Erde vorn
+          "BBBBBBBBB", // z0 Rückwand
+          "BwBwBwBwB", // z1 Technik
+          "BdBdBdBdB", // z2 Beet
+        ],
+        [ // y1: Rohr Stufe 1, Deckel
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Technik
+          "BcBcBcBcB", // z2 Beet
+        ],
+        [ // y2: Kolben, Rohr Stufe 2, Laternen
+          "BBBBBBBBB", // z0 Rückwand
+          "BpBpBpBpB", // z1 Technik
+          "._l_l_l_.", // z2 Beet
+        ],
+        [ // y3: Beobachter, Staub, Rohr Stufe 3
+          "BrBrBrBrB", // z0 Rückwand
+          "BoBoBoBoB", // z1 Technik
+          "._._._._.", // z2 Beet
+        ],
+        [ // y4: Deckel
+          "sssssssss", // z0 Rückwand
+          "sssssssss", // z1 Technik
+          ".........", // z2 Beet
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        w: { block: "minecraft:water", state: { level: "0" } },
+        d: { block: "minecraft:dirt" },
+        c: { block: "minecraft:sugar_cane", state: { age: "0" } },
+        l: { block: "minecraft:lantern", orient: { hanging: false } },
+        p: { block: "minecraft:piston", orient: { front: "front" } },
+        r: { block: "minecraft:redstone_wire" },
+        o: { block: "minecraft:observer", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "m_bamboo",
+      weight: 4,
+      layers: [
+        [ // y0: Wasser hinten, Erde vorn
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Technik
+          "BdBdBdBdB", // z2 Beet
+        ],
+        [ // y1: Rohr Stufe 1, Deckel
+          "BBBBBBBBB", // z0 Rückwand
+          "BBBBBBBBB", // z1 Technik
+          "BcBcBcBcB", // z2 Beet
+        ],
+        [ // y2: Kolben, Rohr Stufe 2, Laternen
+          "BBBBBBBBB", // z0 Rückwand
+          "BpBpBpBpB", // z1 Technik
+          "._l_l_l_.", // z2 Beet
+        ],
+        [ // y3: Beobachter, Staub, Rohr Stufe 3
+          "BrBrBrBrB", // z0 Rückwand
+          "BoBoBoBoB", // z1 Technik
+          "._._._._.", // z2 Beet
+        ],
+        [ // y4: Deckel
+          "sssssssss", // z0 Rückwand
+          "sssssssss", // z1 Technik
+          ".........", // z2 Beet
+        ],
+      ],
+      legend: {
+        B: { role: "furniture_wood", shape: "planks" },
+        s: { role: "furniture_wood", shape: "slab" },
+        d: { block: "minecraft:dirt" },
+        c: { block: "minecraft:bamboo", state: { age: "0", leaves: "none", stage: "0" } },
+        l: { block: "minecraft:lantern", orient: { hanging: false } },
+        p: { block: "minecraft:piston", orient: { front: "front" } },
+        r: { block: "minecraft:redstone_wire" },
+        o: { block: "minecraft:observer", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

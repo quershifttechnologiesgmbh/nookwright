@@ -1,0 +1,92 @@
+// K3b · Stoffregal (research/17 §4.14, Y3 „Wollballen auf Regalbrettern“): farbige Wollballen zwischen Stamm-
+// Pfosten, obere Stufen als Regalbrett, darauf die nächste Reihe Ballen. Farben fest (die Theme-Rolle textile_*
+// kennt keine Form `wool`, research/17 Y12). Mehr in die Höhe (V3): ab lichter Höhe 4 zwei Bretter, darüber
+// Leinenballen bis unter die Decke (`stretch`, `ceiling`). Kompaktform „bales“ (2 × 1 × 2, ohne Pfosten) passt
+// auch an kurze Wandstücke und bei lichter Höhe 2. Wolle ist kein Arbeitsblock, keine Mechanik-Regel.
+{
+  id: "work/cloth_shelf",
+  kind: "static",
+  name: "Stoffregal",
+  category: "storage",
+  tags: ["cloth_shelf", "textile_goods"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "wide",
+      weight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["PRWBP"], // y0: Pfosten | Rot | Weiß | Blau | Pfosten
+        ["PsssP"], // y1: Brett (obere Stufen)
+        ["PYGLP"], // y2: Gelb | Grün | Hellblau
+      ],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { block: "minecraft:red_wool" },
+        W: { block: "minecraft:white_wool" },
+        B: { block: "minecraft:blue_wool" },
+        Y: { block: "minecraft:yellow_wool" },
+        G: { block: "minecraft:green_wool" },
+        L: { block: "minecraft:light_blue_wool" },
+      },
+    },
+    {
+      // ab lichter Höhe 4: zwei Bretter, darüber Leinenballen bis zur Decke
+      id: "wide_high",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["PRWBP"], ["PsssP"], ["PYGLP"], ["PsssP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { block: "minecraft:red_wool" },
+        W: { block: "minecraft:white_wool" },
+        B: { block: "minecraft:blue_wool" },
+        Y: { block: "minecraft:yellow_wool" },
+        G: { block: "minecraft:green_wool" },
+        L: { block: "minecraft:light_blue_wool" },
+      },
+      stretch: { layer: 3, max: 8, fill: "ceiling", rows: ["PWWWP"] },
+    },
+    {
+      id: "narrow",
+      weight: 2,
+      maxRoomHeight: 3,
+      layers: [["PRP"], ["PsP"], ["PBP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { block: "minecraft:red_wool" },
+        B: { block: "minecraft:blue_wool" },
+      },
+    },
+    {
+      id: "narrow_high",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["PRP"], ["PsP"], ["PWP"], ["PsP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        R: { block: "minecraft:red_wool" },
+        W: { block: "minecraft:white_wool" },
+      },
+      stretch: { layer: 3, max: 8, fill: "ceiling", rows: ["PWP"] },
+    },
+    {
+      // Kompaktform: gestapelte Stoffballen ohne Pfosten
+      id: "bales",
+      weight: 1,
+      layers: [["RW"], ["B."]],
+      legend: {
+        R: { block: "minecraft:red_wool" },
+        W: { block: "minecraft:white_wool" },
+        B: { block: "minecraft:blue_wool" },
+      },
+    },
+  ],
+}

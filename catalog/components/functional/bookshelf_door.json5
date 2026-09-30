@@ -1,0 +1,44 @@
+// Bücherregal-Geheimtür (R1): zwei Bücherregale (1 breit, 2 hoch) schieben Klebekolben seitlich in die Wand.
+// Ruhezustand im Export: ZU = Hebel an, Kolben ausgefahren, Kolbenköpfe davor (Konsistenz prüft checkPistons).
+// Der Hebel steht vorn auf einem Bücherregal (Bodenhebel): er versorgt den oberen Kolben direkt (Nachbar) und
+// über das Regal darunter (stark gespeist) den unteren. Hebel AUS → beide ziehen die Regale in die Tasche hinter
+// der vorderen Regal-Abdeckung, der Durchgang ist frei. Kein Staub, kein Takt, kein Leistungs-Pass nötig.
+// Die Tür sitzt 1 Block zurückgesetzt (Nische), weil die Kolben hinter der Abdeckung liegen.
+// Freistehend (die Hülle kennt noch kein `wall_inset`); lichte Höhe 3. Im Spiel geprüft: spikes/ingame Gruppe F.
+{
+  id: "functional/bookshelf_door",
+  kind: "static",
+  name: "Bücherregal-Geheimtür",
+  category: "architecture",
+  tags: ["secret_door", "bookshelf_door", "redstone_door"],
+  functionTags: ["door", "redstone"],
+  styleTags: ["medieval", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    [
+      "PHSF", // y0 z0 (Türebene): Klebekolben | Kolbenkopf | Tür-Regal | Rahmen
+      "KC_F", // y0 z1 (vorn): Regal unter dem Hebel | Abdeckung | Nische | Rahmen
+    ],
+    [
+      "PHSF",
+      "vC_F", // y1 z1: Bodenhebel (an) | Abdeckung | Nische | Rahmen
+    ],
+    [
+      "RRRR", // y2: Sturz
+      "RRRR",
+    ],
+  ],
+  legend: {
+    P: { block: "minecraft:sticky_piston", orient: { front: "left" }, state: { extended: "true" } },
+    H: { block: "minecraft:piston_head", orient: { front: "left" }, state: { type: "sticky", short: "false" } },
+    S: { block: "minecraft:bookshelf" },
+    F: { block: "minecraft:bookshelf" },
+    K: { block: "minecraft:bookshelf" },
+    C: { block: "minecraft:bookshelf" },
+    R: { block: "minecraft:bookshelf" },
+    v: { block: "minecraft:lever", orient: { attachTo: "down", front: "front" }, state: { powered: "true" } },
+  },
+  masks: { use: [{ side: "front" }] },
+}

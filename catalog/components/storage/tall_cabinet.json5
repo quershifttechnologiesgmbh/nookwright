@@ -1,0 +1,52 @@
+// V3 · Hoher Schrank, höhenadaptiv (research/10 §2.3/§7.2 Schrank aus Fässern; Nutzer-Wunsch „mehr in die
+// Höhe“): Fass-Fächer beidseits eines Stamm-Pfostens, oben ein Gesims aus umgedrehten Treppen. Die Variante
+// richtet sich nach der lichten Höhe (`minRoomHeight`/`maxRoomHeight`): 2 hoch in niedrigen Räumen, 3 hoch
+// ab Höhe 3, 4 hoch ab Höhe 5. Fässer öffnen immer, auch gestapelt (Faktencheck #2).
+{
+  id: "storage/tall_cabinet",
+  kind: "static",
+  name: "Hoher Schrank",
+  category: "storage",
+  tags: ["wardrobe", "cabinet", "tall_cabinet"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "h2",
+      weight: 2,
+      maxRoomHeight: 3,
+      layers: [["BPB"], ["KKK"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "h3",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["BPB"], ["BPB"], ["KKK"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+    {
+      id: "h4",
+      weight: 3,
+      minRoomHeight: 5,
+      layers: [["BPB"], ["BPB"], ["BPB"], ["KKK"]],
+      legend: {
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: false }] },
+}

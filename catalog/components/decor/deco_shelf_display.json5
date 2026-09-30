@@ -1,0 +1,70 @@
+// MEHR DEKORATION · Regal-Auslage: Wandbord aus umgedrehten Stufen, bestückt mit Töpfen, Krügen und Pflanzen
+// (Keralis/Grian: „Regale mit Inhalt“, nie leer). Vier Formen: Pflanzen, Krüge, gemischt, Doppelbord in hohen Räumen.
+// Töpfe und Krüge brauchen keine Stütze. Nicht durchlaufbar in der Bordlage.
+{
+  id: "decor/deco_shelf_display",
+  kind: "static",
+  name: "Regal-Auslage",
+  category: "attachment",
+  tags: ["deco_shelf", "wall_decor"],
+  styleTags: ["medieval", "rustic", "cozy"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  wallHeights: [2, 1],
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "plants2",
+      weight: 4,
+      layers: [["SS"], ["pB"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        p: { block: "minecraft:potted_fern" },
+        B: { block: "minecraft:potted_flowering_azalea_bush" },
+      },
+    },
+    {
+      id: "pots2",
+      weight: 3,
+      layers: [["SS"], ["Dp"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        D: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        p: { block: "minecraft:potted_cornflower" },
+      },
+    },
+    {
+      id: "poppy_single",
+      weight: 2,
+      layers: [["S"], ["f"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        f: { block: "minecraft:potted_poppy" },
+      },
+    },
+    {
+      id: "mixed3",
+      weight: 2,
+      layers: [["SSS"], ["DpB"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        D: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        p: { block: "minecraft:potted_azure_bluet" },
+        B: { block: "minecraft:potted_red_tulip" },
+      },
+    },
+    {
+      id: "double2",
+      weight: 2,
+      minRoomHeight: 4,
+      layers: [["SS"], ["pD"], ["SS"], ["fp"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        p: { block: "minecraft:potted_fern" },
+        D: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+        f: { block: "minecraft:potted_poppy" },
+      },
+    },
+  ],
+}

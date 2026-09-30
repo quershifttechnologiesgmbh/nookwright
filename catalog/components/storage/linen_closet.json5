@@ -1,0 +1,41 @@
+// I52 · Wäscheschrank (research/52 §Möbel, Bad/Flur): Stamm-Pfosten-Bucht mit gefalteten „Leinen“ (Wolle)
+// zwischen den Regalbrettern, wie work/cloth_shelf, aber gestapelt statt Ballen — für Bad/Schlafzimmer-Flure.
+{
+  id: "storage/linen_closet",
+  kind: "static",
+  name: "Wäscheschrank",
+  category: "storage",
+  tags: ["linen_closet"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "cozy"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "low",
+      weight: 2,
+      maxRoomHeight: 3,
+      layers: [["PWP"], ["PsP"], ["PWP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        W: { block: "minecraft:white_wool" },
+      },
+    },
+    {
+      id: "tall",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [["PWP"], ["PsP"], ["PLP"], ["PsP"]],
+      legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        W: { block: "minecraft:white_wool" },
+        L: { block: "minecraft:light_gray_wool" },
+      },
+      stretch: { layer: 3, max: 8, fill: "ceiling", rows: ["PWP"] },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

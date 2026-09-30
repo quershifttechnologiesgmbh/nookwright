@@ -1,0 +1,30 @@
+// K3d · Kartenraum (research/11 §11 M1–M6; research/17 §5 Delta: Nebenraum zu Arbeitszimmer/Observatorium,
+// Fernrohr am Fenster). Signatur: Kartentisch (work/map_desk von K3a an der Wand, frei stehend work/chart_table als
+// Kompaktform; Kartograf). Pflicht dazu eine Karte: Bodenkarte (Teppich-Mosaik) oder Wandkarte (Terrakotta).
+// Instrumente und Karten in Rahmen, Kartenarchiv (Truhen), Regale, Laterne auf dem Tisch. Karten mit Kartendaten
+// fehlen bewusst (`filled_map` bliebe braun, T5).
+{
+  id: "map_room",
+  name: "Kartenraum",
+  minArea: 16,
+  coverage: { target: 0.35 },
+  required: [
+    { tags: ["map_desk", "cartography_table"], count: [1, 1], signature: true, placement: { zones: ["edge"], windowAffinity: "near" } },
+    { tags: ["floor_map", "wall_map"], count: [1, 1], placement: { zones: ["center", "edge"] } },
+  ],
+  optional: [
+    { tags: ["wall_map"], count: [0, 2], weight: 3 },
+    { tags: ["floor_map"], count: [0, 1], weight: 3, placement: { zones: ["center"] } },
+    { tags: ["instrument_frames", "picture_frame"], count: [1, 2], weight: 3 },
+    { tags: ["cartography_table"], count: [0, 1], weight: 2, placement: { zones: ["center", "edge"] } },
+    // FN-dense-grand: Schiffsbucht-Arkade (Steinpfeiler mit Bogen) gliedert die Längswände
+    { tags: ["fn_nave_bay"], count: { perArea: 18, min: 2, max: 8 }, weight: 4, placement: { zones: ["edge"] }, pattern: { kind: "row", gap: 0 } },
+    { tags: ["bookshelf_wall"], count: [0, 2], weight: 2, placement: { zones: ["edge"] } },
+    { tags: ["chest"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["telescope"], count: [0, 1], weight: 1, placement: { zones: ["edge"], windowAffinity: "near" } },
+    { tags: ["wall_banner"], count: [0, 2], weight: 1 },
+    { tags: ["ceiling_banner"], count: [0, 1], weight: 1 },
+    { tags: ["chandelier", "light_ceiling"], count: [1, 2], weight: 3 },
+  ],
+  lighting: { minLevel: 7, prefer: ["light_small", "chandelier", "candles", "light_ceiling", "light_wall"] },
+}

@@ -1,0 +1,16 @@
+// K2 · Schneidebrett (DA Utility: Cooking Tools): Holz-Druckplatte auf der Arbeitsplatte. Druckplatte braucht
+// eine tragfähige Oberseite (umgedrehte Treppe, obere Stufe, Fass). Nur über den Tag `kitchen_utensil`
+// (Arbeitsplatte, Vorratsregal), damit sie nicht auf Nachttischen landet.
+{
+  id: "decor/cutting_board",
+  kind: "static",
+  name: "Schneidebrett",
+  category: "decor",
+  tags: ["kitchen_utensil"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "surface",
+  rotations: [0],
+  layers: [["P"]],
+  legend: { P: { role: "furniture_wood", shape: "pressure_plate" } },
+}

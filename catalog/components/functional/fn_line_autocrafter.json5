@@ -1,0 +1,118 @@
+// FN · Crafter-Linie (Produktionslinien, plan/spikes/FN_produktionslinien.md): Fass → Trichter → Crafter → Trichter →
+// Ausgabe-Fass, Auslösung von Hand per Knopf auf dem Crafter. Der Crafter (Java 1.21, Block `minecraft:crafter`) ist in
+// 1.21.11 und 26.3 vorhanden (Registry-Vertrag). Mechanik (minecraft.wiki/w/Crafter): ein Trichter füllt die Slots
+// gleichmäßig, ein Redstone-Impuls (Knopf auf dem Block gibt ihm Starkstrom) stellt nach 4 Ticks ein Rezept her und wirft
+// das Ergebnis aus der FRONT aus; steht dort ein Trichter, nimmt er es an und gibt es ins Fass darunter weiter.
+// Ohne Vorkonfiguration funktioniert sofort jedes Rezept, das alle 9 Slots füllt: 9 Ingots/Nuggets/Weizen/Knochenmehl
+// → Block (Pressen!). Andere Rezepte: Slots einmal im Menü sperren (Klick auf den Slot). Ruhezustand im Export:
+// alle Behälter leer (Behälter-Inhalte kann der Export nur für Fässer/Truhen setzen), Knopf aus, Crafter unbestromt.
+// Die Front (Süden) ist die Arbeitsseite; der Rücken steht an der Wand. Richtungen relativ: left = +x.
+// Wachsen mit der Größe: S 1 Crafter, M 2 (spiegelsymmetrisch), L 4 (zwei Paare). Kein Windrad, keine Drehsymmetrie.
+{
+  id: "functional/fn_line_autocrafter",
+  kind: "static",
+  name: "Crafter-Linie",
+  category: "work",
+  tags: ["fn_autocrafter", "fn_line"],
+  functionTags: ["craft", "store", "automation"],
+  styleTags: ["workshop", "dwarven"],
+  obtainability: "survival",
+  minVersion: 3953, // Java 1.21 (Crafter)
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "single",
+      weight: 3,
+      layers: [
+        ["PP", "PO"], // y0: Sockel | Sockel; vorn Sockel | Ausgabe-Fass
+        ["HC", "_T"], // y1: Zufuhr-Trichter (→ Crafter) | Crafter (Front nach vorn); vorn Luft | Ausgabe-Trichter (↓)
+        ["bK", "__"], // y2: Vorrats-Fass | Knopf auf dem Crafter
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        O: { block: "minecraft:barrel", orient: { front: "up" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:crafter", orient: { front: "front" } },
+        T: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        K: { role: "beam", shape: "button", orient: { attachTo: "down", front: "front" } },
+      },
+      sockets: [
+        { id: "top", type: "surface", at: [0, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+        { id: "lamp", type: "hang", at: [0, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "pair",
+      weight: 3,
+      layers: [
+        ["PPPP", "POOP"],
+        ["HCC%", "_TT_"],
+        ["bKKb", "____"],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        O: { block: "minecraft:barrel", orient: { front: "up" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        "%": { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        C: { block: "minecraft:crafter", orient: { front: "front" } },
+        T: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        K: { role: "beam", shape: "button", orient: { attachTo: "down", front: "front" } },
+      },
+      sockets: [
+        { id: "top_l", type: "surface", at: [0, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6, pairWith: "top_r" },
+        { id: "top_r", type: "surface", at: [3, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+        { id: "lamp", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5, pairWith: "lamp_r" },
+        { id: "lamp_r", type: "hang", at: [2, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "quad",
+      weight: 2,
+      layers: [
+        ["PPPPPPPP", "POOPPOOP"],
+        ["HCC%HCC%", "_TT__TT_"],
+        ["bKKbbKKb", "________"],
+      ],
+      legend: {
+        P: { role: "furniture_wood", shape: "planks" },
+        O: { block: "minecraft:barrel", orient: { front: "up" } },
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        "%": { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        C: { block: "minecraft:crafter", orient: { front: "front" } },
+        T: { block: "minecraft:hopper", orient: { attachTo: "down" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        K: { role: "beam", shape: "button", orient: { attachTo: "down", front: "front" } },
+      },
+      sockets: [
+        { id: "top_a", type: "surface", at: [0, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6, pairWith: "top_b" },
+        { id: "top_b", type: "surface", at: [7, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.6 },
+        { id: "top_c", type: "surface", at: [3, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.5, pairWith: "top_d" },
+        { id: "top_d", type: "surface", at: [4, 1, 1], accepts: ["mug", "tabletop_small"], prob: 0.5 },
+        { id: "lamp_a", type: "hang", at: [1, 99, 1], accepts: ["light_pendant"], prob: 0.5, pairWith: "lamp_b" },
+        { id: "lamp_b", type: "hang", at: [6, 99, 1], accepts: ["light_pendant"], prob: 0.5 },
+      ],
+    },
+    {
+      id: "low",
+      weight: 1,
+      // Kompaktform für lichte Höhe 2: Crafter auf dem Boden, Ausgabe-Trichter seitlich in ein Fass (Zufuhr-Fass darüber)
+      layers: [
+        ["HC", "OT"], // y0: Zufuhr-Trichter (→ Crafter) | Crafter; vorn Ausgabe-Fass | Ausgabe-Trichter (→ Fass)
+        ["bK", "__"], // y1: Vorrats-Fass | Knopf auf dem Crafter
+      ],
+      legend: {
+        H: { block: "minecraft:hopper", orient: { attachTo: "left" } },
+        C: { block: "minecraft:crafter", orient: { front: "front" } },
+        O: { block: "minecraft:barrel", orient: { front: "up" } },
+        T: { block: "minecraft:hopper", orient: { attachTo: "right" } },
+        b: { block: "minecraft:barrel", orient: { front: "up" } },
+        K: { role: "beam", shape: "button", orient: { attachTo: "down", front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }], clearance: [{ side: "front", depth: 1, hard: true }] },
+  light: "auto",
+}

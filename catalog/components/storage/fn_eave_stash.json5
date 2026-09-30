@@ -1,0 +1,38 @@
+// FN-Dense · Traufen-Lager für den Dachboden (Vorbild: Dachboden-Gerümpel der Community: niedrige Truhen- und
+// Sackhaufen dort, wo die Dachschräge keine Kopffreiheit lässt). 3 breit, 1 tief, nur 1 Block hoch, damit es auch
+// in die niedrige Randzone passt: Truhe, Heuballen, Fass nebeneinander (Truhe und Fass verschmelzen nicht),
+// darauf optional eine Laterne (Kerze auf Sockel). Tag `fn_eave_stash`.
+{
+  id: "storage/fn_eave_stash",
+  kind: "static",
+  name: "Traufen-Lager",
+  category: "storage",
+  tags: ["fn_eave_stash"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "chest_hay",
+      weight: 2,
+      layers: [["CHB"]],
+      legend: {
+        C: { block: "minecraft:chest", orient: { front: "front" } },
+        H: { block: "minecraft:hay_block", orient: { axis: "along" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "sacks",
+      weight: 2,
+      layers: [["HBH"]],
+      legend: {
+        H: { block: "minecraft:hay_block", orient: { axis: "along" } },
+        B: { block: "minecraft:barrel", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "front", depth: 1, hard: true }] },
+}

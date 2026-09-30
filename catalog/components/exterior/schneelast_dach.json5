@@ -1,0 +1,57 @@
+// Welle D · D3 (research/24 §7.0, T4 `winter`): Schneelast-Dach – die Auflage, die der Winter auf die Dachfläche
+// legt (research/24 §7.4: „`snow_cover` (Schichten 1–4, NICHT Schneeblock aufs Dach)“). Die Komponente bringt
+// ihre eigene Dachlage mit: unten eine volle Dachbahn (`roof_main.block`), darauf die dünne Schneeschicht
+// (`minecraft:snow`, `layers` 2). Eine Schneeschicht braucht laut `SnowLayerBlock#canSurvive` eine volle
+// Auflage – genau die liefert die eigene Dachbahn, deshalb steht sie hier auch auf dem Trockendach.
+// `drift`/`ridge` sind die angewehten Formen (voller Schneeblock an der Kante bzw. am Grat).
+{
+  id: "exterior/schneelast_dach",
+  kind: "static",
+  name: "Schneelast-Dach",
+  category: "architecture",
+  tags: ["exterior", "exterior_roof", "snow_load", "outdoor"],
+  styleTags: ["winter", "nordic", "nordic_falu"],
+  obtainability: "survival",
+  mount: "roof",
+  rotations: "all",
+  variants: [
+    {
+      id: "layer",
+      weight: 3,
+      layers: [
+        ["RRR"], // y0: Dachbahn
+        ["sss"], // y1: dünne Schneeauflage
+      ],
+      legend: {
+        R: { role: "roof_main", shape: "block" },
+        s: { block: "minecraft:snow", state: { layers: "2" } },
+      },
+    },
+    {
+      id: "drift",
+      weight: 2,
+      layers: [
+        ["RRR"], // y0: Dachbahn
+        ["Sss"], // y1: Verwehung an der windzugewandten Kante
+      ],
+      legend: {
+        R: { role: "roof_main", shape: "block" },
+        s: { block: "minecraft:snow", state: { layers: "2" } },
+        S: { block: "minecraft:snow_block" },
+      },
+    },
+    {
+      id: "ridge",
+      weight: 1,
+      layers: [
+        ["RRR"], // y0: Dachbahn
+        ["SsS"], // y1: Kappe am Grat, dazwischen dünner Schnee
+      ],
+      legend: {
+        R: { role: "roof_main", shape: "block" },
+        s: { block: "minecraft:snow", state: { layers: "2" } },
+        S: { block: "minecraft:snow_block" },
+      },
+    },
+  ],
+}

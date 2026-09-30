@@ -1,0 +1,19 @@
+// K2 · Festkuchen (DA Food & Drink: Food / Decoration: Festivities): Kuchen mit brennender Kerze. Licht 3,
+// keine Stützregel. Tischdeko (Tag `tabletop_small` + `food`), kein Wunsch-Licht des Licht-Passes.
+{
+  id: "food/candle_cake",
+  kind: "static",
+  name: "Festkuchen",
+  category: "decor",
+  tags: ["tabletop_small", "food"],
+  styleTags: ["festive"],
+  obtainability: "survival",
+  mount: "surface",
+  rotations: [0],
+  variants: [
+    { id: "plain", weight: 2, layers: [["C"]], legend: { C: { block: "minecraft:candle_cake", state: { lit: "true" } } } },
+    { id: "white", weight: 1, layers: [["C"]], legend: { C: { block: "minecraft:white_candle_cake", state: { lit: "true" } } } },
+    { id: "red", weight: 1, layers: [["C"]], legend: { C: { block: "minecraft:red_candle_cake", state: { lit: "true" } } } },
+  ],
+  light: "auto",
+}

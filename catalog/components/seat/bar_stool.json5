@@ -1,0 +1,24 @@
+// Barhocker (research/11 T-2): stehendes Fass (Fischer-Jobblock als Nebeneffekt) oder Zaun + Teppich
+// (Teppich hält auf dem Zaun, Faktencheck #4). Richtungslos → passt an jeden Socket.
+// 26.3-Sitzkissen (Entity `cushion`) folgt, wenn die Materialisierung den Entity-Typ kann.
+{
+  id: "seat/bar_stool",
+  kind: "static",
+  name: "Barhocker",
+  category: "furniture",
+  tags: ["bar_stool", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0],
+  variants: [
+    { id: "barrel", weight: 3, layers: [["B"]], legend: { B: { block: "minecraft:barrel", orient: { front: "up" } } } },
+    {
+      id: "fence_carpet",
+      weight: 2,
+      layers: [["F"], ["C"]],
+      legend: { F: { role: "furniture_wood", shape: "fence" }, C: { role: "textile_primary", shape: "carpet" } },
+    },
+  ],
+}

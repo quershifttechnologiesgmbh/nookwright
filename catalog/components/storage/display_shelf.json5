@@ -1,0 +1,46 @@
+// K3a · Ausstellungsregal (research/17 §4.4, 1.21.9+): Regal-Blöcke (`*_shelf`: facing/powered/side_chain, je 3
+// Stapel, FC #10) über einem Unterschrank aus umgedrehten Treppen, Holz aus der Rolle `furniture_wood`. Die
+// Materialisierung kann Regal-Inhalte noch nicht schreiben (ERW X3/Y5: Item-Rollen `trophy.any` …) → die Regale
+// stehen leer bereit für die Sammlung des Spielers. Keine Laterne auf dem Regal (bricht, T5 #3).
+// V3 „mehr in die Höhe“: Regalreihen bis unter die Decke (`stretch`, `ceiling`, höchstens 6 Reihen).
+{
+  id: "storage/display_shelf",
+  kind: "static",
+  name: "Ausstellungsregal",
+  category: "storage",
+  tags: ["display_shelf", "shelf_display"],
+  functionTags: ["display", "store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  minVersion: 4554,
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "tall",
+      weight: 3,
+      minRoomHeight: 3,
+      layers: [
+        ["UUU"], // y0: Unterschrank
+        ["SSS"], // y1: Regal
+        ["SSS"], // y2: Regal (wird bis zur Decke gedehnt)
+      ],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        S: { role: "furniture_wood", shape: "shelf", orient: { front: "front" } },
+      },
+      stretch: { layer: 2, max: 6, fill: "ceiling" },
+    },
+    {
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [["UUU"], ["SSS"]],
+      legend: {
+        U: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+        S: { role: "furniture_wood", shape: "shelf", orient: { front: "front" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

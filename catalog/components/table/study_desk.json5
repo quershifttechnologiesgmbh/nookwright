@@ -1,0 +1,84 @@
+// K3a · Schreibtisch vor der Bücherwand (research/17 §4.8, S1/S3): 3 × 3, Rücken zur Wand. Hinten die Bücherwand,
+// in der Mitte der Stuhl (Lehne zur Wand → Blick über den Tisch zur Tür), vorn die Tischplatte wie die Festtafel
+// (umgedrehte Treppen als Wangen, obere Stufe). Die Zellen neben dem Stuhl bleiben frei (Zugang von der Seite).
+// Tischdeko über Sockets. V3 „mehr in die Höhe“: ab lichter Höhe 4 reicht die Bücherwand bis unter die Decke
+// (`stretch`, `ceiling`) mit Gesims; darüber eine Hängelaterne über der Platte (`hang`, V3). Kein Tag `desk`
+// (research/17 §7.2): Schlafzimmer und Turmzimmer sollen den großen Tisch nicht ziehen.
+{
+  id: "table/study_desk",
+  kind: "static",
+  name: "Schreibtisch vor Bücherwand",
+  category: "furniture",
+  tags: ["study_desk"],
+  functionTags: ["sit", "read"],
+  styleTags: ["medieval", "noble", "scholarly"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "shelves",
+      weight: 2,
+      minRoomHeight: 3,
+      maxRoomHeight: 3,
+      layers: [
+        ["BBB", "_C_", "WTE"], // y0: Regale | Stuhl mit freien Seiten | Tischplatte
+        ["BBB", "_._", "..."], // y1
+        ["c.c", "...", "..."], // y2: Kerzen auf den Regalen
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        c: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+      },
+    },
+    {
+      id: "tall",
+      weight: 3,
+      minRoomHeight: 4,
+      layers: [
+        ["BBB", "_C_", "WTE"],
+        ["BBB", "_._", "..."],
+        ["BBB", "...", "..."], // y2: wird bis unter das Gesims gedehnt
+        ["KKK", "...", "..."], // oben: Gesims
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+        K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+      },
+      stretch: { layer: 2, max: 12, fill: "ceiling" },
+    },
+    {
+      // lichte Höhe 2: Regale 2 hoch, keine Kerzen
+      id: "low",
+      weight: 1,
+      maxRoomHeight: 2,
+      layers: [
+        ["BBB", "_C_", "WTE"],
+        ["BBB", "_._", "..."],
+      ],
+      legend: {
+        B: { block: "minecraft:bookshelf" },
+        C: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        W: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "right" } },
+        T: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        E: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "left" } },
+      },
+    },
+  ],
+  sockets: [
+    { id: "desk_l", type: "surface", at: [0, 1, 2], accepts: ["candles", "light_small"], prob: 0.8 },
+    { id: "desk_m", type: "surface", at: [1, 1, 2], accepts: ["tabletop_small"], prob: 0.5 },
+    { id: "desk_r", type: "surface", at: [2, 1, 2], accepts: ["plant", "tabletop_small"], prob: 0.5 },
+    { id: "lamp", type: "hang", at: [1, 99, 2], accepts: ["light_pendant"], prob: 0.4 }, // V3
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

@@ -1,0 +1,23 @@
+// SD Grundstücks-Deko: Holzplatz mit Hackklotz. Hinten ein Scheitstapel (liegende Stämme), in der Mitte der Hackklotz
+// (stehender Stamm), links und rechts je ein Spaltstück (Halbplatte). Rücken zur Wand. Spiegelsymmetrisch.
+{
+  id: "outdoor/sd_woodyard",
+  kind: "static",
+  name: "Holzplatz mit Hackklotz",
+  category: "work",
+  tags: ["outdoor", "sd_decor", "sd_woodyard"],
+  styleTags: ["rustic", "village", "nordic", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["LLLLL", ".....", "s.B.s"], // y0: Stapel hinten, Hackklotz in der Mitte, Spaltstücke
+    ["LLLLL", ".....", "....."], // y1
+    [".LLL.", ".....", "....."], // y2
+  ],
+  legend: {
+    L: { role: "beam", shape: "log", orient: { axis: "across" } },
+    B: { role: "beam", shape: "log", orient: { axis: "y" } },
+    s: { role: "furniture_wood", shape: "slab" },
+  },
+}

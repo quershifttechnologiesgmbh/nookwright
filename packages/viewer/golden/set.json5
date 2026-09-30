@@ -1,0 +1,33 @@
+// Goldene Menge (P0-A „Goldene Galerie“, plan/spikes/P0A_goldene_galerie.md).
+//
+// Feste, deterministische Bauten für die Sichtprüfung mit echten Texturen: alle Bautypen des Katalogs (auch
+// Entwürfe) in Größe M (feste Vorlagen ohne Größe), Standard-Theme, fester Seed, Gelände wie im Assistenten und in
+// der Galerie (`projectFromBuildingType` + `generateBase` mit `{ ...res.build, ...res.surroundings }`), dazu je Bautyp
+// eine Theme-Variante.
+//
+// ID je Bau: `<bautyp>-<theme>` (z. B. `tavern-timber`). Dieselben IDs tragen die `.nbt`-Dateien alter Commits
+// (`local/golden-bisect/<commit>/<id>.nbt`), damit `npm run golden:compare` die Bilder paaren kann.
+//
+// Standard-Theme = erstes Theme des Bautyps (`themes[0]`, so wählt `projectFromBuildingType` ohne Angabe); feste
+// Vorlagen ohne Theme-Liste nehmen `medieval` (Standard der App, `DEFAULT_THEME`).
+// Änderungen hier ändern die Bilder – bewusst und mit Hinweis im Bericht.
+{
+  version: 1,
+  seed: 2026,
+  size: "M",
+  targetVersion: { name: "1.21.11", dataVersion: 4671 },
+  entries: [
+    { type: "castle_compact", theme: "medieval", variants: ["nordic"] },
+    { type: "farmhouse", theme: "rustic", variants: ["medieval"] },
+    { type: "hall", theme: "medieval", variants: ["nordic"] },
+    { type: "hobbit", theme: "rustic", variants: ["medieval"] },
+    { type: "house", theme: "medieval", variants: ["nordic"] },
+    { type: "longhouse", theme: "nordic", variants: ["rustic"] },
+    { type: "tavern", theme: "timber", variants: ["medieval"] },
+    { type: "timber", theme: "timber", variants: ["medieval"] },
+    { type: "townhouse", theme: "timber", variants: ["medieval"] },
+    { type: "townhouse_row", theme: "timber", variants: ["medieval"] },
+    { type: "twostory", theme: "medieval", variants: ["nordic"] },
+    { type: "watchtower", theme: "medieval", variants: ["rustic"] },
+  ],
+}

@@ -1,0 +1,42 @@
+// research/57 · Kerker: Stroh-Pritsche (Nebenobjekt, ärmere Alternative zum Etagenbett). Tag `bunk_bed` steht
+// in dungeon.json5 im optionalen Eintrag `{ tags: ["bunk_bed"] }` – diese Komponente erweitert den Pool, ohne
+// den Raumtyp zu ändern. Kein Bett-Block (bewusst kein Aufwachplatz, Gefangene „schlafen“ nicht), sondern
+// Heuballen mit brauner Wolldecke (Teppich) und Strohresten. Kompaktform ab lichter Höhe 2.
+// Q1a: Tag `bed_single` entfernt – wie `bed/crib` und `bed/sickbed_screen` (research/17 §7.2) soll die Pritsche
+// nicht als „richtiges Bett“ in Schlafzimmer/Kaserne gezogen werden (sie hat keinen Bett-Block).
+{
+  id: "bed/straw_pallet",
+  kind: "static",
+  name: "Stroh-Pritsche",
+  category: "furniture",
+  tags: ["grim_decor", "straw_pallet"],
+  functionTags: ["sleep_prop"],
+  styleTags: ["medieval", "grim", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "hay",
+      weight: 2,
+      layers: [["HH"], ["__"]],
+      legend: { H: { block: "minecraft:hay_block", orient: { axis: "y" } } },
+    },
+    {
+      id: "blanket",
+      weight: 3,
+      layers: [["CC"], ["__"]],
+      legend: { C: { role: "textile_neutral", shape: "carpet" } },
+    },
+    {
+      id: "torn",
+      weight: 1,
+      layers: [["CB"], ["__"]],
+      legend: {
+        C: { role: "textile_neutral", shape: "carpet" },
+        B: { block: "minecraft:bone_block", orient: { axis: "y" } },
+      },
+    },
+  ],
+  masks: { clearance: [{ side: "all", depth: 1, hard: false }] },
+}

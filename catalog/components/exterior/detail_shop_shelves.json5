@@ -1,0 +1,28 @@
+// W15 · Auslage neben der Ladentür: Regal (Shelf, seit Java 1.21.9 „The Copper Age“, minecraft.wiki/w/Shelf) im Holz der
+// Läden, Front zur Straße; vor 1.21.9 ein Fass mit der Öffnung nach vorn (Ersatz, `crate`). Paarweise links und rechts der
+// Tür an Werkstätten, Läden und Wirtshaus (Raumtypen des Aushängeschilds).
+{
+  id: "exterior/detail_shop_shelves",
+  kind: "static",
+  name: "Auslage (Regal)",
+  category: "storage",
+  tags: ["exterior", "exterior_entrance", "exterior_detail", "outdoor", "detail_subtle"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "nordic", "nordic_falu", "harbor", "winter", "desert", "tropical", "elven", "dwarven", "gothic", "asian", "steampunk"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "shelf",
+      weight: 1,
+      layers: [["R"]],
+      legend: { R: { role: "shutter", shape: "shelf", orient: { front: "front" }, minVersion: 4554 } },
+    },
+    {
+      id: "crate",
+      weight: 1,
+      layers: [["R"]],
+      legend: { R: { block: "minecraft:barrel", orient: { front: "front" }, state: { open: "false" } } },
+    },
+  ],
+}

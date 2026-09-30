@@ -1,0 +1,27 @@
+// research/56 · Wäscheleine (DA Structural: Yard props; Bing „minecraft clothesline build“): zwei Pfosten,
+// eine Querstange als gespannte Leine, Teppichstücke als hängende Wäsche. Für Hof, Garten.
+// Q1a: ursprünglich mit `tripwire_hook`/`tripwire` gebaut – beide tragen in den Plattformdaten `needsSupport`,
+// ihre Vanilla-Stützregel (seitliche Befestigung am Pfosten) ist aber nicht abgebildet, der Physik-Pass prüft
+// konservativ „volle Oberseite darunter“. Deshalb ist die Leine jetzt eine Zaun-Querstange (`beam.fence`), an
+// der die Teppiche hängen (Teppich verlangt nur einen nicht-leeren Block darunter).
+{
+  id: "outdoor/clothesline",
+  kind: "static",
+  name: "Wäscheleine",
+  category: "decor",
+  tags: ["clothesline", "outdoor", "yard", "garden"],
+  styleTags: ["rustic", "cottage", "village"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  layers: [
+    ["F...F"], // y0: Pfosten
+    ["F...F"], // y1: Pfosten
+    ["FFFFF"], // y2: Querstange (Leine)
+    [".c.c."], // y3: hängende Wäsche
+  ],
+  legend: {
+    F: { role: "furniture_wood", shape: "fence" },
+    c: { role: "textile_neutral", shape: "carpet" },
+  },
+}

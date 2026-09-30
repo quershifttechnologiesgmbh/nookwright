@@ -1,0 +1,8 @@
+{ id: "decor/flower_pot", kind: "static", name: "Blumentopf", category: "decor",
+  tags: ["tabletop_small", "plant"], obtainability: "survival",
+  mount: "surface", rotations: [0],
+  variants: [
+    { id: "poppy", layers: [["P"]], legend: { P: { block: "minecraft:potted_poppy" } } },
+    { id: "fern", layers: [["P"]], legend: { P: { block: "minecraft:potted_fern" } } },
+    { id: "azalea", layers: [["P"]], legend: { P: { block: "minecraft:potted_azalea_bush" } } },
+  ] }

@@ -1,0 +1,37 @@
+// K2 · Wirtshaustafel (DA Decoration: Signs; research/11 §2.2 „Menütafel“): Wandschild aus dunklem Holz
+// (`beam`) in Augenhöhe, mit Text (Schild-Inhalt) oder leer. Wandschilder halten an „soliden“ Blöcken
+// (T5 #2), keine Kollision → durchlaufbar. Hängeschilder (`*_wall_hanging_sign`) bewusst nicht: deren
+// `facing` liegt parallel zur Wand, der Orientierungs-Adapter kennt das noch nicht (Wunsch im Bericht K2).
+{
+  id: "decor/menu_board",
+  kind: "static",
+  name: "Wirtshaustafel",
+  category: "attachment",
+  tags: ["wall_decor", "menu_board", "wall_sign"],
+  styleTags: ["medieval", "tavern"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  walkable: true,
+  variants: [
+    {
+      id: "tavern",
+      weight: 2,
+      layers: [["S"]],
+      legend: { S: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" }, contents: { text: ["~ Ale ~", "~ Mead ~", "~ Stew ~", ""] } } },
+    },
+    {
+      id: "rooms",
+      weight: 1,
+      layers: [["S"]],
+      legend: { S: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" }, contents: { text: ["", "Rooms", "upstairs", ""] } } },
+    },
+    {
+      id: "blank",
+      weight: 1,
+      layers: [["S"]],
+      legend: { S: { role: "beam", shape: "wall_sign", orient: { attachTo: "back" } } },
+    },
+  ],
+}

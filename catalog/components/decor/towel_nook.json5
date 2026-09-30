@@ -1,0 +1,23 @@
+// I52 · Handtuchnische (research/52 §Wand, Bad): schmales Wandbord mit gefalteten Handtüchern (Wollfarben)
+// und einer Kerze — ergänzt decor/towel_rack (hängend) um eine gestapelte Bord-Form für kleine Badnischen.
+{
+  id: "decor/towel_nook",
+  kind: "static",
+  name: "Handtuchnische",
+  category: "attachment",
+  tags: ["towel_rack", "wash_basin"],
+  styleTags: ["medieval", "cozy"],
+  obtainability: "survival",
+  mount: "wall",
+  wallHeight: 1,
+  rotations: "backToWall",
+  layers: [
+    ["SS"], // y0: Regalbrett
+    ["Wc"], // y1: gefaltetes Handtuch | Kerze
+  ],
+  legend: {
+    S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+    W: { block: "minecraft:light_blue_wool" },
+    c: { block: "minecraft:white_candle", state: { candles: "1", lit: "true" } },
+  },
+}

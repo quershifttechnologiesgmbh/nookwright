@@ -1,0 +1,229 @@
+// Winter / Schnee (research/24 §7.4, T4): kalt und klar, warmes Licht als einziger Kontrast, dunkles Dach
+// gegen die Schneefläche. Erbt von nordic (Spruce, Schindelhandwerk) und überschreibt Boden, Dach und Innenputz.
+// Kernthemes: (a) Taiga-Blockhaus, (b) Nachtmarkt, (c) Aurora-Siedlung, (d) Frostfestung.
+// Falle (research/24 §7.4): Schneeschichten (Schicht 1) verhindern KEIN Mob-Spawning – der Boden liegt als
+// voller Schneeblock, nicht als Schicht. Aufs Dach kommt nur eine Schneeauflage oben am First
+// (`decor.snowCover`), damit die Silhouette ruhig und das dunkle Schieferdach an der Traufe sichtbar bleibt.
+{
+  id: "winter",
+  // feat/theme-moods: Stimmungs-Vorgabe (wirkt nur mit eingeschalteter Stimmung, siehe plan/spikes/F_theme_moods.md §4)
+  mood: { formality: -0.5, richness: 0.25 },
+  name: "Winter",
+  description: "Fichtenbretter mit weißen Rahmen, verschneites Schindeldach, Steinsockel, weißer Innenputz, rot-weiße Textilien",
+  base: "nordic",
+  roles: {
+    // Sockel (W7, zwei Steine): Feldstein und Schiefer, kein Moos (Frost)
+    // W13-F: Sockel Steinziegel mit Bruchstein (Schneedorf: Steinziegel), weiche Flecken statt Zellen
+    foundation: {
+      mix: [
+        { family: "stone_bricks", weight: 70 },
+        { family: "cobblestone", weight: 30 },
+      ],
+      noise: { type: "cluster", scale: 3, octaves: 2 },
+    },
+    wall_plinth: { family: "cobblestone" },
+    // Innen gekalkt: warmes Weiß gegen das kalte Licht
+    wall_secondary: {
+      gradient: {
+        along: "wall_h",
+        jitter: 0.12,
+        stops: [
+          { at: 0, mix: [
+            { family: "diorite", weight: 25 },
+            { family: "calcite", weight: 45 },
+            { family: "white_terracotta", weight: 30 },
+          ] },
+          { at: 1, mix: [
+            { family: "calcite", weight: 60 },
+            { family: "white_terracotta", weight: 25 },
+            { family: "light_gray_terracotta", weight: 15 },
+          ] },
+        ],
+      },
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    wall_wainscot: { family: "spruce" },
+    // Dunkles Schieferdach als Deckungsrezept (W2 Regel D1): die Traufe bleibt fast schwarz (Tiefenschieferfliesen),
+    // die oberen Ringe tragen den Schnee als Deckungs-Ton (glatter Quarz, weiß mit Treppenform) – so bleibt das
+    // Dachprofil erhalten, statt dass Vollblock-Schnee auf jeder Treppenreihe wie Leitersprossen liegt (X3). Keine
+    // Fichte mehr im Schiefer.
+    // W13-F (28.09.2026): Schneedach – dunkle Schieferfliesen an der Traufe, ab der Mitte Schnee (glatter Quarz als
+    // Schneefläche wie bisher am First, Treppen bleiben Treppen); Kante dunkle Eiche (D3). Im Blind-A/B trug der Schiefer
+    // den Kontrast zur Fichtenwand, ein Fichtendach verschwamm mit ihr. Vorher Schiefer mit Quarzstreifen erst ab 0,75.
+    roof_main: {
+      gradient: {
+        along: "roof_t",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "deepslate_tiles", weight: 1 }] },
+          { at: 0.45, mix: [{ family: "smooth_quartz", weight: 1 }] },
+          { at: 1, mix: [{ family: "smooth_quartz", weight: 1 }] },
+        ],
+      },
+    },
+    // D3 (W2): Kante dunkle Eiche – Fichte ist die Wand
+    roof_trim: { family: "dark_oak" },
+    // W2 (Regel W6): Gesims/Geschossband am Holzhaus aus Holz im Kontrastton, nicht der geerbte Steinziegel
+    wall_cornice: { family: "dark_oak" },
+    // W13-F: Eckständer aus Fichtenstamm (dunkle Ecke); vorher polierter Tiefenschiefer
+    wall_quoin: { family: "spruce", shapes: { block: "log" } },
+    shutter: { family: "spruce" },
+    textile_primary: { color: "white" },
+    textile_accent: { color: "red" },
+    light_hanging: { family: "iron" },
+    metal: { family: "iron" },
+
+    // ---------------------------------------------------------------- Außen: Schnee, Eis, wenig Grün
+    // Der bewachsene Boden ist erdartig (Pflanzen wachsen nur auf Erde/Gras/Podsol); der Schnee liegt als
+    // Deckschicht (ground_cover) darüber – so bleibt die Fläche weiß, ohne die Pflanzenregel zu brechen.
+    ground_grass: {
+      mix: [
+        { block: "minecraft:grass_block", weight: 45 },
+        { block: "minecraft:podzol", weight: 20 },
+        { block: "minecraft:coarse_dirt", weight: 20 },
+        { block: "minecraft:rooted_dirt", weight: 15 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_path: {
+      mix: [
+        { block: "minecraft:dirt_path", weight: 40 },
+        { block: "minecraft:snow_block", weight: 30 },
+        { block: "minecraft:gravel", weight: 20 },
+        { block: "minecraft:packed_ice", weight: 10 },
+      ],
+      noise: { type: "cluster", scale: 2, octaves: 1 },
+    },
+    ground_yard: {
+      mix: [
+        { block: "minecraft:stone", weight: 30 },
+        { block: "minecraft:gravel", weight: 25 },
+        { block: "minecraft:snow_block", weight: 25 },
+        { block: "minecraft:cobblestone", weight: 20 },
+      ],
+      noise: { type: "cells", cell: 3 },
+    },
+    ground_dirt: {
+      mix: [
+        { block: "minecraft:coarse_dirt", weight: 50 },
+        { block: "minecraft:podzol", weight: 30 },
+        { block: "minecraft:snow_block", weight: 20 },
+      ],
+      noise: { type: "cluster", scale: 2.5, octaves: 2 },
+    },
+    pond_bed: {
+      mix: [
+        { block: "minecraft:gravel", weight: 50 },
+        { block: "minecraft:sand", weight: 30 },
+        { block: "minecraft:packed_ice", weight: 20 },
+      ],
+    },
+    leaves_oak: { family: "spruce" },
+    leaves_bush: {
+      mix: [
+        { family: "spruce", variant: "leaves", weight: 60 },
+        { block: "minecraft:birch_leaves", weight: 40 },
+      ],
+    },
+    // Frostblüher: blass und weiß statt bunt
+    flower_wild: {
+      mix: [
+        { block: "minecraft:lily_of_the_valley", weight: 35 },
+        { block: "minecraft:oxeye_daisy", weight: 30 },
+        { block: "minecraft:azure_bluet", weight: 20 },
+        { block: "minecraft:cornflower", weight: 15 },
+      ],
+    },
+    // Schneekruste: Schichten auf dem Boden (das Gelände richtet sie aus)
+    ground_cover: {
+      mix: [
+        { block: "minecraft:snow", weight: 75 },
+        { block: "minecraft:pink_petals", weight: 15 },
+        { block: "minecraft:wildflowers", weight: 10 },
+      ],
+    },
+    // W13-F (28.09.2026): Fichtenbretter (dunkel, warm) mit weißen Rahmen und verschneitem Dach – vorher der Blockbau von
+    // nordic unverändert (Winter sah aus wie nordic mit weißem Firststreifen). Vorbild Schneedorf (minecraft.wiki/w/Village/
+    // Structure: Fichte, Laternen, Stein) und „cold builds need warmth somewhere“ (Winterhütten-Tutorials): warme Wand,
+    // weißer Schnee darüber.
+    // (als Verlauf in ganzen Ringen geschrieben, damit P1 die Wand misst – `quality-p1.ts` liest nur mix/gradient)
+    wall_primary: {
+      gradient: {
+        along: "facade_h",
+        quantize: "ring",
+        interpolate: "step",
+        stops: [
+          { at: 0, mix: [{ family: "spruce", weight: 1 }] },
+          { at: 1, mix: [{ family: "spruce", weight: 1 }] },
+        ],
+      },
+    },
+    // W13-F: weiße Fensterrahmen (Blasseiche) auf dunkler Fichte – skandinavische Rahmen
+    window_frame: { family: "pale_oak", fallback: ["birch"] },
+    // W13-F: Schwelle und Balken aus Fichte mit Rinde
+    beam: { family: "spruce" },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Farbwelt-Anschluss (research/54 §3.2): welche Theme-Rolle eine Palette ersetzt. Jede Theme-Rolle nur
+  // einmal; nicht genannte Rollen (Tueren, Deckenbalken, Moebelholz) behalten ihre Theme-Farbe.
+  paletteRoleMap: {
+    wall_primary: ["foundation"],
+    wall_secondary: ["wall_secondary", "wall_wainscot"],
+    trim: ["wall_cornice", "wall_quoin", "wall_plinth"],
+    roof: ["roof_main"],
+    roof_accent: ["roof_trim"],
+    floor: ["ground_grass", "ground_dirt", "ground_path", "ground_yard", "pond_bed"],
+    accent: ["textile_primary", "textile_accent"],
+    glass: ["shutter"],
+    light: ["light_hanging"],
+    foliage: ["leaves_oak", "leaves_bush", "flower_wild", "ground_cover"],
+  },
+
+  surfaces: {
+    // Außen Holz (wie nordic), innen Sockelvertäfelung unten und Kalkputz darüber.
+    // W12-D (28.09.2026): außen die Regeln von nordic – Steinsockel (Feldstein/Schiefer), Schwellbalken und liegende
+    // entrindete Stämme (Blockbau); die Liste ersetzt die von nordic, darum hier wiederholt
+    wall: [
+      { when: { exterior: true, storey: 0, hRel: 0 }, role: "foundation" },
+      { when: { exterior: true, storey: 0, hRel: 1 }, role: "beam", shape: "log", along: true, corner: "wood" },
+      // W13-F (28.09.2026): Bretterwand statt liegender Stämme (Material: Fichtenbretter, siehe wall_primary)
+      { when: { exterior: true }, role: "wall_primary" },
+      { when: { exterior: false, hRel: 0 }, role: "wall_wainscot" },
+      { when: { exterior: false }, role: "wall_secondary" },
+    ],
+  },
+  decor: {
+    // W13-B: kein Torfdach (nordic legt es an; hier bleibt das eigene Dach unverändert)
+    turfRoof: { roles: ["roof_main"], share: 0 },
+    // Frost konserviert: wenig Verwitterung, nur am Fundament
+    weathering: { age: 0.2, fade: 1.5, roles: ["foundation", "wall_plinth"] },
+    // Schneeauflage (additiv): Der Schnee sammelt sich oben am Dach – der First wird weiß, die dunkle Traufe
+    // bleibt sichtbar (Silhouette und Schieferdach). Auf den Dachtreppen ist nur ein voller Schneeblock
+    // haltbar (eine Schicht fällt von der unteren Stufenfläche ab), auf flachen Decken liegt eine dünne Schicht.
+    // W2 (X3 Schnee-Hinweis): auf dem Treppendach nur noch der First (ab roof_t 0,85) – die Schneefläche darunter
+    // trägt das Deckungsrezept (Quarz-Ringe), sonst entstehen Vollblock-Balken auf jeder Treppenreihe.
+    snowCover: {
+      roles: ["roof_main", "roof_trim", "ceiling", "beam"],
+      layers: 1,
+      minRoofT: 0.85,
+      chance: 1,
+    },
+  },
+  items: {
+    "food.any": ["minecraft:cooked_porkchop", "minecraft:bread", "minecraft:cooked_mutton", "minecraft:cookie"],
+    "deco.small": ["minecraft:snowball", "minecraft:leather", "minecraft:paper"],
+  },
+}

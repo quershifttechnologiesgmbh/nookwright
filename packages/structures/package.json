@@ -1,0 +1,9 @@
+{
+  "name": "@mcda/structures",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bounded Context Bauwerke/Befestigung: gezeichneter Mauerzug → Wehrmauer mit Wehrgang, Zinnen, Türmen, Toren und Treppen; freistehende Türme. Rein und deterministisch, Ausgabe als ShellCell (kind 'fort').",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts"
+}

@@ -1,0 +1,50 @@
+// MEHR DEKORATION · Sesselecke: Ohrensessel (Stufe + offene Falltüren) mit Beistelltisch aus Zaunpfosten und
+// Topfpflanze daneben – die kleine Sitz-Vignette (Grian: „Sessel + Tischchen + Pflanze“). Lehne zur Wand, Nutzfläche
+// vorn frei. Der Beistelltisch ist ein Pfosten mit Teppich-Deckchen.
+{
+  id: "decor/deco_armchair_nook",
+  kind: "static",
+  name: "Sesselecke",
+  category: "decor",
+  tags: ["deco_nook", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "cozy", "noble"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "chair_table",
+      weight: 4,
+      layers: [["SF"], [".P"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        F: { role: "furniture_wood", shape: "fence" },
+        P: { block: "minecraft:potted_fern" },
+      },
+    },
+    {
+      id: "chair_pot",
+      weight: 2,
+      layers: [["SF"], [".D"]],
+      legend: {
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        F: { role: "furniture_wood", shape: "fence" },
+        D: { block: "minecraft:decorated_pot", orient: { front: "front" } },
+      },
+    },
+    {
+      id: "plant",
+      weight: 2,
+      layers: [["TSUF"], ["...P"]],
+      legend: {
+        T: { role: "beam", shape: "trapdoor", orient: { front: "right", open: true } },
+        S: { role: "furniture_wood", shape: "stairs", orient: { back: "back" } },
+        U: { role: "beam", shape: "trapdoor", orient: { front: "left", open: true } },
+        F: { role: "furniture_wood", shape: "fence" },
+        P: { block: "minecraft:potted_fern" },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

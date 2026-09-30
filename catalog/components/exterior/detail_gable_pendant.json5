@@ -1,0 +1,33 @@
+// W15 · Hängezapfen unter der Giebelspitze (Fachwerk-Hängesäule; Vorbild: astroworldmc „how to build a roof“ – Zaun
+// bzw. Balken im Giebeldreieck): ein Zaunpfosten vor der obersten Giebelwandzelle, direkt unter dem Überstand des Firsts
+// (hängt an der Dachzelle darüber). `lantern` (reich): darunter eine Laterne am Zaun (Stützregel `up/center`).
+{
+  id: "exterior/detail_gable_pendant",
+  kind: "static",
+  name: "Hängezapfen im Giebel",
+  category: "attachment",
+  tags: ["exterior", "exterior_facade", "exterior_detail", "outdoor", "detail_subtle"],
+  styleTags: ["medieval", "timber", "rustic", "farmstead", "nordic", "nordic_falu", "harbor", "winter", "elven"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "post",
+      weight: 1,
+      layers: [["F"]],
+      legend: { F: { role: "beam", shape: "fence" } },
+    },
+    {
+      id: "lantern",
+      weight: 1,
+      layers: [["L"], ["F"]],
+      legend: {
+        F: { role: "beam", shape: "fence" },
+        L: { role: "light_hanging", shape: "lantern", orient: { hanging: true } },
+      },
+      masks: { support: [{ at: [0, 0, 0], side: "up", kind: "center" }] },
+    },
+  ],
+  light: "auto",
+}

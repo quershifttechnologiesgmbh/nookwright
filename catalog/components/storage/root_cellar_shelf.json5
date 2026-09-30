@@ -1,0 +1,23 @@
+// I52 · Vorratsecke (research/52 §Ecke, Keller/Vorrat): dicht gestapelte Fässer, Kisten und ein Heuballen in
+// einer Bodenecke — die kompakte „alles auf einmal“-Ecke für Keller/Speisekammern, dichter als storage/pantry_shelf.
+{
+  id: "storage/root_cellar_shelf",
+  kind: "static",
+  name: "Vorratsecke",
+  category: "storage",
+  tags: ["storage_wall", "root_cellar_shelf"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BCH"], // y0: Fass | Kiste | Heuballen
+    ["B.."], // y1: zweites Fass gestapelt
+  ],
+  legend: {
+    B: { block: "minecraft:barrel", orient: { front: "front" } },
+    C: { block: "minecraft:crafter" },
+    H: { block: "minecraft:hay_block" },
+  },
+}

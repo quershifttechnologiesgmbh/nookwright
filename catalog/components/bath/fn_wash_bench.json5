@@ -1,0 +1,30 @@
+// FN-Dense · Waschbank (Raummitte der Waschstube): drei gefüllte Kessel auf einer Bank (Vorbild: Waschplätze/Färbereien
+// der Community), darunter Fässer als Vorrat. 5 breit, 2 tief, 3 hoch. Kessel brauchen keine Stütze, Fässer stehen
+// offen bedienbar (Faktencheck #2). Symmetrisch in der Breite. Insel-Eintrag von `washroom` (Tag `fn_wash_island`).
+{
+  id: "bath/fn_wash_bench",
+  kind: "static",
+  name: "Waschbank",
+  category: "work",
+  tags: ["fn_wash_island"],
+  functionTags: ["water_source"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  minRoomHeight: 3,
+  layers: [
+    ["PbbbP", "P...P"], // y0: Beine, hinten Eimerbank (Fässer)
+    ["sssss", "sssss"], // y1: Platte
+    ["K.K.K", ".l.l."], // y2: drei Wasserkessel; Laternen
+  ],
+  legend: {
+        P: { role: "beam", shape: "log", orient: { axis: "y" } },
+        s: { role: "furniture_wood", shape: "slab", orient: { upsideDown: true } },
+        b: { block: "minecraft:barrel", orient: { front: "back" } },
+        K: { block: "minecraft:water_cauldron", state: { level: "3" } },
+        l: { block: "minecraft:lantern", state: { hanging: "false" } },
+  },
+  masks: { use: [{ side: "front" }, { side: "back" }], clearance: [{ side: "front", depth: 1, hard: true }, { side: "back", depth: 1, hard: true }] },
+  light: "auto",
+}

@@ -1,0 +1,31 @@
+// K2 · Vorratsregal (DA Storage/Furniture: Shelves; Bing „medieval kitchen pantry“): unten Fässer als
+// Schubladen, in der mittleren Ebene Abstellplätze (Essen, Krüge, Töpfe, Laterne), oben ein Brett aus
+// umgedrehten Treppen. Braucht lichte Höhe ≥ 3. Laterne steht auf dem Fass (stabile Mitte, T5), nie auf
+// Truhe oder Regal-Block (T5: bricht).
+{
+  id: "storage/pantry_shelf",
+  kind: "static",
+  name: "Vorratsregal",
+  category: "storage",
+  tags: ["pantry", "cabinet"],
+  functionTags: ["store"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BBB"], // y0: Fässer, Deckel nach vorn
+    ["..."], // y1: Abstellfläche (Sockets)
+    ["KKK"], // y2: Brett aus umgedrehten Treppen
+  ],
+  legend: {
+    B: { block: "minecraft:barrel", orient: { front: "front" } },
+    K: { role: "furniture_wood", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+  },
+  sockets: [
+    { id: "shelf_l", type: "surface", at: [0, 1, 0], accepts: ["food", "tabletop_small"], prob: 0.7 },
+    { id: "shelf_m", type: "surface", at: [1, 1, 0], accepts: ["mug", "vase", "food"], prob: 0.6 },
+    { id: "shelf_r", type: "surface", at: [2, 1, 0], accepts: ["tabletop_small", "light_small"], prob: 0.7 },
+  ],
+  masks: { use: [{ side: "front" }] },
+}

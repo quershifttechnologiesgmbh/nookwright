@@ -1,0 +1,18 @@
+// K2 · Bank aus unteren Stufen (DA Furniture: Benches). Richtungslos, deshalb auch als Kind an beiden
+// Längsseiten der Festtafel (Socket-Tag `table_bench`). Frei stehend als schlichte Sitzbank.
+{
+  id: "seat/bench",
+  kind: "static",
+  name: "Sitzbank",
+  category: "furniture",
+  tags: ["bench", "table_bench", "seat"],
+  functionTags: ["sit"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: [0, 1],
+  variants: [
+    { id: "long", weight: 3, layers: [["SSS"]], legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } } } },
+    { id: "short", weight: 1, layers: [["SS"]], legend: { S: { role: "furniture_wood", shape: "slab", orient: { upsideDown: false } } } },
+  ],
+}

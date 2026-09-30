@@ -1,0 +1,48 @@
+// research/57 · Metzgerei: zweite Bauform des Räucherofens (Signatur-Nebenform neben work/smoker, das bisher
+// nur der blanke Block ist). Tag `smoker` steht in butchery.json5 als Pflicht-Eintrag `{ tags: ["smoker"] }`.
+// Hier steht der Räucherofen in einer gemauerten Nische mit Rauchabzug (Eisengitter) darüber, damit zwei
+// Metzgereien im selben Stil nicht mit demselben nackten Block wirken.
+{
+  id: "work/smokehouse_oven",
+  kind: "static",
+  name: "Räuchernische",
+  category: "work",
+  tags: ["smoker", "cooking", "work"],
+  functionTags: ["cook", "work:butcher"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "brick_niche",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [
+        ["BOB"], // y0: Ziegelrahmen | Räucherofen | Ziegelrahmen
+        ["BIB"], // y1: Ziegel; Gitter als Abzug in der Mitte
+      ],
+      legend: {
+        B: { block: "minecraft:bricks" },
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        I: { block: "minecraft:iron_bars" },
+      },
+      masks: { use: [{ side: "front" }] },
+    },
+    {
+      id: "stone_niche",
+      weight: 1,
+      minRoomHeight: 3,
+      layers: [
+        ["SOS"],
+        ["SIS"],
+      ],
+      legend: {
+        S: { role: "wall_cornice", shape: "block" },
+        O: { block: "minecraft:smoker", orient: { front: "front" } },
+        I: { block: "minecraft:iron_bars" },
+      },
+      masks: { use: [{ side: "front" }] },
+    },
+  ],
+}

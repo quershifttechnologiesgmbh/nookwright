@@ -1,0 +1,52 @@
+// research/57 · Kartenraum: Wandkarte mit Routen-Stecknadeln (Nebenobjekt, ergänzt decor/wall_map um Rahmen
+// und Nadel-Fähnchen aus Wandbannern). Tag `wall_map` steht in map_room.json5 im Pflicht-Eintrag
+// `{ tags: ["floor_map", "wall_map"] }` und im optionalen Eintrag `{ tags: ["wall_map"] }`.
+// Nachprüfung research/57: Die Rahmen saßen ursprünglich auf denselben Koordinaten wie die Terrakotta-Zellen
+// der Karte (Kollision, `entity_support`). Wie decor/tool_wall/decor/instrument_frames bekommen sie jetzt eine
+// eigene, als Luft reservierte Zeile über der Karte und hängen an der Raumwand dahinter, nicht an der Karte.
+{
+  id: "decor/route_pins_map",
+  kind: "static",
+  name: "Wandkarte mit Routen",
+  category: "attachment",
+  tags: ["wall_map", "wall_decor"],
+  styleTags: ["medieval", "scholarly"],
+  obtainability: "survival",
+  mount: "wall",
+  rotations: "backToWall",
+  wallHeights: [1, 2],
+  variants: [
+    {
+      id: "pins_red",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["bgl"], ["gby"], ["___"]], // y2: eigene Luft-Zeile für die Rahmen (an der Raumwand)
+      legend: {
+        b: { block: "minecraft:blue_terracotta" },
+        g: { block: "minecraft:green_terracotta" },
+        l: { block: "minecraft:lime_terracotta" },
+        y: { block: "minecraft:yellow_terracotta" },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:red_dye" } },
+        { type: "item_frame", at: [2, 2, 0], face: "front", item: { item: "minecraft:red_dye" } },
+      ],
+    },
+    {
+      id: "route_string",
+      weight: 2,
+      minRoomHeight: 3,
+      layers: [["bggl"], ["gybl"], ["____"]],
+      legend: {
+        b: { block: "minecraft:blue_terracotta" },
+        g: { block: "minecraft:green_terracotta" },
+        l: { block: "minecraft:lime_terracotta" },
+        y: { block: "minecraft:yellow_terracotta" },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 2, 0], face: "front", item: { item: "minecraft:string" } },
+        { type: "item_frame", at: [3, 2, 0], face: "front", item: { item: "minecraft:string" } },
+      ],
+    },
+  ],
+}

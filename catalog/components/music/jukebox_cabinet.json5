@@ -1,0 +1,46 @@
+// K3a · Musikschrank (research/17 §4.26, Mu4/Mu6): Plattenspieler zwischen zwei Notenblöcken („Boxen“, spielbar),
+// Kerzen auf dem Plattenspieler (voller Block); über den Notenblöcken bleibt Luft – dort hängen Schallplatten in
+// Rahmen an der Raumwand (Entities stören den Notenblock nicht, Rahmen nie über einem Zaun). Platte IM
+// Plattenspieler: ERW Y10 (Block-Entity-Inhalt). Kompaktform „single“: nur der Plattenspieler mit Kerzen.
+{
+  id: "music/jukebox_cabinet",
+  kind: "static",
+  name: "Musikschrank",
+  category: "furniture",
+  tags: ["jukebox"],
+  functionTags: ["play"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  variants: [
+    {
+      id: "speakers",
+      weight: 3,
+      layers: [
+        ["NJN"], // y0
+        ["_c_"], // y1: Luft über den Notenblöcken (Rahmen), Kerzen auf dem Plattenspieler
+      ],
+      legend: {
+        N: { block: "minecraft:note_block" },
+        J: { block: "minecraft:jukebox" },
+        c: { block: "minecraft:candle", state: { candles: "3", lit: "true" } },
+      },
+      entities: [
+        { type: "item_frame", at: [0, 1, 0], face: "front", item: { item: "minecraft:music_disc_cat" } },
+        { type: "item_frame", at: [2, 1, 0], face: "front", item: { item: "minecraft:music_disc_13" } },
+      ],
+    },
+    {
+      id: "single",
+      weight: 1,
+      layers: [["J"], ["c"]],
+      legend: {
+        J: { block: "minecraft:jukebox" },
+        c: { block: "minecraft:candle", state: { candles: "2", lit: "true" } },
+      },
+    },
+  ],
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

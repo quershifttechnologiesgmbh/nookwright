@@ -1,0 +1,24 @@
+// SD Grundstücks-Deko: Ziersäule bzw. Standbild-Sockel (Sockel, Schaft aus Mauer, Kapitell) – Gotik, Zwerge, Ruinen.
+{
+  id: "outdoor/sd_column",
+  kind: "static",
+  name: "Ziersäule",
+  category: "decor",
+  tags: ["outdoor", "sd_decor", "sd_statue", "sd_column"],
+  styleTags: ["gothic", "dwarven", "ruin", "medieval"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "all",
+  layers: [
+    ["B"],
+    ["W"],
+    ["W"],
+    ["B"],
+    ["s"],
+  ],
+  legend: {
+    B: { role: "wall_plinth", shape: "block" },
+    W: { role: "wall_plinth", shape: "wall" },
+    s: { role: "wall_plinth", shape: "slab" },
+  },
+}

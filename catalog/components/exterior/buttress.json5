@@ -1,0 +1,41 @@
+// research/53 F7 · Strebepfeiler an langen Steinwänden (alle 5-7 Blöcke): 2 Stufen gestaffelt, verjüngt sich zur
+// Wand hin. Fuß 2 tief auf dem Fundament, darüber ein schmaler Steg, der mit der Wand verschmilzt.
+{
+  id: "exterior/buttress",
+  kind: "static",
+  name: "Strebepfeiler",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "noble", "gothic", "dwarven", "steampunk", "rustic"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [
+    ["F", "F"],
+    ["F", "S"],
+    ["Q", "."],
+  ],
+  legend: {
+    F: { role: "foundation", shape: "block" },
+    S: { role: "foundation", shape: "stairs", orient: { back: "back" } },
+    Q: { role: "wall_quoin", shape: "block" },
+  },
+  // EXT: „plinth“ = Fuß erst auf der Sockelreihe der Hülle (Fundament-Band steht schon vor der Wand), 4 hoch
+  variants: [
+    {
+      id: "plinth",
+      weight: 1,
+      layers: [
+        [".", "F"],
+        ["F", "F"],
+        ["F", "S"],
+        ["Q", "."],
+      ],
+      legend: {
+        F: { role: "foundation", shape: "block" },
+        S: { role: "foundation", shape: "stairs", orient: { back: "back" } },
+        Q: { role: "wall_quoin", shape: "block" },
+      },
+    },
+  ],
+}

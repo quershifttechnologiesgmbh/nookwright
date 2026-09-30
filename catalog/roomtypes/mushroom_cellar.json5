@@ -1,0 +1,33 @@
+// Pilzkeller (Welle FN, Pflanzen-Farmen): Höhlen-/Kellerfarmen ohne Sonne. Pflicht: kleines Pilzbeet (fn_shroom_bed, 3x3, Myzel, Pilze
+// überleben dort bei jedem Licht); große Räume bekommen Spülbeete für Pilze (fn_crop_flush_shroom); dazu Netherwarzen-Spülbeet auf Seelensand
+// (Alchemie-Vorrat), Leuchtbeeren-Vorhang als Licht- und Nahrungsquelle, Fässer. Dauerlicht ≥ 4 gegen Monster.
+// Neuer Raumtyp: fn_-Tags erscheinen in keinem Bestandsraum.
+{
+  id: "mushroom_cellar",
+  name: "Pilzkeller",
+  minArea: 30,
+  coverage: { target: 0.55 },
+  required: [
+    { tags: ["fn_shroom_bed"], count: [1, 1], placement: { zones: ["edge", "center"] } },
+  ],
+  optional: [
+    { tags: ["fn_crop_flush_shroom"], count: { perArea: 40, min: 0, max: 2 }, weight: 8, signature: true, placement: { zones: ["center", "edge"] } },
+    { tags: ["fn_shroom_bed"], count: { perArea: 24, min: 0, max: 3 }, weight: 5, placement: { zones: ["edge", "center"] } },
+    { tags: ["fn_crop_flush_wart"], count: [0, 1], weight: 3, placement: { zones: ["center", "edge"] } },
+    { tags: ["fn_glow_vines"], count: [0, 2], weight: 3, placement: { zones: ["edge"] } },
+    { tags: ["barrel"], count: [0, 3], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["mushrooms", "moss_rug"], count: [0, 2], weight: 2, placement: { zones: ["corner"] } },
+    { tags: ["hanging_moss"], count: [0, 2], weight: 2 },
+    { tags: ["candle_stand"], count: [0, 2], weight: 2, placement: { zones: ["edge", "corner"] } },
+    { tags: ["cobweb"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["rubble"], count: [0, 2], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["candles"], count: [0, 2], weight: 1, placement: { zones: ["edge", "corner"] } },
+    { tags: ["chest"], count: [0, 1], weight: 1, placement: { zones: ["corner", "edge"] } },
+    { tags: ["bone_pile"], count: [0, 1], weight: 1, placement: { zones: ["corner"] } },
+    { tags: ["table_small"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["herb_rack"], count: [0, 1], weight: 1, placement: { zones: ["edge"] } },
+    { tags: ["wall_shelf"], count: [1, 2], weight: 3 },
+    { tags: ["light_ceiling"], count: [1, 2], weight: 2 },
+  ],
+  lighting: { minLevel: 4, prefer: ["candles", "light_floor", "light_ceiling"] },
+}

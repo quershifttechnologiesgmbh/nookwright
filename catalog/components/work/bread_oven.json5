@@ -1,0 +1,32 @@
+// K3b · Backofen (research/17 §4.17, Ba1/Ba3/Ba4): Ziegelkuppel (Theme-Rolle `hearth_alt`) mit beleuchtetem
+// Räucherofen als Ofenmund (T5: `lit` bleibt ohne Brennstoff an), davor die Bedienzelle zwischen Stufen-Wangen,
+// oben Schlot und ein Heuballen als Mehlsack (Ba4). Räucherofen = Metzger-Arbeitsblock (Faktencheck #7) →
+// `villager_workstation`. Mehr in die Höhe (V3): der Schlot wächst bis unter die Decke (`stretch`), der Heuballen
+// bleibt auf der Kuppel. Lichte Höhe ≥ 3; darunter ist der einzelne Räucherofen (Tag `smoker`) die Kompaktform.
+{
+  id: "work/bread_oven",
+  kind: "static",
+  name: "Backofen",
+  category: "work",
+  tags: ["bread_oven", "oven", "fire_feature"],
+  functionTags: ["cook", "light", "villager_workstation", "work:butcher"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "floor",
+  rotations: "backToWall",
+  layers: [
+    ["BSB", "b_b"], // y0: Ziegel | Räucherofen | Ziegel; vorn Wangen, Mitte frei
+    ["BBB", "t.t"], // y1: Kuppel, vorn Bogen
+    ["hB.", "..."], // y2: Heuballen | Schlot
+  ],
+  legend: {
+    B: { role: "hearth_alt", shape: "block" },
+    S: { block: "minecraft:smoker", orient: { front: "front" }, state: { lit: "true" } },
+    b: { role: "hearth_alt", shape: "slab", orient: { upsideDown: false } },
+    t: { role: "hearth_alt", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    h: { block: "minecraft:hay_block", orient: { axis: "y" } },
+  },
+  stretch: { layer: 2, max: 10, fill: "ceiling", rows: [".B.", "..."] },
+  masks: { use: [{ side: "front" }] },
+  light: "auto",
+}

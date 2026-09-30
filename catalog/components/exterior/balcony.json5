@@ -1,0 +1,23 @@
+// research/53 F5 · Balkon mit Geländer: Kragbalken auf Konsolen tragen den Boden, davor ein Zaun-Geländer.
+// 3 breit x 2 tief (z0 an der Wand/Tür, z1 außen). Für die Balkontür bleibt die Wandzeile frei ('.').
+{
+  id: "exterior/balcony",
+  kind: "static",
+  name: "Balkon",
+  category: "architecture",
+  tags: ["exterior", "exterior_facade", "outdoor"],
+  styleTags: ["medieval", "noble", "timber"],
+  obtainability: "survival",
+  mount: "facade",
+  rotations: "backToWall",
+  layers: [
+    ["...", "VVV"],
+    ["BBB", "BBB"],
+    ["...", "FFF"],
+  ],
+  legend: {
+    V: { role: "beam", shape: "stairs", orient: { upsideDown: true, back: "back" } },
+    B: { role: "beam", shape: "block" },
+    F: { role: "beam", shape: "fence" },
+  },
+}

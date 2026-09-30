@@ -1,0 +1,31 @@
+// Hängepflanze an Kette (research/10 §7.4, Küche K1): Blumentopf braucht keine Stütze (Faktencheck #4),
+// hängt optisch an der Kette; die Kette braucht oben eine stabile Mitte. Unterste Zelle ≥ Boden + 2
+// (Solver-Regel Kopffreiheit) → lichte Höhe ≥ 4. Kette über die Rolle `metal` (ab 1.21.9 `iron_chain`).
+// V3 adaptiv: die Kette wächst mit der lichten Höhe (`stretch`, `drop`); `hang_small` für Sockets über Arbeitsplatten.
+{
+  id: "decor/hanging_planter",
+  kind: "static",
+  name: "Hängepflanze",
+  category: "decor",
+  tags: ["plant_hanging", "decor_ceiling", "hang_small"],
+  styleTags: ["medieval", "rustic"],
+  obtainability: "survival",
+  mount: "ceiling",
+  rotations: [0],
+  variants: [
+    {
+      id: "fern",
+      weight: 2,
+      layers: [["P"], ["C"]],
+      legend: { P: { block: "minecraft:potted_fern" }, C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+    },
+    {
+      id: "azalea",
+      weight: 2,
+      layers: [["P"], ["C"]],
+      legend: { P: { block: "minecraft:potted_flowering_azalea_bush" }, C: { role: "metal", shape: "chain", orient: { axis: "y" } } },
+    },
+  ],
+  masks: { support: [{ at: [0, 1, 0], side: "up", kind: "center" }] },
+  stretch: { layer: 0, max: 8, fill: "drop", rows: ["C"] },
+}
